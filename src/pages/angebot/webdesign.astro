@@ -57,7 +57,7 @@ const steps = [
 ];
 ---
 
-<Layout title="Webdesign & Entwicklung – Uftritt" description="Webdesign & Entwicklung aus dem Zürcher Oberland: UI/UX, Prototyping, SEO. Webflow- und Weblink-Partner. Onepager ab CHF 3'500.–">
+<Layout title="Webdesign & Entwicklung – Uftritt" description="Webdesign & Entwicklung aus dem Zürcher Oberland: UI/UX, Prototyping, SEO. Zertifizierte Webflow- und Weblink-Partner – massgeschneidert statt von der Stange.">
   <PageHero
     eyebrow="Angebot"
     title={"Webdesign & Entwicklung"}
@@ -103,29 +103,26 @@ const steps = [
     </div>
   </section>
 
-  {/* Preise */}
+  {/* Dein Angebot – individuell statt Preisliste */}
   <section class="section">
     <div class="container">
       <header class="section-head" data-reveal>
-        <span class="eyebrow">Preise</span>
-        <h2>Transparent, ohne versteckte Gebühren</h2>
+        <span class="eyebrow">Dein Angebot</span>
+        <h2>Massgeschneidert statt von der Stange</h2>
       </header>
-      <div class="prices" data-reveal>
-        <div class="price">
-          <span class="price-label">Onepager ab</span>
-          <span class="price-value">CHF 3'500.–</span>
-          <p>Kompakt und auf den Punkt – individuelles Design, klare Struktur, alle wichtigen Funktionen.</p>
-        </div>
-        <div class="price">
-          <span class="price-label">Mehrseitige Website ab</span>
-          <span class="price-value">CHF 5'000.–</span>
-          <p>Mehr Inhalte, Unterseiten oder spezielle Funktionen – massgeschneidert auf dein Unternehmen.</p>
-        </div>
-      </div>
-      <p class="price-extra" data-reveal>
-        Stundensatz für Anpassungen, Support und Content-Pflege: <strong>CHF 160.–/h</strong>.
-        Unterhalt WordPress (Updates, Lizenzen, Hosting): <strong>CHF 395.–/Jahr</strong>.
-        Bevor wir starten, bekommst du ein klares Angebot mit allen Leistungen und Kosten.
+      <p class="invest-lead" data-reveal>
+        Jede Website ist so individuell wie dein Unternehmen – deshalb arbeiten wir nicht mit
+        Pauschalen ab Stange. Den Rahmen bestimmen unter anderem:
+      </p>
+      <ul class="invest-list" data-reveal>
+        <li>Umfang und Komplexität – vom Onepager bis zur mehrseitigen Plattform</li>
+        <li>Individuelles Design und klickbarer Prototyp</li>
+        <li>Spezielle Funktionen wie Shop, Buchung, Mitgliederbereich oder Mehrsprachigkeit</li>
+        <li>Inhalte (Text, Foto, Video) und Suchmaschinenoptimierung</li>
+      </ul>
+      <p class="invest-note" data-reveal>
+        Nach einem persönlichen Erstgespräch erhältst du ein <strong>transparentes Angebot</strong>
+        mit allen Leistungen – klar, nachvollziehbar und auf dich zugeschnitten.
       </p>
     </div>
   </section>
@@ -220,13 +217,11 @@ const steps = [
   .tool p { color: var(--color-blue); line-height: 1.6; }
   .tools-note { margin-top: 1.5rem; color: var(--color-blue); }
 
-  .prices { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.25rem, 2.5vw, 2rem); }
-  .price { border: 2px solid var(--color-blue); padding: clamp(1.5rem, 3vw, 2.25rem); }
-  .price-label { display: block; font-weight: 600; color: var(--color-blue); }
-  .price-value { display: block; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 900; color: var(--color-blue); margin: 0.25rem 0 0.75rem; }
-  .price p { color: var(--color-blue); line-height: 1.6; }
-  .price-extra { margin-top: 1.5rem; color: var(--color-blue); line-height: 1.7; max-width: 70ch; }
-  .price-extra strong { white-space: nowrap; }
+  .invest-lead { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 70ch; }
+  .invest-list { margin: 1.25rem 0 0; display: grid; gap: 0.6rem; max-width: 70ch; }
+  .invest-list li { position: relative; padding-left: 1.6rem; color: var(--color-blue); line-height: 1.6; }
+  .invest-list li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 0.7rem; height: 0.7rem; background: var(--color-yellow); }
+  .invest-note { margin-top: 1.5rem; color: var(--color-blue); line-height: 1.7; max-width: 70ch; }
 
   .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(1rem, 2vw, 1.75rem); }
   .step { display: flex; flex-direction: column; align-items: flex-start; border-bottom: 3px solid var(--color-blue); padding-bottom: 1.25rem; }
@@ -265,7 +260,7 @@ const steps = [
   .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
 
   @media (max-width: 900px) {
-    .tools, .prices { grid-template-columns: 1fr; }
+    .tools { grid-template-columns: 1fr; }
     .steps { grid-template-columns: repeat(2, 1fr); }
     .portfolio { grid-template-columns: repeat(2, 1fr); }
   }
