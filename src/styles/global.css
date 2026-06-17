@@ -205,6 +205,30 @@ h3 {
   line-height: 1.15;
 }
 
+/* Lange Wörter nie über den Bildschirmrand schieben */
+h1,
+h2,
+h3,
+h4 {
+  overflow-wrap: break-word;
+}
+
+/* Mobile: Headings + Sektionsabstände kleiner, damit nichts überläuft/zu wuchtig wirkt */
+@media (max-width: 600px) {
+  :root {
+    --section-y: clamp(2.75rem, 11vw, 4rem);
+  }
+  h1 {
+    font-size: clamp(2.05rem, 8.5vw, 2.85rem);
+  }
+  h2 {
+    font-size: clamp(1.6rem, 6vw, 1.95rem);
+  }
+  h3 {
+    font-size: clamp(1.25rem, 4.8vw, 1.45rem);
+  }
+}
+
 p {
   margin: 0 0 1rem;
 }

@@ -137,7 +137,7 @@ const social = [
     font-weight: 700;
     font-size: 1.15rem;
     color: var(--color-blue);
-    padding: 0.4rem 0.6rem;
+    padding: 0.65rem 0.6rem;
     position: relative;
   }
   .menu-trigger::after {
@@ -170,6 +170,12 @@ const social = [
   }
   .header-social a:hover {
     transform: translateY(-3px);
+  }
+  /* Auf kleinen Phones die Social-Icons im Header ausblenden (sind im Menü & Footer) */
+  @media (max-width: 520px) {
+    .header-social {
+      display: none;
+    }
   }
   /* Optisch ausgeglichene Icon-Grössen (unterschiedliche viewBox-Proportionen) */
   .header-social img {
