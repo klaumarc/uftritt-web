@@ -59,6 +59,17 @@ const social = [
   </div>
 </header>
 
+{/* Mobiler Menü-Balken unten (Daumen-erreichbar) */}
+<button
+  class="menu-fab"
+  type="button"
+  aria-haspopup="dialog"
+  aria-expanded="false"
+  aria-controls="menu-overlay"
+>
+  Menü
+</button>
+
 {/* ---------- Vollbild-Menü ---------- */}
 <div class="menu-overlay" id="menu-overlay" role="dialog" aria-modal="true" aria-label="Menü" hidden>
   <div class="container menu-overlay-top">
@@ -170,12 +181,6 @@ const social = [
   }
   .header-social a:hover {
     transform: translateY(-3px);
-  }
-  /* Auf kleinen Phones die Social-Icons im Header ausblenden (sind im Menü & Footer) */
-  @media (max-width: 520px) {
-    .header-social {
-      display: none;
-    }
   }
   /* Optisch ausgeglichene Icon-Grössen (unterschiedliche viewBox-Proportionen) */
   .header-social img {
@@ -382,13 +387,77 @@ const social = [
       transform: none;
     }
   }
+
+  /* ---------- Mobile-Navigation: "Menü" als Balken unten ---------- */
+  .menu-fab {
+    display: none; /* Desktop: kein Balken, "Menü" sitzt oben zentriert */
+  }
+
+  @media (max-width: 720px) {
+    /* Top-Bar: Logo links, Social rechts – "Menü" wandert nach unten */
+    .header-inner {
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .menu-trigger {
+      display: none;
+    }
+
+    /* Pinker Menü-Balken, unten zentriert, gut mit dem Daumen erreichbar */
+    .menu-fab {
+      display: block;
+      position: fixed;
+      left: 50%;
+      bottom: clamp(1rem, 4vw, 1.75rem);
+      transform: translateX(-50%);
+      z-index: 150;
+      background: var(--color-pink);
+      color: #fff;
+      font-family: var(--font-base);
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.02em;
+      border: none;
+      cursor: pointer;
+      padding: 0.85rem 2.4rem;
+      transition: transform 0.45s var(--ease), opacity 0.3s var(--ease);
+    }
+    /* Beim Runterscrollen wegfahren, beim Hochscrollen zurück */
+    .menu-fab.is-hidden {
+      transform: translate(-50%, 220%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Schliessen-Kreuz an derselben Stelle unten: blaues X im gelben Kreis */
+    .menu-close {
+      position: fixed;
+      left: 50%;
+      top: auto;
+      bottom: clamp(1rem, 4vw, 1.75rem);
+      transform: translateX(-50%);
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: var(--color-yellow);
+      color: var(--color-blue);
+      display: grid;
+      place-items: center;
+      padding: 0;
+    }
+    .menu-close:hover {
+      transform: translateX(-50%) rotate(90deg);
+    }
+  }
 </style>
 
 <script>
   const trigger = document.querySelector<HTMLButtonElement>(".menu-trigger");
+  const fab = document.querySelector<HTMLButtonElement>(".menu-fab");
   const overlay = document.querySelector<HTMLElement>("#menu-overlay");
   const closeBtn = overlay?.querySelector<HTMLButtonElement>(".menu-close");
   const links = overlay?.querySelectorAll<HTMLAnchorElement>("a");
+  const triggers = [trigger, fab].filter(Boolean) as HTMLButtonElement[];
 
   function openMenu() {
     if (!overlay) return;
@@ -397,26 +466,49 @@ const social = [
     void overlay.offsetWidth;
     overlay.classList.add("is-open");
     document.body.style.overflow = "hidden";
-    trigger?.setAttribute("aria-expanded", "true");
+    triggers.forEach((t) => t.setAttribute("aria-expanded", "true"));
     closeBtn?.focus();
   }
   function closeMenu() {
     if (!overlay) return;
     overlay.classList.remove("is-open");
     document.body.style.overflow = "";
-    trigger?.setAttribute("aria-expanded", "false");
+    triggers.forEach((t) => t.setAttribute("aria-expanded", "false"));
     const onEnd = () => {
       overlay.hidden = true;
       overlay.removeEventListener("transitionend", onEnd);
     };
     overlay.addEventListener("transitionend", onEnd);
-    trigger?.focus();
+    (fab || trigger)?.focus();
   }
 
-  trigger?.addEventListener("click", openMenu);
+  triggers.forEach((t) => t.addEventListener("click", openMenu));
   closeBtn?.addEventListener("click", closeMenu);
   links?.forEach((l) => l.addEventListener("click", closeMenu));
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && overlay && !overlay.hidden) closeMenu();
   });
+
+  // Mobiler Menü-Balken: beim Runterscrollen ausblenden, beim Hochscrollen einblenden
+  let lastY = window.scrollY;
+  let ticking = false;
+  function onScroll() {
+    const y = window.scrollY;
+    if (fab && (overlay?.hidden ?? true)) {
+      if (y > lastY && y > 120) fab.classList.add("is-hidden");
+      else fab.classList.remove("is-hidden");
+    }
+    lastY = y;
+    ticking = false;
+  }
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
 </script>

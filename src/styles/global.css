@@ -205,12 +205,14 @@ h3 {
   line-height: 1.15;
 }
 
-/* Lange Wörter nie über den Bildschirmrand schieben */
+/* Lange Wörter deutsch nach Silben trennen (lang="de-CH"), statt mitten im Wort
+   umzubrechen. Greift nur, wenn ein Wort sonst überlaufen würde. */
 h1,
 h2,
 h3,
 h4 {
-  overflow-wrap: break-word;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }
 
 /* Mobile: Headings + Sektionsabstände kleiner, damit nichts überläuft/zu wuchtig wirkt */

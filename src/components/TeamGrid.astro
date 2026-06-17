@@ -74,9 +74,19 @@ import { team } from "../data/team";
       grid-template-columns: repeat(3, 1fr);
     }
   }
-  @media (max-width: 640px) {
+  @media (max-width: 760px) {
     .team-track {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  /* Phones: einzelne, grosse Bilder (1 Spalte, kein Höhenversatz) */
+  @media (max-width: 540px) {
+    .team-track {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+    .team-item:nth-child(even) {
+      margin-top: 0;
     }
   }
 
