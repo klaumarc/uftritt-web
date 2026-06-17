@@ -1,0 +1,370 @@
+---
+import { team } from "../data/team";
+---
+
+<div class="team-slider">
+  <ul class="team-track">
+    {
+      team.map((m) => (
+        <li class="team-item">
+          <button
+            class="team-member"
+            type="button"
+            data-team-open
+            data-name={m.name}
+            data-role={m.role}
+            data-bio={m.bio}
+            data-email={m.email}
+            data-photo={m.photo}
+          >
+            <span class="team-photo">
+              <img src={m.photo} alt={m.name} loading="lazy" />
+              <span class="team-caption">
+                <span class="team-name">{m.name}</span>
+                <span class="team-role">{m.role}</span>
+              </span>
+              <span class="team-plus" aria-hidden="true">+</span>
+            </span>
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+
+</div>
+
+{/* ---------- Lightbox ---------- */}
+<div class="team-lightbox" id="team-lightbox" role="dialog" aria-modal="true" aria-labelledby="tl-name" hidden>
+  <div class="team-lightbox-backdrop" data-team-close></div>
+  <div class="team-lightbox-panel" role="document">
+    <button class="team-lightbox-close" type="button" aria-label="Schliessen" data-team-close>
+      <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+        <path d="M7 7l18 18M25 7L7 25" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
+      </svg>
+    </button>
+    <div class="team-lightbox-media">
+      <img id="tl-photo" src="" alt="" />
+    </div>
+    <div class="team-lightbox-body">
+      <h3 id="tl-name"></h3>
+      <p class="tl-role" id="tl-role"></p>
+      <p class="tl-bio" id="tl-bio"></p>
+      <a class="tl-email" id="tl-email" href="#"></a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .team-slider {
+    position: relative;
+  }
+  .team-track {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* alle 5 sichtbar */
+    gap: clamp(0.75rem, 1.5vw, 1.5rem);
+    align-items: start;
+    padding-block: 0.5rem;
+  }
+  /* abwechselnd höhenversetzt (Zickzack) */
+  .team-item:nth-child(even) {
+    margin-top: clamp(1.5rem, 4vw, 3.5rem);
+  }
+  @media (max-width: 1100px) {
+    .team-track {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .team-track {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .team-member {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    font-family: var(--font-base);
+    color: var(--color-blue);
+  }
+  .team-photo {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: rgba(1, 64, 128, 0.06);
+  }
+  .team-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%; /* Köpfe im oberen Bereich – nicht anschneiden */
+    transition: transform 0.7s var(--ease);
+  }
+  /* dezenter Verlauf unten für lesbare weisse Namen (kein Schatten) */
+  .team-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(1, 32, 64, 0.6), transparent 42%);
+    pointer-events: none;
+  }
+  .team-member:hover .team-photo img {
+    transform: scale(1.05);
+  }
+  .team-caption {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+  .team-plus {
+    position: absolute;
+    right: 0.7rem;
+    bottom: 0.7rem;
+    z-index: 2;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%; /* ganz rund ist erlaubt */
+    background: var(--color-blue);
+    color: #fff;
+    font-size: 1.4rem;
+    line-height: 1;
+    font-weight: 700;
+    transform: translateY(6px);
+    opacity: 0;
+    transition: transform 0.45s var(--ease), opacity 0.45s var(--ease);
+  }
+  .team-member:hover .team-plus,
+  .team-member:focus-visible .team-plus {
+    transform: none;
+    opacity: 1;
+  }
+  .team-name {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.1;
+  }
+  .team-role {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0.92;
+  }
+
+  .team-nav {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  .team-arrow {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 2px solid rgba(1, 64, 128, 0.25);
+    background: transparent;
+    color: var(--color-blue);
+    cursor: pointer;
+    transition: background 0.4s var(--ease), color 0.4s var(--ease),
+      border-color 0.4s var(--ease);
+  }
+  .team-arrow:hover {
+    background: var(--color-blue);
+    border-color: var(--color-blue);
+    color: #fff;
+  }
+
+  /* ---------- Lightbox ---------- */
+  .team-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 210;
+    display: grid;
+    place-items: center;
+    padding: clamp(1rem, 4vw, 3rem);
+  }
+  .team-lightbox[hidden] {
+    display: none;
+  }
+  .team-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(1, 32, 64, 0.55);
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    transition: opacity 0.45s var(--ease);
+  }
+  .team-lightbox.is-open .team-lightbox-backdrop {
+    opacity: 1;
+  }
+  .team-lightbox-panel {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: center;
+    width: min(900px, 100%);
+    max-height: 90vh;
+    overflow: auto;
+    background: #fff;
+    border-radius: 0;
+    padding: clamp(1.5rem, 3vw, 2.75rem);
+    transform: translateY(16px) scale(0.98);
+    opacity: 0;
+    transition: transform 0.55s var(--ease), opacity 0.55s var(--ease);
+  }
+  .team-lightbox.is-open .team-lightbox-panel {
+    transform: none;
+    opacity: 1;
+  }
+  .team-lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--color-blue);
+    cursor: pointer;
+    padding: 0.4rem;
+    transition: transform 0.4s var(--ease);
+  }
+  .team-lightbox-close:hover {
+    transform: rotate(90deg);
+  }
+  .team-lightbox-media img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center 20%;
+    border-radius: 0;
+  }
+  .team-lightbox-body h3 {
+    color: var(--color-blue);
+    margin-bottom: 0.15rem;
+  }
+  .tl-role {
+    color: var(--color-blue);
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+  }
+  .tl-bio {
+    line-height: 1.7;
+  }
+  .tl-email {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--color-muted);
+    font-weight: 600;
+  }
+  .tl-email:hover {
+    color: var(--color-blue);
+  }
+
+  @media (max-width: 700px) {
+    .team-lightbox-panel {
+      grid-template-columns: 1fr;
+    }
+    .team-lightbox-media img {
+      aspect-ratio: 3 / 2;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .team-track {
+      scroll-behavior: auto;
+    }
+    .team-lightbox-backdrop,
+    .team-lightbox-panel {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  // --- Slider-Navigation ---
+  const track = document.querySelector<HTMLElement>(".team-track");
+  const prevBtn = document.querySelector<HTMLButtonElement>("[data-team-prev]");
+  const nextBtn = document.querySelector<HTMLButtonElement>("[data-team-next]");
+  function step() {
+    const item = track?.querySelector<HTMLElement>(".team-item");
+    if (!item || !track) return 300;
+    const gap = parseFloat(getComputedStyle(track).columnGap || "16") || 16;
+    return item.offsetWidth + gap;
+  }
+  prevBtn?.addEventListener("click", () =>
+    track?.scrollBy({ left: -step(), behavior: "smooth" })
+  );
+  nextBtn?.addEventListener("click", () =>
+    track?.scrollBy({ left: step(), behavior: "smooth" })
+  );
+
+  // --- Lightbox ---
+  const lightbox = document.querySelector<HTMLElement>("#team-lightbox");
+  const els = {
+    photo: document.querySelector<HTMLImageElement>("#tl-photo"),
+    name: document.querySelector<HTMLElement>("#tl-name"),
+    role: document.querySelector<HTMLElement>("#tl-role"),
+    bio: document.querySelector<HTMLElement>("#tl-bio"),
+    email: document.querySelector<HTMLAnchorElement>("#tl-email"),
+  };
+  let lastTrigger: HTMLElement | null = null;
+
+  function open(btn: HTMLElement) {
+    if (!lightbox) return;
+    lastTrigger = btn;
+    const d = btn.dataset;
+    if (els.photo) {
+      els.photo.src = d.photo || "";
+      els.photo.alt = d.name || "";
+    }
+    if (els.name) els.name.textContent = d.name || "";
+    if (els.role) els.role.textContent = d.role || "";
+    if (els.bio) els.bio.textContent = d.bio || "";
+    if (els.email) {
+      els.email.textContent = d.email || "";
+      els.email.href = "mailto:" + (d.email || "");
+    }
+    lightbox.hidden = false;
+    void lightbox.offsetWidth;
+    lightbox.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+    lightbox.querySelector<HTMLButtonElement>(".team-lightbox-close")?.focus();
+  }
+  function close() {
+    if (!lightbox) return;
+    lightbox.classList.remove("is-open");
+    document.body.style.overflow = "";
+    const onEnd = () => {
+      lightbox.hidden = true;
+      lightbox.removeEventListener("transitionend", onEnd);
+    };
+    lightbox.addEventListener("transitionend", onEnd);
+    lastTrigger?.focus();
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-team-open]").forEach((btn) =>
+    btn.addEventListener("click", () => open(btn))
+  );
+  document.querySelectorAll<HTMLElement>("[data-team-close]").forEach((el) =>
+    el.addEventListener("click", close)
+  );
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lightbox && !lightbox.hidden) close();
+  });
+</script>

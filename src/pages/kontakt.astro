@@ -1,0 +1,157 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SubHero from "../components/SubHero.astro";
+---
+
+<Layout title="Kontakt – Uftritt" description="Schriib eus! Uftritt GmbH, Frauwisstrasse 9, 8493 Saland · 044 500 29 55 · info@uftritt.ch">
+  <SubHero
+    eyebrow="Kontakt"
+    title="Grüezi!"
+    lead="Wir freuen uns riesig darauf, von dir zu hören! Kommunikation ist der Schlüssel zu jedem erfolgreichen Projekt. Deshalb sind wir immer für dich da."
+    lottie="/lottie/kontakt-sprechblasen.json"
+    lottieLabel="Sprechblasen"
+  />
+
+  <section class="section">
+    <div class="container kontakt">
+      <div class="kontakt-info" data-reveal>
+        <address>
+          <strong>Uftritt GmbH</strong><br />
+          Frauwisstrasse 9<br />
+          8493 Saland
+        </address>
+        <p class="kontakt-links">
+          <a href="tel:+41445002955">044 500 29 55</a>
+          <a href="mailto:info@uftritt.ch">info@uftritt.ch</a>
+        </p>
+      </div>
+
+      <form
+        class="kontakt-form"
+        name="kontakt"
+        method="POST"
+        action="/danke"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        data-reveal
+      >
+        <input type="hidden" name="form-name" value="kontakt" />
+        {/* Spam-Honeypot: für Menschen unsichtbar, Bots füllen es aus */}
+        <p class="hp-field" hidden>
+          <label>Bitte leer lassen: <input name="bot-field" /></label>
+        </p>
+        <label>
+          <span>Name</span>
+          <input type="text" name="name" required />
+        </label>
+        <label>
+          <span>E-Mail</span>
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          <span>Worum geht's?</span>
+          <textarea name="nachricht" rows="5" required></textarea>
+        </label>
+        <button type="submit" class="kontakt-submit">Nachricht senden</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="kontakt-map" aria-label="Standort auf Karte">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6407.526083057463!2d8.85195!3d47.39502400000001!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479ab7fbe506aabd%3A0x70c8adbc4bd9a66c!2sUftritt%20GmbH!5e1!3m2!1sde!2sch!4v1781616228870!5m2!1sde!2sch"
+      width="600"
+      height="450"
+      style="border:0;"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="Uftritt GmbH auf Google Maps"></iframe>
+  </section>
+</Layout>
+
+<style>
+  .kontakt {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+  }
+  .kontakt-info address {
+    font-style: normal;
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--color-blue);
+  }
+  .kontakt-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: 1.25rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  .kontakt-links a {
+    color: var(--color-blue);
+  }
+  .kontakt-links a:hover {
+    color: var(--color-pink);
+  }
+
+  .kontakt-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .kontakt-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-weight: 600;
+    color: var(--color-blue);
+  }
+  .kontakt-form input,
+  .kontakt-form textarea {
+    font-family: var(--font-base);
+    font-size: 1rem;
+    padding: 0.85rem 1rem;
+    border: 2px solid rgba(1, 64, 128, 0.25);
+    background: #fff;
+    color: var(--color-blue);
+  }
+  .kontakt-form input:focus,
+  .kontakt-form textarea:focus {
+    outline: none;
+    border-color: var(--color-blue);
+  }
+  .kontakt-submit {
+    align-self: flex-start;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    color: #fff;
+    background: var(--color-blue);
+    border: none;
+    padding: 1rem 1.7rem;
+    cursor: pointer;
+    transition: background 0.4s var(--ease);
+  }
+  .kontakt-submit:hover {
+    background: var(--color-blue-dark);
+  }
+
+  .kontakt-map {
+    line-height: 0;
+  }
+  .kontakt-map iframe {
+    width: 100%;
+    height: clamp(320px, 45vw, 520px);
+    display: block;
+  }
+
+  @media (max-width: 760px) {
+    .kontakt {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

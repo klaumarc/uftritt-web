@@ -1,0 +1,303 @@
+/* ============================================================
+   Uftritt – Design System
+   Hausschrift: Rational (Webfonts liegen in /public/fonts)
+   Farben aus dem Corporate Design / Stylesheet-Export
+   ============================================================ */
+
+/* ---- Rational Webfont (eine Familie, echte font-weights) ---- */
+@font-face {
+  font-family: "Rational";
+  src: url("/fonts/rationaltext-book-webfont.woff2") format("woff2"),
+       url("/fonts/rationaltext-book-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rational";
+  src: url("/fonts/rationaltext-bookitalic-webfont.woff2") format("woff2"),
+       url("/fonts/rationaltext-bookitalic-webfont.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rational";
+  src: url("/fonts/rationaltext-medium-webfont.woff2") format("woff2"),
+       url("/fonts/rationaltext-medium-webfont.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rational";
+  src: url("/fonts/rationaltext-semibold-webfont.woff2") format("woff2"),
+       url("/fonts/rationaltext-semibold-webfont.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rational";
+  src: url("/fonts/rationaltext-bold-webfont.woff2") format("woff2"),
+       url("/fonts/rationaltext-bold-webfont.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rational";
+  src: url("/fonts/rationaltext-extrabold-webfont.woff2") format("woff2"),
+       url("/fonts/rationaltext-extrabold-webfont.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rational";
+  src: url("/fonts/rationaltext-black-webfont.woff2") format("woff2"),
+       url("/fonts/rationaltext-black-webfont.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---- Design Tokens ---- */
+:root {
+  /* Markenfarben */
+  --color-blue: #014080;
+  --color-blue-dark: #013366;
+  --color-yellow: #ffd23c;
+  --color-pink: #da2c67;
+  --color-white: #ffffff;
+  --color-ink: #014080;        /* Fliesstext = Blau */
+  --color-muted: rgba(1, 64, 128, 0.55); /* sekundärer Text = helleres Blau */
+  --color-bg-soft: #f5f7fa;
+
+  /* Typografie */
+  --font-base: "Rational", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Layout */
+  --container: min(2100px, 90vw); /* Inhalt nimmt ~90% des Screens ein */
+  --gutter: clamp(1rem, 2.5vw, 2.5rem);
+  --radius: 0px; /* Marke ist eckig – keine abgerundeten Ecken */
+  --section-y: clamp(3.5rem, 8vw, 7rem);
+
+  /* Transitions */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ---- Reset / Base ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Scrollbar in CD-Farben (Firefox) */
+  scrollbar-color: var(--color-blue) var(--color-bg-soft);
+}
+
+/* Scrollbar in CD-Farben (WebKit/Chromium) */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-soft);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-blue);
+  border: 3px solid var(--color-bg-soft);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-blue-dark);
+}
+
+/* Textmarkierung in CD-Farben */
+::selection {
+  background: var(--color-blue);
+  color: var(--color-white);
+}
+::-moz-selection {
+  background: var(--color-blue);
+  color: var(--color-white);
+}
+
+/* Sanftes Auf-/Zuklappen der FAQ-Boxen (progressive enhancement –
+   ältere Browser klappen weiterhin sofort, ohne Fehler) */
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+  details.faq-item::details-content {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size 0.4s var(--ease), content-visibility 0.4s allow-discrete;
+  }
+  details.faq-item[open]::details-content {
+    block-size: auto;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-base);
+  font-weight: 400;
+  font-size: 1.0625rem; /* ~17px, Rational Book */
+  color: var(--color-ink);
+  background: var(--color-white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---- Typografie-Skala ---- */
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 0.4em;
+  color: var(--color-blue);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+}
+
+/* Skala gemessen aus dem CD-Stylesheet-Export (1920er Artboard) */
+h1 {
+  font-size: clamp(2.85rem, 7.2vw, 6.5rem); /* ~104px Desktop */
+  font-weight: 700; /* Rational Bold – gleiche Stärke wie H2/H3 (aus CD gemessen) */
+}
+
+h2 {
+  font-size: clamp(1.95rem, 4vw, 3rem); /* ~48px */
+  font-weight: 700; /* Rational Bold */
+}
+
+h3 {
+  font-size: clamp(1.45rem, 2.6vw, 2.15rem); /* ~34px */
+  font-weight: 700;
+  color: var(--color-blue);
+  line-height: 1.15;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+/* ---- Layout-Helfer ---- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.section--yellow {
+  background: var(--color-yellow);
+}
+.section--blue {
+  background: var(--color-blue);
+  color: var(--color-white);
+}
+.section--blue h2,
+.section--blue h3 {
+  color: var(--color-white);
+}
+.section--soft {
+  background: var(--color-bg-soft);
+}
+
+.eyebrow {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  color: var(--color-blue);
+  margin-bottom: 0.75rem;
+}
+.section--blue .eyebrow {
+  color: var(--color-white);
+}
+
+/* Buttons: siehe Button.astro – CTA-Kreis "Schriib eus": siehe CtaCircle.astro */
+
+/* Runder Pink-CTA "Schriib eus" (Bild aus dem CD) */
+.cta-circle {
+  display: inline-block;
+  width: clamp(110px, 12vw, 150px);
+  aspect-ratio: 1;
+  transition: transform 0.4s var(--ease);
+}
+.cta-circle img {
+  width: 100%;
+  height: 100%;
+}
+.cta-circle:hover {
+  transform: scale(1.06) rotate(-4deg);
+}
+
+/* Zugänglichkeit */
+:focus-visible {
+  outline: 3px solid var(--color-blue);
+  outline-offset: 2px;
+}
+
+/* ---- Motion / Scroll-Reveal ---- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.95s var(--ease), transform 0.95s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  [data-reveal] {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

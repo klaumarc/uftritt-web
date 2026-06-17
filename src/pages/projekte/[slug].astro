@@ -1,0 +1,185 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Button from "../../components/Button.astro";
+import { projects } from "../../data/projects";
+import { projectDetails } from "../../data/projectDetails";
+
+export function getStaticPaths() {
+  return projects.map((p) => ({
+    params: { slug: p.slug },
+    props: { project: p, detail: projectDetails[p.slug] ?? { body: [], services: [], gallery: [] } },
+  }));
+}
+
+const { project, detail } = Astro.props;
+const gallery = detail.gallery?.length ? detail.gallery : [project.image];
+---
+
+<Layout title={`${project.title} – Uftritt`} description={detail.body?.[0] ?? project.title}>
+  <article class="pd">
+    <div class="container">
+      <a href="/projekte" class="pd-back" data-reveal>← Alle Projekte</a>
+
+      <div class="pd-intro">
+        <div class="pd-text" data-reveal>
+          <span class="eyebrow">{project.categories.join(" · ")}</span>
+          <h1>{project.title}</h1>
+          {detail.body?.map((p) => <p>{p}</p>)}
+        </div>
+        {
+          detail.services?.length > 0 && (
+            <aside class="pd-services" data-reveal>
+              <span class="pd-services-title">Leistungen</span>
+              <ul>
+                {detail.services.map((s) => <li>{s}</li>)}
+              </ul>
+            </aside>
+          )
+        }
+      </div>
+    </div>
+
+    {
+      gallery.length > 0 && (
+        <div class="container pd-gallery">
+          {gallery.map((img) => (
+            <span class="pd-tile" data-reveal>
+              <img src={img} alt={project.title} loading="lazy" />
+            </span>
+          ))}
+        </div>
+      )
+    }
+
+    {
+      detail.youtube && (
+        <div class="container pd-video" data-reveal>
+          <div class="pd-embed">
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${detail.youtube}?rel=0`}
+              title={project.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+              allowfullscreen
+              loading="lazy"></iframe>
+          </div>
+        </div>
+      )
+    }
+
+    <div class="container pd-cta" data-reveal>
+      <h2>Sollen wir auch deinen Auftritt umsetzen?</h2>
+      <Button href="/kontakt" variant="blue">Schriib eus</Button>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .pd {
+    padding-block: clamp(2rem, 5vw, 4rem) clamp(3rem, 7vw, 6rem);
+  }
+  .pd-back {
+    display: inline-block;
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 600;
+    color: var(--color-blue);
+  }
+  .pd-back:hover {
+    color: var(--color-pink);
+  }
+
+  .pd-intro {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+  .pd-text .eyebrow {
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .pd-text h1 {
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    margin-bottom: 1.25rem;
+  }
+  .pd-text p {
+    color: var(--color-blue);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .pd-services-title {
+    display: block;
+    font-weight: 700;
+    color: var(--color-blue);
+    margin-bottom: 0.75rem;
+  }
+  .pd-services ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .pd-services li {
+    border: 2px solid rgba(1, 64, 128, 0.25);
+    padding: 0.4rem 0.9rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-blue);
+  }
+
+  /* alle Bilder als gleichmässige Kacheln (3 Spalten) */
+  .pd-gallery {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  }
+  .pd-tile {
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+  .pd-tile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pd-video {
+    margin-top: clamp(2rem, 4vw, 3rem);
+  }
+  .pd-embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  .pd-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .pd-cta {
+    margin-top: clamp(3rem, 6vw, 5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 860px) {
+    .pd-intro {
+      grid-template-columns: 1fr;
+    }
+    .pd-gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 520px) {
+    .pd-gallery {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

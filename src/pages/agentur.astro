@@ -1,0 +1,65 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SubHero from "../components/SubHero.astro";
+import TeamGrid from "../components/TeamGrid.astro";
+---
+
+<Layout title="Agentur – Uftritt" description="Wir sind Uftritt – die Kommunikationsagentur im Zürcher Oberland. Keine Krawatten, dafür echte Begeisterung.">
+  <SubHero
+    eyebrow="Agentur"
+    title="Das sind wir"
+    lead="Wir sind Uftritt – die Kommunikationsagentur, bei der du keine Krawatten, dafür echte Begeisterung findest. Wir lieben es, gemeinsam mit dir kreative Projekte zu starten und mindestens eine, wenn nicht mehr Stufen auf der Erfolgstreppe zu erklimmen."
+    lottie="/lottie/agentur-smile.json"
+    lottieLabel="Uftritt Smile"
+  />
+
+  <section class="section">
+    <div class="container so-sind-wir" data-reveal>
+      <span class="eyebrow">So sind wir</span>
+      <h2>Klein, aber fein – und mit grossen Ideen</h2>
+      <p>
+        Als kleine, aber feine Agentur mit jungen, neugierigen Menschen und
+        neuen, kreativen Ideen freuen wir uns immer wieder auf neue
+        Herausforderungen. Im Oktober 2023 durch Marcel Klausberger und Jeffrey
+        Meier gegründet, hat sich die Uftritt GmbH inzwischen zu einer
+        ernstzunehmenden Adresse im Bereich der visuellen Kommunikation
+        entwickelt.
+      </p>
+      <p>
+        Wir lieben Menschen und möchten mit unserer Arbeit Identität stiften,
+        Geschichten nach aussen tragen und damit zu deinem Unternehmenserfolg
+        beitragen – von der Start-up-Idee bis zum bewährten mittelgrossen
+        Unternehmen.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--yellow">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Unser Team</span>
+        <h2>Die Köpfe hinter Uftritt</h2>
+      </header>
+      <TeamGrid />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .so-sind-wir {
+    max-width: 820px;
+  }
+  .so-sind-wir .eyebrow {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .so-sind-wir p {
+    color: var(--color-blue);
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .section-head {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+</style>

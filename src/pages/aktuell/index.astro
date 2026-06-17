@@ -1,0 +1,19 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import News from "../../components/News.astro";
+---
+
+<Layout title="Aktuell – Uftritt" description="News, Projekte und Einblicke von Uftritt – der Kommunikationsagentur im Zürcher Oberland.">
+  <PageHero
+    eyebrow="Aktuell"
+    title="News &amp; Einblicke"
+    lead="Was bei uns und mit unseren Partnern läuft – Projekte, Einblicke und Neuigkeiten."
+  />
+
+  <section class="section">
+    <div class="container">
+      <News />
+    </div>
+  </section>
+</Layout>

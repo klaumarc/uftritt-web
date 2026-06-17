@@ -1,0 +1,108 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+
+const groups = [
+  {
+    title: "Sponsoring",
+    items: [
+      { name: "emotion Hinwil", logo: "/partner/emotion-hinwil.jpg", href: "https://www.emotionhinwil.ch/" },
+      { name: "DT Bäretswil", logo: "/partner/dt-baeretswil.jpg", href: "https://dtbaeretswil.ch/" },
+      { name: "Youngstars International", logo: "/partner/youngstars-international.jpg", href: "https://youngstarsint.org/" },
+      { name: "Live Wire", logo: "/partner/live-wire.png", href: "https://livewire-es.com/" },
+    ],
+  },
+  {
+    title: "Partner",
+    items: [
+      { name: "ratsam", logo: "/partner/ratsam.jpg", href: "https://www.samurech.ch/" },
+    ],
+  },
+  {
+    title: "Netzwerke",
+    items: [
+      { name: "Bauma Gewerbeverein", logo: "/partner/gv-bauma.jpg", href: "https://www.gewerbe-bauma.ch/" },
+      { name: "Gewerbeverein Bubikon Wolfhausen", logo: "/partner/gv-bubikon.jpg", href: "https://www.gewerbe-bubikon.ch/" },
+      { name: "Standortförderung Zürcher Oberland", logo: "/partner/zuerioberland.jpg", href: "https://www.zuerioberland.ch/" },
+    ],
+  },
+];
+---
+
+<Layout title="Partner – Uftritt" description="Sponsoring, Partner und Netzwerke von Uftritt – wir sind vernetzt mit verschiedenen Freunden und Partnern.">
+  <PageHero
+    eyebrow="Partner"
+    title="Gemeinsam stärker"
+    lead="Wir sind vernetzt mit verschiedenen Freunden und Partnern, welche wir unterstützen oder von denen wir unterstützt werden."
+  />
+
+  <section class="section">
+    <div class="container">
+      {
+        groups.map((g) => (
+          <div class="partner-group" data-reveal>
+            <span class="eyebrow">{g.title}</span>
+            <ul class="logo-grid">
+              {g.items.map((item) => (
+                <li>
+                  <a class="logo" href={item.href} target="_blank" rel="noopener" aria-label={item.name}>
+                    <img src={item.logo} alt={item.name} loading="lazy" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .partner-group {
+    padding-block: clamp(2.25rem, 4.5vw, 3.75rem);
+    border-top: 2px solid var(--color-blue);
+  }
+  .partner-group:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+  .partner-group .eyebrow {
+    display: block;
+    font-size: clamp(1.2rem, 2.2vw, 1.75rem);
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .logo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: center;
+  }
+  .logo {
+    display: grid;
+    place-items: center;
+    width: clamp(190px, 23vw, 290px);
+    aspect-ratio: 3 / 2;
+  }
+  .logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.7;
+    transition: filter 0.45s var(--ease), opacity 0.45s var(--ease),
+      transform 0.45s var(--ease);
+  }
+  .logo:hover img,
+  .logo:focus-visible img {
+    filter: grayscale(0);
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 560px) {
+    .logo {
+      width: clamp(150px, 44vw, 220px);
+    }
+  }
+</style>

@@ -1,0 +1,30 @@
+# build output
+dist/
+.output/
+
+# netlify
+.netlify/
+
+# dependencies
+node_modules/
+
+# astro
+.astro/
+
+# sanity
+dist-studio/
+
+# env
+.env
+.env.production
+.env.local
+
+# logs
+*.log
+npm-debug.log*
+
+# os / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json

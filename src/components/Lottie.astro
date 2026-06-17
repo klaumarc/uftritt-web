@@ -1,0 +1,152 @@
+---
+interface Props {
+  src: string;
+  class?: string;
+  loop?: boolean;
+  autoplay?: boolean;
+  hover?: boolean;
+  group?: string; // koordinierte, abwechselnde Sequenz mehrerer Lotties
+  ariaLabel?: string;
+}
+const {
+  src,
+  class: className,
+  loop = false,
+  autoplay = true,
+  hover = false,
+  group,
+  ariaLabel,
+} = Astro.props;
+---
+
+<div
+  class:list={["lottie", className]}
+  data-lottie={src}
+  data-loop={loop ? "true" : "false"}
+  data-autoplay={autoplay ? "true" : "false"}
+  data-hover={hover ? "true" : "false"}
+  data-group={group}
+  role="img"
+  aria-label={ariaLabel}
+>
+</div>
+
+<script>
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  let lottiePromise: Promise<any> | null = null;
+  const getLottie = () => {
+    if (!lottiePromise) {
+      lottiePromise = import("lottie-web").then((m) => m.default);
+    }
+    return lottiePromise;
+  };
+
+  // Gruppen-Sequencer: spielt immer genau ein Lottie der Gruppe, dann das nächste,
+  // im Kreis und endlos wiederholend.
+  type Group = { anims: any[]; idx: number; started: boolean; timer: any };
+  const groups: Record<string, Group> = {};
+
+  function playCurrent(name: string) {
+    const g = groups[name];
+    const a = g.anims[g.idx];
+    if (!a) return;
+    a.goToAndStop(0, true);
+    a.setDirection(1);
+    a.play();
+  }
+  function advance(name: string) {
+    const g = groups[name];
+    g.idx = (g.idx + 1) % g.anims.length;
+    playCurrent(name);
+  }
+  function registerInGroup(name: string, anim: any) {
+    const g =
+      groups[name] ||
+      (groups[name] = { anims: [], idx: 0, started: false, timer: null });
+    anim.loop = false;
+    anim.addEventListener("complete", () => advance(name));
+    g.anims.push(anim);
+    // kurze Debounce, damit alle Gruppenmitglieder registriert sind, bevor es losgeht
+    if (!g.started) {
+      clearTimeout(g.timer);
+      g.timer = setTimeout(() => {
+        g.started = true;
+        playCurrent(name);
+      }, 150);
+    }
+  }
+
+  async function init(el: HTMLElement) {
+    if (el.dataset.lottieInit) return;
+    el.dataset.lottieInit = "1";
+    const lottie = await getLottie();
+    const hover = el.dataset.hover === "true";
+    const group = el.dataset.group;
+    const anim = lottie.loadAnimation({
+      container: el,
+      renderer: "svg",
+      loop: el.dataset.loop === "true",
+      autoplay:
+        el.dataset.autoplay === "true" && !hover && !group && !prefersReduced,
+      path: el.dataset.lottie,
+    });
+
+    if (prefersReduced) {
+      anim.addEventListener("DOMLoaded", () =>
+        anim.goToAndStop(Math.max(anim.totalFrames - 1, 0), true)
+      );
+      return;
+    }
+
+    if (group) {
+      anim.addEventListener("DOMLoaded", () => registerInGroup(group, anim));
+      return;
+    }
+
+    if (hover) {
+      const parent = el.closest("[data-lottie-trigger]") || el;
+      parent.addEventListener("mouseenter", () => {
+        anim.setDirection(1);
+        anim.play();
+      });
+      parent.addEventListener("mouseleave", () => {
+        anim.setDirection(-1);
+        anim.play();
+      });
+    }
+  }
+
+  const els = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-lottie]")
+  );
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            init(e.target as HTMLElement);
+            obs.unobserve(e.target);
+          }
+        });
+      },
+      { rootMargin: "200px" }
+    );
+    els.forEach((el) => io.observe(el));
+  } else {
+    els.forEach(init);
+  }
+</script>
+
+<style>
+  .lottie {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .lottie :global(svg) {
+    display: block;
+  }
+</style>

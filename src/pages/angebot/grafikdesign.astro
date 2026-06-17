@@ -1,0 +1,324 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Button from "../../components/Button.astro";
+import { projects } from "../../data/projects";
+
+const portfolio = projects
+  .filter((p) => p.categories.includes("Grafikdesign"))
+  .slice(0, 6);
+
+const blocks = [
+  {
+    title: "Corporate Design",
+    text: [
+      "Ein starkes Branding ist mehr als nur ein hübsches Logo oder ein eingängiger Slogan. Es ist die Essenz deines Unternehmens oder deiner Marke, die sich in allem widerspiegelt. Lass uns ein Erscheinungsbild erschaffen, das deine Geschichte erzählt, deine Werte vermittelt und ein einheitliches, stimmiges Bild präsentiert.",
+      "Deine einzigartige Markenpersönlichkeit und visuelle Identität entwickeln wir in enger Zusammenarbeit mit dir. So verstehen wir den Kern deines Unternehmens und können ihn so präsentieren, dass er deine Zielgruppe anspricht und inspiriert.",
+    ],
+  },
+  {
+    title: "Logo Design",
+    text: [
+      "Im Logo wird die Identität deines Unternehmens visuell zusammengefasst und in die Welt getragen. Es muss einprägsam, verständlich und unverwechselbar sein. Ein funktionierendes Logo ist für unterschiedliche Anwendungsorte angepasst – von der kleinen Grösse auf Social Media bis zur grossen Gebäudebeschriftung.",
+      "Wir finden für dein Unternehmen oder deine Marke das Gesicht, das dich optimal widerspiegelt.",
+    ],
+  },
+  {
+    title: "Editorial Design",
+    text: [
+      "Du möchtest dein Unternehmen in einer Imagebroschüre präsentieren, zum Firmenjubiläum ein adäquates Magazin herausgeben oder deine Dienstleistungen verständlich kommunizieren? Ein durchdachtes Layout von Bild und Text unterstützt die Leselust und trägt massgebend zum Interesse an spannenden Inhalten bei.",
+      "Mit unserer Erfahrung in der Lesendenführung und dem Auge für überzeugende Bild-Text-Gestaltung entwickeln wir schöne Leseerlebnisse.",
+    ],
+  },
+];
+
+const leistungen = [
+  "Magazine und Broschüren",
+  "Messestände und Banner",
+  "Fahrzeugbeschriftung und Schaufenster-Folien",
+  "Give-Aways (z. B. Taschen, Kugelschreiber, Notizblöcke)",
+  "Inserate, Plakate und Flyer",
+  "Signaletik aller Art (innen und aussen)",
+  "Visitenkarten, Briefpapier, Couverts – und vieles mehr",
+];
+
+const steps = [
+  { icon: "/icons/zuhoeren-icon.svg", t: "Zuhören und verstehen", d: "Wir hören zu, lernen dich und dein Projekt kennen und nehmen deine Wünsche auf – auch wenn sie noch vage sind." },
+  { icon: "/icons/analyse-icon.svg", t: "Angebot", d: "Transparenz von Anfang an: Du bekommst ein verbindliches Angebot und weisst, wann das Projekt abgeschlossen ist." },
+  { icon: "/icons/brainstorm-icon.svg", t: "Varianten entwickeln", d: "Wir legen richtig los – du erhältst nicht nur einen, sondern mehrere kreative Design-Entwürfe. So kannst du vergleichen, diskutieren und mit uns einen Weg einschlagen." },
+  { icon: "/icons/austauschen-icon.svg", t: "Feinschliff", d: "Du gibst Feedback, sagst, was gefällt und was noch nicht. Wir arbeiten die beste Variante gemeinsam weiter aus – Schritt für Schritt, bis alles passt." },
+  { icon: "/icons/abheben-icon.svg", t: "Übergabe", d: "Nach deiner Freigabe machen wir alles bereit für die Veröffentlichung, digital oder für den Druck. Und wenn du später noch eine Idee hast: Wir sind auch nach Projektabschluss offen für Anpassungen." },
+];
+
+const faq = [
+  { q: "Was bringt mir professionelles Grafikdesign überhaupt?", a: "Mit kreativem Grafikdesign sorgst du dafür, dass dein Unternehmen nicht einfach übersehen wird. Ein starkes Branding schafft Wiedererkennung, weckt Vertrauen und sorgt für einen bleibenden Eindruck – genau das, was im wettbewerbsstarken Zürcher Oberland zählt." },
+  { q: "Wie läuft ein Grafikdesign-Projekt bei Uftritt ab?", a: "Du gibst die Richtung vor, wir machen den Rest. Nach einem gegenseitigen Kennenlernen geht's von der ersten Idee bis zur fertigen Umsetzung Schritt für Schritt voran. Wir halten dich immer auf dem Laufenden und setzen auf ehrliche, unkomplizierte Zusammenarbeit." },
+  { q: "Gestaltet ihr auch Logos und Corporate Design?", a: "Ja – vom Logo über das Farbkonzept bis hin zum kompletten Corporate Design bekommst du alles aus einer Hand. Wir sorgen dafür, dass dein Markenauftritt rundum stimmig ist." },
+  { q: "Wie lange dauert es, bis mein Branding- oder Grafikdesign-Projekt fertig ist?", a: "Das hängt vom Umfang ab. Gemeinsam legen wir einen realistischen Fahrplan fest, damit du genau planen kannst." },
+  { q: "Was kostet professionelles Grafikdesign?", a: "Keine versteckten Kosten, kein Kleingedrucktes: Du bekommst ein klares Angebot von uns, das zu dir und deinem Budget passt. Und: Beratung gibt's bei Uftritt immer dazu." },
+  { q: "Muss ich gestalterisch fit sein, um mit euch zusammenzuarbeiten?", a: "Überhaupt nicht – du brauchst keine Design-Erfahrung. Wir bringen die Bildsprache verständlich und sympathisch auf den Punkt, beraten dich ehrlich und nehmen dich bei jedem Schritt mit." },
+  { q: "Gibt es Beispiele von euren bisherigen Projekten?", a: "Klar! Wirf einen Blick auf unsere Projekte und lass dich inspirieren. Vielleicht findest du dort schon die ein oder andere Idee für deinen eigenen Auftritt." },
+];
+---
+
+<Layout title="Grafikdesign – Uftritt" description="Corporate Design, Logo Design und Editorial Design – wir verleihen deiner Kommunikation ein passgenaues Kleid.">
+  <PageHero
+    eyebrow="Angebot"
+    title="Grafikdesign"
+    lead="Ob ein komplettes visuelles Branding oder eine durchdachte Broschüre – zusammen verleihen wir deiner Kommunikation ein passgenaues Kleid, das deine Stärken mühelos wiedergibt und Aufsehen erregt – im positiven Sinn, versteht sich."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Grafikdesign"
+  />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      {
+        blocks.map((b) => (
+          <article class="lp-block" data-reveal>
+            <h2>{b.title}</h2>
+            <div class="lp-text">
+              {b.text.map((p) => <p>{p}</p>)}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* Leistungen / Werbemittel */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Das gestalten wir für dich</span>
+        <h2>Von der Visitenkarte bis zur Signaletik</h2>
+      </header>
+      <ul class="leistungen" data-reveal>
+        {leistungen.map((l) => <li>{l}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  {/* Prozess */}
+  <section class="section section--yellow">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Unser Grafikdesign-Prozess</span>
+        <h2>Persönlich. Kreativ. Partnerschaftlich.</h2>
+      </header>
+      <ol class="steps">
+        {
+          steps.map((s, i) => (
+            <li class="step" data-reveal style={`--reveal-delay:${i * 80}ms`}>
+              <img class="step-icon" src={s.icon} alt="" width="48" height="48" />
+              <span class="step-no">{String(i + 1).padStart(2, "0")}</span>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Portfolio */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Referenzen</span>
+        <h2>Grafikdesign aus unserem Portfolio</h2>
+      </header>
+      <div class="portfolio">
+        {
+          portfolio.map((p) => (
+            <a href={`/projekte/${p.slug}`} class="ref-card" aria-label={p.title} data-reveal>
+              <img class="ref-img" src={p.image} alt={p.title} loading="lazy" />
+              <span class="ref-overlay">
+                <span class="ref-cat">{p.categories.join(" · ")}</span>
+                <span class="ref-title">{p.title}</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+      <div class="center-cta" data-reveal>
+        <Button href="/projekte" variant="blue">Alle Projekte ansehen</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deinen Auftritt?</h2>
+      <Button href="/kontakt" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .lp-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+  }
+  .lp-block {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: clamp(1rem, 3vw, 3rem);
+    align-items: start;
+  }
+  .lp-block h2 {
+    position: sticky;
+    top: 100px;
+  }
+  .lp-text p {
+    color: var(--color-blue);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .section-head { margin-bottom: clamp(2rem, 4vw, 3rem); }
+
+  .leistungen {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem 2rem;
+    max-width: 860px;
+  }
+  .leistungen li {
+    position: relative;
+    padding-left: 1.6rem;
+    color: var(--color-blue);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  .leistungen li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.7rem;
+    height: 0.7rem;
+    background: var(--color-yellow);
+  }
+
+  .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(1rem, 2vw, 1.75rem); }
+  .step { display: flex; flex-direction: column; align-items: flex-start; border-bottom: 3px solid var(--color-blue); padding-bottom: 1.25rem; }
+  .step-icon { width: 64px; height: 64px; margin-bottom: 0.9rem; }
+  .step-no { display: block; font-weight: 900; font-size: 1.6rem; color: var(--color-blue); margin-bottom: 0.5rem; }
+  .step h3 { font-size: 1.1rem; color: var(--color-blue); margin-bottom: 0.4rem; }
+  .step p { color: var(--color-blue); font-size: 0.95rem; line-height: 1.55; }
+
+  /* Portfolio-Kacheln – Hover wie auf der Startseite */
+  .portfolio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2vw, 1.75rem);
+  }
+  .ref-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #eef2f7;
+  }
+  .ref-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.85s var(--ease);
+  }
+  .ref-card:hover .ref-img,
+  .ref-card:focus-visible .ref-img {
+    transform: scale(1.05);
+  }
+  .ref-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 1.5rem;
+    text-align: center;
+    background: rgba(1, 64, 128, 0.82);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.5s var(--ease);
+  }
+  .ref-card:hover .ref-overlay,
+  .ref-card:focus-visible .ref-overlay {
+    opacity: 1;
+  }
+  .ref-cat {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.85;
+  }
+  .ref-title {
+    font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+  .center-cta {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    text-align: center;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: pointer; list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+
+  .lp-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 900px) {
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .portfolio { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+    .leistungen { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .steps { grid-template-columns: 1fr; }
+    .portfolio { grid-template-columns: 1fr; }
+  }
+</style>

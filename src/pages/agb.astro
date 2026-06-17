@@ -1,0 +1,102 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+
+const groups = [
+  {
+    title: "1. Vertragsbedingungen",
+    items: [
+      ["1.1 Zweck", "Die Allgemeinen Geschäftsbedingungen (AGB) dienen als Rechtsgrundlage für das Vertragsverhältnis zwischen Uftritt GmbH und dem Kunden bezüglich bestellter Produkte oder Dienstleistungen. Die AGB unterliegen Schweizer Recht mit dem Gesellschaftssitz der Uftritt GmbH als ausschliesslichem Gerichtsstand."],
+      ["1.2 Beginn", "Das Vertragsverhältnis entsteht durch Auftragsannahme oder Inbetriebnahme seitens Uftritt GmbH. Bestellungen können per E-Mail, Online-Formular, unterzeichnetem Dokument oder durch Leistungsbezug erfolgen. Das erste dieser Ereignisse gilt als Vertragsbeginn. Uftritt GmbH behält sich vor, Bestellungen ohne Angabe von Gründen abzulehnen."],
+      ["1.3 Dauer", "Der Kunde bestimmt die erste Vertragslaufzeit bei Bestellung. Nach Ablauf verlängert sich der Vertrag automatisch um die gleiche Laufzeit, sofern nicht mindestens 90 Tage (für Onlinemarketing 30 Tage) vor Ablauf gekündigt wird. Bei Anbieterwechsel werden alle damit verbundenen Dienste abgeschaltet. Mit Kündigung von Abonnementen verfallen Support- und Update-Leistungen."],
+      ["1.4 Bestandteile", "Neben den AGB sind auch die Nutzungskonditionen unter www.uftritt.ch Vertragsbestandteil. Optionen gelten als Erweiterung zu aktiven Verträgen und erlöschen mit diesen. Bei Inanspruchnahme von Drittleistungen (Domänen, Werbung, Druck, Hosting, E-Mail) gelten deren Richtlinien. Gebühren Dritter, die nicht in Uftritt-Angeboten enthalten sind, trägt allein der Kunde."],
+      ["1.5 Abweichungen", "Von den AGB abweichende oder diese ergänzende Vereinbarungen gelten nur bei beidseitig bestätigtem Dokument und beeinflussen nicht die restlichen Bestimmungen."],
+    ],
+  },
+  {
+    title: "2. Zahlungsbedingungen",
+    items: [
+      ["2.1 Preise", "Es gelten vertraglich vereinbarte Preise oder, falls nicht festgelegt, die unter www.uftritt.ch veröffentlichten Preise. Sekundär gilt ein Stundensatz von CHF 160.00. Alle Preise sind in Schweizer Franken exklusiv Mehrwertsteuer. Rabatte sind Skonti und nur bei pünktlicher Zahlung gültig. Abonnementspreise werden im Voraus fällig und generell jährlich abgerechnet (Onlinemarketing pro Quartal). Aufträge über CHF 2'000 werden zu 50 % im Voraus als Anzahlung in Rechnung gestellt."],
+      ["2.2 Spesen", "Fahrzeit ist Arbeitszeit und wird zum vereinbarten Stundensatz abgerechnet. Fahrzeugkosten: CHF 0.80/km. Persönliche Auslagen sind normalerweise in den Preisen inbegriffen. Spesen für Bewilligungen, Porto und Verpackung werden gesondert abgerechnet."],
+      ["2.3 Zahlungsfrist", "Bei bestehenden Kunden mit pünktlicher Zahlungshistorie: 30 Tage netto ab Rechnungsdatum. Alle anderen Kunden zahlen im Voraus."],
+      ["2.4 Verrechnung", "Zahlt der Kunde nicht fristgerecht, gerät er ohne Mahnung in Verzug. Verrechnungen durch den Kunden sind ausgeschlossen. Ohne Zahlung oder schriftliche, begründete Einwände bis zum Fälligkeitsdatum kann Uftritt GmbH Leistungen ohne Ankündigung unterbrechen und/oder den Vertrag frist- und entschädigungslos auflösen."],
+    ],
+  },
+  {
+    title: "3. Rechte und Pflichten von Uftritt GmbH",
+    items: [
+      ["3.1 Leistungen", "Uftritt GmbH erbringt Leistungen gemäss beanspruchtem Angebot und veröffentlichtem Produktbeschrieb und ist in Art und Umgebung der Leistungserbringung frei; sie kann Dritte beiziehen."],
+      ["3.2 Bildmaterial", "Bei fehlendem Bildmaterial kann Uftritt GmbH passendes Material von Dritten auf Kundenwunsch und zu dessen Lasten einkaufen. Das Material ist in der Regel auf den bestimmten Zweck und das Kundenunternehmen beschränkt (1 Lizenz); Weitergabe an Dritte ist untersagt."],
+      ["3.3 Belegexemplare & Referenzen", "Von Drucksachen behält Uftritt GmbH angemessene Musterexemplare (i.d.R. 5 Stück). Projektdaten dürfen als Referenz publiziert werden, ebenso Links auf Kundenwebseiten. Auf ausdrücklichen schriftlichen Kundenwunsch unterbleibt die Nennung."],
+      ["3.4 Urheberrecht", "Urheberrechte und verwandte Schutzrechte an von Uftritt GmbH geschaffenen Werken gehören grundsätzlich Uftritt GmbH."],
+      ["3.5 Eigentumsrecht", "Bis zur vollständigen Bezahlung bleiben alle Leistungen im Eigentum von Uftritt GmbH."],
+      ["3.6 Anpassungen", "Uftritt GmbH behält sich vor, AGB, Vertragsbestandteile oder Angebote an geänderte Gegebenheiten anzupassen. Solche Änderungen treten in der Regel sofort in Kraft (siehe Ziffer 4.9)."],
+      ["3.7 Leistungsunterbindung", "Bei Nichterfüllung von Kundenpflichten kann Uftritt GmbH Accounts, Server, Dienste oder Inhalte sperren oder entfernen. Bei schwerwiegenden oder wiederholten Verstössen behält sich Uftritt GmbH frist- und entschädigungslose Vertragsbeendigung und rechtliche Schritte vor."],
+      ["3.8 Mitteilungen", "Uftritt GmbH darf Mitteilungen per E-Mail senden (Produkterneuerungen, technische Arbeiten, Rechnungen, Zahlungserinnerungen, Bestätigungen)."],
+      ["3.9 Vorzeitige Vertragsauflösung", "Wünscht der Kunde eine vorzeitige Auflösung, kann Uftritt GmbH gegen Entschädigung zustimmen: bis Projektstart 50 %, im ersten Monat ab Start 75 %, danach 100 %."],
+    ],
+  },
+  {
+    title: "4. Rechte und Pflichten des Kunden",
+    items: [
+      ["4.1 Zusammenarbeit", "Der Kunde verpflichtet sich zu Mithilfe und Termineinhaltung. Aufträge bis CHF 10'000 haben eine maximale Projektdauer von 3 Monaten, Aufträge über CHF 10'000 von 6 Monaten; bei Überschreitung erfolgt Abrechnung plus 10 % Aufschlag pro Zusatzmonat."],
+      ["4.2 Rechte Dritter", "Der Kunde trägt die alleinige Verantwortung für die rechtliche Zulässigkeit von Domänennamen, Inhalten und gelieferten Daten (Texte, Bilder, Suchbegriffe) sowie für den Schutz von Drittrechten."],
+      ["4.3 Gut zum Druck", "Der Kunde prüft alle Kontrolldokumente und gibt sie mit Korrekturangaben zurück. Mit «Gut zum Druck» erklärt er sich mit der Umsetzung einverstanden."],
+      ["4.4 Mängelrüge", "Erbrachte Leistungen sind bei Empfang sofort zu prüfen. Geringfügige Abweichungen (Farbwiedergabe, Schnitt, Falz, Material) sind nicht beanstandbar. Beanstandungen müssen unverzüglich, spätestens innerhalb von 8 Tagen schriftlich erfolgen."],
+      ["4.5 Verspätungen", "Liefertermine sind grundsätzlich unverbindlich. Uftritt GmbH trägt keine Verantwortung für Verspätungen, insbesondere durch Dritte oder Kundenänderungen. Haftung entfällt bei höherer Gewalt."],
+      ["4.6 Suchmaschinenplatzierungen", "Uftritt GmbH garantiert keinen Erfolg von SEO-Massnahmen, da die Position von zahlreichen Faktoren ausserhalb des Einflusses abhängt."],
+      ["4.7 Browserkompatibilität", "Web-Leistungen basieren auf gängigen Technologien. Für Technologien mit unter 5 % Marktanteil in der Schweiz sowie veraltete Systeme wird keine Kompatibilität gewährleistet. Die Darstellung wird auf gängige Standardbreiten ausgerichtet."],
+      ["4.8 Server-Setup", "Domänen und Server werden mit Grundeinstellungen aufgesetzt; der Kunde erhält keinen direkten Zugang zur Serveradministration. Umzüge bestehender Hostings oder E-Mail-Konten müssen explizit gewünscht werden."],
+      ["4.9 Sonderkündigung", "Erleidet der Kunde durch eine Änderung gemäss Ziffer 3.6 einen wesentlichen Nachteil, kann er fristlos kündigen mit Anspruch auf anteilmässige Rückerstattung vorausbezahlter Kosten."],
+      ["4.10 Bezahlung", "Bei Zahlungsverzug: CHF 20.– Mahngebühr pro Mahnschreiben plus 15 % Verzugszins ab Rechnungsdatum. Mahnungen erfolgen im 10-Tage-Abstand. Wiederaufschaltung gesperrter Zugänge nach Zahlung zzgl. CHF 100.– Bearbeitungsgebühr."],
+      ["4.11 Zusatzarbeiten", "Arbeiten ausserhalb des Aufgabenbereichs können abgelehnt oder zum Stundensatz abgerechnet werden. Domaintransaktionen: Mindestgebühr CHF 20.– pro Transaktion."],
+      ["4.12 Erweiterte Nutzungsrechte und Rohdaten", "Der Kunde hat die vereinbarten Nutzungsrechte. Erweiterte Nutzungsrechte und zusätzliche Bildbearbeitungen kosten extra. Eine Rohdaten-Auslieferung ist nicht vorgesehen."],
+      ["4.13 Limiten", "Bei Produkten mit Limits (Traffic, Seitenzahl, E-Mail-Adressen) wird eine Überschreitung zum veröffentlichten Preis abgerechnet."],
+      ["4.14 Nutzung", "Das Nutzungsrecht ist nicht übertragbar und besteht nur für den Kunden, sein Unternehmen und seine Angestellten."],
+      ["4.15 Einschränkung", "Untersagt sind u.a. Adult- und Download-Sites, IRC-Dienste, Filesharing sowie rechtswidrige oder anstössige Inhalte und Programme, die Systemressourcen zum Nachteil anderer beeinträchtigen."],
+      ["4.16 Haftung", "Der Kunde haftet allein für Inhalte, Verlinkungen und Handlungen. Ausser bei Vorsatz und grober Fahrlässigkeit sowie gewährten Garantien verzichtet der Kunde auf Haftungsansprüche für Verspätungen, Unterbrechungen, Ausfälle oder Datenverluste. Haftung entfällt bei höherer Gewalt."],
+      ["4.17 Kontaktadressen", "Der Kunde verpflichtet sich zu korrekten, vollständigen Angaben und meldet wichtige Änderungen innerhalb von 10 Tagen. Bei falschen oder veralteten Daten darf Uftritt GmbH Leistungen einstellen oder den Vertrag kündigen (Mindestgebühr CHF 20.–)."],
+      ["4.18 Datenschutz", "Der Kunde wahrt die Vertraulichkeit von Website und Passwort und haftet für alle durch Weitergabe entstehenden Vorgänge."],
+    ],
+  },
+];
+---
+
+<Layout title="AGB – Uftritt" description="Allgemeine Geschäftsbedingungen der Uftritt GmbH.">
+  <PageHero eyebrow="Rechtliches" title="AGB" compact light />
+  <section class="section">
+    <div class="container legal">
+      {
+        groups.map((g) => (
+          <div class="agb-group">
+            <h2>{g.title}</h2>
+            {g.items.map(([t, d]) => (
+              <p><strong>{t}</strong> – {d}</p>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal {
+    max-width: 1040px;
+  }
+  .agb-group {
+    margin-bottom: 2rem;
+  }
+  .legal h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .agb-group:first-child h2 {
+    margin-top: 0;
+  }
+  .legal p {
+    color: var(--color-blue);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+</style>

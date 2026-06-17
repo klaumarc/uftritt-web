@@ -1,0 +1,163 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Button from "../../components/Button.astro";
+import { projects } from "../../data/projects";
+
+const bySlug = (slug: string) => projects.find((p) => p.slug === slug)!;
+const portfolio = ["sam-focus", "dt-baeretswil", "youngstars-broschuere"].map(bySlug);
+
+const blocks = [
+  {
+    title: "Redaktion & Konzept",
+    text: [
+      "Welche Themen bewegen deine Leserinnen und Leser? Gemeinsam entwickeln wir das inhaltliche Konzept, planen Rubriken und Ausgaben und sorgen dafür, dass jede Geschichte ihren Platz findet.",
+      "So entsteht ein roter Faden, der dein Magazin über alle Ausgaben hinweg trägt.",
+    ],
+  },
+  {
+    title: "Gestaltung & Layout",
+    text: [
+      "Ein durchdachtes Layout führt durch die Seiten und macht Lust aufs Weiterblättern. Wir gestalten ein Erscheinungsbild, das zu deiner Marke passt und wiedererkennbar bleibt.",
+      "Bild und Text spielen zusammen – ruhig, klar und mit dem nötigen Mut zur Wirkung.",
+    ],
+  },
+  {
+    title: "Produktion & Druck",
+    text: [
+      "Vom Reinzeichnen bis zur Druckabwicklung behalten wir Termine, Budget und Qualität im Blick.",
+      "Wir liefern dein Magazin termingerecht – gedruckt oder digital, ganz wie du es brauchst.",
+    ],
+  },
+];
+
+const steps = [
+  { icon: "/icons/zuhoeren-icon.svg", t: "Zuhören und verstehen", d: "Wir lernen dich, dein Publikum und deine Ziele kennen – und nehmen deine Themen auf." },
+  { icon: "/icons/analyse-icon.svg", t: "Konzept & Redaktionsplan", d: "Wir strukturieren Inhalte, Rubriken und Ausgaben in einem klaren Redaktionsplan." },
+  { icon: "/icons/brainstorm-icon.svg", t: "Gestaltung", d: "Wir entwickeln Layout und Bildsprache – ein Auftritt, der zu deiner Marke passt." },
+  { icon: "/icons/austauschen-icon.svg", t: "Feinschliff & Korrektorat", d: "Du gibst Feedback, wir feilen an Text und Gestaltung, bis alles sitzt." },
+  { icon: "/icons/abheben-icon.svg", t: "Produktion & Übergabe", d: "Wir bereiten alles für Druck oder digitale Ausgabe vor und begleiten dich bis zum Erscheinen." },
+];
+---
+
+<Layout title="Magazinbetreuung – Uftritt" description="Von der Redaktion über die Gestaltung bis zur Produktion – wir begleiten dein Magazin Ausgabe für Ausgabe.">
+  <PageHero
+    eyebrow="Angebot"
+    title="Magazinbetreuung"
+    lead="Ein Magazin ist mehr als bedrucktes Papier – es ist eine Bühne für deine Geschichten. Von der ersten Idee über die Redaktion bis zur fertigen Ausgabe begleiten wir dein Magazin Schritt für Schritt."
+  />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      {
+        blocks.map((b) => (
+          <article class="lp-block" data-reveal>
+            <h2>{b.title}</h2>
+            <div class="lp-text">{b.text.map((p) => <p>{p}</p>)}</div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* Prozess */}
+  <section class="section section--yellow">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Unser Magazin-Prozess</span>
+        <h2>Persönlich. Kreativ. Partnerschaftlich.</h2>
+      </header>
+      <ol class="steps">
+        {
+          steps.map((s, i) => (
+            <li class="step" data-reveal style={`--reveal-delay:${i * 80}ms`}>
+              <img class="step-icon" src={s.icon} alt="" width="48" height="48" />
+              <span class="step-no">{String(i + 1).padStart(2, "0")}</span>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  {/* Portfolio */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Referenzen</span>
+        <h2>Magazine & Editorials aus unserem Portfolio</h2>
+      </header>
+      <div class="portfolio">
+        {
+          portfolio.map((p) => (
+            <a href={`/projekte/${p.slug}`} class="ref-card" aria-label={p.title} data-reveal>
+              <img class="ref-img" src={p.image} alt={p.title} loading="lazy" />
+              <span class="ref-overlay">
+                <span class="ref-cat">{p.categories.join(" · ")}</span>
+                <span class="ref-title">{p.title}</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+      <div class="center-cta" data-reveal>
+        <Button href="/projekte" variant="blue">Alle Projekte ansehen</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deine nächste Ausgabe?</h2>
+      <Button href="/kontakt" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .section-head { margin-bottom: clamp(2rem, 4vw, 3rem); }
+
+  .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(1rem, 2vw, 1.75rem); }
+  .step { display: flex; flex-direction: column; align-items: flex-start; border-bottom: 3px solid var(--color-blue); padding-bottom: 1.25rem; }
+  .step-icon { width: 64px; height: 64px; margin-bottom: 0.9rem; }
+  .step-no { display: block; font-weight: 900; font-size: 1.6rem; color: var(--color-blue); margin-bottom: 0.5rem; }
+  .step h3 { font-size: 1.1rem; color: var(--color-blue); margin-bottom: 0.4rem; }
+  .step p { color: var(--color-blue); font-size: 0.95rem; line-height: 1.55; }
+
+  .portfolio { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.75rem); }
+  .ref-card { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: #eef2f7; }
+  .ref-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.85s var(--ease); }
+  .ref-card:hover .ref-img, .ref-card:focus-visible .ref-img { transform: scale(1.05); }
+  .ref-overlay {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.35rem; padding: 1.5rem;
+    text-align: center; background: rgba(1, 64, 128, 0.82); color: #fff;
+    opacity: 0; transition: opacity 0.5s var(--ease);
+  }
+  .ref-card:hover .ref-overlay, .ref-card:focus-visible .ref-overlay { opacity: 1; }
+  .ref-cat { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.85; }
+  .ref-title { font-size: clamp(1.1rem, 1.8vw, 1.5rem); font-weight: 700; line-height: 1.15; }
+  .center-cta { margin-top: clamp(2.5rem, 5vw, 3.5rem); text-align: center; }
+
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+
+  @media (max-width: 900px) {
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .portfolio { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .steps { grid-template-columns: 1fr; }
+    .portfolio { grid-template-columns: 1fr; }
+  }
+</style>

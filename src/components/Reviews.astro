@@ -1,0 +1,191 @@
+---
+import { reviews, reviewsMeta } from "../data/reviews";
+---
+
+<div class="reviews" data-reveal>
+  <span class="eyebrow">Kundenstimmen</span>
+
+  <div class="reviews-viewport">
+    <div class="reviews-track">
+      {
+        reviews.map((r, i) => (
+          <blockquote class:list={["review-slide", { "is-active": i === 0 }]} data-slide={i}>
+            <p class="review-text">{r.text}</p>
+            <footer class="review-author">
+              <span class="ra-name">{r.author}</span>
+              {r.role && <span class="ra-role">{r.role}</span>}
+            </footer>
+          </blockquote>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="reviews-controls">
+    <button class="rev-btn" type="button" data-rev-prev aria-label="Vorherige Stimme">
+      <span class="rev-arrow rev-arrow--left"></span>
+    </button>
+    <div class="reviews-dots" role="tablist">
+      {reviews.map((_, i) => (
+        <button class:list={["rev-dot", { "is-active": i === 0 }]} type="button" data-dot={i} aria-label={`Stimme ${i + 1}`}></button>
+      ))}
+    </div>
+    <button class="rev-btn" type="button" data-rev-next aria-label="Nächste Stimme">
+      <span class="rev-arrow"></span>
+    </button>
+  </div>
+
+</div>
+
+<style>
+  .reviews {
+    max-width: 880px;
+    margin-inline: auto;
+    text-align: center;
+  }
+  .reviews .eyebrow {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .reviews-viewport {
+    position: relative;
+  }
+  .reviews-track {
+    display: grid;
+  }
+  .review-slide {
+    grid-area: 1 / 1;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease),
+      visibility 0.6s;
+  }
+  .review-slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .review-text {
+    font-size: clamp(1.1rem, 1.9vw, 1.45rem);
+    line-height: 1.5;
+    font-weight: 500;
+    color: var(--color-blue);
+    margin: 0 0 1.1rem;
+  }
+  .review-author {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .ra-name {
+    font-weight: 700;
+    color: var(--color-blue);
+  }
+  .ra-role {
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  .reviews-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.1rem;
+    margin-top: 1.5rem;
+  }
+  .rev-btn {
+    display: grid;
+    place-items: center;
+    padding: 0.35rem;
+    border: none;
+    background: transparent;
+    color: var(--color-blue);
+    cursor: pointer;
+    transition: color 0.4s var(--ease), opacity 0.4s var(--ease);
+  }
+  .rev-btn:hover {
+    opacity: 0.5;
+  }
+  /* Marken-Pfeil als Maske (wie bei den Buttons) */
+  .rev-arrow {
+    width: 20px;
+    height: 14px;
+    background-color: currentColor;
+    -webkit-mask: url("/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    mask: url("/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+  }
+  .rev-arrow--left {
+    transform: rotate(180deg);
+  }
+  .reviews-dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .rev-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: rgba(1, 64, 128, 0.22);
+    cursor: pointer;
+    transition: background 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .rev-dot.is-active {
+    background: var(--color-blue);
+    transform: scale(1.25);
+  }
+  .reviews-note {
+    margin-top: 1.75rem;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .review-slide {
+      transition: opacity 0.2s;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>(".reviews");
+  if (root) {
+    const slides = Array.from(root.querySelectorAll<HTMLElement>(".review-slide"));
+    const dots = Array.from(root.querySelectorAll<HTMLElement>(".rev-dot"));
+    const prev = root.querySelector<HTMLButtonElement>("[data-rev-prev]");
+    const next = root.querySelector<HTMLButtonElement>("[data-rev-next]");
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let i = 0;
+    let timer: any = null;
+
+    function show(n: number) {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, idx) => s.classList.toggle("is-active", idx === i));
+      dots.forEach((d, idx) => d.classList.toggle("is-active", idx === i));
+    }
+    function nextSlide() {
+      show(i + 1);
+    }
+    function start() {
+      if (prefersReduced || slides.length < 2) return;
+      stop();
+      timer = setInterval(nextSlide, 7000);
+    }
+    function stop() {
+      if (timer) clearInterval(timer);
+    }
+
+    prev?.addEventListener("click", () => { show(i - 1); start(); });
+    next?.addEventListener("click", () => { show(i + 1); start(); });
+    dots.forEach((d, idx) => d.addEventListener("click", () => { show(idx); start(); }));
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("mouseleave", start);
+
+    start();
+  }
+</script>

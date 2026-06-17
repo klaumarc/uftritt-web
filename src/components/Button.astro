@@ -1,0 +1,108 @@
+---
+interface Props {
+  href: string;
+  variant?: "blue" | "yellow" | "text";
+  class?: string;
+  target?: string;
+  rel?: string;
+}
+const {
+  href,
+  variant = "blue",
+  class: className,
+  target,
+  rel,
+} = Astro.props;
+---
+
+<a
+  href={href}
+  class:list={["btn", `btn--${variant}`, className]}
+  target={target}
+  rel={rel}
+>
+  <span class="btn-arrow" aria-hidden="true"><i></i></span>
+  <span class="btn-label"><slot /></span>
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    line-height: 1;
+    padding: 1rem 1.7rem;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 0.4s var(--ease), color 0.4s var(--ease);
+  }
+
+  /* Marken-Pfeil links – gleitet bei Hover rein, beim Verlassen links raus + faded (wie im Menü) */
+  .btn-arrow {
+    display: inline-block;
+    max-width: 0;
+    margin-right: 0;
+    overflow: visible;
+    transition: max-width 0.6s var(--ease), margin-right 0.6s var(--ease);
+  }
+  .btn-arrow i {
+    display: block;
+    width: 1.1em;
+    height: 0.85em;
+    background-color: var(--arrow-color);
+    -webkit-mask: url("/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    mask: url("/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+  }
+  .btn:hover .btn-arrow,
+  .btn:focus-visible .btn-arrow {
+    max-width: 1.1em;
+    margin-right: 0.55rem;
+  }
+  .btn:hover .btn-arrow i,
+  .btn:focus-visible .btn-arrow i {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Varianten */
+  .btn--blue {
+    background: var(--color-blue);
+    color: var(--color-white);
+    --arrow-color: var(--color-white);
+  }
+  .btn--blue:hover {
+    background: var(--color-blue-dark);
+  }
+  .btn--yellow {
+    background: var(--color-yellow);
+    color: var(--color-blue);
+    --arrow-color: var(--color-blue);
+  }
+  .btn--yellow:hover {
+    background: #f6c01f;
+  }
+  .btn--text {
+    padding-inline: 0;
+    background: transparent;
+    color: var(--color-blue);
+    --arrow-color: var(--color-blue);
+  }
+
+  :global(.section--blue) .btn--text {
+    color: var(--color-white);
+    --arrow-color: var(--color-white);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn,
+    .btn-arrow,
+    .btn-arrow i {
+      transition: none;
+    }
+  }
+</style>

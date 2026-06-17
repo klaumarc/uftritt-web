@@ -1,0 +1,180 @@
+---
+const videos = [
+  {
+    id: "3au1Y3vXeKs",
+    thumb: "/videos/video-flasche.jpg",
+    title: "Imagefilm",
+  },
+  {
+    id: "fRXqD4blbJI",
+    thumb: "/videos/video-backerin.jpg",
+    title: "Produktfilm",
+  },
+];
+---
+
+<div class="videos">
+  <header class="section-head" data-reveal>
+    <span class="eyebrow">Bewegte Bilder</span>
+    <h2>Geschichten, die in Erinnerung bleiben</h2>
+  </header>
+
+  <ul class="video-grid">
+    {
+      videos.map((v, i) => (
+        <li data-reveal style={`--reveal-delay:${i * 90}ms`}>
+          <button class="video-thumb" type="button" data-video-id={v.id} aria-label={`Video abspielen: ${v.title}`}>
+            <img src={v.thumb} alt={v.title} loading="lazy" />
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<div class="video-lightbox" id="video-lightbox" role="dialog" aria-modal="true" aria-label="Video" hidden>
+  <div class="video-lightbox-backdrop" data-video-close></div>
+  <div class="video-lightbox-frame">
+    <button class="video-lightbox-close" type="button" aria-label="Schliessen" data-video-close>
+      <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+        <path d="M7 7l18 18M25 7L7 25" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" />
+      </svg>
+    </button>
+    <div class="video-embed" id="video-embed"></div>
+  </div>
+</div>
+
+<style>
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1rem, 2.5vw, 2rem);
+  }
+  .video-thumb {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .video-thumb img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    transition: transform 0.7s var(--ease);
+  }
+  .video-thumb:hover img {
+    transform: scale(1.04);
+  }
+
+  /* ---------- Lightbox ---------- */
+  .video-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 210;
+    display: grid;
+    place-items: center;
+    padding: clamp(1rem, 4vw, 3rem);
+  }
+  .video-lightbox[hidden] {
+    display: none;
+  }
+  .video-lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(1, 32, 64, 0.7);
+    opacity: 0;
+    transition: opacity 0.45s var(--ease);
+  }
+  .video-lightbox.is-open .video-lightbox-backdrop {
+    opacity: 1;
+  }
+  .video-lightbox-frame {
+    position: relative;
+    z-index: 1;
+    width: min(1040px, 100%);
+    transform: scale(0.97);
+    opacity: 0;
+    transition: transform 0.5s var(--ease), opacity 0.5s var(--ease);
+  }
+  .video-lightbox.is-open .video-lightbox-frame {
+    transform: none;
+    opacity: 1;
+  }
+  .video-lightbox-close {
+    position: absolute;
+    top: -2.75rem;
+    right: 0;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 0.4rem;
+    transition: transform 0.4s var(--ease);
+  }
+  .video-lightbox-close:hover {
+    transform: rotate(90deg);
+  }
+  .video-embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  .video-embed :global(iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  @media (max-width: 640px) {
+    .video-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .video-lightbox-backdrop,
+    .video-lightbox-frame {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const lb = document.querySelector<HTMLElement>("#video-lightbox");
+  const embed = document.querySelector<HTMLElement>("#video-embed");
+
+  function open(id: string) {
+    if (!lb || !embed) return;
+    embed.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="Video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+    lb.hidden = false;
+    void lb.offsetWidth;
+    lb.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+    lb.querySelector<HTMLButtonElement>(".video-lightbox-close")?.focus();
+  }
+  function close() {
+    if (!lb || !embed) return;
+    lb.classList.remove("is-open");
+    document.body.style.overflow = "";
+    const onEnd = () => {
+      lb.hidden = true;
+      embed.innerHTML = ""; // Video stoppen
+      lb.removeEventListener("transitionend", onEnd);
+    };
+    lb.addEventListener("transitionend", onEnd);
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-video-id]").forEach((btn) =>
+    btn.addEventListener("click", () => open(btn.dataset.videoId || ""))
+  );
+  document.querySelectorAll<HTMLElement>("[data-video-close]").forEach((el) =>
+    el.addEventListener("click", close)
+  );
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && lb && !lb.hidden) close();
+  });
+</script>

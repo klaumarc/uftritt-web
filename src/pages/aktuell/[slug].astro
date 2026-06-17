@@ -1,0 +1,87 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Button from "../../components/Button.astro";
+import { news } from "../../data/news";
+
+export function getStaticPaths() {
+  return news.map((n) => ({ params: { slug: n.slug }, props: { item: n } }));
+}
+
+const { item } = Astro.props;
+---
+
+<Layout title={`${item.title} – Uftritt`} description={item.excerpt}>
+  <article class="news-detail">
+    <div class="container">
+      <a href="/aktuell" class="nd-back">← Alle News</a>
+
+      <div class="nd-grid">
+        <div class="nd-media" data-reveal>
+          <img src={item.image} alt={item.title} loading="lazy" />
+        </div>
+        <div class="nd-content" data-reveal>
+          <span class="nd-meta">{item.category} · {item.date}</span>
+          <h1>{item.title}</h1>
+          <div class="nd-text">
+            {item.body.map((p) => <p>{p}</p>)}
+          </div>
+          <Button href="/kontakt" variant="blue">Schriib eus</Button>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .news-detail {
+    padding-block: clamp(2rem, 5vw, 4rem) clamp(3rem, 7vw, 6rem);
+  }
+  .nd-back {
+    display: inline-block;
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 600;
+    color: var(--color-blue);
+  }
+  .nd-back:hover {
+    color: var(--color-pink);
+  }
+  .nd-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+  .nd-media img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .nd-meta {
+    display: block;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.85rem;
+    color: var(--color-blue);
+    margin-bottom: 0.5rem;
+  }
+  .nd-content h1 {
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    margin-bottom: 1rem;
+  }
+  .nd-text {
+    margin-bottom: 1.75rem;
+  }
+  .nd-text p {
+    color: var(--color-blue);
+    font-size: 1.15rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 760px) {
+    .nd-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

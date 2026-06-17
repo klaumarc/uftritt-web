@@ -1,0 +1,52 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+---
+
+<Layout title="Impressum – Uftritt" description="Impressum der Uftritt GmbH.">
+  <PageHero eyebrow="Rechtliches" title="Impressum" compact light />
+  <section class="section">
+    <div class="container legal">
+      <h2>Kontaktadresse</h2>
+      <p>
+        <strong>Uftritt GmbH</strong><br />
+        Frauwisstrasse 9<br />
+        8493 Saland<br />
+        Schweiz<br />
+        <a href="mailto:info@uftritt.ch">info@uftritt.ch</a>
+      </p>
+
+      <h2>Haftungsausschluss</h2>
+      <p>Der Autor übernimmt keinerlei Gewähr hinsichtlich der inhaltlichen Richtigkeit, Genauigkeit, Aktualität, Zuverlässigkeit und Vollständigkeit der Informationen.</p>
+      <p>Haftungsansprüche gegen den Autor wegen Schäden materieller oder immaterieller Art, welche aus dem Zugriff oder der Nutzung bzw. Nichtnutzung der veröffentlichten Informationen, durch Missbrauch der Verbindung oder durch technische Störungen entstanden sind, werden ausgeschlossen.</p>
+      <p>Alle Angebote sind unverbindlich. Der Autor behält es sich ausdrücklich vor, Teile der Seiten oder das gesamte Angebot ohne gesonderte Ankündigung zu verändern, zu ergänzen, zu löschen oder die Veröffentlichung zeitweise oder endgültig einzustellen.</p>
+
+      <h2>Haftung für Links</h2>
+      <p>Verweise und Links auf Webseiten Dritter liegen ausserhalb unseres Verantwortungsbereichs. Es wird jegliche Verantwortung für solche Webseiten abgelehnt.</p>
+
+      <h2>Urheberrechte</h2>
+      <p>Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen Dateien auf der Website gehören ausschliesslich der Uftritt GmbH oder den speziell genannten Rechtsinhabern.</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .legal {
+    max-width: 1040px;
+  }
+  .legal h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .legal h2:first-child {
+    margin-top: 0;
+  }
+  .legal p {
+    color: var(--color-blue);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+  .legal a:hover {
+    color: var(--color-pink);
+  }
+</style>

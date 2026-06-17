@@ -1,0 +1,432 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+import Lottie from "../components/Lottie.astro";
+import TeamGrid from "../components/TeamGrid.astro";
+import Reviews from "../components/Reviews.astro";
+import VideoSection from "../components/VideoSection.astro";
+import Clients from "../components/Clients.astro";
+import News from "../components/News.astro";
+import { projects } from "../data/projects";
+
+const services = [
+  {
+    lottie: "/lottie/grafikdesign.json",
+    title: "Grafikdesign",
+    subtitle: "Corporate Design, Editorial Design, durchdacht",
+    text: "Ob ein komplettes visuelles Branding oder eine durchdachte Broschüre – zusammen verleihen wir deiner Kommunikation ein passgenaues Kleid, das deine Stärken mühelos wiedergibt und Aufsehen erregt.",
+    href: "/angebot/grafikdesign",
+  },
+  {
+    lottie: "/lottie/webdesign.json",
+    title: "Webdesign & Entwicklung",
+    subtitle: "UI Design, Erlebnis, nutzerzentriert",
+    text: "Die Website repräsentiert dein Business im Internet. Gemeinsam entwickeln wir die Webpräsenz, die deiner Arbeit gerecht wird, die Bedürfnisse deiner Kundschaft berücksichtigt und zum Verweilen einlädt.",
+    href: "/angebot/webdesign",
+  },
+  {
+    lottie: "/lottie/videoproduktion.json",
+    title: "Videoproduktion",
+    subtitle: "Storytelling, Emotionen, beeindruckend",
+    text: "Gut erzählte Geschichten rufen Emotionen hervor. Mit der videografischen Umsetzung werden Botschaften lebendig und hinterlassen einen bleibenden Eindruck – mit kreativen Ideen und den richtigen Instrumenten.",
+    href: "/angebot/videoproduktion",
+  },
+];
+
+const disciplines = [
+  { label: "Corporate Design", href: "/angebot/grafikdesign" },
+  { label: "Applikationsentwicklung", href: "/angebot/applikationsentwicklung" },
+  { label: "Marketingbegleitung", href: "/angebot/marketingbegleitung" },
+  { label: "Magazinbetreuung", href: "/angebot/magazinbetreuung" },
+];
+
+---
+
+<Layout>
+  {/* ---------- HERO ---------- */}
+  <section class="hero section--yellow">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <h1 data-reveal>Lass uns deine<br />Geschichte&nbsp;erzählen</h1>
+        <p class="hero-lead" data-reveal style="--reveal-delay:120ms">
+          Als Agentur für Kommunikation entwickeln wir zusammen mit dir
+          Strategien und visuelle Konzepte, die deine DNA spürbar machen und
+          dein Projekt auf eine neue Ebene bringen. Weil dein Auftritt Eindruck
+          machen soll.
+        </p>
+        <div class="hero-actions" data-reveal style="--reveal-delay:240ms">
+          <Button href="/agentur" variant="blue">Lern eus känne</Button>
+          <Button href="/projekte" variant="text">Projekte ansehen</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- ANGEBOTE ---------- */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Unser Angebot</span>
+        <h2>Alles aus einer Hand</h2>
+      </header>
+      <div class="services">
+        {
+          services.map((s, i) => (
+            <article class="service-card" data-reveal style={`--reveal-delay:${i * 100}ms`}>
+              <div class="service-icon">
+                <Lottie src={s.lottie} group="services" loop={false} autoplay={false} ariaLabel={s.title} />
+              </div>
+              <h3>{s.title}</h3>
+              <p class="service-sub">{s.subtitle}</p>
+              <p>{s.text}</p>
+              <Button href={s.href} variant="text" class="service-btn">Meh Infos bitte</Button>
+            </article>
+          ))
+        }
+      </div>
+
+      <p class="disciplines-intro" data-reveal>Und noch einiges mehr:</p>
+      <ul class="disciplines" data-reveal>
+        {disciplines.map((d) => (
+          <li>
+            <a href={d.href}>{d.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {/* ---------- AGENTUR / TEAM ---------- */}
+  <section class="section section--yellow">
+    <div class="container team-intro" data-reveal>
+      <div>
+        <span class="eyebrow">Das sind wir</span>
+        <h2>Ein motiviertes Team aus kreativen Köpfen voller Ideen für dein Projekt – das ist Uftritt.</h2>
+      </div>
+      <Button href="/agentur" variant="blue">Lern eus känne</Button>
+    </div>
+
+    <div class="container team-wrap">
+      <TeamGrid />
+    </div>
+  </section>
+
+  {/* ---------- REFERENZEN ---------- */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Ein erster Eindruck</span>
+        <h2>Schau mal hier</h2>
+        <p class="lead-max">
+          Wir durften bereits einiges mit unseren Partnern entwickeln und
+          realisieren. Eine Auswahl:
+        </p>
+      </header>
+
+      <div class="project-grid" id="project-grid">
+        {
+          projects.map((p) => (
+            <a href={`/projekte/${p.slug}`} class="project-card" aria-label={p.title}>
+              <img class="project-img" src={p.image} alt={p.title} loading="lazy" />
+              <span class="project-overlay">
+                <span class="project-cat">{p.categories.join(" · ")}</span>
+                <span class="project-title">{p.title}</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="center-cta" data-reveal>
+        <Button href="/projekte" variant="blue">Alle Projekte ansehen</Button>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- VIDEOS ---------- */}
+  <section class="section">
+    <div class="container">
+      <VideoSection />
+    </div>
+  </section>
+
+  {/* ---------- BEWERTUNGEN ---------- */}
+  <section class="section section--soft">
+    <div class="container">
+      <Reviews />
+    </div>
+  </section>
+
+  {/* ---------- AKTUELL ---------- */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Aktuell</span>
+        <h2>News &amp; Einblicke</h2>
+      </header>
+      <div data-reveal>
+        <News limit={3} showFilter={false} />
+      </div>
+      <div class="center-cta" data-reveal>
+        <Button href="/aktuell" variant="blue">Alle News ansehen</Button>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- KUNDEN ---------- */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Unsere Kunden</span>
+        <h2>Gemeinsam mit ganz unterschiedlichen Unternehmen</h2>
+        <p class="lead-max">
+          Vom Start-up bis zum etablierten KMU – ein Auftritt, der mit dir wächst.
+        </p>
+      </header>
+      <div data-reveal>
+        <Clients />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Portfolio: bei jedem Laden 3 zufällige Projekte zeigen
+  const grid = document.getElementById("project-grid");
+  if (grid) {
+    const cards = Array.from(grid.children) as HTMLElement[];
+    const SHOW = 3;
+    for (let i = cards.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [cards[i], cards[j]] = [cards[j], cards[i]];
+    }
+    cards.forEach((c) => (c.style.display = "none"));
+    cards.slice(0, SHOW).forEach((c) => {
+      c.style.display = "block";
+      grid.appendChild(c);
+    });
+  }
+</script>
+
+<style>
+  /* ---------- HERO (bildschirmfüllend, vertikal zentriert) ---------- */
+  .hero {
+    min-height: calc(100svh - 76px); /* volle Höhe minus Header */
+    display: flex;
+    flex-direction: column;
+    padding-block: clamp(2rem, 4vw, 3.5rem);
+    overflow: hidden;
+  }
+  .hero-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* vertikal zentriert */
+  }
+  .hero-text {
+    max-width: min(960px, 100%);
+  }
+  .hero-lead {
+    font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+    color: var(--color-blue);
+    max-width: 660px;
+    margin-block: clamp(1.75rem, 3vw, 2.5rem) clamp(2rem, 3.5vw, 3rem);
+  }
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  /* ---------- Section heads ---------- */
+  .section-head {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .section-head h2 {
+    max-width: 18ch;
+  }
+
+  /* ---------- Services ---------- */
+  .services {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: clamp(1.5rem, 2.5vw, 2rem);
+    border-radius: var(--radius);
+    background: var(--color-white);
+    border: 1px solid #e7ecf3;
+    transition: transform 0.45s var(--ease), border-color 0.45s var(--ease);
+  }
+  .service-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--color-blue);
+  }
+  .service-icon {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 0.75rem;
+  }
+  .service-sub {
+    font-weight: 600;
+    color: var(--color-blue);
+    margin-bottom: 0.5rem;
+  }
+  .service-btn {
+    margin-top: auto;
+    padding-top: 0.75rem;
+  }
+
+  /* Disziplinen-Spektrum (mehr als nur die 3 Säulen) */
+  .disciplines-intro {
+    margin: clamp(2.5rem, 5vw, 4rem) 0 1rem;
+    text-align: center;
+    font-weight: 700;
+    color: var(--color-blue);
+  }
+  .disciplines {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .disciplines li {
+    border: 2px solid rgba(1, 64, 128, 0.2);
+    padding: 0.5rem 1.1rem;
+    font-weight: 600;
+    color: var(--color-blue);
+    transition: background 0.4s var(--ease), color 0.4s var(--ease),
+      border-color 0.4s var(--ease);
+  }
+  .disciplines li:hover {
+    background: var(--color-blue);
+    border-color: var(--color-blue);
+    color: #fff;
+  }
+  /* ganze Chip-Fläche klickbar, Farbe erbt vom li (inkl. Hover-Weiss) */
+  .disciplines li a {
+    display: block;
+    color: inherit;
+    margin: -0.5rem -1.1rem;
+    padding: 0.5rem 1.1rem;
+  }
+
+  /* ---------- Team intro ---------- */
+  .team-intro {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  .team-intro h2 {
+    max-width: 18ch;
+  }
+  .team-intro .lead-max {
+    color: var(--color-blue);
+  }
+  .team-wrap {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  /* ---------- Projects (nur Bild, Text erscheint bei Hover) ---------- */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2vw, 1.75rem);
+  }
+  /* ohne JS / vor JS: nur die ersten 3 zeigen (kein Aufblitzen aller Projekte) */
+  .project-grid .project-card:nth-child(n + 4) {
+    display: none;
+  }
+  .project-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+  .project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.85s var(--ease);
+  }
+  .project-card:hover .project-img {
+    transform: scale(1.05);
+  }
+  .project-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 1.5rem;
+    text-align: center;
+    background: rgba(1, 64, 128, 0.82);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.5s var(--ease);
+  }
+  .project-card:hover .project-overlay,
+  .project-card:focus-visible .project-overlay {
+    opacity: 1;
+  }
+  .project-cat {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.85;
+  }
+  .project-title {
+    font-size: clamp(1.25rem, 2vw, 1.7rem);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .center-cta {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    text-align: center;
+  }
+
+  /* ---------- Testimonial ---------- */
+  .testimonial {
+    max-width: 880px;
+    text-align: center;
+  }
+  .testimonial blockquote {
+    margin: 1rem 0 0.75rem;
+    font-size: clamp(1.4rem, 3vw, 2.1rem);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--color-blue);
+  }
+  .testimonial cite {
+    color: var(--color-muted);
+    font-style: normal;
+  }
+
+  /* ---------- shared ---------- */
+  .lead-max {
+    max-width: 640px;
+    font-size: 1.1rem;
+    margin-block: 1rem 1.75rem;
+  }
+
+  @media (max-width: 860px) {
+    .services,
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
+    .team-intro {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

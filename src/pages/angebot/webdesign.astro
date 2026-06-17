@@ -1,0 +1,280 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Button from "../../components/Button.astro";
+import { projects } from "../../data/projects";
+
+const portfolio = projects
+  .filter((p) => p.categories.includes("Webdesign"))
+  .slice(0, 6);
+
+const blocks = [
+  {
+    title: "UI- und UX-Design",
+    text: [
+      "Die Besuchenden deiner Website möchten sich schnell zurechtfinden und ein gutes Gefühl dabei haben. Das Design des User Interfaces beeinflusst massgeblich, wie deine Kundinnen und Kunden durch die Website geleitet werden und auf ihr bleiben.",
+      "Buttons, das Layout von Bild, Text und Flächen sowie gezielte Animationen müssen wohlüberlegt umgesetzt werden. Das durchdachte Konzept der User Experience – Funktion und Bedienbarkeit – ist entscheidend für ein positives Erlebnis.",
+    ],
+  },
+  {
+    title: "Prototyping",
+    text: [
+      "Aufgrund der Analyse deiner Bedürfnisse und denjenigen deiner Zielgruppe entwickeln wir vor der Umsetzung einen klickbaren Prototyp deiner Website. Das Design wird dabei nahezu eins zu eins aufgebaut.",
+      "Der Vorteil: hohe Flexibilität und die einfache Möglichkeit, Design und Nutzerführung zu testen und unkompliziert anzupassen, bevor die finale Website programmiert wird.",
+    ],
+  },
+  {
+    title: "Suchmaschinenoptimierung",
+    text: [
+      "SEO beginnt bereits bei der Planung: die richtige Auswahl und Platzierung von Keywords, eine klare Seitenstruktur und aussagekräftige Meta-Texte sind die Basis, damit Suchmaschinen deine Seite verstehen.",
+      "Doch SEO geht weiter: Ladezeit, mobile Darstellung und technische Qualität spielen eine entscheidende Rolle. Genauso wichtig ist, was ausserhalb passiert – mit hochwertigen Backlinks, einem gepflegten Google-Business-Profil und positiven Bewertungen stärkst du deine Sichtbarkeit.",
+    ],
+  },
+];
+
+const tools = [
+  { name: "Webflow", text: "Als offiziell zertifizierte Webflow-Partner bieten wir geprüfte Qualität und höchste Kompetenz – bei Design, CMS und komplexen Datenbankstrukturen." },
+  { name: "WordPress", text: "Über ein Jahrzehnt Erfahrung: die unkomplizierteste und günstigste Lösung im Unterhalt. Inhalte pflegst du einfach selbst, Updates sind schnell erledigt." },
+  { name: "Weblink", text: "Als offizieller Weblink-Partner setzen wir besonders barrierearme Webseiten um – rechtlich sicher und für alle Nutzer:innen optimal." },
+];
+
+const faq = [
+  { q: "Ist meine Website auf allen Geräten ein gutes Erlebnis?", a: "Ja, deine Seite wird für Smartphone, Tablet und Desktop angepasst und das Nutzererlebnis für alle Formfaktoren optimiert." },
+  { q: "Kann ich meine Seite selbst pflegen?", a: "Klar! Wir zeigen dir, wie du Inhalte selbst änderst – oder übernehmen das für dich." },
+  { q: "Kann man die Webseite später weiter ausbauen?", a: "Absolut! Deine Website ist kein starres Konstrukt, sondern wächst mit deinen Zielen – egal, ob du mit einem Onepager startest oder gleich grösser einsteigst." },
+  { q: "Wie individuell wird mein Webauftritt?", a: "Keine Templates von der Stange – wir entwickeln Websites, die zu dir passen. Darum erstellen wir vor der technischen Umsetzung Prototypen." },
+  { q: "Wie lange dauert das Projekt?", a: "Je nach Umfang 4–12 Wochen. Wir halten dich immer auf dem Laufenden." },
+  { q: "Was ist, wenn ich spezielle Funktionen brauche?", a: "Online-Shop, Übersetzungen, Mitgliederbereich, Newsletter, Eventkalender? Kein Problem – wir beraten ehrlich, was Sinn macht." },
+  { q: "Wie läuft das mit Logo, Text, Fotos und Video?", a: "Bei uns bekommst du alles aus einer Hand – Grafikdesign, Texterstellung, Fotoshooting und Videoproduktion. Ohne Schnittstellenchaos." },
+];
+
+const steps = [
+  { icon: "/icons/zuhoeren-icon.svg", t: "Zuhören & Verstehen", d: "Was macht dein Unternehmen besonders? Welche Ziele verfolgst du? Daraus entsteht ein massgeschneidertes Konzept." },
+  { icon: "/icons/analyse-icon.svg", t: "Alles aus einer Hand", d: "Logo, Text, Fotoshooting, Headervideo – nahtlos aufeinander abgestimmt." },
+  { icon: "/icons/brainstorm-icon.svg", t: "Prototyp & Screendesign", d: "Ein klickbarer Prototyp, der sich schon anfühlt wie deine künftige Website." },
+  { icon: "/icons/austauschen-icon.svg", t: "Umsetzung", d: "Ob Webflow, WordPress oder individuelle Lösung – technisch solide und auf Wachstum ausgelegt." },
+  { icon: "/icons/abheben-icon.svg", t: "Support", d: "Wir begleiten dich bis zur Liveschaltung – und darüber hinaus: Wartung, Updates, Content-Pflege, SEO." },
+];
+---
+
+<Layout title="Webdesign & Entwicklung – Uftritt" description="Webdesign & Entwicklung aus dem Zürcher Oberland: UI/UX, Prototyping, SEO. Webflow- und Weblink-Partner. Onepager ab CHF 3'500.–">
+  <PageHero
+    eyebrow="Angebot"
+    title={"Webdesign & Entwicklung"}
+    lead="Die Website repräsentiert dein Business im Internet. Gemeinsam entwickeln wir den Web-Auftritt, der deiner Arbeit gerecht wird und zum Verweilen einlädt – vom einfachen Onepager über komplexe Websites bis zur spezifischen Landingpage."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      {
+        blocks.map((b) => (
+          <article class="lp-block" data-reveal>
+            <h2>{b.title}</h2>
+            <div class="lp-text">{b.text.map((p) => <p>{p}</p>)}</div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* Tools */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Unsere Tools</span>
+        <h2>Echtes Know-how statt Baukasten</h2>
+      </header>
+      <div class="tools">
+        {
+          tools.map((t) => (
+            <article class="tool" data-reveal>
+              <h3>{t.name}</h3>
+              <p>{t.text}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="tools-note" data-reveal>
+        Ausserdem kennen wir Baukastensysteme wie Jimdo, Joomla oder Wix – und
+        für Onlineshops arbeiten wir mit Shopify oder WooCommerce.
+      </p>
+    </div>
+  </section>
+
+  {/* Preise */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Preise</span>
+        <h2>Transparent, ohne versteckte Gebühren</h2>
+      </header>
+      <div class="prices" data-reveal>
+        <div class="price">
+          <span class="price-label">Onepager ab</span>
+          <span class="price-value">CHF 3'500.–</span>
+          <p>Kompakt und auf den Punkt – individuelles Design, klare Struktur, alle wichtigen Funktionen.</p>
+        </div>
+        <div class="price">
+          <span class="price-label">Mehrseitige Website ab</span>
+          <span class="price-value">CHF 5'000.–</span>
+          <p>Mehr Inhalte, Unterseiten oder spezielle Funktionen – massgeschneidert auf dein Unternehmen.</p>
+        </div>
+      </div>
+      <p class="price-extra" data-reveal>
+        Stundensatz für Anpassungen, Support und Content-Pflege: <strong>CHF 160.–/h</strong>.
+        Unterhalt WordPress (Updates, Lizenzen, Hosting): <strong>CHF 395.–/Jahr</strong>.
+        Bevor wir starten, bekommst du ein klares Angebot mit allen Leistungen und Kosten.
+      </p>
+    </div>
+  </section>
+
+  {/* Prozess */}
+  <section class="section section--yellow">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Unser Web-Prozess</span>
+        <h2>Persönlich. Kreativ. Partnerschaftlich.</h2>
+      </header>
+      <ol class="steps">
+        {
+          steps.map((s, i) => (
+            <li class="step" data-reveal style={`--reveal-delay:${i * 80}ms`}>
+              <img class="step-icon" src={s.icon} alt="" width="48" height="48" />
+              <span class="step-no">{String(i + 1).padStart(2, "0")}</span>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Portfolio */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Referenzen</span>
+        <h2>Webprojekte aus unserem Portfolio</h2>
+      </header>
+      <div class="portfolio">
+        {
+          portfolio.map((p) => (
+            <a href={`/projekte/${p.slug}`} class="ref-card" aria-label={p.title} data-reveal>
+              <img class="ref-img" src={p.image} alt={p.title} loading="lazy" />
+              <span class="ref-overlay">
+                <span class="ref-cat">{p.categories.join(" · ")}</span>
+                <span class="ref-title">{p.title}</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+      <div class="center-cta" data-reveal>
+        <Button href="/projekte" variant="blue">Alle Projekte ansehen</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deinen neuen Webauftritt?</h2>
+      <Button href="/kontakt" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .section-head { margin-bottom: clamp(2rem, 4vw, 3rem); }
+
+  .tools { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.25rem, 2.5vw, 2rem); }
+  .tool { background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.5rem, 2.5vw, 2rem); }
+  .tool h3 { color: var(--color-blue); margin-bottom: 0.5rem; }
+  .tool p { color: var(--color-blue); line-height: 1.6; }
+  .tools-note { margin-top: 1.5rem; color: var(--color-blue); }
+
+  .prices { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.25rem, 2.5vw, 2rem); }
+  .price { border: 2px solid var(--color-blue); padding: clamp(1.5rem, 3vw, 2.25rem); }
+  .price-label { display: block; font-weight: 600; color: var(--color-blue); }
+  .price-value { display: block; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 900; color: var(--color-blue); margin: 0.25rem 0 0.75rem; }
+  .price p { color: var(--color-blue); line-height: 1.6; }
+  .price-extra { margin-top: 1.5rem; color: var(--color-blue); line-height: 1.7; max-width: 70ch; }
+  .price-extra strong { white-space: nowrap; }
+
+  .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(1rem, 2vw, 1.75rem); }
+  .step { display: flex; flex-direction: column; align-items: flex-start; border-bottom: 3px solid var(--color-blue); padding-bottom: 1.25rem; }
+  .step-icon { width: 64px; height: 64px; margin-bottom: 0.9rem; }
+  .step-no { display: block; font-weight: 900; font-size: 1.6rem; color: var(--color-blue); margin-bottom: 0.5rem; }
+  .step h3 { font-size: 1.1rem; color: var(--color-blue); margin-bottom: 0.4rem; }
+  .step p { color: var(--color-blue); font-size: 0.95rem; line-height: 1.55; }
+
+  /* Portfolio-Kacheln – Hover wie auf der Startseite */
+  .portfolio { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.75rem); }
+  .ref-card { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: #eef2f7; }
+  .ref-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.85s var(--ease); }
+  .ref-card:hover .ref-img, .ref-card:focus-visible .ref-img { transform: scale(1.05); }
+  .ref-overlay {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.35rem; padding: 1.5rem;
+    text-align: center; background: rgba(1, 64, 128, 0.82); color: #fff;
+    opacity: 0; transition: opacity 0.5s var(--ease);
+  }
+  .ref-card:hover .ref-overlay, .ref-card:focus-visible .ref-overlay { opacity: 1; }
+  .ref-cat { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.85; }
+  .ref-title { font-size: clamp(1.1rem, 1.8vw, 1.5rem); font-weight: 700; line-height: 1.15; }
+  .center-cta { margin-top: clamp(2.5rem, 5vw, 3.5rem); text-align: center; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: pointer; list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+
+  @media (max-width: 900px) {
+    .tools, .prices { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: repeat(2, 1fr); }
+    .portfolio { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .steps { grid-template-columns: 1fr; }
+    .portfolio { grid-template-columns: 1fr; }
+  }
+</style>

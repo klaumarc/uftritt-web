@@ -1,0 +1,78 @@
+---
+// Freigeschaltete Kundenlogos mit Links. Graustufen → bei Hover farbig, kein Rahmen.
+interface Client {
+  name: string;
+  logo: string;
+  url: string;
+}
+const clients: Client[] = [
+  { name: "GZO Spital Wetzikon", logo: "/kunden/12_gro-wetzikon.jpg", url: "https://www.gzo.ch/" },
+  { name: "X-Med", logo: "/kunden/2_x-med.jpg", url: "https://www.xmed.ch/" },
+  { name: "RIPA Immobilien GmbH", logo: "/kunden/6_ripa-immobilien.jpg", url: "https://ripa-immobilien.ch/" },
+  { name: "Electra AG", logo: "/kunden/17_electra-ag.jpg", url: "https://www.electra-ag.ch/" },
+  { name: "Crossfit Zug", logo: "/kunden/29_crossfit-zug.jpg", url: "https://www.crossfitzug.ch/" },
+  { name: "CVA Global", logo: "/kunden/18_cva-global.jpg", url: "https://cvaglobal.com/" },
+  { name: "Heusser Holzbau", logo: "/kunden/11_heusser-holzbau.jpg", url: "https://www.heusser-holzbau.ch/" },
+  { name: "zollikhair", logo: "/kunden/0_zollikhair.jpg", url: "https://www.zollikhair.ch/" },
+  { name: "Tenini Sport", logo: "/kunden/4_tenini-sport.jpg", url: "https://tenini.ch/" },
+  { name: "Regan", logo: "/kunden/7_regan-ferienhaus.jpg", url: "https://regan.swiss/" },
+  { name: "Peter Ott Fahrschule", logo: "/kunden/15_peter-ott-fahrschule.jpg", url: "https://peter-ott.ch/" },
+  { name: "Hänseler", logo: "/kunden/24_hänseler.jpg", url: "https://www.haenseler.ch/" },
+];
+---
+
+<ul class="clients-grid">
+  {
+    clients.map((c) => (
+      <li>
+        <a class="client" href={c.url} target="_blank" rel="noopener" aria-label={c.name}>
+          <img src={c.logo} alt={c.name} loading="lazy" />
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .clients-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: clamp(1rem, 2.5vw, 2.75rem);
+    align-items: center;
+  }
+  .client {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 3 / 2;
+  }
+  .client img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(1);
+    opacity: 0.7;
+    transition: filter 0.45s var(--ease), opacity 0.45s var(--ease),
+      transform 0.45s var(--ease);
+  }
+  .client:hover img {
+    filter: grayscale(0);
+    opacity: 1;
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 900px) {
+    .clients-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media (max-width: 560px) {
+    .clients-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 380px) {
+    .clients-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
