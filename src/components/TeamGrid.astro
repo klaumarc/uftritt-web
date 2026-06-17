@@ -107,18 +107,22 @@ const { carousel = false } = Astro.props;
     .team-track.is-carousel {
       display: flex;
       grid-template-columns: none;
-      gap: 1rem;
+      gap: 0;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       -ms-overflow-style: none;
       scrollbar-width: none;
+      /* Full-bleed: über die ganze Bildschirmbreite – nur an dieser Stelle.
+         So kommen die Bilder beim Swipen vom Rand (von aussen) herein. */
+      width: 100vw;
+      margin-inline: calc(50% - 50vw);
     }
     .team-track.is-carousel::-webkit-scrollbar {
       display: none;
     }
     .team-track.is-carousel .team-item {
-      flex: 0 0 86%;
-      width: 86%; /* links bündig, rechts die nächste Person angeschnitten als "mehr"-Hinweis */
+      flex: 0 0 100vw;
+      width: 100vw; /* volle Bildschirmbreite pro Person */
       scroll-snap-align: start;
       scroll-snap-stop: always; /* nicht über Personen hinwegspringen */
     }
