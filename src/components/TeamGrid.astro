@@ -117,9 +117,10 @@ const { carousel = false } = Astro.props;
       display: none;
     }
     .team-track.is-carousel .team-item {
-      flex: 0 0 100%;
-      width: 100%; /* volle Spaltenbreite, kein angeschnittenes Bild */
+      flex: 0 0 86%;
+      width: 86%; /* links bündig, rechts die nächste Person angeschnitten als "mehr"-Hinweis */
       scroll-snap-align: start;
+      scroll-snap-stop: always; /* nicht über Personen hinwegspringen */
     }
     .team-track.is-carousel .team-item:nth-child(even) {
       margin-top: 0; /* kein Höhenversatz im Slider */
