@@ -10,18 +10,18 @@ export interface TeamMember {
 // Später aus Sanity (Collection "Mitarbeiter") befüllbar.
 export const team: TeamMember[] = [
   {
-    name: "Jeffrey Meier",
-    role: "Visueller Gestalter",
-    photo: "/team/jeffrey.jpg",
-    email: "jm@uftritt.ch",
-    bio: "Die Ausbildung und Tätigkeit als Polygraf legte für Jeffrey ein solides Fundament für sein späteres HF-Studium der Visuellen Gestaltung. Mit seiner Leidenschaft für passgenaue Gestaltung kreiert er wirkungsvolle und zielgerichtete Kommunikationskonzepte. Sein Sinn fürs Detail verleiht jedem Projekt den nötigen Charakter. Daneben begleitet ihn das Musikmachen bereits seit jungen Jahren und bei den unterschiedlichsten sportlichen Aktivitäten findet er seinen Ausgleich.",
-  },
-  {
     name: "Marcel Klausberger",
     role: "Webentwickler",
     photo: "/team/marcel.jpg",
     email: "mk@uftritt.ch",
     bio: "Marcel sammelte während sechs Jahren als selbstständiger Webentwickler umfangreiche Erfahrung und hat Projekte aus den unterschiedlichsten Branchen umgesetzt. Er schätzt die Vielfalt der Menschen, mit denen er zusammenarbeitet. Seine Freizeit verbringt er am liebsten mit seiner Familie oder bei der Bibellesung.",
+  },
+  {
+    name: "Jeffrey Meier",
+    role: "Visueller Gestalter",
+    photo: "/team/jeffrey.jpg",
+    email: "jm@uftritt.ch",
+    bio: "Die Ausbildung und Tätigkeit als Polygraf legte für Jeffrey ein solides Fundament für sein späteres HF-Studium der Visuellen Gestaltung. Mit seiner Leidenschaft für passgenaue Gestaltung kreiert er wirkungsvolle und zielgerichtete Kommunikationskonzepte. Sein Sinn fürs Detail verleiht jedem Projekt den nötigen Charakter. Daneben begleitet ihn das Musikmachen bereits seit jungen Jahren und bei den unterschiedlichsten sportlichen Aktivitäten findet er seinen Ausgleich.",
   },
   {
     name: "Christian Angst",

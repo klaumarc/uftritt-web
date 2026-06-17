@@ -1,9 +1,14 @@
 ---
 import { team } from "../data/team";
+
+interface Props {
+  carousel?: boolean;
+}
+const { carousel = false } = Astro.props;
 ---
 
-<div class="team-slider">
-  <ul class="team-track">
+<div class:list={["team-slider", { "is-carousel": carousel }]}>
+  <ul class:list={["team-track", { "is-carousel": carousel }]}>
     {
       team.map((m) => (
         <li class="team-item">
@@ -31,6 +36,18 @@ import { team } from "../data/team";
     }
   </ul>
 
+  {
+    carousel && (
+      <div class="team-nav">
+        <button class="team-arrow" type="button" data-team-prev aria-label="Vorheriges Teammitglied">
+          <span class="team-arrow-ico team-arrow-ico--prev" />
+        </button>
+        <button class="team-arrow" type="button" data-team-next aria-label="Nächstes Teammitglied">
+          <span class="team-arrow-ico" />
+        </button>
+      </div>
+    )
+  }
 </div>
 
 {/* ---------- Lightbox ---------- */}
@@ -58,35 +75,72 @@ import { team } from "../data/team";
   .team-slider {
     position: relative;
   }
+
+  /* ---------- Raster-Variante (Standard, z. B. /agentur) ---------- */
   .team-track {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* alle 5 sichtbar */
+    grid-template-columns: repeat(5, 1fr);
     gap: clamp(0.75rem, 1.5vw, 1.5rem);
     align-items: start;
     padding-block: 0.5rem;
   }
-  /* abwechselnd höhenversetzt (Zickzack) */
   .team-item:nth-child(even) {
     margin-top: clamp(1.5rem, 4vw, 3.5rem);
   }
   @media (max-width: 1100px) {
-    .team-track {
+    .team-track:not(.is-carousel) {
       grid-template-columns: repeat(3, 1fr);
     }
   }
   @media (max-width: 760px) {
-    .team-track {
+    .team-track:not(.is-carousel) {
       grid-template-columns: repeat(2, 1fr);
     }
   }
-  /* Phones: einzelne, grosse Bilder (1 Spalte, kein Höhenversatz) */
   @media (max-width: 540px) {
-    .team-track {
+    .team-track:not(.is-carousel) {
       grid-template-columns: 1fr;
       gap: 1.25rem;
     }
     .team-item:nth-child(even) {
       margin-top: 0;
+    }
+  }
+
+  /* ---------- Karussell-Variante (Startseite) ---------- */
+  .team-track.is-carousel {
+    display: flex;
+    grid-template-columns: none;
+    gap: clamp(0.9rem, 2vw, 1.75rem);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--gutter);
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    /* Platz für den Höhenversatz (Zickzack) */
+    padding-bottom: 0.5rem;
+  }
+  .team-track.is-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  .team-track.is-carousel .team-item {
+    flex: 0 0 auto;
+    width: 78%; /* ~1.25 sichtbar auf dem Phone */
+    scroll-snap-align: start;
+  }
+  @media (min-width: 620px) {
+    .team-track.is-carousel .team-item {
+      width: 40%; /* ~2,3 sichtbar */
+    }
+  }
+  @media (min-width: 900px) {
+    .team-track.is-carousel .team-item {
+      width: 26%; /* ~3,5 sichtbar */
+    }
+  }
+  @media (min-width: 1200px) {
+    .team-track.is-carousel .team-item {
+      width: 20%; /* ~5 sichtbar */
     }
   }
 
@@ -116,10 +170,9 @@ import { team } from "../data/team";
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 20%; /* Köpfe im oberen Bereich – nicht anschneiden */
+    object-position: center 20%;
     transition: transform 0.7s var(--ease);
   }
-  /* dezenter Verlauf unten für lesbare weisse Namen (kein Schatten) */
   .team-photo::after {
     content: "";
     position: absolute;
@@ -148,7 +201,7 @@ import { team } from "../data/team";
     height: 34px;
     display: grid;
     place-items: center;
-    border-radius: 50%; /* ganz rund ist erlaubt */
+    border-radius: 50%;
     background: var(--color-blue);
     color: #fff;
     font-size: 1.4rem;
@@ -176,16 +229,17 @@ import { team } from "../data/team";
     opacity: 0.92;
   }
 
+  /* ---------- Karussell-Navigation ---------- */
   .team-nav {
     display: flex;
     gap: 0.75rem;
-    margin-top: 0.5rem;
+    margin-top: 1.25rem;
   }
   .team-arrow {
     display: grid;
     place-items: center;
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     border: 2px solid rgba(1, 64, 128, 0.25);
     background: transparent;
@@ -198,6 +252,17 @@ import { team } from "../data/team";
     background: var(--color-blue);
     border-color: var(--color-blue);
     color: #fff;
+  }
+  .team-arrow-ico {
+    width: 22px;
+    height: 16px;
+    background-color: currentColor;
+    -webkit-mask: url("/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    mask: url("/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+  }
+  .team-arrow-ico--prev {
+    -webkit-mask-image: url("/icons/pfeil-links-blau.svg");
+    mask-image: url("/icons/pfeil-links-blau.svg");
   }
 
   /* ---------- Lightbox ---------- */
@@ -253,16 +318,18 @@ import { team } from "../data/team";
     color: var(--color-blue);
     cursor: pointer;
     padding: 0.4rem;
+    z-index: 2;
     transition: transform 0.4s var(--ease);
   }
   .team-lightbox-close:hover {
     transform: rotate(90deg);
   }
+  /* Volles Bild zeigen – Köpfe nicht stark anschneiden */
   .team-lightbox-media img {
     width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    object-position: center 20%;
+    height: auto;
+    max-height: 72vh;
+    object-fit: contain;
     border-radius: 0;
   }
   .team-lightbox-body h3 {
@@ -292,13 +359,10 @@ import { team } from "../data/team";
       grid-template-columns: 1fr;
     }
     .team-lightbox-media img {
-      aspect-ratio: 3 / 2;
+      max-height: 48vh;
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .team-track {
-      scroll-behavior: auto;
-    }
     .team-lightbox-backdrop,
     .team-lightbox-panel {
       transition: none;
@@ -307,24 +371,51 @@ import { team } from "../data/team";
 </style>
 
 <script>
-  // --- Slider-Navigation ---
-  const track = document.querySelector<HTMLElement>(".team-track");
-  const prevBtn = document.querySelector<HTMLButtonElement>("[data-team-prev]");
-  const nextBtn = document.querySelector<HTMLButtonElement>("[data-team-next]");
-  function step() {
-    const item = track?.querySelector<HTMLElement>(".team-item");
-    if (!item || !track) return 300;
-    const gap = parseFloat(getComputedStyle(track).columnGap || "16") || 16;
-    return item.offsetWidth + gap;
-  }
-  prevBtn?.addEventListener("click", () =>
-    track?.scrollBy({ left: -step(), behavior: "smooth" })
-  );
-  nextBtn?.addEventListener("click", () =>
-    track?.scrollBy({ left: step(), behavior: "smooth" })
-  );
+  // ---------- Karussell mit Endlos-Loop (nur Startseite) ----------
+  const carousel = document.querySelector<HTMLElement>(".team-track.is-carousel");
+  if (carousel) {
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Items duplizieren (3 Sets), Start im mittleren Set → nahtloser Loop in beide Richtungen
+    const originals = Array.from(carousel.children);
+    originals.forEach((n) => carousel.appendChild(n.cloneNode(true)));
+    originals.forEach((n) => carousel.insertBefore(n.cloneNode(true), carousel.firstChild));
 
-  // --- Lightbox ---
+    const setWidth = () => carousel.scrollWidth / 3;
+    requestAnimationFrame(() => {
+      carousel.scrollLeft = setWidth();
+    });
+
+    let raf = 0;
+    carousel.addEventListener(
+      "scroll",
+      () => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          const w = setWidth();
+          if (carousel.scrollLeft >= 2 * w) carousel.scrollLeft -= w;
+          else if (carousel.scrollLeft <= 0) carousel.scrollLeft += w;
+        });
+      },
+      { passive: true }
+    );
+
+    const stepBy = () => {
+      const item = carousel.querySelector<HTMLElement>(".team-item");
+      if (!item) return 320;
+      const gap = parseFloat(getComputedStyle(carousel).columnGap || "16") || 16;
+      return item.getBoundingClientRect().width + gap;
+    };
+    const behavior: ScrollBehavior = prefersReduced ? "auto" : "smooth";
+    document
+      .querySelector<HTMLButtonElement>("[data-team-prev]")
+      ?.addEventListener("click", () => carousel.scrollBy({ left: -stepBy(), behavior }));
+    document
+      .querySelector<HTMLButtonElement>("[data-team-next]")
+      ?.addEventListener("click", () => carousel.scrollBy({ left: stepBy(), behavior }));
+  }
+
+  // ---------- Lightbox ----------
   const lightbox = document.querySelector<HTMLElement>("#team-lightbox");
   const els = {
     photo: document.querySelector<HTMLImageElement>("#tl-photo"),
@@ -368,6 +459,7 @@ import { team } from "../data/team";
     lastTrigger?.focus();
   }
 
+  // Nach dem Klonen anhängen, damit auch die Klone die Lightbox öffnen
   document.querySelectorAll<HTMLElement>("[data-team-open]").forEach((btn) =>
     btn.addEventListener("click", () => open(btn))
   );
