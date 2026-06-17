@@ -36,18 +36,6 @@ const { carousel = false } = Astro.props;
     }
   </ul>
 
-  {
-    carousel && (
-      <div class="team-nav">
-        <button class="team-arrow" type="button" data-team-prev aria-label="Vorheriges Teammitglied">
-          <span class="team-arrow-ico team-arrow-ico--prev" />
-        </button>
-        <button class="team-arrow" type="button" data-team-next aria-label="Nächstes Teammitglied">
-          <span class="team-arrow-ico" />
-        </button>
-      </div>
-    )
-  }
 </div>
 
 {/* ---------- Lightbox ---------- */}
@@ -107,40 +95,34 @@ const { carousel = false } = Astro.props;
     }
   }
 
-  /* ---------- Karussell-Variante (Startseite) ---------- */
-  .team-track.is-carousel {
-    display: flex;
-    grid-template-columns: none;
-    gap: clamp(0.9rem, 2vw, 1.75rem);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-left: var(--gutter);
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    /* Platz für den Höhenversatz (Zickzack) */
-    padding-bottom: 0.5rem;
-  }
-  .team-track.is-carousel::-webkit-scrollbar {
-    display: none;
-  }
-  .team-track.is-carousel .team-item {
-    flex: 0 0 auto;
-    width: 78%; /* ~1.25 sichtbar auf dem Phone */
-    scroll-snap-align: start;
-  }
-  @media (min-width: 620px) {
-    .team-track.is-carousel .team-item {
-      width: 40%; /* ~2,3 sichtbar */
+  /* ---------- Karussell-Variante (nur Startseite, nur Mobile) ----------
+     Desktop/Tablet bleibt Raster wie oben; erst auf dem Phone wird daraus
+     ein voller-Breite-Slider zum Swipen. */
+  @media (max-width: 1100px) {
+    .team-track.is-carousel {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
-  @media (min-width: 900px) {
-    .team-track.is-carousel .team-item {
-      width: 26%; /* ~3,5 sichtbar */
+  @media (max-width: 760px) {
+    .team-track.is-carousel {
+      display: flex;
+      grid-template-columns: none;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
-  }
-  @media (min-width: 1200px) {
+    .team-track.is-carousel::-webkit-scrollbar {
+      display: none;
+    }
     .team-track.is-carousel .team-item {
-      width: 20%; /* ~5 sichtbar */
+      flex: 0 0 100%;
+      width: 100%; /* volle Spaltenbreite, kein angeschnittenes Bild */
+      scroll-snap-align: start;
+    }
+    .team-track.is-carousel .team-item:nth-child(even) {
+      margin-top: 0; /* kein Höhenversatz im Slider */
     }
   }
 
@@ -227,42 +209,6 @@ const { carousel = false } = Astro.props;
     font-size: 0.9rem;
     font-weight: 600;
     opacity: 0.92;
-  }
-
-  /* ---------- Karussell-Navigation ---------- */
-  .team-nav {
-    display: flex;
-    gap: 0.75rem;
-    margin-top: 1.25rem;
-  }
-  .team-arrow {
-    display: grid;
-    place-items: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 2px solid rgba(1, 64, 128, 0.25);
-    background: transparent;
-    color: var(--color-blue);
-    cursor: pointer;
-    transition: background 0.4s var(--ease), color 0.4s var(--ease),
-      border-color 0.4s var(--ease);
-  }
-  .team-arrow:hover {
-    background: var(--color-blue);
-    border-color: var(--color-blue);
-    color: #fff;
-  }
-  .team-arrow-ico {
-    width: 22px;
-    height: 16px;
-    background-color: currentColor;
-    -webkit-mask: url("/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
-    mask: url("/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
-  }
-  .team-arrow-ico--prev {
-    -webkit-mask-image: url("/icons/pfeil-links-blau.svg");
-    mask-image: url("/icons/pfeil-links-blau.svg");
   }
 
   /* ---------- Lightbox ---------- */
@@ -371,10 +317,10 @@ const { carousel = false } = Astro.props;
 </style>
 
 <script>
-  // ---------- Karussell mit Endlos-Loop (nur Startseite) ----------
+  // ---------- Karussell mit Endlos-Loop (nur Startseite, nur Mobile) ----------
   const carousel = document.querySelector<HTMLElement>(".team-track.is-carousel");
-  if (carousel) {
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Nur auf dem Phone zum Slider machen – Desktop/Tablet bleibt Raster (keine Klone)
+  if (carousel && window.matchMedia("(max-width: 760px)").matches) {
     // Items duplizieren (3 Sets), Start im mittleren Set → nahtloser Loop in beide Richtungen
     const originals = Array.from(carousel.children);
     originals.forEach((n) => carousel.appendChild(n.cloneNode(true)));
@@ -399,20 +345,6 @@ const { carousel = false } = Astro.props;
       },
       { passive: true }
     );
-
-    const stepBy = () => {
-      const item = carousel.querySelector<HTMLElement>(".team-item");
-      if (!item) return 320;
-      const gap = parseFloat(getComputedStyle(carousel).columnGap || "16") || 16;
-      return item.getBoundingClientRect().width + gap;
-    };
-    const behavior: ScrollBehavior = prefersReduced ? "auto" : "smooth";
-    document
-      .querySelector<HTMLButtonElement>("[data-team-prev]")
-      ?.addEventListener("click", () => carousel.scrollBy({ left: -stepBy(), behavior }));
-    document
-      .querySelector<HTMLButtonElement>("[data-team-next]")
-      ?.addEventListener("click", () => carousel.scrollBy({ left: stepBy(), behavior }));
   }
 
   // ---------- Lightbox ----------
