@@ -1,0 +1,21 @@
+<!--
+  Statisches Formular-Gerüst, das Netlify beim Deploy zuverlässig erkennt.
+  Für Besuchende nicht sichtbar/relevant – das echte Formular liegt auf /kontakt/.
+  Die Feldnamen müssen mit dem echten Formular übereinstimmen.
+-->
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Formular</title>
+  </head>
+  <body>
+    <form name="kontakt" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="kontakt" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="nachricht"></textarea>
+      <input name="bot-field" />
+    </form>
+  </body>
+</html>
