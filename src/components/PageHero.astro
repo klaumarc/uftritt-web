@@ -67,6 +67,13 @@ const { eyebrow, title, lead, compact = false, light = false, lottie, lottieLabe
     display: block;
     margin-bottom: 0.5rem;
   }
+  /* Kompakter Header (ohne Json): moderatere Titelgrösse, damit auch lange
+     Einzelwörter wie "Applikationsentwicklung" nicht auf 3 Zeilen umbrechen.
+     Die Vollbild-Header (mit Json) behalten die grosse Schrift. */
+  .page-hero:not(.page-hero--has-lottie) h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    text-wrap: balance;
+  }
   .page-hero-lead {
     max-width: 640px;
     font-size: clamp(1.3rem, 2.1vw, 1.9rem);
