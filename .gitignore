@@ -11,9 +11,6 @@ node_modules/
 # astro
 .astro/
 
-# sanity
-dist-studio/
-
 # env
 .env
 .env.production
