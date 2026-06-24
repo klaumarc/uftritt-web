@@ -157,9 +157,10 @@ body {
   line-height: 1.5; /* leicht engerer Zeilenabstand – Revision Jeffrey */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* Custom Marken-Cursor (Pfeil unten-links, Hotspot an der Spitze) – Revision Jeffrey */
+  /* Custom Marken-Cursor (Pfeil unten-links, Hotspot an der Spitze) – Revision Jeffrey.
+     Einfache url()-Variante als Fallback, danach -webkit-image-set für scharfe Retina. */
   cursor: url("/cursor/Cursor_Pfeil_32px.png") 2 30, auto;
-  cursor: image-set(
+  cursor: -webkit-image-set(
       url("/cursor/Cursor_Pfeil_32px.png") 1x,
       url("/cursor/Cursor_Pfeil_64px.png") 2x
     ) 2 30, auto;
