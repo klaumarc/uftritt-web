@@ -384,12 +384,17 @@ const { carousel = false } = Astro.props;
   const carousel = document.querySelector<HTMLElement>(".team-track.is-carousel");
   const teamSlider = document.querySelector<HTMLElement>(".team-slider.is-carousel");
   if (carousel) {
-    // Endlos-Loop nur auf dem Phone (Touch-Swipe)
-    if (window.matchMedia("(max-width: 760px)").matches) {
+    // Überläuft der Slider? (vor dem Klonen messen)
+    const overflow = carousel.scrollWidth - carousel.clientWidth > 4;
+    let cloned = false;
+
+    // Endlos-Loop bei jeder Breite, sobald nicht alle reinpassen
+    if (overflow) {
       // Items duplizieren (3 Sets), Start im mittleren Set → nahtloser Loop in beide Richtungen
       const originals = Array.from(carousel.children);
       originals.forEach((n) => carousel.appendChild(n.cloneNode(true)));
       originals.forEach((n) => carousel.insertBefore(n.cloneNode(true), carousel.firstChild));
+      cloned = true;
 
       const cs = getComputedStyle(carousel);
       const padX = parseFloat(cs.paddingLeft || "0") + parseFloat(cs.paddingRight || "0");
@@ -419,7 +424,7 @@ const { carousel = false } = Astro.props;
       if (!teamSlider) return;
       teamSlider.classList.toggle(
         "has-overflow",
-        carousel.scrollWidth - carousel.clientWidth > 4
+        cloned || carousel.scrollWidth - carousel.clientWidth > 4
       );
     };
     updateOverflow();

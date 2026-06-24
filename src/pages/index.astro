@@ -339,6 +339,9 @@ const disciplines = [
   .team-yellow {
     background: var(--color-yellow);
     padding-top: var(--section-y);
+    /* eigener BFC, damit das negative margin-bottom des Sliders die gelbe Fläche
+       wirklich verkürzt (sonst kollabiert die Marge und das Gelb bleibt voll) */
+    display: flow-root;
   }
   .team-intro {
     display: flex;
