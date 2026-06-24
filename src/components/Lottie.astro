@@ -67,6 +67,7 @@ const {
       groups[name] ||
       (groups[name] = { anims: [], idx: 0, started: false, timer: null });
     anim.loop = false;
+    anim.setSpeed(1.35); // Service-Icons zügiger -> jedes Icon kommt öfter dran (Revision Jeffrey)
     anim.addEventListener("complete", () => advance(name));
     g.anims.push(anim);
     // kurze Debounce, damit alle Gruppenmitglieder registriert sind, bevor es losgeht

@@ -25,18 +25,19 @@ const services = [
     href: "/angebot/webdesign",
   },
   {
-    lottie: "/lottie/videoproduktion.json",
-    title: "Videoproduktion",
-    subtitle: "Storytelling, Emotionen, beeindruckend",
-    text: "Gut erzählte Geschichten rufen Emotionen hervor. Mit der videografischen Umsetzung werden Botschaften lebendig und hinterlassen einen bleibenden Eindruck – mit kreativen Ideen und den richtigen Instrumenten.",
-    href: "/angebot/videoproduktion",
+    // TODO: eigenes Marketingbegleitung-Lottie – aktuell Platzhalter (treppe.json)
+    lottie: "/lottie/treppe.json",
+    title: "Marketingbegleitung",
+    subtitle: "Strategie, Kanäle, kontinuierlich",
+    text: "Sichtbarkeit entsteht nicht zufällig. Wir begleiten dich strategisch über die passenden Kanäle, planen die Massnahmen gemeinsam und sorgen dafür, dass deine Botschaft konstant und glaubwürdig bei deiner Zielgruppe ankommt.",
+    href: "/angebot/marketingbegleitung",
   },
 ];
 
+// Nur Disziplinen aufführen, die NICHT bereits in den drei Karten oben stehen (Revision Jeffrey)
 const disciplines = [
-  { label: "Corporate Design", href: "/angebot/grafikdesign" },
+  { label: "Videoproduktion", href: "/angebot/videoproduktion" },
   { label: "Applikationsentwicklung", href: "/angebot/applikationsentwicklung" },
-  { label: "Marketingbegleitung", href: "/angebot/marketingbegleitung" },
   { label: "Magazinbetreuung", href: "/angebot/magazinbetreuung" },
 ];
 
@@ -56,7 +57,7 @@ const disciplines = [
         </p>
         <div class="hero-actions" data-reveal style="--reveal-delay:240ms">
           <Button href="/agentur" variant="blue">Lern eus känne</Button>
-          <Button href="/projekte" variant="text">Projekte ansehen</Button>
+          <Button href="/projekte" variant="text">Alli Projekt aluege</Button>
         </div>
       </div>
     </div>
@@ -103,11 +104,14 @@ const disciplines = [
         <span class="eyebrow">Das sind wir</span>
         <h2>Ein motiviertes Team aus kreativen Köpfen voller Ideen für dein Projekt – das ist Uftritt.</h2>
       </div>
-      <Button href="/agentur" variant="blue">Lern eus känne</Button>
     </div>
 
     <div class="container team-wrap">
       <TeamGrid carousel={true} />
+    </div>
+
+    <div class="container team-cta" data-reveal>
+      <Button href="/agentur" variant="blue">Lern eus känne</Button>
     </div>
   </section>
 
@@ -137,8 +141,8 @@ const disciplines = [
         }
       </div>
 
-      <div class="center-cta" data-reveal>
-        <Button href="/projekte" variant="blue">Alle Projekte ansehen</Button>
+      <div class="center-cta cta-left" data-reveal>
+        <Button href="/projekte" variant="blue">Alli Projekt aluege</Button>
       </div>
     </div>
   </section>
@@ -162,13 +166,13 @@ const disciplines = [
     <div class="container">
       <header class="section-head" data-reveal>
         <span class="eyebrow">Aktuell</span>
-        <h2>News &amp; Einblicke</h2>
+        <h2>News und Einblicke</h2>
       </header>
       <div data-reveal>
         <News limit={3} showFilter={false} />
       </div>
       <div class="center-cta" data-reveal>
-        <Button href="/aktuell" variant="blue">Alle News ansehen</Button>
+        <Button href="/aktuell" variant="blue">Alli News aluege</Button>
       </div>
     </div>
   </section>
@@ -296,7 +300,8 @@ const disciplines = [
     gap: 0.75rem;
   }
   .disciplines li {
-    border: 2px solid rgba(1, 64, 128, 0.2);
+    /* Linie gleich dünn wie die grossen Karten oben (1px) – Revision Jeffrey */
+    border: 1px solid #e7ecf3;
     padding: 0.7rem 1.2rem;
     font-weight: 600;
     color: var(--color-blue);
@@ -377,12 +382,28 @@ const disciplines = [
   .project-card:focus-visible .project-overlay {
     opacity: 1;
   }
+  /* Kreativere Einblendung: Kategorie + Titel gleiten gestaffelt nach oben – Revision Jeffrey */
+  .project-cat,
+  .project-title {
+    transform: translateY(14px);
+    opacity: 0;
+    transition: transform 0.55s var(--ease), opacity 0.55s var(--ease);
+  }
+  .project-card:hover .project-cat,
+  .project-card:focus-visible .project-cat,
+  .project-card:hover .project-title,
+  .project-card:focus-visible .project-title {
+    transform: none;
+    opacity: 1;
+  }
+  .project-card:hover .project-title,
+  .project-card:focus-visible .project-title {
+    transition-delay: 0.08s;
+  }
   .project-cat {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    opacity: 0.85;
+    letter-spacing: 0.04em;
   }
   .project-title {
     font-size: clamp(1.25rem, 2vw, 1.7rem);
@@ -393,6 +414,13 @@ const disciplines = [
   .center-cta {
     margin-top: clamp(2.5rem, 5vw, 3.5rem);
     text-align: center;
+  }
+  /* Button ganz links (z. B. „Ein erster Eindruck") – Revision Jeffrey */
+  .center-cta.cta-left {
+    text-align: left;
+  }
+  .team-cta {
+    margin-top: clamp(1.5rem, 3vw, 2.25rem);
   }
 
   /* ---------- Testimonial ---------- */

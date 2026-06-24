@@ -1,14 +1,10 @@
 ---
+// Revision Jeffrey: nur 1 Uftritt-Video zeigen, ohne Titel
 const videos = [
   {
     id: "3au1Y3vXeKs",
     thumb: "/videos/video-flasche.jpg",
     title: "Imagefilm",
-  },
-  {
-    id: "fRXqD4blbJI",
-    thumb: "/videos/video-backerin.jpg",
-    title: "Produktfilm",
   },
 ];
 ---
@@ -47,7 +43,7 @@ const videos = [
 <style>
   .video-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr; /* nur 1 Video – Revision Jeffrey */
     gap: clamp(1rem, 2.5vw, 2rem);
   }
   .video-thumb {
