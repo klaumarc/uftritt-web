@@ -129,10 +129,12 @@ const social = [
     gap: 1.5rem;
     min-height: 76px;
   }
+  /* Box exakt auf die Logo-Proportion (Lottie 460x151) -> kein Zentrier-Spalt,
+     Header-Lottie und Overlay-SVG liegen deckungsgleich übereinander. */
   .header-logo {
     display: block;
-    width: 160px;
     height: 50px;
+    aspect-ratio: 460 / 151;
   }
   .header-logo img {
     height: 50px;
@@ -455,24 +457,16 @@ const social = [
     // reflow, damit die opacity-Transition greift
     void overlay.offsetWidth;
     overlay.classList.add("is-open");
-    // Scrollbar-Breite kompensieren, damit Logo/Inhalt beim Sperren nicht nach rechts rutscht.
-    // Das Overlay ist position:fixed (ignoriert Body-Padding) -> bekommt die Kompensation selbst,
-    // damit sein Logo exakt über dem Header-Logo liegt.
-    const sw = window.innerWidth - document.documentElement.clientWidth;
-    document.body.style.overflow = "hidden";
-    if (sw > 0) {
-      document.body.style.paddingRight = sw + "px";
-      overlay.style.paddingRight = sw + "px";
-    }
+    // Scroll sperren. Die Layout-Breite bleibt dank scrollbar-gutter:stable (global.css)
+    // unverändert -> Logo und X bleiben exakt an Ort.
+    document.documentElement.style.overflow = "hidden";
     triggers.forEach((t) => t.setAttribute("aria-expanded", "true"));
     closeBtn?.focus();
   }
   function closeMenu() {
     if (!overlay) return;
     overlay.classList.remove("is-open");
-    document.body.style.overflow = "";
-    document.body.style.paddingRight = "";
-    overlay.style.paddingRight = "";
+    document.documentElement.style.overflow = "";
     triggers.forEach((t) => t.setAttribute("aria-expanded", "false"));
     const onEnd = () => {
       overlay.hidden = true;

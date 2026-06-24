@@ -36,6 +36,18 @@ const { carousel = false } = Astro.props;
     }
   </ul>
 
+  {
+    carousel && (
+      <>
+        <button class="team-nav team-nav--prev" type="button" aria-label="Vorherige Mitarbeiter" data-team-prev>
+          <span class="team-nav-arrow team-nav-arrow--left" />
+        </button>
+        <button class="team-nav team-nav--next" type="button" aria-label="Nächste Mitarbeiter" data-team-next>
+          <span class="team-nav-arrow" />
+        </button>
+      </>
+    )
+  }
 </div>
 
 {/* ---------- Lightbox ---------- */}
@@ -125,12 +137,51 @@ const { carousel = false } = Astro.props;
     scroll-snap-stop: always; /* nicht über Personen hinwegspringen */
   }
   .team-track.is-carousel .team-item:nth-child(even) {
-    margin-top: 0; /* kein Zickzack-Höhenversatz im Slider */
+    margin-top: clamp(1.5rem, 4vw, 3.5rem); /* Zickzack-Höhenversatz (wie im Raster) */
   }
   @media (max-width: 1200px) { .team-track.is-carousel { --vis: 4; } }
   @media (max-width: 980px)  { .team-track.is-carousel { --vis: 3; } }
   @media (max-width: 680px)  { .team-track.is-carousel { --vis: 2; } }
   @media (max-width: 480px)  { .team-track.is-carousel { --vis: 1.12; } }
+
+  /* ---------- Slider-Navigation (Pfeile) ----------
+     Erscheinen nur, wenn der Slider tatsächlich überläuft UND ein Maus-Zeiger
+     vorhanden ist (Desktop/kleines Fenster). Touch-Geräte swipen -> keine Pfeile. */
+  .team-nav {
+    position: absolute;
+    top: 33%;
+    transform: translateY(-50%);
+    z-index: 3;
+    display: none;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border: none;
+    background: var(--color-blue);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s var(--ease);
+  }
+  .team-nav:hover {
+    background: var(--color-blue-dark);
+  }
+  .team-nav--prev { left: 0; }
+  .team-nav--next { right: 0; }
+  .team-nav-arrow {
+    width: 20px;
+    height: 14px;
+    background-color: currentColor;
+    -webkit-mask: url("/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    mask: url("/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+  }
+  .team-nav-arrow--left {
+    transform: rotate(180deg);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .team-slider.is-carousel.has-overflow .team-nav {
+      display: grid;
+    }
+  }
 
   .team-member {
     display: flex;
@@ -326,32 +377,66 @@ const { carousel = false } = Astro.props;
 <script>
   // ---------- Karussell mit Endlos-Loop (nur Startseite, nur Mobile) ----------
   const carousel = document.querySelector<HTMLElement>(".team-track.is-carousel");
-  // Nur auf dem Phone zum Slider machen – Desktop/Tablet bleibt Raster (keine Klone)
-  if (carousel && window.matchMedia("(max-width: 760px)").matches) {
-    // Items duplizieren (3 Sets), Start im mittleren Set → nahtloser Loop in beide Richtungen
-    const originals = Array.from(carousel.children);
-    originals.forEach((n) => carousel.appendChild(n.cloneNode(true)));
-    originals.forEach((n) => carousel.insertBefore(n.cloneNode(true), carousel.firstChild));
+  const teamSlider = document.querySelector<HTMLElement>(".team-slider.is-carousel");
+  if (carousel) {
+    // Endlos-Loop nur auf dem Phone (Touch-Swipe)
+    if (window.matchMedia("(max-width: 760px)").matches) {
+      // Items duplizieren (3 Sets), Start im mittleren Set → nahtloser Loop in beide Richtungen
+      const originals = Array.from(carousel.children);
+      originals.forEach((n) => carousel.appendChild(n.cloneNode(true)));
+      originals.forEach((n) => carousel.insertBefore(n.cloneNode(true), carousel.firstChild));
 
-    const setWidth = () => carousel.scrollWidth / 3;
-    requestAnimationFrame(() => {
-      carousel.scrollLeft = setWidth();
-    });
+      const setWidth = () => carousel.scrollWidth / 3;
+      requestAnimationFrame(() => {
+        carousel.scrollLeft = setWidth();
+      });
 
-    let raf = 0;
-    carousel.addEventListener(
-      "scroll",
-      () => {
-        if (raf) return;
-        raf = requestAnimationFrame(() => {
-          raf = 0;
-          const w = setWidth();
-          if (carousel.scrollLeft >= 2 * w) carousel.scrollLeft -= w;
-          else if (carousel.scrollLeft <= 0) carousel.scrollLeft += w;
-        });
-      },
-      { passive: true }
-    );
+      let raf = 0;
+      carousel.addEventListener(
+        "scroll",
+        () => {
+          if (raf) return;
+          raf = requestAnimationFrame(() => {
+            raf = 0;
+            const w = setWidth();
+            if (carousel.scrollLeft >= 2 * w) carousel.scrollLeft -= w;
+            else if (carousel.scrollLeft <= 0) carousel.scrollLeft += w;
+          });
+        },
+        { passive: true }
+      );
+    }
+
+    // Überlauf-Erkennung -> Pfeile zeigen (per CSS nur auf Maus-Geräten sichtbar)
+    const updateOverflow = () => {
+      if (!teamSlider) return;
+      teamSlider.classList.toggle(
+        "has-overflow",
+        carousel.scrollWidth - carousel.clientWidth > 4
+      );
+    };
+    updateOverflow();
+    window.addEventListener("resize", updateOverflow);
+
+    // Pfeile: um eine Personen-Breite weiterscrollen
+    const stepWidth = () => {
+      const item = carousel.querySelector<HTMLElement>(".team-item");
+      const styles = getComputedStyle(carousel);
+      const gap = parseFloat(styles.columnGap || styles.gap || "16") || 16;
+      return item
+        ? item.getBoundingClientRect().width + gap
+        : carousel.clientWidth * 0.8;
+    };
+    document
+      .querySelector<HTMLButtonElement>("[data-team-prev]")
+      ?.addEventListener("click", () =>
+        carousel.scrollBy({ left: -stepWidth(), behavior: "smooth" })
+      );
+    document
+      .querySelector<HTMLButtonElement>("[data-team-next]")
+      ?.addEventListener("click", () =>
+        carousel.scrollBy({ left: stepWidth(), behavior: "smooth" })
+      );
   }
 
   // ---------- Lightbox ----------
