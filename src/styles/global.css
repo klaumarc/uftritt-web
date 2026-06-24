@@ -69,6 +69,7 @@
   --color-blue-dark: #013366;
   --color-yellow: #ffd23c;
   --color-pink: #da2c67;
+  --color-pink-dark: #bd1f53; /* Hover für Pink-Buttons */
   --color-white: #ffffff;
   --color-ink: #014080;        /* Fliesstext = Blau */
   --color-muted: rgba(1, 64, 128, 0.55); /* sekundärer Text = helleres Blau */
@@ -146,11 +147,11 @@ html {
 body {
   margin: 0;
   font-family: var(--font-base);
-  font-weight: 400;
-  font-size: 1.0625rem; /* ~17px, Rational Book */
+  font-weight: 500; /* Mengentext 1 Stufe fetter (Rational Medium) – Revision Jeffrey */
+  font-size: 1.0625rem; /* ~17px */
   color: var(--color-ink);
   background: var(--color-white);
-  line-height: 1.6;
+  line-height: 1.5; /* leicht engerer Zeilenabstand – Revision Jeffrey */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -215,6 +216,15 @@ h4 {
   hyphens: auto;
 }
 
+/* Desktop: H1 ohne Silbentrennung (läuft in breiter Spalte aus) – Revision Jeffrey.
+   Auf Mobile bleibt die deutsche Silbentrennung aktiv. */
+@media (min-width: 601px) {
+  h1 {
+    -webkit-hyphens: none;
+    hyphens: none;
+  }
+}
+
 /* Mobile: Headings + Sektionsabstände kleiner, damit nichts überläuft/zu wuchtig wirkt */
 @media (max-width: 600px) {
   :root {
@@ -265,7 +275,7 @@ p {
 .eyebrow {
   display: inline-block;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 1.05rem; /* Section-Labels („Unser Angebot" etc.) leicht grösser – Revision Jeffrey */
   letter-spacing: 0.02em;
   color: var(--color-blue);
   margin-bottom: 0.75rem;
