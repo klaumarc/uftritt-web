@@ -124,8 +124,10 @@ const social = [
     background: var(--color-yellow);
   }
   .header-inner {
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1.5rem;
     min-height: 76px;
   }
@@ -141,8 +143,12 @@ const social = [
     width: auto;
   }
 
+  /* Exakt in der Container-Mitte (50 %) – deckt sich mit dem X im Overlay */
   .menu-trigger {
-    margin-inline: auto;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     background: none;
     border: none;
     cursor: pointer;
@@ -151,12 +157,11 @@ const social = [
     font-size: 1.15rem;
     color: var(--color-blue);
     padding: 0.65rem 0.6rem;
-    position: relative;
     transition: transform 0.32s var(--ease);
   }
   /* Hover wie die SoMe-Icons: leichter Lift, keine Unterstreichungs-Linie – Revision Jeffrey */
   .menu-trigger:hover {
-    transform: translateY(-3px);
+    transform: translate(-50%, -50%) translateY(-3px);
   }
 
   .header-social {

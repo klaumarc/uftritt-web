@@ -122,7 +122,12 @@ const { carousel = false } = Astro.props;
     scroll-snap-type: x mandatory;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    margin-right: calc(50% - 50vw); /* rechts full-bleed bis Bildschirmrand */
+    /* Beidseitig full-bleed bis zum Bildschirmrand; Items bleiben content-bündig.
+       Beim Blättern verschwindet das Foto am linken Bildrand, das nächste taucht
+       rechts auf – kein Abschneiden mitten im Screen. */
+    margin-inline: calc(50% - 50vw);
+    padding-inline: calc(50vw - 50%);
+    scroll-padding-left: calc(50vw - 50%);
     padding-bottom: 0.25rem;
   }
   .team-track.is-carousel::-webkit-scrollbar {
@@ -386,7 +391,9 @@ const { carousel = false } = Astro.props;
       originals.forEach((n) => carousel.appendChild(n.cloneNode(true)));
       originals.forEach((n) => carousel.insertBefore(n.cloneNode(true), carousel.firstChild));
 
-      const setWidth = () => carousel.scrollWidth / 3;
+      const cs = getComputedStyle(carousel);
+      const padX = parseFloat(cs.paddingLeft || "0") + parseFloat(cs.paddingRight || "0");
+      const setWidth = () => (carousel.scrollWidth - padX) / 3;
       requestAnimationFrame(() => {
         carousel.scrollLeft = setWidth();
       });
