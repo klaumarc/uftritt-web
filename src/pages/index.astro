@@ -98,16 +98,18 @@ const disciplines = [
   </section>
 
   {/* ---------- AGENTUR / TEAM ---------- */}
-  <section class="section section--yellow">
-    <div class="container team-intro" data-reveal>
-      <div>
-        <span class="eyebrow">Das sind wir</span>
-        <h2>Ein motiviertes Team aus kreativen Köpfen voller Ideen für dein Projekt – das ist Uftritt.</h2>
+  <section class="team-section">
+    <div class="team-yellow">
+      <div class="container team-intro" data-reveal>
+        <div>
+          <span class="eyebrow">Das sind wir</span>
+          <h2>Ein motiviertes Team aus kreativen Köpfen voller Ideen für dein Projekt – das ist Uftritt.</h2>
+        </div>
       </div>
-    </div>
 
-    <div class="container team-wrap">
-      <TeamGrid carousel={true} />
+      <div class="container team-wrap">
+        <TeamGrid carousel={true} />
+      </div>
     </div>
 
     <div class="container team-cta" data-reveal>
@@ -329,7 +331,15 @@ const disciplines = [
     padding: 0.7rem 1.2rem;
   }
 
-  /* ---------- Team intro ---------- */
+  /* ---------- Team-Sektion: oben gelb, unten weiss; Fotos ragen an ---------- */
+  .team-section {
+    --team-overhang: clamp(3rem, 9vw, 8rem); /* wie weit die Fotos auf Weiss ragen */
+    background: #fff;
+  }
+  .team-yellow {
+    background: var(--color-yellow);
+    padding-top: var(--section-y);
+  }
   .team-intro {
     display: flex;
     align-items: flex-end;
@@ -344,6 +354,10 @@ const disciplines = [
   }
   .team-wrap {
     margin-top: clamp(2.5rem, 5vw, 4rem);
+    /* unteres Ende ragt über die gelbe Fläche hinaus auf Weiss */
+    margin-bottom: calc(-1 * var(--team-overhang));
+    position: relative;
+    z-index: 1;
   }
 
   /* ---------- Projects (nur Bild, Text erscheint bei Hover) ---------- */
@@ -428,7 +442,9 @@ const disciplines = [
     text-align: left;
   }
   .team-cta {
-    margin-top: clamp(1.5rem, 3vw, 2.25rem);
+    /* unter den überstehenden Fotos auf der weissen Fläche */
+    margin-top: calc(var(--team-overhang) + clamp(1.5rem, 3vw, 2.25rem));
+    padding-bottom: var(--section-y);
   }
 
   /* ---------- Testimonial ---------- */
