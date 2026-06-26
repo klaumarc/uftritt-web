@@ -7,7 +7,9 @@ on:
 
 concurrency:
   group: deploy-plesk
-  cancel-in-progress: true
+  # NICHT abbrechen: laufenden FTP-Upload zu Ende laufen lassen, sonst bleiben
+  # halb hochgeladene/fehlende Dateien zurueck. Neue Pushes warten in der Queue.
+  cancel-in-progress: false
 
 jobs:
   build-deploy:
@@ -49,6 +51,8 @@ jobs:
           # mehr Geduld beim Verbindungsaufbau (Default 30s)
           timeout: 60000
           # INKREMENTELL: kein clean-slate. Die Action fuehrt eine Sync-State-Datei
-          # (.ftp-deploy-sync-state.json) im server-dir und laedt nur geaenderte/neue
-          # Dateien hoch; entfernt werden nur Dateien, die im Projekt geloescht wurden.
-          # Bewusst NICHT alles ersetzen (User-Vorgabe).
+          # im server-dir und laedt nur geaenderte/neue Dateien hoch; entfernt werden
+          # nur Dateien, die im Projekt geloescht wurden. NICHT alles ersetzen (User-Vorgabe).
+          # Neuer state-name = einmaliger Voll-Reupload (ergaenzt fehlende Dateien wie
+          # /icons/ + sitemap nach abgebrochenem Deploy), loescht dabei NICHTS.
+          state-name: .deploy-state.json
