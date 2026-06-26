@@ -45,3 +45,6 @@ jobs:
           log-level: verbose
           # mehr Geduld beim Verbindungsaufbau (Default 30s)
           timeout: 60000
+          # ACHTUNG: leert den Zielordner (server-dir) komplett vor dem Upload.
+          # Loescht das alte WordPress in ki.uftritt.ch. server-dir MUSS ki.uftritt.ch/ sein!
+          dangerous-clean-slate: true
