@@ -34,8 +34,11 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # FTPS (verschlüsselt). Falls dein Server nur einfaches FTP kann: auf "ftp" ändern.
-          protocol: ftps
+          # Plain FTP: Der Plesk/ProFTPD-Server (janus.kreativmedia.ch) bricht bei FTPS
+          # die Datenverbindung ab (verlangt TLS-Session-Reuse auf dem Datenkanal, den
+          # basic-ftp nicht liefert -> ECONNRESET). Plain FTP laeuft sauber durch.
+          # Sicherheits-Haertung spaeter: SFTP oder bei Kreativmedia NoSessionReuseRequired anfragen.
+          protocol: ftp
           # Inhalt des Build-Ordners hochladen
           local-dir: ./dist/
           # Zielordner auf dem Hosting. Default httpdocs/ – per Secret überschreibbar,
