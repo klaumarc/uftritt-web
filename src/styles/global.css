@@ -157,20 +157,8 @@ body {
   line-height: 1.5; /* leicht engerer Zeilenabstand – Revision Jeffrey */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* Custom Marken-Cursor (Pfeil unten-links, Hotspot an der Spitze) – Revision Jeffrey.
-     Einfache url()-Variante als Fallback, danach -webkit-image-set für scharfe Retina. */
-  cursor: url("/cursor/Cursor_Pfeil_32px.png") 2 30, auto;
-  cursor: -webkit-image-set(
-      url("/cursor/Cursor_Pfeil_32px.png") 1x,
-      url("/cursor/Cursor_Pfeil_64px.png") 2x
-    ) 2 30, auto;
-}
-
-/* In Textfeldern den normalen Text-Cursor behalten */
-input,
-textarea,
-select {
-  cursor: auto;
+  /* Custom Marken-Cursor vorerst entfernt (war noch nicht schön) – kommt zurück,
+     sobald ein besserer Cursor vorliegt. PNGs liegen weiterhin unter public/cursor/. */
 }
 
 img,
