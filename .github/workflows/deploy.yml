@@ -41,3 +41,7 @@ jobs:
           # Zielordner auf dem Hosting. Default httpdocs/ – per Secret überschreibbar,
           # falls dein FTP-Login direkt im Web-Root landet (dann Secret = ./).
           server-dir: ${{ secrets.FTP_SERVER_DIR != '' && secrets.FTP_SERVER_DIR || 'httpdocs/' }}
+          # Diagnose: zeigt jeden FTP-Befehl im Log -> sehen, wo die Verbindung abbricht
+          log-level: verbose
+          # mehr Geduld beim Verbindungsaufbau (Default 30s)
+          timeout: 60000
