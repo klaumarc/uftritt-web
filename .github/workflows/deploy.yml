@@ -49,5 +49,5 @@ jobs:
           # mehr Geduld beim Verbindungsaufbau (Default 30s)
           timeout: 60000
           # ACHTUNG: leert den Zielordner (server-dir) komplett vor dem Upload.
-          # Loescht das alte WordPress in ki.uftritt.ch. server-dir MUSS ki.uftritt.ch/ sein!
+          # server-dir MUSS exakt der Plesk-Dokumentenstamm der Subdomain sein!
           dangerous-clean-slate: true
