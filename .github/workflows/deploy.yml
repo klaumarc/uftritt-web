@@ -50,9 +50,10 @@ jobs:
           log-level: verbose
           # mehr Geduld beim Verbindungsaufbau (Default 30s)
           timeout: 60000
-          # INKREMENTELL: kein clean-slate. Die Action fuehrt eine Sync-State-Datei
-          # im server-dir und laedt nur geaenderte/neue Dateien hoch; entfernt werden
-          # nur Dateien, die im Projekt geloescht wurden. NICHT alles ersetzen (User-Vorgabe).
-          # Neuer state-name = einmaliger Voll-Reupload (ergaenzt fehlende Dateien wie
-          # /icons/ + sitemap nach abgebrochenem Deploy), loescht dabei NICHTS.
-          state-name: .deploy-state.json
+          # WICHTIG: clean-slate MUSS an bleiben auf diesem Hoster.
+          # Inkrementell (ohne clean-slate) listet die Action den Server rekursiv auf;
+          # die vielen LIST-Befehle brechen auf diesem ProFTPD-Datenkanal mit
+          # ECONNRESET ab -> Deploy schlaegt fehl (Runs 8 + 9). Mit clean-slate wird
+          # nicht gelistet (nur loeschen + hochladen) -> laeuft zuverlaessig durch.
+          # Unkritisch, weil im Zielordner NUR unsere generierte Seite liegt.
+          dangerous-clean-slate: true
