@@ -1,9 +1,10 @@
 name: Build & Deploy zu Plesk (FTP)
 
 on:
-  push:
-    branches: [main]
-  workflow_dispatch: {} # erlaubt manuelles Auslösen im GitHub-UI
+  # Kein Auto-Deploy bei Push mehr: Wir deployen direkt per FTP mit
+  # scripts/deploy.sh (inkrementell). Dieses Workflow nur noch manuell als
+  # Notnagel (Voll-Upload via Clean-Slate) ueber das GitHub-UI ausloesbar.
+  workflow_dispatch: {}
 
 concurrency:
   group: deploy-plesk

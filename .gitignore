@@ -2,6 +2,9 @@
 dist/
 .output/
 
+# direkter FTP-Deploy: lokales Pruefsummen-Manifest (siehe scripts/deploy.sh)
+.deploy-manifest.txt
+
 # netlify
 .netlify/
 
