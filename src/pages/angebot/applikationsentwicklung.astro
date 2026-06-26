@@ -9,21 +9,21 @@ const portfolio = ["seatalytics", "smart-navigator", "regan"].map(bySlug);
 
 const blocks = [
   {
-    title: "Analyse & Konzept",
+    title: "Analyse und Konzept",
     text: [
       "Wir verstehen zuerst deine Prozesse und Ziele, bevor wir Funktionen definieren. So entsteht eine Lösung, die wirklich zu deinem Arbeitsalltag passt.",
       "Statt Funktionen um ihrer selbst willen bauen wir, was dir nachweislich Arbeit abnimmt.",
     ],
   },
   {
-    title: "UX & Prototyping",
+    title: "UX und Prototyping",
     text: [
       "Bevor programmiert wird, machen wir die Anwendung erlebbar: Ein klickbarer Prototyp zeigt früh, wie sich deine App anfühlt – und lässt sich unkompliziert anpassen.",
       "So gehen wir kein Risiko ein und du weisst genau, was entsteht.",
     ],
   },
   {
-    title: "Entwicklung & Betrieb",
+    title: "Entwicklung und Betrieb",
     text: [
       "Wir setzen deine Applikation technisch sauber um, testen gründlich und sorgen für eine stabile, sichere Basis.",
       "Auch nach dem Launch sind wir da: Wartung, Updates und Weiterentwicklung inklusive.",
@@ -33,10 +33,10 @@ const blocks = [
 
 const steps = [
   { icon: "/img/icons/zuhoeren-icon.svg", t: "Zuhören und verstehen", d: "Wir lernen deine Abläufe und Ziele kennen – die Basis für eine sinnvolle Lösung." },
-  { icon: "/img/icons/analyse-icon.svg", t: "Konzept & Anforderungen", d: "Wir definieren Funktionen, Datenflüsse und Rahmen – transparent und nachvollziehbar." },
+  { icon: "/img/icons/analyse-icon.svg", t: "Konzept und Anforderungen", d: "Wir definieren Funktionen, Datenflüsse und Rahmen – transparent und nachvollziehbar." },
   { icon: "/img/icons/brainstorm-icon.svg", t: "Prototyp", d: "Ein klickbarer Prototyp macht die App früh erlebbar und lässt sich leicht justieren." },
   { icon: "/img/icons/austauschen-icon.svg", t: "Entwicklung", d: "Wir programmieren, testen und integrieren – Schritt für Schritt, mit dir im Loop." },
-  { icon: "/img/icons/abheben-icon.svg", t: "Betrieb & Support", d: "Nach dem Launch begleiten wir dich mit Wartung, Updates und Weiterentwicklung." },
+  { icon: "/img/icons/abheben-icon.svg", t: "Betrieb und Support", d: "Nach dem Launch begleiten wir dich mit Wartung, Updates und Weiterentwicklung." },
 ];
 ---
 
@@ -71,7 +71,6 @@ const steps = [
         {
           steps.map((s, i) => (
             <li class="step" data-reveal style={`--reveal-delay:${i * 80}ms`}>
-              <img class="step-icon" src={s.icon} alt="" width="48" height="48" />
               <span class="step-no">{String(i + 1).padStart(2, "0")}</span>
               <h3>{s.t}</h3>
               <p>{s.d}</p>
@@ -125,13 +124,13 @@ const steps = [
   .section-head { margin-bottom: clamp(2rem, 4vw, 3rem); }
 
   .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(1rem, 2vw, 1.75rem); }
-  .step { display: flex; flex-direction: column; align-items: flex-start; border-bottom: 3px solid var(--color-blue); padding-bottom: 1.25rem; }
+  .step { display: flex; flex-direction: column; align-items: flex-start; }
   .step-icon { width: 64px; height: 64px; margin-bottom: 0.9rem; }
-  .step-no { display: block; font-weight: 900; font-size: 1.6rem; color: var(--color-blue); margin-bottom: 0.5rem; }
+  .step-no { display: block; width: 100%; border-bottom: 3px solid var(--color-blue); padding-bottom: 0.6rem; font-weight: 900; font-size: 1.6rem; color: var(--color-blue); margin-bottom: 0.5rem; }
   .step h3 { font-size: 1.1rem; color: var(--color-blue); margin-bottom: 0.4rem; }
   .step p { color: var(--color-blue); font-size: 0.95rem; line-height: 1.55; }
 
-  .portfolio { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.75rem); }
+  .portfolio { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.5rem, 1.2vw, 0.9rem); }
   .ref-card { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: #eef2f7; }
   .ref-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.85s var(--ease); }
   .ref-card:hover .ref-img, .ref-card:focus-visible .ref-img { transform: scale(1.05); }

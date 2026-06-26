@@ -30,15 +30,14 @@ const { eyebrow, title, lead, compact = false, light = false, lottie, lottieLabe
       {lead && <p class="page-hero-lead" data-reveal>{lead}</p>}
       <slot name="hero-extra" />
     </div>
+    {
+      lottie && (
+        <div class="page-hero-lottie" data-lottie-trigger aria-hidden="true">
+          <Lottie src={lottie} hover={true} ariaLabel={lottieLabel} />
+        </div>
+      )
+    }
   </div>
-
-  {
-    lottie && (
-      <div class="page-hero-lottie" data-lottie-trigger aria-hidden="true">
-        <Lottie src={lottie} hover={true} ariaLabel={lottieLabel} />
-      </div>
-    )
-  }
 </section>
 
 <style>
@@ -63,6 +62,15 @@ const { eyebrow, title, lead, compact = false, light = false, lottie, lottieLabe
   .page-hero-text {
     max-width: 620px;
   }
+  /* Mit Lottie: Text = linke Spalte, füllt den Platz bis zum Lottie (nicht mehr
+     in schmaler Spalte links festgenagelt) – Revision Jeffrey. */
+  .page-hero--has-lottie .page-hero-text {
+    flex: 1 1 auto;
+    /* explizit den 620px-Basis-Deckel aufheben: Text füllt die linke Spalte,
+       H1 läuft auf breiten Screens aus ("Webdesign und" kommt hoch).
+       Lead bleibt via .page-hero-lead schmal. */
+    max-width: none;
+  }
   .page-hero .eyebrow {
     display: block;
     margin-bottom: 0.5rem;
@@ -85,14 +93,18 @@ const { eyebrow, title, lead, compact = false, light = false, lottie, lottieLabe
     margin-top: 1.5rem;
   }
 
-  /* Json rechts – mit Abstand zum Rand, nicht angeschnitten */
+  /* Json als rechte Spalte INNERHALB des zentrierten Containers (nicht am
+     Bildschirmrand) – so ist der Hero ausbalanciert statt links gequetscht. */
+  .page-hero--has-lottie .page-hero-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(1.5rem, 3vw, 3rem);
+  }
   .page-hero-lottie {
-    position: absolute;
-    top: 50%;
-    right: clamp(1.5rem, 5vw, 4rem);
-    transform: translateY(-50%);
-    width: min(46vw, 560px);
-    height: min(46vw, 560px);
+    flex: none;
+    width: min(38vw, 460px);
+    aspect-ratio: 1;
     z-index: 2; /* über dem Text-Layer, damit der Hover zuverlässig das JSON trifft */
     cursor: pointer;
   }
@@ -102,12 +114,14 @@ const { eyebrow, title, lead, compact = false, light = false, lottie, lottieLabe
       display: block;
       min-height: auto;
     }
+    .page-hero--has-lottie .page-hero-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.75rem;
+    }
     .page-hero-lottie {
-      position: static;
-      transform: none;
       width: min(70vw, 340px);
-      height: min(70vw, 340px);
-      margin: 1.75rem 0 0 auto;
+      margin-left: auto;
     }
   }
 </style>

@@ -19,14 +19,13 @@ const services = [
   },
   {
     lottie: "/lottie/webdesign.json",
-    title: "Webdesign & Entwicklung",
+    title: "Webdesign und Entwicklung",
     subtitle: "UI Design, Erlebnis, nutzerzentriert",
     text: "Die Website repräsentiert dein Business im Internet. Gemeinsam entwickeln wir die Webpräsenz, die deiner Arbeit gerecht wird, die Bedürfnisse deiner Kundschaft berücksichtigt und zum Verweilen einlädt.",
     href: "/angebot/webdesign",
   },
   {
-    // TODO: eigenes Marketingbegleitung-Lottie – aktuell Platzhalter (treppe.json)
-    lottie: "/lottie/treppe.json",
+    lottie: "/lottie/marketingbegleitung.json",
     title: "Marketingbegleitung",
     subtitle: "Strategie, Kanäle, kontinuierlich",
     text: "Sichtbarkeit entsteht nicht zufällig. Wir begleiten dich strategisch über die passenden Kanäle, planen die Massnahmen gemeinsam und sorgen dafür, dass deine Botschaft konstant und glaubwürdig bei deiner Zielgruppe ankommt.",
@@ -173,7 +172,7 @@ const disciplines = [
       <div data-reveal>
         <News limit={3} showFilter={false} />
       </div>
-      <div class="center-cta" data-reveal>
+      <div class="center-cta cta-left" data-reveal>
         <Button href="/aktuell" variant="blue">Alli News aluege</Button>
       </div>
     </div>
@@ -230,7 +229,8 @@ const disciplines = [
     justify-content: center; /* vertikal zentriert */
   }
   .hero-text {
-    max-width: min(960px, 100%);
+    /* breiter, damit die H1 mehr ausläuft – Revision Jeffrey */
+    max-width: min(1180px, 100%);
   }
   .hero-lead {
     font-size: clamp(1.15rem, 1.7vw, 1.45rem);
@@ -250,14 +250,14 @@ const disciplines = [
     margin-bottom: clamp(2rem, 4vw, 3rem);
   }
   .section-head h2 {
-    max-width: 18ch;
+    max-width: 28ch;
   }
 
   /* ---------- Services ---------- */
   .services {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(1.5rem, 3vw, 2.5rem);
+    gap: clamp(0.5rem, 1.2vw, 0.9rem);
   }
   .service-card {
     position: relative; /* Anker für den Stretched-Link */
@@ -350,7 +350,7 @@ const disciplines = [
     gap: 2rem;
   }
   .team-intro h2 {
-    max-width: 18ch;
+    max-width: 36ch;
   }
   .team-intro .lead-max {
     color: var(--color-blue);
@@ -367,7 +367,7 @@ const disciplines = [
   .project-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(1rem, 2vw, 1.75rem);
+    gap: clamp(0.5rem, 1.2vw, 0.9rem);
   }
   /* ohne JS / vor JS: nur die ersten 3 zeigen (kein Aufblitzen aller Projekte) */
   .project-grid .project-card:nth-child(n + 4) {

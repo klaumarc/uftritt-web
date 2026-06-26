@@ -52,10 +52,14 @@ import { reviews, reviewsMeta } from "../data/reviews";
     position: relative;
   }
   .reviews-track {
-    display: grid;
+    position: relative;
   }
   .review-slide {
-    grid-area: 1 / 1;
+    /* inaktive Slides liegen absolut übereinander (zählen nicht zur Höhe) */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     margin: 0;
     opacity: 0;
     visibility: hidden;
@@ -64,6 +68,9 @@ import { reviews, reviewsMeta } from "../data/reviews";
       visibility 0.6s;
   }
   .review-slide.is-active {
+    /* aktiver Slide ist im Fluss -> Track ist genau so hoch wie dieser Text,
+       Navigation sitzt direkt darunter (kein riesiger Abstand bei kurzen Stimmen) */
+    position: relative;
     opacity: 1;
     visibility: visible;
     transform: none;

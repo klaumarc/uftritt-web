@@ -98,6 +98,10 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
+  /* Kein horizontaler Seiten-Scroll: full-bleed-Elemente (z. B. Team-Slider mit
+     margin-inline: calc(50% - 50vw)) ragen wegen der Scrollbar-Breite minimal
+     über den Inhalt hinaus. clip kappt das, ohne position:sticky zu brechen. */
+  overflow-x: clip;
   /* Scrollbar-Platz immer reservieren -> beim Menü-Öffnen (overflow:hidden)
      ändert sich die Layout-Breite nicht, nichts springt. */
   scrollbar-gutter: stable;
@@ -224,7 +228,10 @@ h4 {
 /* Desktop: H1 ohne Silbentrennung (läuft in breiter Spalte aus) – Revision Jeffrey.
    Auf Mobile bleibt die deutsche Silbentrennung aktiv. */
 @media (min-width: 601px) {
-  h1 {
+  h1,
+  h2,
+  h3,
+  h4 {
     -webkit-hyphens: none;
     hyphens: none;
   }

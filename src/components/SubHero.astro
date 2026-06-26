@@ -46,7 +46,9 @@ const { eyebrow, title, lead, lottie, lottieLabel } = Astro.props;
     pointer-events: none; /* Maus erreicht das Lottie dahinter (Hover-Trigger) */
   }
   .subhero-text {
-    max-width: 620px;
+    /* etwas breiter als urspr. 620px, damit der Titel mehr Platz hat – aber
+       gedeckelt, damit der Text NICHT unter das randständige Lottie läuft. */
+    max-width: 780px;
     pointer-events: auto; /* Text/Links bleiben interaktiv */
   }
   .subhero .eyebrow {

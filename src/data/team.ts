@@ -32,7 +32,7 @@ export const team: TeamMember[] = [
   },
   {
     name: "Tamara Schmutz",
-    role: "Texterstellung & Social Media",
+    role: "Texterstellung und Social Media",
     photo: "/team/tamara.jpg",
     email: "info@uftritt.ch",
     bio: "Mit ihrem Studium in Journalismus und Organisationskommunikation und mehrjähriger Erfahrung in Kommunikation und Marketing bringt Tamara Botschaften auf den Punkt. Ihr Credo: «Lieber kurz auf den Punkt als lange drum herum.» Den Ausgleich findet sie auf dem Volleyballfeld.",

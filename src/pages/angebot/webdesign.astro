@@ -49,18 +49,18 @@ const faq = [
 ];
 
 const steps = [
-  { icon: "/img/icons/zuhoeren-icon.svg", t: "Zuhören & Verstehen", d: "Was macht dein Unternehmen besonders? Welche Ziele verfolgst du? Daraus entsteht ein massgeschneidertes Konzept." },
+  { icon: "/img/icons/zuhoeren-icon.svg", t: "Zuhören und Verstehen", d: "Was macht dein Unternehmen besonders? Welche Ziele verfolgst du? Daraus entsteht ein massgeschneidertes Konzept." },
   { icon: "/img/icons/analyse-icon.svg", t: "Alles aus einer Hand", d: "Logo, Text, Fotoshooting, Headervideo – nahtlos aufeinander abgestimmt." },
-  { icon: "/img/icons/brainstorm-icon.svg", t: "Prototyp & Screendesign", d: "Ein klickbarer Prototyp, der sich schon anfühlt wie deine künftige Website." },
+  { icon: "/img/icons/brainstorm-icon.svg", t: "Prototyp und Screendesign", d: "Ein klickbarer Prototyp, der sich schon anfühlt wie deine künftige Website." },
   { icon: "/img/icons/austauschen-icon.svg", t: "Umsetzung", d: "Ob Webflow, WordPress oder individuelle Lösung – technisch solide und auf Wachstum ausgelegt." },
   { icon: "/img/icons/abheben-icon.svg", t: "Support", d: "Wir begleiten dich bis zur Liveschaltung – und darüber hinaus: Wartung, Updates, Content-Pflege, SEO." },
 ];
 ---
 
-<Layout title="Webdesign & Entwicklung – Uftritt" description="Webdesign & Entwicklung aus dem Zürcher Oberland: UI/UX, Prototyping, SEO. Zertifizierte Webflow- und Weblink-Partner – massgeschneidert statt von der Stange.">
+<Layout title="Webdesign und Entwicklung – Uftritt" description="Webdesign und Entwicklung aus dem Zürcher Oberland: UI/UX, Prototyping, SEO. Zertifizierte Webflow- und Weblink-Partner – massgeschneidert statt von der Stange.">
   <PageHero
     eyebrow="Angebot"
-    title={"Webdesign & Entwicklung"}
+    title={"Webdesign und Entwicklung"}
     lead="Die Website repräsentiert dein Business im Internet. Gemeinsam entwickeln wir den Web-Auftritt, der deiner Arbeit gerecht wird und zum Verweilen einlädt – vom einfachen Onepager über komplexe Websites bis zur spezifischen Landingpage."
     lottie="/lottie/webdesign.json"
     lottieLabel="Webdesign"
@@ -138,7 +138,6 @@ const steps = [
         {
           steps.map((s, i) => (
             <li class="step" data-reveal style={`--reveal-delay:${i * 80}ms`}>
-              <img class="step-icon" src={s.icon} alt="" width="48" height="48" />
               <span class="step-no">{String(i + 1).padStart(2, "0")}</span>
               <h3>{s.t}</h3>
               <p>{s.d}</p>
@@ -224,14 +223,14 @@ const steps = [
   .invest-note { margin-top: 1.5rem; color: var(--color-blue); line-height: 1.7; max-width: 70ch; }
 
   .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(1rem, 2vw, 1.75rem); }
-  .step { display: flex; flex-direction: column; align-items: flex-start; border-bottom: 3px solid var(--color-blue); padding-bottom: 1.25rem; }
+  .step { display: flex; flex-direction: column; align-items: flex-start; }
   .step-icon { width: 64px; height: 64px; margin-bottom: 0.9rem; }
-  .step-no { display: block; font-weight: 900; font-size: 1.6rem; color: var(--color-blue); margin-bottom: 0.5rem; }
+  .step-no { display: block; width: 100%; border-bottom: 3px solid var(--color-blue); padding-bottom: 0.6rem; font-weight: 900; font-size: 1.6rem; color: var(--color-blue); margin-bottom: 0.5rem; }
   .step h3 { font-size: 1.1rem; color: var(--color-blue); margin-bottom: 0.4rem; }
   .step p { color: var(--color-blue); font-size: 0.95rem; line-height: 1.55; }
 
   /* Portfolio-Kacheln – Hover wie auf der Startseite */
-  .portfolio { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.75rem); }
+  .portfolio { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.5rem, 1.2vw, 0.9rem); }
   .ref-card { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: #eef2f7; }
   .ref-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.85s var(--ease); }
   .ref-card:hover .ref-img, .ref-card:focus-visible .ref-img { transform: scale(1.05); }

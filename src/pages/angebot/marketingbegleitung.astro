@@ -9,21 +9,21 @@ const portfolio = ["aas-freight", "youngstars", "100pro-openair-2024"].map(bySlu
 
 const blocks = [
   {
-    title: "Strategie & Planung",
+    title: "Strategie und Planung",
     text: [
       "Wer soll wann und womit erreicht werden? Gemeinsam definieren wir Ziele, Zielgruppen und einen Massnahmenplan, der zu deinem Budget passt.",
       "So weisst du von Anfang an, wohin die Reise geht – und warum.",
     ],
   },
   {
-    title: "Content & Kampagnen",
+    title: "Content und Kampagnen",
     text: [
       "Von Social Media über Newsletter bis zur Printkampagne: Wir produzieren Inhalte, die zusammenpassen und deine Botschaft konsequent transportieren.",
       "Ein Auftritt aus einer Hand – über alle Kanäle hinweg stimmig.",
     ],
   },
   {
-    title: "Begleitung & Auswertung",
+    title: "Begleitung und Auswertung",
     text: [
       "Wir bleiben dran, behalten die Resultate im Blick und justieren laufend nach.",
       "So wirkt dein Marketing nicht nur einmal, sondern wächst mit dir mit.",
@@ -34,9 +34,9 @@ const blocks = [
 const steps = [
   { icon: "/img/icons/zuhoeren-icon.svg", t: "Zuhören und verstehen", d: "Was willst du erreichen, wen willst du ansprechen? Wir nehmen deine Ziele auf." },
   { icon: "/img/icons/analyse-icon.svg", t: "Strategie", d: "Wir analysieren Markt und Zielgruppe und entwickeln einen klaren Massnahmenplan." },
-  { icon: "/img/icons/brainstorm-icon.svg", t: "Konzept & Content", d: "Wir entwickeln Ideen und produzieren die passenden Inhalte für deine Kanäle." },
+  { icon: "/img/icons/brainstorm-icon.svg", t: "Konzept und Content", d: "Wir entwickeln Ideen und produzieren die passenden Inhalte für deine Kanäle." },
   { icon: "/img/icons/austauschen-icon.svg", t: "Umsetzung", d: "Wir bringen die Kampagne live – koordiniert über alle Kanäle hinweg." },
-  { icon: "/img/icons/abheben-icon.svg", t: "Auswerten & Optimieren", d: "Wir messen, lernen und justieren nach, damit dein Marketing besser und besser wird." },
+  { icon: "/img/icons/abheben-icon.svg", t: "Auswerten und Optimieren", d: "Wir messen, lernen und justieren nach, damit dein Marketing besser und besser wird." },
 ];
 ---
 
@@ -45,6 +45,8 @@ const steps = [
     eyebrow="Angebot"
     title="Marketingbegleitung"
     lead="Gutes Marketing ist kein Einzelschuss, sondern ein roter Faden. Wir begleiten dich über Kampagnen und Kanäle hinweg – strategisch geplant, kreativ umgesetzt und messbar."
+    lottie="/lottie/marketingbegleitung.json"
+    lottieLabel="Marketingbegleitung"
   />
 
   <section class="section">
@@ -71,7 +73,6 @@ const steps = [
         {
           steps.map((s, i) => (
             <li class="step" data-reveal style={`--reveal-delay:${i * 80}ms`}>
-              <img class="step-icon" src={s.icon} alt="" width="48" height="48" />
               <span class="step-no">{String(i + 1).padStart(2, "0")}</span>
               <h3>{s.t}</h3>
               <p>{s.d}</p>
@@ -125,13 +126,13 @@ const steps = [
   .section-head { margin-bottom: clamp(2rem, 4vw, 3rem); }
 
   .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(1rem, 2vw, 1.75rem); }
-  .step { display: flex; flex-direction: column; align-items: flex-start; border-bottom: 3px solid var(--color-blue); padding-bottom: 1.25rem; }
+  .step { display: flex; flex-direction: column; align-items: flex-start; }
   .step-icon { width: 64px; height: 64px; margin-bottom: 0.9rem; }
-  .step-no { display: block; font-weight: 900; font-size: 1.6rem; color: var(--color-blue); margin-bottom: 0.5rem; }
+  .step-no { display: block; width: 100%; border-bottom: 3px solid var(--color-blue); padding-bottom: 0.6rem; font-weight: 900; font-size: 1.6rem; color: var(--color-blue); margin-bottom: 0.5rem; }
   .step h3 { font-size: 1.1rem; color: var(--color-blue); margin-bottom: 0.4rem; }
   .step p { color: var(--color-blue); font-size: 0.95rem; line-height: 1.55; }
 
-  .portfolio { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2vw, 1.75rem); }
+  .portfolio { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.5rem, 1.2vw, 0.9rem); }
   .ref-card { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: #eef2f7; }
   .ref-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.85s var(--ease); }
   .ref-card:hover .ref-img, .ref-card:focus-visible .ref-img { transform: scale(1.05); }
