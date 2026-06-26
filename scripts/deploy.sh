@@ -43,12 +43,12 @@ fi
 
 # Zu uebertragende Dateien bestimmen
 if [ -f "$MANIFEST" ] && [ "$MODE" != "--full" ]; then
-  comm -23 "$NEW" <(sort "$MANIFEST") | sed 's/^[0-9a-f]\{64\}  //' > "$UPLOAD"
+  comm -23 "$NEW" <(sort "$MANIFEST") | sed 's/^[0-9a-f]\{64\} \*\{0,1\}//' > "$UPLOAD"
   # Geloeschte Dateien: Pfad in Manifest, aber nicht mehr im Build
-  comm -13 <(sed 's/^[0-9a-f]\{64\}  //' "$NEW" | sort) \
-           <(sed 's/^[0-9a-f]\{64\}  //' "$MANIFEST" | sort) > "$DELS"
+  comm -13 <(sed 's/^[0-9a-f]\{64\} \*\{0,1\}//' "$NEW" | sort) \
+           <(sed 's/^[0-9a-f]\{64\} \*\{0,1\}//' "$MANIFEST" | sort) > "$DELS"
 else
-  sed 's/^[0-9a-f]\{64\}  //' "$NEW" > "$UPLOAD"
+  sed 's/^[0-9a-f]\{64\} \*\{0,1\}//' "$NEW" > "$UPLOAD"
   : > "$DELS"
 fi
 
