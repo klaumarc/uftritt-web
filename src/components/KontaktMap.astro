@@ -1,0 +1,88 @@
+---
+// Standort-Karte mit Leaflet + hellen CARTO-Tiles und CD-pinkem Pin.
+// Kein API-Key nötig. Farben/Elemente sind selbst kontrolliert.
+interface Props {
+  lat?: number;
+  lng?: number;
+  label?: string;
+}
+const {
+  lat = 47.3949784,
+  lng = 8.8520086,
+  label = "Uftritt GmbH · Frauwisstrasse 9, 8493 Saland",
+} = Astro.props;
+---
+
+<div
+  class="lmap"
+  data-lat={lat}
+  data-lng={lng}
+  data-label={label}
+  role="img"
+  aria-label={`Karte: Standort ${label}`}
+></div>
+
+<script>
+  import L from "leaflet";
+  import "leaflet/dist/leaflet.css";
+
+  const el = document.querySelector<HTMLElement>(".lmap");
+  if (el) {
+    const lat = parseFloat(el.dataset.lat || "0");
+    const lng = parseFloat(el.dataset.lng || "0");
+    const label = el.dataset.label || "";
+
+    const map = L.map(el, {
+      scrollWheelZoom: false, // Seiten-Scroll nicht kapern
+      attributionControl: true,
+    }).setView([lat, lng], 16);
+
+    L.tileLayer(
+      "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+      {
+        subdomains: "abcd",
+        maxZoom: 20,
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      }
+    ).addTo(map);
+
+    // CD-pinker Pin
+    const pin = L.divIcon({
+      className: "lmap-pin",
+      html:
+        '<svg width="38" height="50" viewBox="0 0 38 50" xmlns="http://www.w3.org/2000/svg">' +
+        '<path d="M19 0C8.507 0 0 8.507 0 19c0 12.7 19 31 19 31s19-18.3 19-31C38 8.507 29.493 0 19 0z" fill="#DA2C67"/>' +
+        '<circle cx="19" cy="19" r="6.8" fill="#ffffff"/></svg>',
+      iconSize: [38, 50],
+      iconAnchor: [19, 48],
+      popupAnchor: [0, -44],
+    });
+
+    L.marker([lat, lng], { icon: pin, title: label }).addTo(map).bindPopup(label);
+  }
+</script>
+
+<style>
+  .lmap {
+    width: 100%;
+    height: clamp(320px, 42vw, 520px);
+    background: var(--color-bg-soft);
+  }
+  /* Leaflet-Steuerelemente dezent im CD */
+  .lmap :global(.leaflet-bar a) {
+    color: var(--color-blue);
+    border-radius: 0;
+  }
+  .lmap :global(.leaflet-bar a:hover) {
+    color: var(--color-pink);
+  }
+  .lmap :global(.leaflet-container) {
+    font-family: var(--font-base);
+  }
+  .lmap :global(.lmap-pin) {
+    /* Pin per SVG gefärbt – kein Standard-Marker-Bild */
+    background: none;
+    border: none;
+  }
+</style>

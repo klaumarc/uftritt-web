@@ -1,0 +1,106 @@
+---
+// Lauftext-Marquee "Das gestalten wir für dich": 3 Zeilen, abwechselnd
+// links/rechts, full-bleed über die Bildschirmränder. Läuft durchgehend
+// (kein Hover-Stopp). Begriffe je Zeile rotiert für Abwechslung.
+interface Props {
+  title: string;
+  terms: string[];
+  eyebrow?: string;
+}
+const { title, terms, eyebrow = "Das gestalten wir für dich" } = Astro.props;
+const rot = (a: string[], n: number) =>
+  a.slice(n % a.length).concat(a.slice(0, n % a.length));
+const rows = [terms, rot(terms, 3), rot(terms, 5)];
+---
+
+<section class="section">
+  <div class="container">
+    <header class="section-head" data-reveal>
+      <span class="eyebrow">{eyebrow}</span>
+      <h2>{title}</h2>
+    </header>
+    <div class="mq" data-reveal aria-label={eyebrow}>
+      {
+        rows.map((row, r) => (
+          <div class:list={["mq-row", r % 2 === 1 ? "mq-right" : "mq-left"]}>
+            <ul class="mq-track">
+              {[...row, ...row].map((l, i) => (
+                <li aria-hidden={i >= row.length ? "true" : undefined}>{l}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-head {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+  .mq {
+    margin-inline: calc(50% - 50vw);
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.3rem, 1vw, 0.9rem);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  }
+  .mq-row {
+    overflow: hidden;
+  }
+  .mq-track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    will-change: transform;
+  }
+  .mq-left .mq-track {
+    animation: mq-l 105s linear infinite;
+  }
+  .mq-right .mq-track {
+    animation: mq-r 88s linear infinite;
+  }
+  .mq-track li {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    font-size: clamp(1.15rem, 2.6vw, 1.9rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    color: var(--color-blue);
+  }
+  .mq-track li::after {
+    content: "";
+    flex: none;
+    width: 0.5em;
+    height: 0.5em;
+    background: var(--color-yellow);
+    margin-inline: clamp(1rem, 2.5vw, 2.5rem);
+  }
+  @keyframes mq-l {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes mq-r {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mq {
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
+    .mq-track {
+      animation: none;
+      flex-wrap: wrap;
+    }
+    .mq-track li[aria-hidden] {
+      display: none;
+    }
+  }
+</style>

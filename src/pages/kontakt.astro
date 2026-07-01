@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import SubHero from "../components/SubHero.astro";
+import KontaktMap from "../components/KontaktMap.astro";
 ---
 
 <Layout title="Kontakt – Uftritt" description="Schriib eus! Uftritt GmbH, Frauwisstrasse 9, 8493 Saland · 044 500 29 55 · info@uftritt.ch">
@@ -10,22 +11,15 @@ import SubHero from "../components/SubHero.astro";
     lead="Wir freuen uns riesig darauf, von dir zu hören! Kommunikation ist der Schlüssel zu jedem erfolgreichen Projekt. Deshalb sind wir immer für dich da."
     lottie="/lottie/kontakt-sprechblasen.json"
     lottieLabel="Sprechblasen"
-  />
+  >
+    <p class="hero-contact" slot="hero-extra">
+      <a href="tel:+41445002955">044 500 29 55</a>
+      <a href="mailto:info@uftritt.ch">info@uftritt.ch</a>
+    </p>
+  </SubHero>
 
   <section class="section">
-    <div class="container kontakt">
-      <div class="kontakt-info" data-reveal>
-        <address>
-          <strong>Uftritt GmbH</strong><br />
-          Frauwisstrasse 9<br />
-          8493 Saland
-        </address>
-        <p class="kontakt-links">
-          <a href="tel:+41445002955">044 500 29 55</a>
-          <a href="mailto:info@uftritt.ch">info@uftritt.ch</a>
-        </p>
-      </div>
-
+    <div class="container">
       <form
         class="kontakt-form"
         name="kontakt"
@@ -53,21 +47,34 @@ import SubHero from "../components/SubHero.astro";
           <span>Worum geht's?</span>
           <textarea name="nachricht" rows="5" required></textarea>
         </label>
-        <button type="submit" class="kontakt-submit">Nachricht senden</button>
+        <button type="submit" class="kontakt-submit">
+          <span class="ks-arrow" aria-hidden="true"><i></i></span>
+          <span>Nachricht schickä</span>
+        </button>
       </form>
     </div>
   </section>
 
-  <section class="kontakt-map" aria-label="Standort auf Karte">
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6407.526083057463!2d8.85195!3d47.39502400000001!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x479ab7fbe506aabd%3A0x70c8adbc4bd9a66c!2sUftritt%20GmbH!5e1!3m2!1sde!2sch!4v1781616228870!5m2!1sde!2sch"
-      width="600"
-      height="450"
-      style="border:0;"
-      allowfullscreen
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      title="Uftritt GmbH auf Google Maps"></iframe>
+  <section class="section kontakt-map-section" aria-label="Standort auf Karte">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Standort</span>
+        <h2>So findest du uns</h2>
+      </header>
+      <div class="kontakt-loc">
+        <div class="kontakt-info" data-reveal>
+          <img class="kontakt-photo" src="/kontakt/standort.jpg" alt="Unser Standort an der Frauwisstrasse 9 in Saland" loading="lazy" />
+          <address>
+            <strong>Uftritt GmbH</strong><br />
+            Frauwisstrasse 9<br />
+            8493 Saland
+          </address>
+        </div>
+        <div class="kontakt-map" data-reveal>
+          <KontaktMap />
+        </div>
+      </div>
+    </div>
   </section>
 </Layout>
 
@@ -80,11 +87,34 @@ import SubHero from "../components/SubHero.astro";
 </script>
 
 <style>
-  .kontakt {
+  /* Telefon + E-Mail direkt unter dem Lead im Hero */
+  .hero-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.75rem;
+    margin-top: 1.5rem;
+    font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+    font-weight: 700;
+  }
+  .hero-contact a {
+    color: var(--color-blue);
+  }
+  .hero-contact a:hover {
+    color: var(--color-pink);
+  }
+
+  .kontakt-loc {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: clamp(2rem, 5vw, 5rem);
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
     align-items: start;
+  }
+  .kontakt-photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 1.5rem;
   }
   .kontakt-info address {
     font-style: normal;
@@ -111,6 +141,7 @@ import SubHero from "../components/SubHero.astro";
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+    max-width: 640px;
   }
   .kontakt-error {
     border-left: 3px solid var(--color-pink);
@@ -133,7 +164,7 @@ import SubHero from "../components/SubHero.astro";
     font-family: var(--font-base);
     font-size: 1rem;
     padding: 0.85rem 1rem;
-    border: 2px solid rgba(1, 64, 128, 0.25);
+    border: 1px solid #e7ecf3;
     background: #fff;
     color: var(--color-blue);
   }
@@ -144,31 +175,76 @@ import SubHero from "../components/SubHero.astro";
   }
   .kontakt-submit {
     align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
     font-family: var(--font-base);
     font-weight: 700;
     font-size: 1.0625rem;
+    line-height: 1;
     color: #fff;
     background: var(--color-blue);
     border: none;
     padding: 1rem 1.7rem;
-    cursor: pointer;
+    cursor: var(--cur-hand);
     transition: background 0.4s var(--ease);
   }
   .kontakt-submit:hover {
     background: var(--color-blue-dark);
   }
+  /* Marken-Pfeil gleitet bei Hover rein – wie die anderen Buttons */
+  .ks-arrow {
+    display: inline-block;
+    max-width: 0;
+    overflow: visible;
+    transition: max-width 0.6s var(--ease), margin-right 0.6s var(--ease);
+  }
+  .ks-arrow i {
+    display: block;
+    width: 1.1em;
+    height: 0.85em;
+    background-color: #fff;
+    -webkit-mask: url("/img/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    mask: url("/img/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+  }
+  .kontakt-submit:hover .ks-arrow,
+  .kontakt-submit:focus-visible .ks-arrow {
+    max-width: 1.1em;
+    margin-right: 0.55rem;
+  }
+  .kontakt-submit:hover .ks-arrow i,
+  .kontakt-submit:focus-visible .ks-arrow i {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ks-arrow,
+    .ks-arrow i {
+      transition: none;
+    }
+  }
 
+  .kontakt-map-section {
+    padding-top: 0;
+  }
+  .kontakt-map-section .section-head {
+    margin-bottom: clamp(1.25rem, 2.5vw, 2rem);
+  }
   .kontakt-map {
     line-height: 0;
+    border: 1px solid #e7ecf3;
   }
   .kontakt-map iframe {
     width: 100%;
-    height: clamp(320px, 45vw, 520px);
+    height: clamp(320px, 42vw, 520px);
     display: block;
+    border: 0;
   }
 
   @media (max-width: 760px) {
-    .kontakt {
+    .kontakt-loc {
       grid-template-columns: 1fr;
     }
   }

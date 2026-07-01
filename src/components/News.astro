@@ -17,17 +17,26 @@ const filters = ["Alle", ...years];
 <div class="news">
   {
     showFilter && (
-      <div class="news-filter" role="tablist" aria-label="News filtern">
-        {filters.map((f, i) => (
-          <button
-            class:list={["news-chip", { "is-active": i === 0 }]}
-            type="button"
-            data-filter={f}
-          >
-            {f}
-          </button>
-        ))}
-      </div>
+      <>
+        <div class="news-filter" role="tablist" aria-label="News filtern">
+          {filters.map((f, i) => (
+            <button
+              class:list={["news-chip", { "is-active": i === 0 }]}
+              type="button"
+              data-filter={f}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
+        <div class="news-select-wrap">
+          <select class="news-select" aria-label="News filtern">
+            {filters.map((f) => (
+              <option value={f}>{f}</option>
+            ))}
+          </select>
+        </div>
+      </>
     )
   }
 
@@ -69,7 +78,7 @@ const filters = ["Alle", ...years];
     background: transparent;
     border: 2px solid rgba(1, 64, 128, 0.25);
     padding: 0.7rem 1.2rem;
-    cursor: pointer;
+    cursor: var(--cur-hand);
     transition: background 0.4s var(--ease), color 0.4s var(--ease),
       border-color 0.4s var(--ease);
   }
@@ -80,6 +89,39 @@ const filters = ["Alle", ...years];
     background: var(--color-blue);
     border-color: var(--color-blue);
     color: #fff;
+  }
+
+  .news-select-wrap {
+    display: none;
+    margin-bottom: 2rem;
+  }
+  .news-select {
+    width: 100%;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--color-blue);
+    background-color: #fff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23014080' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.05rem;
+    border: 2px solid var(--color-blue);
+    padding: 0.95rem 3rem 0.95rem 1.1rem;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: var(--cur-hand);
+  }
+  .news-item.is-hidden {
+    display: none;
+  }
+  @media (max-width: 760px) {
+    .news-filter {
+      display: none;
+    }
+    .news-select-wrap {
+      display: block;
+    }
   }
 
   .news-grid {
@@ -158,16 +200,19 @@ const filters = ["Alle", ...years];
   const root = document.querySelector<HTMLElement>(".news");
   if (root) {
     const chips = Array.from(root.querySelectorAll<HTMLButtonElement>(".news-chip"));
+    const select = root.querySelector<HTMLSelectElement>(".news-select");
     const items = Array.from(root.querySelectorAll<HTMLElement>(".news-item"));
+    const applyFilter = (filter: string) => {
+      chips.forEach((c) => c.classList.toggle("is-active", c.dataset.filter === filter));
+      if (select && select.value !== filter) select.value = filter;
+      items.forEach((it) => {
+        const show = filter === "Alle" || it.dataset.year === filter;
+        it.classList.toggle("is-hidden", !show);
+      });
+    };
     chips.forEach((chip) =>
-      chip.addEventListener("click", () => {
-        const filter = chip.dataset.filter;
-        chips.forEach((c) => c.classList.toggle("is-active", c === chip));
-        items.forEach((it) => {
-          const show = filter === "Alle" || it.dataset.year === filter;
-          it.classList.toggle("is-hidden", !show);
-        });
-      })
+      chip.addEventListener("click", () => applyFilter(chip.dataset.filter || "Alle"))
     );
+    select?.addEventListener("change", () => applyFilter(select.value));
   }
 </script>

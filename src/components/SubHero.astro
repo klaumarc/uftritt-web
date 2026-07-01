@@ -72,7 +72,7 @@ const { eyebrow, title, lead, lottie, lottieLabel } = Astro.props;
     transform: translate(20%, -50%);
     width: min(52vw, 640px);
     height: min(52vw, 640px);
-    cursor: pointer;
+    cursor: var(--cur-hand);
     z-index: 0;
   }
 
@@ -81,12 +81,15 @@ const { eyebrow, title, lead, lottie, lottieLabel } = Astro.props;
       min-height: auto;
       padding-block: clamp(2.5rem, 8vw, 4rem);
     }
+    .subhero-text {
+      max-width: none;
+    }
+    .subhero-lead {
+      max-width: none; /* Lead über die ganze Breite */
+    }
+    /* Keine Icons im Header auf Unterseiten (mobil/tablet) */
     .subhero-lottie {
-      position: static;
-      transform: none;
-      width: min(70vw, 320px);
-      height: min(70vw, 320px);
-      margin: 1.75rem 0 0 auto;
+      display: none;
     }
   }
 </style>

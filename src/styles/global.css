@@ -86,6 +86,18 @@
 
   /* Transitions */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Custom Marken-Cursor (Design Jeffrey), Hotspot exakt an der Spitze.
+     Als Variablen, damit alle `cursor: pointer` in Komponenten darauf
+     umgestellt werden können (sonst überschreiben sie die globale Regel). */
+  --cur-arrow: image-set(
+      url("/cursor/Cursor_Pfeil_32px.png?v=2") 1x,
+      url("/cursor/Cursor_Pfeil_64px.png?v=2") 2x
+    ) 0 0, auto;
+  --cur-hand: image-set(
+      url("/cursor/Cursor_Hand_32px.png?v=3") 1x,
+      url("/cursor/Cursor_Hand_64px.png?v=3") 2x
+    ) 7 0, pointer;
 }
 
 /* ---- Reset / Base ---- */
@@ -161,17 +173,22 @@ body {
   line-height: 1.5; /* leicht engerer Zeilenabstand – Revision Jeffrey */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* Custom Marken-Cursor (CD-Pfeil). PNGs unter public/cursor/, Hotspot 2 30
-     (Pfeilspitze unten-links). Retina-Variante via image-set. */
-  cursor: url("/cursor/Cursor_Pfeil_32px.png") 2 30, auto;
-  cursor: -webkit-image-set(
-      url("/cursor/Cursor_Pfeil_32px.png") 1x,
-      url("/cursor/Cursor_Pfeil_64px.png") 2x
-    ) 2 30, auto;
-  cursor: image-set(
-      url("/cursor/Cursor_Pfeil_32px.png") 1x,
-      url("/cursor/Cursor_Pfeil_64px.png") 2x
-    ) 2 30, auto;
+  /* Standard = Marken-Pfeil (Spitze oben-links, Hotspot 0 0) */
+  cursor: var(--cur-arrow);
+}
+
+/* Klickbare Elemente: Marken-Hand-Cursor (Fingerspitze, Hotspot 6 0).
+   Komponenten mit eigenem `cursor: pointer` nutzen ebenfalls var(--cur-hand). */
+a[href],
+button,
+summary,
+select,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+.cta-circle,
+.btn {
+  cursor: var(--cur-hand);
 }
 
 img,
@@ -204,6 +221,7 @@ h4 {
   color: var(--color-blue);
   line-height: 1.04;
   letter-spacing: -0.015em;
+  overflow-wrap: break-word; /* nichts läuft über den Rand hinaus */
 }
 
 /* Skala gemessen aus dem CD-Stylesheet-Export (1920er Artboard) */
@@ -250,15 +268,24 @@ h4 {
 @media (max-width: 600px) {
   :root {
     --section-y: clamp(2.75rem, 11vw, 4rem);
+    --gutter: 1.25rem; /* einheitlicher, etwas grösserer Rand auf Mobile */
   }
   h1 {
-    font-size: clamp(2.05rem, 8.5vw, 2.85rem);
+    font-size: clamp(2.4rem, 10vw, 3.3rem);
   }
   h2 {
-    font-size: clamp(1.6rem, 6vw, 1.95rem);
+    font-size: clamp(1.8rem, 7vw, 2.3rem);
+    line-height: 1.18; /* mehr Zeilenabstand */
   }
   h3 {
-    font-size: clamp(1.25rem, 4.8vw, 1.45rem);
+    font-size: clamp(1.4rem, 5.6vw, 1.75rem);
+  }
+}
+
+/* "Schriib eus"-Kreis auf Mobile ausblenden (Platz/Übersicht) */
+@media (max-width: 760px) {
+  .floating-cta {
+    display: none;
   }
 }
 

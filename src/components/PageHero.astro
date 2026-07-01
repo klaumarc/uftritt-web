@@ -106,7 +106,7 @@ const { eyebrow, title, lead, compact = false, light = false, lottie, lottieLabe
     width: min(38vw, 460px);
     aspect-ratio: 1;
     z-index: 2; /* über dem Text-Layer, damit der Hover zuverlässig das JSON trifft */
-    cursor: pointer;
+    cursor: var(--cur-hand);
   }
 
   @media (max-width: 980px) {
@@ -119,9 +119,9 @@ const { eyebrow, title, lead, compact = false, light = false, lottie, lottieLabe
       align-items: flex-start;
       gap: 1.75rem;
     }
+    /* Keine Icons im Header auf Unterseiten (mobil/tablet) */
     .page-hero-lottie {
-      width: min(70vw, 340px);
-      margin-left: auto;
+      display: none;
     }
   }
 </style>

@@ -1,0 +1,226 @@
+---
+// Dezentes Rückruf-Popup: erscheint nach ~10 s unten rechts (über dem
+// "Schriib eus"-Kreis), einmal pro Session. Ein Feld (Telefon oder E-Mail),
+// sendet via /rueckruf.php an info@uftritt.ch, mit Inline-Danke.
+---
+
+<aside class="recall" id="recall" aria-label="Rückruf anfordern" hidden>
+  <button class="recall-close" type="button" aria-label="Schliessen" data-recall-close>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+      <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+    </svg>
+  </button>
+
+  <div class="recall-body" data-recall-form>
+    <div class="recall-head">
+      <img class="recall-avatar" src="/team/marcel.jpg" alt="Marcel Klausberger" width="88" height="88" loading="lazy" />
+      <div class="recall-head-text">
+        <h3>Sollen wir uns bei dir melden?</h3>
+        <span class="recall-person">Marcel meldet sich persönlich bei dir</span>
+      </div>
+    </div>
+    <p>Lass mir kurz deine Telefonnummer oder E-Mail da – unverbindlich.</p>
+    <form class="recall-form" data-recall-submit>
+      <p class="recall-hp" hidden aria-hidden="true">
+        <label>Bitte leer lassen: <input name="website" tabindex="-1" autocomplete="off" /></label>
+      </p>
+      <input
+        class="recall-input"
+        type="text"
+        name="kontakt"
+        required
+        placeholder="Telefon oder E-Mail"
+        aria-label="Telefon oder E-Mail"
+        autocomplete="tel"
+      />
+      <button class="recall-btn" type="submit">Ja, bitte</button>
+    </form>
+    <a class="recall-call" href="tel:+41445002955">oder ruf uns an: 044 500 29 55</a>
+  </div>
+
+  <div class="recall-done" data-recall-done hidden>
+    <div class="recall-head">
+      <img class="recall-avatar" src="/team/marcel.jpg" alt="Marcel Klausberger" width="88" height="88" loading="lazy" />
+      <div class="recall-head-text">
+        <h3>Merci! 🎉</h3>
+        <span class="recall-person">– Marcel</span>
+      </div>
+    </div>
+    <p>Ich melde mich so schnell wie möglich bei dir.</p>
+  </div>
+</aside>
+
+<script>
+  const KEY = "recall-dismissed";
+  const el = document.getElementById("recall");
+  if (el && sessionStorage.getItem(KEY) !== "1") {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const close = () => {
+      el.classList.remove("is-open");
+      sessionStorage.setItem(KEY, "1");
+      const done = () => {
+        el.hidden = true;
+        el.removeEventListener("transitionend", done);
+      };
+      if (reduce) el.hidden = true;
+      else el.addEventListener("transitionend", done);
+    };
+
+    // nach 10 s einblenden
+    window.setTimeout(() => {
+      el.hidden = false;
+      void el.offsetWidth;
+      el.classList.add("is-open");
+    }, 10000);
+
+    el.querySelector("[data-recall-close]")?.addEventListener("click", close);
+
+    const form = el.querySelector<HTMLFormElement>("[data-recall-submit]");
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      data.append("seite", location.pathname);
+      const btn = form.querySelector<HTMLButtonElement>(".recall-btn");
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Senden …";
+      }
+      try {
+        const res = await fetch("/rueckruf.php", { method: "POST", body: data });
+        if (!res.ok) throw new Error("fehler");
+        el.querySelector<HTMLElement>("[data-recall-form]")!.hidden = true;
+        el.querySelector<HTMLElement>("[data-recall-done]")!.hidden = false;
+        sessionStorage.setItem(KEY, "1");
+        window.setTimeout(close, 3500);
+      } catch {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = "Nochmals versuchen";
+        }
+      }
+    });
+  }
+</script>
+
+<style>
+  .recall {
+    position: fixed;
+    right: clamp(1rem, 3vw, 2.5rem);
+    /* knapp oberhalb des "Schriib eus"-Kreises */
+    bottom: calc(clamp(1rem, 3vw, 2.5rem) + clamp(92px, 11vw, 132px) + 0.9rem);
+    z-index: 95;
+    width: min(340px, calc(100vw - 2rem));
+    background: #fff;
+    border: 2px solid var(--color-blue);
+    padding: clamp(1.1rem, 2vw, 1.5rem);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  }
+  .recall.is-open {
+    opacity: 1;
+    transform: none;
+  }
+  .recall[hidden] {
+    display: none;
+  }
+  .recall-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: var(--color-blue);
+    padding: 0.3rem;
+    line-height: 0;
+  }
+  .recall-close:hover {
+    color: var(--color-pink);
+  }
+  .recall h3 {
+    font-size: 1.15rem;
+    color: var(--color-blue);
+    margin: 0 0 0.4rem;
+  }
+  .recall-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.7rem;
+    padding-right: 1.5rem;
+  }
+  .recall-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 0; /* eckig – Markenstil */
+    object-fit: cover;
+    object-position: center top;
+    flex: none;
+  }
+  .recall-head-text h3 {
+    margin: 0 0 0.1rem;
+  }
+  .recall-person {
+    display: block;
+    color: var(--color-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .recall p {
+    color: var(--color-blue);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0 0 0.9rem;
+  }
+  .recall-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .recall-input {
+    font-family: var(--font-base);
+    font-size: 1rem;
+    padding: 0.7rem 0.85rem;
+    border: 2px solid rgba(1, 64, 128, 0.25);
+    background: #fff;
+    color: var(--color-blue);
+  }
+  .recall-input:focus {
+    outline: none;
+    border-color: var(--color-blue);
+  }
+  .recall-btn {
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 1rem;
+    color: #fff;
+    background: var(--color-blue);
+    border: none;
+    padding: 0.75rem 1rem;
+    transition: background 0.3s var(--ease);
+  }
+  .recall-btn:hover {
+    background: var(--color-blue-dark);
+  }
+  .recall-btn:disabled {
+    opacity: 0.7;
+  }
+  .recall-call {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-blue);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .recall-call:hover {
+    color: var(--color-pink);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .recall {
+      transition: none;
+    }
+  }
+</style>

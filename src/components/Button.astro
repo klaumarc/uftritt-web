@@ -35,7 +35,7 @@ const {
     line-height: 1;
     padding: 1rem 1.7rem;
     border-radius: 0;
-    cursor: pointer;
+    cursor: var(--cur-hand);
     transition: background 0.4s var(--ease), color 0.4s var(--ease);
   }
 
@@ -120,6 +120,12 @@ const {
     --arrow-color: var(--color-white);
   }
 
+  /* Touch: kein Hover -> Pfeil nicht einblenden (schob sich sonst über den Text) */
+  @media (hover: none) {
+    .btn-arrow {
+      display: none;
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
     .btn,
     .btn-arrow,

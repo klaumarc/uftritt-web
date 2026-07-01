@@ -23,6 +23,7 @@ const { project, detail, story, prev, next } = Astro.props;
 const gallery = detail.gallery?.length ? detail.gallery : [project.image];
 const services = story?.services ?? detail.services ?? [];
 const intro = story?.intro ?? detail.body ?? [];
+const website = story?.website ?? project.website ?? null;
 ---
 
 <Layout title={`${project.title} – Uftritt`} description={intro?.[0] ?? project.title}>
@@ -38,17 +39,23 @@ const intro = story?.intro ?? detail.body ?? [];
 
       <div class="pd-intro">
         <div class="pd-text" data-reveal>
-          <span class="eyebrow">{project.categories.join(" · ")}</span>
           <h1>{project.title}</h1>
           {intro?.map((p) => <p>{p}</p>)}
         </div>
         {
-          services.length > 0 && (
+          (services.length > 0 || website) && (
             <aside class="pd-services" data-reveal>
-              <span class="pd-services-title">Leistungen</span>
-              <ul>
-                {services.map((s) => <li>{s}</li>)}
-              </ul>
+              {services.length > 0 && (
+                <>
+                  <span class="pd-services-title">Leistungen</span>
+                  <p class="pd-services-list">{services.join(", ")}</p>
+                </>
+              )}
+              {website && (
+                <p class="pd-website">
+                  <a href={website} target="_blank" rel="noopener">Zur Website ↗</a>
+                </p>
+              )}
             </aside>
           )
         }
@@ -240,17 +247,23 @@ const intro = story?.intro ?? detail.body ?? [];
     color: var(--color-blue);
     margin-bottom: 0.75rem;
   }
-  .pd-services ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  .pd-services li {
-    border: 2px solid rgba(1, 64, 128, 0.25);
-    padding: 0.4rem 0.9rem;
-    font-weight: 600;
-    font-size: 0.95rem;
+  .pd-services-list {
     color: var(--color-blue);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin: 0;
+  }
+  .pd-website {
+    margin-top: 1.1rem;
+  }
+  .pd-website a {
+    color: var(--color-blue);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .pd-website a:hover {
+    color: var(--color-pink);
   }
 
   /* ---- Story-Layout (redaktionell, nach XD) ---- */
@@ -337,13 +350,18 @@ const intro = story?.intro ?? detail.body ?? [];
   .pd-gallery {
     margin-top: clamp(2.5rem, 5vw, 4rem);
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: clamp(0.5rem, 1.2vw, 0.9rem);
   }
   .pd-tile {
     display: block;
     aspect-ratio: 4 / 3;
     overflow: hidden;
+  }
+  /* Erstes Bild gross über die ganze Breite, Rest 2-spaltig */
+  .pd-tile:first-child {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
   }
   .pd-tile img {
     width: 100%;

@@ -192,6 +192,13 @@ const legal = [
     transition: color 0.4s var(--ease);
   }
 
+  /* Platz unten, damit die Rechtliches-Links nicht hinter dem mobilen
+     Menü-Button (fixed, unten mittig) verschwinden. */
+  @media (max-width: 820px) {
+    .footer-bottom-inner {
+      padding-bottom: clamp(5rem, 16vw, 6.5rem);
+    }
+  }
   @media (max-width: 780px) {
     .footer-top {
       grid-template-columns: 1fr 1fr;
@@ -200,7 +207,9 @@ const legal = [
       grid-column: 1 / -1;
     }
   }
-  @media (max-width: 520px) {
+  /* Seiten + Kontakt bleiben 2-spaltig, solange Platz ist – erst auf sehr
+     schmalen Screens einspaltig. */
+  @media (max-width: 360px) {
     .footer-top {
       grid-template-columns: 1fr;
     }

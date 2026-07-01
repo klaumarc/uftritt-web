@@ -100,9 +100,14 @@ const groups = [
     transform: scale(1.05);
   }
 
-  @media (max-width: 560px) {
+  @media (max-width: 760px) {
+    .logo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1.25rem, 5vw, 2.25rem);
+    }
     .logo {
-      width: clamp(150px, 44vw, 220px);
+      width: 100%;
     }
   }
 </style>

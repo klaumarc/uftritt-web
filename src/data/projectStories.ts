@@ -32,6 +32,7 @@ export type StoryBlock =
 export interface ProjectStory {
   intro: string[]; // Einleitungstext neben dem Titel
   services: string[];
+  website?: string; // Link zur Live-Website des Projekts
   blocks: StoryBlock[];
 }
 
@@ -48,6 +49,7 @@ export const projectStories: Record<string, ProjectStory> = {
       "Webentwicklung",
       "Fotografie",
     ],
+    website: "https://aweso.ch/",
     blocks: [
       { type: "hero", img: "/projekte/aweso/hero.jpg", alt: "Schweissarbeit bei Aweso" },
       {

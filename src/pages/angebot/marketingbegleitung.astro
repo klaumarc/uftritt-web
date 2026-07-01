@@ -1,11 +1,14 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import ProcessSteps from "../../components/ProcessSteps.astro";
+import ServiceMarquee from "../../components/ServiceMarquee.astro";
+import RefStrip from "../../components/RefStrip.astro";
 import PageHero from "../../components/PageHero.astro";
 import Button from "../../components/Button.astro";
 import { projects } from "../../data/projects";
 
 const bySlug = (slug: string) => projects.find((p) => p.slug === slug)!;
-const portfolio = ["aas-freight", "youngstars", "100pro-openair-2024"].map(bySlug);
+const portfolio = ["aweso", "aas-freight", "youngstars"].map(bySlug);
 
 const blocks = [
   {
@@ -62,6 +65,12 @@ const steps = [
     </div>
   </section>
 
+  {/* Das gestalten wir für dich */}
+  <ServiceMarquee
+    title="Von der Strategie bis zur Kampagne"
+    terms={["Marketingstrategie", "Kampagnen", "Social Media", "Content-Planung", "Redaktionsplan", "Newsletter", "Google Ads", "SEO", "Community Management", "Employer Branding", "Events", "Messeauftritte", "Analytics", "Beratung", "Storytelling"]}
+  />
+
   {/* Prozess */}
   <section class="section section--yellow">
     <div class="container">
@@ -69,45 +78,13 @@ const steps = [
         <span class="eyebrow">Unser Marketing-Prozess</span>
         <h2>Persönlich. Kreativ. Partnerschaftlich.</h2>
       </header>
-      <ol class="steps">
-        {
-          steps.map((s, i) => (
-            <li class="step" data-reveal style={`--reveal-delay:${i * 80}ms`}>
-              <span class="step-no">{String(i + 1).padStart(2, "0")}</span>
-              <h3>{s.t}</h3>
-              <p>{s.d}</p>
-            </li>
-          ))
-        }
-      </ol>
+      <ProcessSteps steps={steps} />
     </div>
   </section>
 
-  {/* Portfolio */}
-  <section class="section section--soft">
-    <div class="container">
-      <header class="section-head" data-reveal>
-        <span class="eyebrow">Referenzen</span>
-        <h2>Kampagnen aus unserem Portfolio</h2>
-      </header>
-      <div class="portfolio">
-        {
-          portfolio.map((p) => (
-            <a href={`/projekte/${p.slug}`} class="ref-card" aria-label={p.title} data-reveal>
-              <img class="ref-img" src={p.image} alt={p.title} loading="lazy" />
-              <span class="ref-overlay">
-                <span class="ref-cat">{p.categories.join(" · ")}</span>
-                <span class="ref-title">{p.title}</span>
-              </span>
-            </a>
-          ))
-        }
-      </div>
-      <div class="center-cta" data-reveal>
-        <Button href="/projekte" variant="blue">Alle Projekte ansehen</Button>
-      </div>
-    </div>
-  </section>
+
+  {/* Referenzen */}
+  <RefStrip title="Kampagnen aus unserem Portfolio" projects={portfolio} />
 
   <section class="section section--yellow">
     <div class="container lp-cta" data-reveal>

@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",
     "astro": "^5.1.0",
+    "leaflet": "^1.9.4",
     "lottie-web": "^5.13.0"
   },
   "devDependencies": {

@@ -7,7 +7,6 @@ $empfaenger = 'info@uftritt.ch';
 // Absender MUSS auf der eigenen Domain liegen, sonst blockt SPF/DMARC.
 // Beim Domainwechsel ggf. auf no-reply@uftritt.ch anpassen.
 $absender   = 'no-reply@uftritt.ch';
-$betreff    = 'Neue Nachricht über das Kontaktformular';
 $danke_url  = '/danke/';
 $fehler_url = '/kontakt/?fehler=1';
 
@@ -43,10 +42,18 @@ $name_h  = $clean($name);
 $email_h = $clean($email);
 
 // ---- Mail zusammenbauen ----
-$body  = "Neue Nachricht über das Kontaktformular von uftritt.ch\n\n";
-$body .= "Name:    $name_h\n";
-$body .= "E-Mail:  $email_h\n\n";
-$body .= "Nachricht:\n$nachricht\n";
+$betreff = "Neue Anfrage über uftritt.ch – von $name_h";
+
+$body  = "Juhui – es hat sich jemand über das Kontaktformular auf uftritt.ch gemeldet! 🎉\n\n";
+$body .= "────────────────────────────────────────\n";
+$body .= "  Von:      $name_h\n";
+$body .= "  E-Mail:   $email_h\n";
+$body .= "────────────────────────────────────────\n\n";
+$body .= "Nachricht:\n\n";
+$body .= "$nachricht\n\n";
+$body .= "————\n";
+$body .= "Tipp: Einfach direkt auf diese E-Mail antworten, um $name_h zu erreichen.\n";
+$body .= "Automatische Benachrichtigung vom Kontaktformular · uftritt.ch\n";
 
 $headers  = "From: Uftritt Website <$absender>\r\n";
 $headers .= "Reply-To: $name_h <$email_h>\r\n";

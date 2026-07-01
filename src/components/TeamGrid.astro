@@ -164,7 +164,7 @@ const { carousel = false } = Astro.props;
     border: none;
     background: var(--color-blue);
     color: #fff;
-    cursor: pointer;
+    cursor: var(--cur-hand);
     transition: background 0.3s var(--ease);
   }
   .team-nav:hover {
@@ -197,7 +197,7 @@ const { carousel = false } = Astro.props;
     background: none;
     border: none;
     padding: 0;
-    cursor: pointer;
+    cursor: var(--cur-hand);
     text-align: left;
     font-family: var(--font-base);
     color: var(--color-blue);
@@ -324,7 +324,7 @@ const { carousel = false } = Astro.props;
     background: none;
     border: none;
     color: var(--color-blue);
-    cursor: pointer;
+    cursor: var(--cur-hand);
     padding: 0.4rem;
     z-index: 2;
     transition: transform 0.4s var(--ease);

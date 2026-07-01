@@ -1,5 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import ProcessSteps from "../../components/ProcessSteps.astro";
+import ServiceMarquee from "../../components/ServiceMarquee.astro";
+import RefStrip from "../../components/RefStrip.astro";
 import PageHero from "../../components/PageHero.astro";
 import Button from "../../components/Button.astro";
 import { projects } from "../../data/projects";
@@ -33,13 +36,21 @@ const blocks = [
 ];
 
 const leistungen = [
+  "Corporate Design",
+  "Branding",
+  "Logo Design",
+  "Editorial Design",
+  "Geschäftsausstattung",
   "Magazine und Broschüren",
-  "Messestände und Banner",
-  "Fahrzeugbeschriftung und Schaufenster-Folien",
-  "Give-Aways (z. B. Taschen, Kugelschreiber, Notizblöcke)",
-  "Inserate, Plakate und Flyer",
-  "Signaletik aller Art (innen und aussen)",
-  "Visitenkarten, Briefpapier, Couverts – und vieles mehr",
+  "Plakate und Flyer",
+  "Inserate",
+  "Signaletik",
+  "Fahrzeugbeschriftung",
+  "Messeauftritte",
+  "Verpackungsdesign",
+  "Illustration",
+  "Typografie",
+  "Give-aways",
 ];
 
 const steps = [
@@ -85,18 +96,8 @@ const faq = [
     </div>
   </section>
 
-  {/* Leistungen / Werbemittel */}
-  <section class="section section--soft">
-    <div class="container">
-      <header class="section-head" data-reveal>
-        <span class="eyebrow">Das gestalten wir für dich</span>
-        <h2>Von der Visitenkarte bis zur Signaletik</h2>
-      </header>
-      <ul class="leistungen" data-reveal>
-        {leistungen.map((l) => <li>{l}</li>)}
-      </ul>
-    </div>
-  </section>
+  {/* Das gestalten wir für dich */}
+  <ServiceMarquee title="Von der Visitenkarte bis zur Signaletik" terms={leistungen} />
 
   {/* Prozess */}
   <section class="section section--yellow">
@@ -105,17 +106,7 @@ const faq = [
         <span class="eyebrow">Unser Grafikdesign-Prozess</span>
         <h2>Persönlich. Kreativ. Partnerschaftlich.</h2>
       </header>
-      <ol class="steps">
-        {
-          steps.map((s, i) => (
-            <li class="step" data-reveal style={`--reveal-delay:${i * 80}ms`}>
-              <span class="step-no">{String(i + 1).padStart(2, "0")}</span>
-              <h3>{s.t}</h3>
-              <p>{s.d}</p>
-            </li>
-          ))
-        }
-      </ol>
+      <ProcessSteps steps={steps} />
     </div>
   </section>
 
@@ -139,31 +130,8 @@ const faq = [
     </div>
   </section>
 
-  {/* Portfolio */}
-  <section class="section section--soft">
-    <div class="container">
-      <header class="section-head" data-reveal>
-        <span class="eyebrow">Referenzen</span>
-        <h2>Grafikdesign aus unserem Portfolio</h2>
-      </header>
-      <div class="portfolio">
-        {
-          portfolio.map((p) => (
-            <a href={`/projekte/${p.slug}`} class="ref-card" aria-label={p.title} data-reveal>
-              <img class="ref-img" src={p.image} alt={p.title} loading="lazy" />
-              <span class="ref-overlay">
-                <span class="ref-cat">{p.categories.join(" · ")}</span>
-                <span class="ref-title">{p.title}</span>
-              </span>
-            </a>
-          ))
-        }
-      </div>
-      <div class="center-cta" data-reveal>
-        <Button href="/projekte" variant="blue">Alle Projekte ansehen</Button>
-      </div>
-    </div>
-  </section>
+  {/* Referenzen */}
+  <RefStrip title="Grafikdesign aus unserem Portfolio" projects={portfolio} />
 
   <section class="section section--yellow">
     <div class="container lp-cta" data-reveal>
@@ -198,28 +166,74 @@ const faq = [
 
   .section-head { margin-bottom: clamp(2rem, 4vw, 3rem); }
 
-  .leistungen {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem 2rem;
-    max-width: 860px;
+  /* Lauftext-Marquee "Das gestalten wir für dich" – 3 Zeilen, abwechselnd
+     links/rechts, full-bleed über die Bildschirmränder. */
+  .mq {
+    margin-inline: calc(50% - 50vw);
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.3rem, 1vw, 0.9rem);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
   }
-  .leistungen li {
-    position: relative;
-    padding-left: 1.6rem;
+  .mq-row {
+    overflow: hidden;
+  }
+  .mq-track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    will-change: transform;
+  }
+  .mq-left .mq-track {
+    animation: mq-l 105s linear infinite;
+  }
+  .mq-right .mq-track {
+    animation: mq-r 88s linear infinite;
+  }
+  .mq:hover .mq-track {
+    animation-play-state: paused;
+  }
+  .mq-track li {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    font-size: clamp(1.15rem, 2.6vw, 1.9rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
     color: var(--color-blue);
-    font-size: 1.1rem;
-    line-height: 1.6;
   }
-  .leistungen li::before {
+  .mq-track li::after {
     content: "";
-    position: absolute;
-    left: 0;
-    top: 0.55em;
-    width: 0.7rem;
-    height: 0.7rem;
+    flex: none;
+    width: 0.5em;
+    height: 0.5em;
     background: var(--color-yellow);
+    margin-inline: clamp(1rem, 2.5vw, 2.5rem);
+  }
+  @keyframes mq-l {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes mq-r {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mq {
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
+    .mq-track {
+      animation: none;
+      flex-wrap: wrap;
+    }
+    .mq-track li[aria-hidden] {
+      display: none;
+    }
   }
 
   .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(1rem, 2vw, 1.75rem); }
@@ -291,12 +305,12 @@ const faq = [
   .faq-wrap { max-width: 860px; }
   .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
   .faq-item summary {
-    cursor: pointer; list-style: none; padding: 1.1rem 0;
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
     font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
     display: flex; justify-content: space-between; gap: 1rem;
   }
   .faq-item summary::-webkit-details-marker { display: none; }
-  .faq-item summary::after { content: "+"; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
   .faq-item[open] summary::after { transform: rotate(45deg); }
   .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
 

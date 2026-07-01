@@ -4,16 +4,29 @@ import Button from "../../components/Button.astro";
 import { news } from "../../data/news";
 
 export function getStaticPaths() {
-  return news.map((n) => ({ params: { slug: n.slug }, props: { item: n } }));
+  return news.map((n, i) => ({
+    params: { slug: n.slug },
+    props: {
+      item: n,
+      prev: news[(i - 1 + news.length) % news.length],
+      next: news[(i + 1) % news.length],
+    },
+  }));
 }
 
-const { item } = Astro.props;
+const { item, prev, next } = Astro.props;
 ---
 
 <Layout title={`${item.title} – Uftritt`} description={item.excerpt}>
   <article class="news-detail">
     <div class="container">
-      <a href="/aktuell" class="nd-back">← Alle News</a>
+      <nav class="nd-nav" data-reveal>
+        <Button href="/aktuell" variant="text">Alli News</Button>
+        <span class="nd-arrows">
+          <a href={`/aktuell/${prev.slug}`} class="nd-arrow nd-arrow-prev" aria-label={`Vorheriger Beitrag: ${prev.title}`}></a>
+          <a href={`/aktuell/${next.slug}`} class="nd-arrow nd-arrow-next" aria-label={`Nächster Beitrag: ${next.title}`}></a>
+        </span>
+      </nav>
 
       <div class="nd-grid">
         <div class="nd-media" data-reveal>
@@ -25,7 +38,6 @@ const { item } = Astro.props;
           <div class="nd-text">
             {item.body.map((p) => <p>{p}</p>)}
           </div>
-          <Button href="/kontakt" variant="blue">Schriib eus</Button>
         </div>
       </div>
     </div>
@@ -36,14 +48,35 @@ const { item } = Astro.props;
   .news-detail {
     padding-block: clamp(2rem, 5vw, 4rem) clamp(3rem, 7vw, 6rem);
   }
-  .nd-back {
-    display: inline-block;
+  .nd-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
-    font-weight: 600;
-    color: var(--color-blue);
   }
-  .nd-back:hover {
-    color: var(--color-pink);
+  .nd-arrows {
+    display: flex;
+    gap: 1.1rem;
+  }
+  .nd-arrow {
+    width: 1.7rem;
+    height: 1.7rem;
+    display: inline-block;
+    background: var(--color-blue);
+    -webkit-mask: no-repeat center / contain;
+    mask: no-repeat center / contain;
+    transition: background 0.3s var(--ease);
+  }
+  .nd-arrow-prev {
+    -webkit-mask-image: url("/img/icons/pfeil-links-blau.svg");
+    mask-image: url("/img/icons/pfeil-links-blau.svg");
+  }
+  .nd-arrow-next {
+    -webkit-mask-image: url("/img/icons/pfeil-rechts-blau.svg");
+    mask-image: url("/img/icons/pfeil-rechts-blau.svg");
+  }
+  .nd-arrow:hover {
+    background: var(--color-pink);
   }
   .nd-grid {
     display: grid;
