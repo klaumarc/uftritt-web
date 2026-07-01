@@ -30,15 +30,16 @@ import SubHero from "../components/SubHero.astro";
         class="kontakt-form"
         name="kontakt"
         method="POST"
-        action="/danke/"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
+        action="/kontakt.php"
         data-reveal
       >
-        <input type="hidden" name="form-name" value="kontakt" />
         {/* Spam-Honeypot: für Menschen unsichtbar, Bots füllen es aus */}
-        <p class="hp-field" hidden>
-          <label>Bitte leer lassen: <input name="bot-field" /></label>
+        <p class="hp-field" hidden aria-hidden="true">
+          <label>Bitte leer lassen: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
+        <p class="kontakt-error" id="kontakt-error" role="alert" hidden>
+          Da ist leider etwas schiefgelaufen. Bitte prüfe deine Angaben – oder
+          schreib uns direkt an <a href="mailto:info@uftritt.ch">info@uftritt.ch</a>.
         </p>
         <label>
           <span>Name</span>
@@ -69,6 +70,14 @@ import SubHero from "../components/SubHero.astro";
       title="Uftritt GmbH auf Google Maps"></iframe>
   </section>
 </Layout>
+
+<script>
+  // Fehler-Hinweis zeigen, wenn kontakt.php mit ?fehler=1 zurückleitet
+  if (new URLSearchParams(location.search).get("fehler") === "1") {
+    const el = document.getElementById("kontakt-error");
+    if (el) el.hidden = false;
+  }
+</script>
 
 <style>
   .kontakt {
@@ -102,6 +111,15 @@ import SubHero from "../components/SubHero.astro";
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+  }
+  .kontakt-error {
+    border-left: 3px solid var(--color-pink);
+    padding: 0.75rem 1rem;
+    color: var(--color-blue);
+    font-weight: 600;
+  }
+  .kontakt-error a {
+    color: var(--color-pink);
   }
   .kontakt-form label {
     display: flex;

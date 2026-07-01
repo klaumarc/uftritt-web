@@ -1,37 +1,53 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import Button from "../../components/Button.astro";
+import Lottie from "../../components/Lottie.astro";
 import { projects } from "../../data/projects";
 import { projectDetails } from "../../data/projectDetails";
+import { projectStories } from "../../data/projectStories";
 
 export function getStaticPaths() {
-  return projects.map((p) => ({
+  return projects.map((p, i) => ({
     params: { slug: p.slug },
-    props: { project: p, detail: projectDetails[p.slug] ?? { body: [], services: [], gallery: [] } },
+    props: {
+      project: p,
+      detail: projectDetails[p.slug] ?? { body: [], services: [], gallery: [] },
+      story: projectStories[p.slug] ?? null,
+      prev: projects[(i - 1 + projects.length) % projects.length],
+      next: projects[(i + 1) % projects.length],
+    },
   }));
 }
 
-const { project, detail } = Astro.props;
+const { project, detail, story, prev, next } = Astro.props;
 const gallery = detail.gallery?.length ? detail.gallery : [project.image];
+const services = story?.services ?? detail.services ?? [];
+const intro = story?.intro ?? detail.body ?? [];
 ---
 
-<Layout title={`${project.title} – Uftritt`} description={detail.body?.[0] ?? project.title}>
+<Layout title={`${project.title} – Uftritt`} description={intro?.[0] ?? project.title}>
   <article class="pd">
     <div class="container">
-      <a href="/projekte" class="pd-back" data-reveal>← Alle Projekte</a>
+      <nav class="pd-nav" data-reveal>
+        <Button href="/projekte" variant="text">Zur Übersicht</Button>
+        <span class="pd-arrows">
+          <a href={`/projekte/${prev.slug}`} class="pd-arrow pd-arrow-prev" aria-label={`Vorheriges Projekt: ${prev.title}`}></a>
+          <a href={`/projekte/${next.slug}`} class="pd-arrow pd-arrow-next" aria-label={`Nächstes Projekt: ${next.title}`}></a>
+        </span>
+      </nav>
 
       <div class="pd-intro">
         <div class="pd-text" data-reveal>
           <span class="eyebrow">{project.categories.join(" · ")}</span>
           <h1>{project.title}</h1>
-          {detail.body?.map((p) => <p>{p}</p>)}
+          {intro?.map((p) => <p>{p}</p>)}
         </div>
         {
-          detail.services?.length > 0 && (
+          services.length > 0 && (
             <aside class="pd-services" data-reveal>
               <span class="pd-services-title">Leistungen</span>
               <ul>
-                {detail.services.map((s) => <li>{s}</li>)}
+                {services.map((s) => <li>{s}</li>)}
               </ul>
             </aside>
           )
@@ -40,29 +56,99 @@ const gallery = detail.gallery?.length ? detail.gallery : [project.image];
     </div>
 
     {
-      gallery.length > 0 && (
-        <div class="container pd-gallery">
-          {gallery.map((img) => (
-            <span class="pd-tile" data-reveal>
-              <img src={img} alt={project.title} loading="lazy" />
-            </span>
-          ))}
+      story ? (
+        <div class="pd-story">
+          {story.blocks.map((b) =>
+            b.type === "hero" ? (
+              <div class="container">
+                <div class="st-hero" data-reveal>
+                  <img src={b.img} alt={b.alt ?? project.title} loading="lazy" />
+                </div>
+              </div>
+            ) : b.type === "text" ? (
+              <div class="container">
+                <div class="st-text" data-reveal>
+                  {b.body.map((p) => <p>{p}</p>)}
+                </div>
+              </div>
+            ) : b.type === "split" ? (
+              <div class="container">
+                <div class="st-split" data-reveal>
+                  {[b.left, b.right].map((cell) => (
+                    <figure class="st-cell">
+                      <div class="st-media" style={cell.bg ? `background:${cell.bg}` : undefined}>
+                        {cell.img && (
+                          <img src={cell.img} alt={cell.alt ?? ""} class:list={[{ contain: cell.contain }]} loading="lazy" />
+                        )}
+                        {cell.lottie && (
+                          <div class="st-lottie">
+                            <Lottie src={cell.lottie} loop={true} ariaLabel={cell.label ?? ""} />
+                          </div>
+                        )}
+                      </div>
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            ) : b.type === "duo" ? (
+              <div class="container">
+                <div class="st-duo" data-reveal>
+                  {b.cells.map((cell) => (
+                    <figure class="st-cell">
+                      <div class="st-media">
+                        <img src={cell.img} alt={cell.alt ?? ""} loading="lazy" />
+                      </div>
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              /* full */
+              <div class:list={["st-full", { grey: b.grey }]}>
+                <div class="container">
+                  <div class:list={["st-full-inner", { narrow: b.narrow }]} data-reveal>
+                    {b.img && (
+                      <img src={b.img} alt={b.alt ?? project.title} class:list={[{ contain: b.contain }]} loading="lazy" />
+                    )}
+                    {b.video && (
+                      <video src={b.video} muted loop playsinline preload="auto" data-play-once></video>
+                    )}
+                    {b.lottie && (
+                      <div class="st-lottie">
+                        <Lottie src={b.lottie} loop={true} ariaLabel={b.label ?? ""} />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )
+          )}
         </div>
-      )
-    }
-
-    {
-      detail.youtube && (
-        <div class="container pd-video" data-reveal>
-          <div class="pd-embed">
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${detail.youtube}?rel=0`}
-              title={project.title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-              allowfullscreen
-              loading="lazy"></iframe>
-          </div>
-        </div>
+      ) : (
+        <>
+          {gallery.length > 0 && (
+            <div class="container pd-gallery">
+              {gallery.map((img) => (
+                <span class="pd-tile" data-reveal>
+                  <img src={img} alt={project.title} loading="lazy" />
+                </span>
+              ))}
+            </div>
+          )}
+          {detail.youtube && (
+            <div class="container pd-video" data-reveal>
+              <div class="pd-embed">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${detail.youtube}?rel=0`}
+                  title={project.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                  allowfullscreen
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          )}
+        </>
       )
     }
 
@@ -73,18 +159,59 @@ const gallery = detail.gallery?.length ? detail.gallery : [project.image];
   </article>
 </Layout>
 
+<script>
+  // Website-Mockup-Video: einmal abspielen, wenn es in den Blick kommt (kein Loop).
+  const vids = document.querySelectorAll<HTMLVideoElement>("video[data-play-once]");
+  if (vids.length && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            (e.target as HTMLVideoElement).play().catch(() => {});
+            obs.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    vids.forEach((v) => io.observe(v));
+  }
+</script>
+
 <style>
   .pd {
     padding-block: clamp(2rem, 5vw, 4rem) clamp(3rem, 7vw, 6rem);
   }
-  .pd-back {
-    display: inline-block;
-    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  .pd-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
     font-weight: 600;
-    color: var(--color-blue);
   }
-  .pd-back:hover {
-    color: var(--color-pink);
+  .pd-arrows {
+    display: flex;
+    gap: 1.1rem;
+  }
+  .pd-arrow {
+    width: 1.7rem;
+    height: 1.7rem;
+    display: inline-block;
+    background: var(--color-blue);
+    -webkit-mask: no-repeat center / contain;
+    mask: no-repeat center / contain;
+    transition: background 0.3s var(--ease);
+  }
+  .pd-arrow-prev {
+    -webkit-mask-image: url("/img/icons/pfeil-links-blau.svg");
+    mask-image: url("/img/icons/pfeil-links-blau.svg");
+  }
+  .pd-arrow-next {
+    -webkit-mask-image: url("/img/icons/pfeil-rechts-blau.svg");
+    mask-image: url("/img/icons/pfeil-rechts-blau.svg");
+  }
+  .pd-arrow:hover {
+    background: var(--color-pink);
   }
 
   .pd-intro {
@@ -126,7 +253,87 @@ const gallery = detail.gallery?.length ? detail.gallery : [project.image];
     color: var(--color-blue);
   }
 
-  /* alle Bilder als gleichmässige Kacheln (3 Spalten) */
+  /* ---- Story-Layout (redaktionell, nach XD) ---- */
+  .pd-story {
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 6vw, 5rem);
+  }
+  .st-hero img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+  .st-text {
+    max-width: 680px;
+    margin-inline: auto;
+  }
+  .st-text p {
+    color: var(--color-blue);
+    font-size: 1.15rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .st-text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .st-split,
+  .st-duo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    align-items: start;
+  }
+  .st-cell {
+    margin: 0;
+  }
+  .st-media {
+    aspect-ratio: 3 / 2; /* Bilder & Lotties sind 1500×1000 (3:2) */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .st-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .st-media img.contain {
+    object-fit: contain;
+  }
+  /* Lottie füllt dieselbe Box wie die Bilder (gleich gross) */
+  .st-lottie {
+    width: 100%;
+    height: 100%;
+  }
+
+  .st-full.grey {
+    background: #e9e9ea;
+    padding-block: clamp(2rem, 5vw, 4.5rem);
+  }
+  .st-full-inner img,
+  .st-full-inner video {
+    width: 100%;
+    display: block;
+  }
+  .st-full-inner img.contain {
+    object-fit: contain;
+  }
+  /* Icons-Block: gleiche Grösse wie eine Bild-Kachel, zentriert */
+  .st-full-inner.narrow {
+    max-width: min(600px, 100%);
+    margin-inline: auto;
+  }
+  .st-full-inner.narrow .st-lottie {
+    aspect-ratio: 3 / 2;
+  }
+
+  /* alle Bilder als gleichmässige Kacheln (Fallback ohne Story) */
   .pd-gallery {
     margin-top: clamp(2.5rem, 5vw, 4rem);
     display: grid;

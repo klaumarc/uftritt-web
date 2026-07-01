@@ -7,6 +7,7 @@ export interface Project {
 
 // Kategorien/Tags von der aktuellen Website uftritt.ch übernommen.
 export const projects: Project[] = [
+  { title: "Aweso AG", slug: "aweso", categories: ["Marketingbegleitung", "Grafikdesign", "Webdesign"], image: "/projekte/aweso.jpg" },
   { title: "RIPA Immobilien GmbH", slug: "ripa-immobilien", categories: ["Grafikdesign", "Webdesign"], image: "/projekte/ripa.jpg" },
   { title: "Regan", slug: "regan", categories: ["Webdesign"], image: "/projekte/regan.jpg" },
   { title: "Fahrschule Schweiz", slug: "fahrschule-schweiz", categories: ["Videoproduktion", "Grafikdesign", "Webdesign"], image: "/projekte/fahrschule-schweiz.jpg" },

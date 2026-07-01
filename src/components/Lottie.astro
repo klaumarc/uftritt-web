@@ -36,6 +36,10 @@ const {
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
+  // Pause am Ende jeder Animation, damit sich nicht die ganze Zeit etwas bewegt
+  // (früher als Standbild-Frames direkt im JSON; jetzt zentral im Player).
+  const HOLD_MS = 1400;
+
   let lottiePromise: Promise<any> | null = null;
   const getLottie = () => {
     if (!lottiePromise) {
@@ -68,7 +72,8 @@ const {
       (groups[name] = { anims: [], idx: 0, started: false, timer: null });
     anim.loop = false;
     anim.setSpeed(1.35); // Service-Icons zügiger -> jedes Icon kommt öfter dran (Revision Jeffrey)
-    anim.addEventListener("complete", () => advance(name));
+    // erst nach kurzer Pause zum nächsten Icon (Standbild am Ende)
+    anim.addEventListener("complete", () => setTimeout(() => advance(name), HOLD_MS));
     g.anims.push(anim);
     // kurze Debounce, damit alle Gruppenmitglieder registriert sind, bevor es losgeht
     if (!g.started) {
@@ -86,10 +91,11 @@ const {
     const lottie = await getLottie();
     const hover = el.dataset.hover === "true";
     const group = el.dataset.group;
+    const wantsLoop = el.dataset.loop === "true";
     const anim = lottie.loadAnimation({
       container: el,
       renderer: "svg",
-      loop: el.dataset.loop === "true",
+      loop: false, // Loop übernehmen wir selbst -> Pause am Ende möglich
       autoplay:
         el.dataset.autoplay === "true" && !hover && !group && !prefersReduced,
       path: el.dataset.lottie,
@@ -117,6 +123,17 @@ const {
         anim.setDirection(-1);
         anim.play();
       });
+      return;
+    }
+
+    // Autoplay-Loop: nach jedem Durchlauf kurz stehen lassen, dann neu starten
+    if (wantsLoop) {
+      anim.addEventListener("complete", () =>
+        setTimeout(() => {
+          anim.goToAndStop(0, true);
+          anim.play();
+        }, HOLD_MS)
+      );
     }
   }
 

@@ -161,8 +161,17 @@ body {
   line-height: 1.5; /* leicht engerer Zeilenabstand – Revision Jeffrey */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* Custom Marken-Cursor vorerst entfernt (war noch nicht schön) – kommt zurück,
-     sobald ein besserer Cursor vorliegt. PNGs liegen weiterhin unter public/cursor/. */
+  /* Custom Marken-Cursor (CD-Pfeil). PNGs unter public/cursor/, Hotspot 2 30
+     (Pfeilspitze unten-links). Retina-Variante via image-set. */
+  cursor: url("/cursor/Cursor_Pfeil_32px.png") 2 30, auto;
+  cursor: -webkit-image-set(
+      url("/cursor/Cursor_Pfeil_32px.png") 1x,
+      url("/cursor/Cursor_Pfeil_64px.png") 2x
+    ) 2 30, auto;
+  cursor: image-set(
+      url("/cursor/Cursor_Pfeil_32px.png") 1x,
+      url("/cursor/Cursor_Pfeil_64px.png") 2x
+    ) 2 30, auto;
 }
 
 img,
