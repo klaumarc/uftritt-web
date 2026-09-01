@@ -1,0 +1,307 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["dtb-redesign", "emotion-hinwil", "stahel-koeng"].includes(p.slug)
+);
+
+const staerken = [
+  {
+    title: "Tempo und Varianten",
+    note: "In Sekunden hast du Dutzende Vorschläge in verschiedenen Stilen. Zum Ausprobieren und für Stimmungsbilder ist das unschlagbar.",
+  },
+  {
+    title: "Fast kein Budget nötig",
+    note: "Die gängigen KI-Tools kosten wenig bis nichts. Für einen schnellen Platzhalter oder ein Hobbyprojekt kann das reichen.",
+  },
+  {
+    title: "Starkes Briefing-Material",
+    note: "Ein KI-Entwurf zeigt auf den Punkt, was dir gefällt. Als Gesprächsgrundlage für ein professionelles Logo ist das Gold wert.",
+  },
+];
+
+const grenzen = [
+  {
+    title: "Einzigartigkeit",
+    note: "KI mischt Bekanntes neu. Dass dein Zeichen woanders fast gleich auftaucht, ist die Regel statt die Ausnahme. Ein Logo, das dich von allen unterscheidet, entsteht so nicht.",
+  },
+  {
+    title: "Rechtliche Sicherheit",
+    note: "Kein KI-Tool prüft, ob dein Logo einer bestehenden Marke zu nahe kommt. Und ob du ein reines KI-Bild überhaupt schützen kannst, ist juristisch unklar. Im Ernstfall trägst du das Risiko.",
+  },
+  {
+    title: "Technische Reinzeichnung",
+    note: "KI liefert Pixelbilder. Fahrzeugbeschriftung, Stickerei, Gravur oder Fassade brauchen saubere Vektordaten mit durchdachten Pfaden, Sonderfarben und Varianten.",
+  },
+  {
+    title: "Das System dahinter",
+    note: "Ein Logo allein ist noch kein Auftritt. Farbwelt, Typografie und Regeln für alle Anwendungen entscheiden, ob deine Marke über Jahre stimmig bleibt.",
+  },
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: Wir hören zu, was dein Zeichen leisten soll",
+  "Recherche und Konzept: Branche, Mitbewerber, gewünschte Wirkung",
+  "Entwürfe mit Begründung: Richtungen, die wir dir erklären statt einfach zeigen",
+  "Reinzeichnung: saubere Vektordaten, Varianten für jede Anwendung",
+  "Auf Wunsch mehr: Farbwelt, Typografie und Regeln fürs ganze Erscheinungsbild",
+];
+
+const faq = [
+  {
+    q: "Ist ein Logo aus der KI rechtlich sicher?",
+    a: "Zwei Punkte solltest du kennen: Erstens prüft kein KI-Tool, ob dein Ergebnis einer bestehenden Marke zu nahe kommt. Genau solche Kollisionen werden teuer. Zweitens ist unklar, ob rein maschinell erzeugte Bilder überhaupt urheberrechtlich geschützt werden können. Wer schützen will, muss menschliche Schöpfungsleistung und eine Markenrecherche einbringen. Beides ist Teil unseres Prozesses.",
+  },
+  {
+    q: "Was kostet ein Logo bei euch?",
+    a: "Das hängt davon ab, was du brauchst: nur ein Logo oder ein ganzes Erscheinungsbild, ein Vereinswappen oder eine Firmenmarke mit Anwendungsregeln. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit allen Leistungen und einem klaren Preis. Ohne versteckte Kosten.",
+  },
+  {
+    q: "Kann ich mit meinem KI-Entwurf zu euch kommen?",
+    a: "Sehr gerne, das passiert immer öfter. Dein Entwurf zeigt uns auf den Punkt, in welche Richtung du willst. Wir prüfen ihn auf Einzigartigkeit und rechtliche Risiken, entwickeln ihn gestalterisch weiter und zeichnen ihn sauber rein. Am Ende hast du ein Logo, das es nur einmal gibt und auf jeder Anwendung funktioniert.",
+  },
+  {
+    q: "Was bekomme ich am Schluss genau?",
+    a: "Dein Logo als saubere Vektordatei, damit es vom Visitenkartenformat bis zur Fassadenbeschriftung scharf bleibt. Dazu Varianten für helle und dunkle Hintergründe, die definierten Farben und auf Wunsch Regeln für Typografie und Anwendungen. Kurz: alles, was Druckerei, Webdesignerin oder Textilstickerin brauchen.",
+  },
+  {
+    q: "Reicht ein KI-Logo nicht einfach für den Anfang?",
+    a: "Für manche Vorhaben ja, etwa einen internen Anlass oder ein Hobbyprojekt. Bedenke aber: Sobald du mit dem Zeichen Kunden gewinnst, Visitenkarten druckst oder den Lieferwagen beschriftest, hängt an jedem Wechsel ein Preis. Später neu starten kostet meist mehr als gleich richtig machen.",
+  },
+  {
+    q: "Nutzt ihr selbst KI im Designprozess?",
+    a: "Ja, und zwar täglich: für Ideenfindung, Stil-Varianten und als Sparring im Konzept. Die eigentliche Arbeit bleibt menschlich: Recherche, Auswahl, Feinschliff und Reinzeichnung. Genau diese Mischung macht unsere Logos schnell und trotzdem einzigartig.",
+  },
+];
+---
+
+<Layout
+  title="Logo mit KI erstellen? Die ehrliche Einordnung, Uftritt"
+  description="Logo per KI oder von der Agentur? Wir arbeiten selbst täglich mit KI und sagen dir ehrlich, wo sie reicht und wo nicht: Einzigartigkeit, Recht, Reinzeichnung."
+>
+  <PageHero
+    eyebrow="KI-Logo oder Agentur?"
+    title={"Logo mit KI\nerstellen?"}
+    lead="Die kurze Antwort: Für Ideen und erste Entwürfe ist KI stark. Für ein Logo, das dein Unternehmen jahrelang trägt, fehlen ihr Einzigartigkeit, rechtliche Sicherheit und saubere Reinzeichnung. Wir arbeiten selbst täglich mit KI und sagen dir hier ehrlich, wo sie reicht, wo nicht und wie du beides klug kombinierst."
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Stärken der KI */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Fair bleiben</span>
+        <h2>Was KI beim Logo wirklich kann</h2>
+      </header>
+      <div class="karten karten--3" data-reveal>
+        {
+          staerken.map((s) => (
+            <article class="karte">
+              <h3>{s.title}</h3>
+              <p class="karte-note">{s.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Grenzen der KI */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Ehrlich bleiben</span>
+        <h2>Wo KI an Grenzen stösst</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          grenzen.map((g) => (
+            <article class="karte">
+              <h3>{g.title}</h3>
+              <p class="karte-note">{g.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Wann was */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann KI reicht</h2>
+        <div class="lp-text">
+          <p>
+            Für ein Hobbyprojekt, einen internen Anlass oder einen schnellen Platzhalter
+            spricht nichts gegen ein KI-Logo. Auch als Ideensammlung ist es ideal:
+            Erstelle Varianten, spür nach, was dir gefällt.
+          </p>
+          <p>
+            Und wenn du damit zu uns kommst, wird dein Entwurf zur bestmöglichen
+            Gesprächsgrundlage für ein professionelles Logo.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wann sich die Agentur lohnt</h2>
+        <div class="lp-text">
+          <p>
+            Sobald dein Zeichen geschäftlich trägt: Du willst Kundinnen und Kunden
+            gewinnen, druckst Visitenkarten, beschriftst Fahrzeuge oder baust eine
+            Marke auf, die wachsen soll. Dann braucht es ein Logo, das es nur einmal
+            gibt, rechtlich auf sicherem Boden steht und auf jeder Anwendung
+            funktioniert.
+          </p>
+          <p>
+            Genau dafür arbeiten wir: ein Zeichen, das zu dir passt, von Menschen
+            durchdacht und sauber rein gezeichnet.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Prozess */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>So entsteht dein Logo bei uns</h2>
+        <div class="lp-text">
+          <p>
+            Kein Agentur-Theater, sondern ein klarer Ablauf, bei dem du jederzeit
+            weisst, wo wir stehen. Und ja: Auch wir nutzen KI im Prozess, für
+            Ideenfindung und Varianten. Recherche, Auswahl und Reinzeichnung bleiben
+            Handarbeit.
+          </p>
+          <p>
+            Mehr zum Ablauf und dazu, was du genau bekommst, findest du auf unserer
+            Seite <a href="/logo-erstellen-lassen/">Logo erstellen lassen</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum KI-Logo</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Entwurf in der Tasche oder noch ganz am Anfang?</h2>
+      <p class="lp-cta-text">
+        Zeig uns deinen KI-Entwurf oder erzähl uns, was dein Zeichen leisten soll.
+        Wir sagen dir ehrlich, was es braucht, und machen ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--3, .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--3, .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

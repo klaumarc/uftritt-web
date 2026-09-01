@@ -8,36 +8,49 @@ import VideoSection from "../components/VideoSection.astro";
 import Clients from "../components/Clients.astro";
 import News from "../components/News.astro";
 import { projects } from "../data/projects";
+import { webpSrcSet } from "../utils/img";
 
-const services = [
+type Service = {
+  lottie: string;
+  title: string;
+  subtitle: string;
+  text: string;
+  href: string;
+  links?: { label: string; href: string }[];
+};
+
+const services: Service[] = [
   {
     lottie: "/lottie/grafikdesign.json",
     title: "Grafikdesign",
     subtitle: "Corporate Design, Editorial Design, durchdacht",
-    text: "Ob ein komplettes visuelles Branding oder eine durchdachte Broschüre – zusammen verleihen wir deiner Kommunikation ein passgenaues Kleid, das deine Stärken mühelos wiedergibt und Aufsehen erregt.",
-    href: "/angebot/grafikdesign",
+    text: "Ob ein komplettes visuelles Branding oder eine durchdachte Broschüre, zusammen verleihen wir deiner Kommunikation ein passgenaues Kleid, das deine Stärken mühelos wiedergibt und Aufsehen erregt, im positiven Sinn, versteht sich.",
+    href: "/angebot/grafikdesign/",
   },
   {
     lottie: "/lottie/webdesign.json",
     title: "Webdesign und Entwicklung",
     subtitle: "UI Design, Erlebnis, nutzerzentriert",
-    text: "Die Website repräsentiert dein Business im Internet. Gemeinsam entwickeln wir die Webpräsenz, die deiner Arbeit gerecht wird, die Bedürfnisse deiner Kundschaft berücksichtigt und zum Verweilen einlädt.",
-    href: "/angebot/webdesign",
+    text: "Die Website repräsentiert dein Business im Internet. Gemeinsam entwickeln wir den Web-Auftritt, der deiner Identität gerecht wird und zum Verweilen einlädt, vom einfachen Onepager über komplexe Websites bis zur spezifischen Landingpage.",
+    href: "/angebot/webdesign/",
+    links: [
+      { label: "Webdesign im Zürcher Oberland", href: "/webdesign-zuercher-oberland/" },
+    ],
   },
   {
     lottie: "/lottie/marketingbegleitung.json",
     title: "Marketingbegleitung",
     subtitle: "Strategie, Kanäle, kontinuierlich",
     text: "Sichtbarkeit entsteht nicht zufällig. Wir begleiten dich strategisch über die passenden Kanäle, planen die Massnahmen gemeinsam und sorgen dafür, dass deine Botschaft konstant und glaubwürdig bei deiner Zielgruppe ankommt.",
-    href: "/angebot/marketingbegleitung",
+    href: "/angebot/marketingbegleitung/",
   },
 ];
 
 // Nur Disziplinen aufführen, die NICHT bereits in den drei Karten oben stehen (Revision Jeffrey)
 const disciplines = [
-  { label: "Videoproduktion", href: "/angebot/videoproduktion" },
-  { label: "App-Entwicklung", href: "/angebot/applikationsentwicklung" },
-  { label: "Magazinbetreuung", href: "/angebot/magazinbetreuung" },
+  { label: "Videoproduktion", href: "/angebot/videoproduktion/" },
+  { label: "App-Entwicklung", href: "/angebot/applikationsentwicklung/" },
+  { label: "Magazinbetreuung", href: "/angebot/magazinbetreuung/" },
 ];
 
 ---
@@ -47,7 +60,16 @@ const disciplines = [
   <section class="hero section--yellow">
     <div class="container hero-inner">
       <div class="hero-text">
-        <h1 data-reveal>Lass uns deine<br />Geschichte erzählen</h1>
+        <h1
+          data-reveal
+          class="hero-h1"
+          aria-label="Wir machen Marken wirkungsvoll, vertrauenswürdig, dynamisch, schlagkräftig und konstant"
+        >
+          Wir machen Marken<br />
+          <span class="rotator" aria-hidden="true">
+            <span class="rotator-word fx-impact is-active">wirkungsvoll</span>
+          </span>
+        </h1>
         <p class="hero-lead" data-reveal style="--reveal-delay:120ms">
           Als Agentur für Kommunikation entwickeln wir zusammen mit dir
           Strategien und visuelle Konzepte, die deine DNA spürbar machen und
@@ -55,8 +77,8 @@ const disciplines = [
           machen soll.
         </p>
         <div class="hero-actions" data-reveal style="--reveal-delay:240ms">
-          <Button href="/agentur" variant="blue">Lern eus känne</Button>
-          <Button href="/projekte" variant="text">Alli Projekt aluege</Button>
+          <Button href="/agentur/" variant="blue">Lern eus känne</Button>
+          <Button href="/projekte/" variant="text">Alli Projekt aluege</Button>
         </div>
       </div>
     </div>
@@ -67,7 +89,7 @@ const disciplines = [
     <div class="container">
       <header class="section-head" data-reveal>
         <span class="eyebrow">Unser Angebot</span>
-        <h2>Alles aus einer Hand</h2>
+        <h2>Das bringt dich weiter</h2>
       </header>
       <div class="services">
         {
@@ -79,6 +101,15 @@ const disciplines = [
               <h3>{s.title}</h3>
               <p class="service-sub">{s.subtitle}</p>
               <p>{s.text}</p>
+              {
+                s.links && (
+                  <p class="service-links">
+                    {s.links.map((l) => (
+                      <a href={l.href}>{l.label}</a>
+                    ))}
+                  </p>
+                )
+              }
               <Button href={s.href} variant="text" class="service-btn">Meh Infos bitte</Button>
             </article>
           ))
@@ -102,7 +133,7 @@ const disciplines = [
       <div class="container team-intro" data-reveal>
         <div>
           <span class="eyebrow">Das sind wir</span>
-          <h2>Ein motiviertes Team aus kreativen Köpfen voller Ideen für dein Projekt – das ist Uftritt.</h2>
+          <h2>Ein motiviertes Team aus kreativen Köpfen voller Ideen für dein Projekt, das ist Uftritt.</h2>
         </div>
       </div>
 
@@ -112,7 +143,7 @@ const disciplines = [
     </div>
 
     <div class="container team-cta" data-reveal>
-      <Button href="/agentur" variant="blue">Lern eus känne</Button>
+      <Button href="/agentur/" variant="blue">Lern eus känne</Button>
     </div>
   </section>
 
@@ -120,35 +151,42 @@ const disciplines = [
   <section class="section">
     <div class="container">
       <header class="section-head" data-reveal>
-        <span class="eyebrow">Ein erster Eindruck</span>
-        <h2>Schau mal hier</h2>
+        <span class="eyebrow">Projekte</span>
+        <h2>Ein erster Eindruck</h2>
         <p class="lead-max">
           Wir durften bereits einiges mit unseren Partnern entwickeln und
-          realisieren. Eine Auswahl:
+          realisieren. Einen kleinen Sneak Peek davon findest du hier:
         </p>
       </header>
 
       <div class="project-grid" id="project-grid">
         {
-          projects.map((p) => (
-            <a href={`/projekte/${p.slug}`} class="project-card" aria-label={p.title}>
-              <img class="project-img" src={p.image} alt={p.title} loading="lazy" />
-              <span class="project-overlay">
-                <span class="project-cat">{p.categories.join(" · ")}</span>
-                <span class="project-title">{p.title}</span>
-              </span>
-            </a>
-          ))
+          projects.map((p) => {
+            // Mobil 1-spaltig (<=860px, Container = 90vw), Desktop 3-spaltig.
+            const srcset = webpSrcSet(p.image);
+            return (
+              <a href={`/projekte/${p.slug}/`} class="project-card" aria-label={p.title}>
+                <picture>
+                  {srcset && <source type="image/webp" srcset={srcset} sizes="(max-width: 860px) 90vw, 33vw" />}
+                  <img class="project-img" src={p.image} alt={p.title} loading="lazy" decoding="async" />
+                </picture>
+                <span class="project-overlay">
+                  <span class="project-cat">{p.categories.join(" · ")}</span>
+                  <span class="project-title">{p.title}</span>
+                </span>
+              </a>
+            );
+          })
         }
       </div>
 
       <div class="center-cta cta-left" data-reveal>
-        <Button href="/projekte" variant="blue">Alli Projekt aluege</Button>
+        <Button href="/projekte/" variant="blue">Alli Projekt aluege</Button>
       </div>
     </div>
   </section>
 
-  {/* ---------- VIDEOS ---------- */}
+  {/* ---------- VIDEO (stand-alone, ohne Titel) ---------- */}
   <section class="section">
     <div class="container">
       <VideoSection />
@@ -167,13 +205,13 @@ const disciplines = [
     <div class="container">
       <header class="section-head" data-reveal>
         <span class="eyebrow">Aktuell</span>
-        <h2>News und Einblicke</h2>
+        <h2>Neus vo eus</h2>
       </header>
       <div data-reveal>
         <News limit={3} showFilter={false} />
       </div>
       <div class="center-cta cta-left" data-reveal>
-        <Button href="/aktuell" variant="blue">Alli News aluege</Button>
+        <Button href="/aktuell/" variant="blue">Alli News aluege</Button>
       </div>
     </div>
   </section>
@@ -182,10 +220,12 @@ const disciplines = [
   <section class="section">
     <div class="container">
       <header class="section-head" data-reveal>
-        <span class="eyebrow">Unsere Kunden</span>
-        <h2>Gemeinsam mit ganz unterschiedlichen Unternehmen</h2>
+        <span class="eyebrow">Unsere Partner</span>
+        <h2>Sie zählen auf uns</h2>
         <p class="lead-max">
-          Vom Start-up bis zum etablierten KMU – ein Auftritt, der mit dir wächst.
+          Vom Start-up bis zum etablierten KMU, wir durften schon viele
+          Unternehmen und Organisationen mit passgenauen Lösungen ausrüsten und
+          begleiten.
         </p>
       </header>
       <div data-reveal>
@@ -194,6 +234,292 @@ const disciplines = [
     </div>
   </section>
 </Layout>
+
+{/* Shimeji-Spielzeug (Prototyp), self-contained, erzeugt eigene Styles/DOM per JS.
+    is:inline => Astro bündelt nichts, nur diese index.html ändert sich. */}
+{/* Animierter Slogan: wechselt das letzte Wort der H1 im Takt. is:inline => nur index.html. */}
+<script is:inline>
+(() => {
+  const rotator = document.querySelector(".rotator");
+  if (!rotator) return;
+  // Woerter erst per JS einsetzen — im HTML steht nur das erste Wort,
+  // damit die H1 fuer Crawler sauber bleibt (SEO).
+  const WORDS = [
+    ["wirkungsvoll", "fx-impact"],
+    ["vertrauenswürdig", "fx-calm"],
+    ["dynamisch", "fx-dynamic"],
+    ["schlagkräftig", "fx-punch"],
+    ["konstant", "fx-constant"],
+  ];
+  rotator.innerHTML = WORDS.map(
+    (w, idx) =>
+      `<span class="rotator-word ${w[1]}${idx === 0 ? " is-active" : ""}">${w[0]}</span>`
+  ).join("");
+  const words = Array.from(rotator.querySelectorAll(".rotator-word"));
+  if (words.length < 2) return;
+
+  const HOLD = 3000;   // wie lange ein Wort stehen bleibt (ms)
+  const FADE = 500;    // Überblend-Dauer (muss zur CSS-Transition passen)
+  let i = 0, timer = 0;
+
+  function step() {
+    const current = words[i];
+    i = (i + 1) % words.length;
+    const next = words[i];
+    current.classList.remove("is-active");
+    current.classList.add("is-leaving");
+    next.classList.add("is-active");
+    setTimeout(() => current.classList.remove("is-leaving"), FADE);
+  }
+  function start() { stop(); timer = setInterval(step, HOLD); }
+  function stop() { if (timer) { clearInterval(timer); timer = 0; } }
+
+  // Nur animieren, wenn der Tab sichtbar ist (spart Ressourcen)
+  document.addEventListener("visibilitychange", () => {
+    document.hidden ? stop() : start();
+  });
+  start();
+})();
+</script>
+
+<script is:inline>
+(() => {
+  if (window.__uftrittShimeji) return; window.__uftrittShimeji = true;
+
+  const ICON = "/img/icons/";
+  const CHARS = [
+    { src: ICON + "grafikdesign-icon.svg", name: "Grafikdesign" },
+    { src: ICON + "webdesign-icon.svg",    name: "Webdesign" },
+    { src: ICON + "video-icon.svg",        name: "Videoproduktion" },
+    { src: ICON + "zuhoeren-icon.svg",     name: "Zuhören" },
+    { src: ICON + "analyse-icon.svg",      name: "Analysieren" },
+    { src: ICON + "brainstorm-icon.svg",   name: "Brainstormen" },
+    { src: ICON + "austauschen-icon.svg",  name: "Austauschen" },
+    { src: ICON + "abheben-icon.svg",      name: "Abheben" },
+  ];
+  const QUIPS = ["Uftritt!","Ich häb ab!","Weeee!","Znüni?","Chli müed…","Los gaht's!","Woooosh","Hoi!","Design!","Guet gsi","Höcher!","Chef, lueg!"];
+  const rnd = (a,b) => a + Math.random()*(b-a);
+  const pick = a => a[(Math.random()*a.length)|0];
+
+  const css = `
+  #shimeji-bar{position:fixed;left:16px;bottom:16px;display:flex;gap:6px;align-items:center;z-index:140;font-family:"Rational",system-ui,-apple-system,sans-serif;transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .3s cubic-bezier(.22,1,.36,1);}
+  #shimeji-bar.sh-hidden{transform:translateY(220%);opacity:0;pointer-events:none;}
+  #shimeji-bar button{appearance:none;border:none;cursor:pointer;font:inherit;font-weight:700;font-size:.78rem;line-height:1;padding:.5rem .85rem;border-radius:0;transition:background .2s,color .2s;}
+  #shimeji-bar .sh-rocket{display:inline-flex;align-items:center;background:#da2c67;padding:.5rem .9rem;}
+  #shimeji-bar .sh-rocket:hover{background:#bd1f53;}
+  #shimeji-bar .sh-rocket img{display:block;height:30px;width:auto;filter:brightness(0) invert(1);}
+  #shimeji-bar .sh-ghost{background:#fff;color:#014080;box-shadow:inset 0 0 0 1px rgba(1,64,128,.28);}
+  #shimeji-bar .sh-ghost:hover{background:#014080;color:#fff;box-shadow:none;}
+  #shimeji-bar .sh-ctrl{display:none;}
+  #shimeji-bar.revealed .sh-ctrl{display:inline-flex;}
+  #shimeji-bar .sh-minmax{gap:6px;}
+  #shimeji-bar .sh-rocket2{background:#014080;}
+  #shimeji-bar .sh-rocket2:hover{background:#013366;}
+  #sh-strobe{position:fixed;inset:0;z-index:90;pointer-events:none;mix-blend-mode:multiply;background:#da2c67;animation:shPulse .5s ease-in-out infinite;}
+  @keyframes shPulse{0%,100%{opacity:.55}50%{opacity:.85}}
+  @media (prefers-reduced-motion:reduce){#sh-strobe{animation:none;opacity:.5}}
+  .shimeji-fig{position:fixed;left:0;top:0;z-index:95;cursor:grab;will-change:transform;user-select:none;-webkit-user-select:none;filter:drop-shadow(0 3px 0 rgba(1,64,128,.12));}
+  .shimeji-fig .shimeji-body{width:58px;height:58px;pointer-events:none;}
+  .shimeji-fig .shimeji-body img{display:block;width:100%;height:100%;object-fit:contain;}
+  .shimeji-fig.grab{cursor:grabbing;}
+  .shimeji-bubble{position:absolute;bottom:100%;left:50%;transform:translate(-50%,-6px);background:#014080;color:#fff;font-size:12px;font-weight:700;white-space:nowrap;padding:4px 8px;opacity:0;transition:opacity .18s,transform .18s;pointer-events:none;}
+  .shimeji-bubble.show{opacity:1;transform:translate(-50%,-10px);}
+  @media (max-width:720px){
+    /* am mobilen "Menü"-Balken orientieren: gleiche Bodenlinie + Höhe (~47px) */
+    #shimeji-bar{left:clamp(1rem,4vw,1.75rem);bottom:clamp(1rem,4vw,1.75rem);flex-direction:column-reverse;align-items:flex-start;}
+    #shimeji-bar .sh-rocket{padding:.7rem .95rem;}
+    #shimeji-bar .sh-rocket img{height:24px;}
+  }`;
+  const style = document.createElement("style");
+  style.textContent = css;
+  document.head.appendChild(style);
+
+  const bar = document.createElement("div");
+  bar.id = "shimeji-bar";
+  bar.innerHTML =
+    '<button class="sh-rocket" id="sh-rocket" title="Rakete loslassen"><img src="'+ICON+'abheben-icon.svg" alt="Rakete loslassen"></button>' +
+    '<button class="sh-rocket sh-rocket2 sh-ctrl" id="sh-party" title="Party-Modus"><img src="'+ICON+'abheben-icon.svg" alt="Party-Rakete"></button>' +
+    '<div class="sh-minmax sh-ctrl">' +
+      '<button class="sh-ghost" id="sh-add" aria-label="Icon hinzufügen">+</button>' +
+      '<button class="sh-ghost" id="sh-minus" aria-label="Alle entfernen">-</button>' +
+    '</div>';
+  document.body.appendChild(bar);
+
+  const figs = [];
+
+  class Shimeji {
+    constructor(char){
+      this.size = 58;
+      this.el = document.createElement("div");
+      this.el.className = "shimeji-fig";
+      this.char = char || pick(CHARS);
+      this.name = this.char.name;
+      const body = document.createElement("div");
+      body.className = "shimeji-body";
+      this.bodyEl = body;
+      const img = document.createElement("img");
+      img.src = this.char.src; img.alt = this.name; img.draggable = false;
+      body.appendChild(img);
+      this.el.appendChild(body);
+      this.bubble = document.createElement("div");
+      this.bubble.className = "shimeji-bubble";
+      this.el.appendChild(this.bubble);
+      document.body.appendChild(this.el);
+
+      this.x = rnd(40, innerWidth-80);
+      this.y = -60; this.vx = 0; this.vy = 0;
+      this.face = Math.random()<0.5 ? -1 : 1;
+      this.phase = Math.random()*10; this.rot = 0;
+      this.setState("fall"); this.dragging = false;
+
+      this.el.addEventListener("pointerdown", e => this.grab(e));
+      this.el.addEventListener("click", () => { if(!this.moved){ this.say(Math.random()<0.5 ? this.name+"!" : pick(QUIPS)); this.hop(); } });
+    }
+    setState(s, dur){ this.state=s; this.stateT = dur!=null?dur:rnd(60,180);
+      if(s==="walk"){ this.vx=this.face*rnd(0.8,1.8); }
+      if(s==="ceiling"){ this.vx=this.face*rnd(0.7,1.4); this.y=0; } }
+    say(t){ this.bubble.textContent=t; this.bubble.classList.add("show");
+      clearTimeout(this._bt); this._bt=setTimeout(()=>this.bubble.classList.remove("show"),1600); }
+    hop(){ if(["walk","stand"].includes(this.state)){ this.vy=-9; this.setState("fall",999); } }
+    grab(e){
+      e.preventDefault(); this.dragging=true; this.moved=false;
+      this.el.setPointerCapture(e.pointerId); this.el.classList.add("grab");
+      this.px=e.clientX; this.py=e.clientY;
+      this._move = ev => { this.moved=true; this.x+=ev.clientX-this.px; this.y+=ev.clientY-this.py;
+        this.vx=ev.clientX-this.px; this.vy=ev.clientY-this.py; this.px=ev.clientX; this.py=ev.clientY; };
+      this._up = () => { this.dragging=false; this.el.classList.remove("grab");
+        this.el.removeEventListener("pointermove", this._move); window.removeEventListener("pointerup", this._up);
+        if(this.moved) this.say(pick(["Wääh!","Loslah!","Hoppla!","Juhui!"])); this.setState("fall",999); };
+      this.el.addEventListener("pointermove", this._move); window.addEventListener("pointerup", this._up);
+    }
+    update(){
+      const groundY = innerHeight - this.size, maxX = innerWidth - this.size;
+      if(this.dragging){ this.rot=Math.max(-25,Math.min(25,this.vx*1.5)); this.draw(); return; }
+      switch(this.state){
+        case "walk": { this.x+=this.vx; this.phase+=0.25;
+          if(this.x<=0){ this.x=0; this.face=1; Math.random()<0.5?this.setState("climb",999):(this.vx=this.face*rnd(0.8,1.8)); }
+          else if(this.x>=maxX){ this.x=maxX; this.face=-1; Math.random()<0.5?this.setState("climb",999):(this.vx=this.face*rnd(0.8,1.8)); }
+          this.y=groundY; this.rot=0; if(--this.stateT<=0) this.nextGround(); break; }
+        case "stand": { this.y=groundY; this.rot=Math.sin(this.phase)*3; this.phase+=0.08;
+          if(Math.random()<0.006) this.say(pick(QUIPS)); if(--this.stateT<=0) this.nextGround(); break; }
+        case "climb": { this.y-=rnd(1.2,1.8); this.rot=0;
+          if(this.y<=0){ this.y=0; this.face*=-1; this.setState("ceiling"); }
+          else if(Math.random()<0.01){ this.say("Ups!"); this.setState("fall",999); } break; }
+        case "ceiling": { this.x+=this.vx; this.y=0; this.rot=180; this.phase+=0.2;
+          if(this.x<=0||this.x>=maxX){ this.x=Math.max(0,Math.min(maxX,this.x)); this.setState("fall",999); }
+          else if(Math.random()<0.012){ this.say(pick(["Achtung!","Wheee!","Kopfüber!"])); this.setState("fall",999); } break; }
+        default: { this.vy+=0.9; this.y+=this.vy; this.x+=this.vx*0.3; this.vx*=0.96; this.rot=Math.min(20,this.rot+3);
+          if(this.x<0){ this.x=0; this.vx*=-0.5; } if(this.x>maxX){ this.x=maxX; this.vx*=-0.5; }
+          if(this.y>=groundY){ this.y=groundY; this.vy=0; this.rot=0; this.sq=1; this.nextGround(); } break; }
+      }
+      this.draw();
+    }
+    nextGround(){ const r=Math.random();
+      if(r<0.55){ this.face=Math.random()<0.5?-1:1; this.setState("walk"); }
+      else if(r<0.85) this.setState("stand");
+      else { this.vy=-rnd(7,11); this.vx=this.face*rnd(1,2.5); this.say(pick(["Hopp!","Abheben!","Höcher!"])); this.setState("fall",999); } }
+    draw(){ const bob=this.state==="walk"?Math.abs(Math.sin(this.phase))*-4:0; let sx=1,sy=1;
+      if(this.sq&&this.sq>0){ sx=1+this.sq*0.3; sy=1-this.sq*0.3; this.sq-=0.15; }
+      // Position auf dem Container; Drehen/Spiegeln nur auf dem Icon -> Sprechblase bleibt lesbar
+      this.el.style.transform="translate("+this.x+"px,"+(this.y+bob)+"px)";
+      this.bodyEl.style.transform="rotate("+this.rot+"deg) scaleX("+(this.face*sx)+") scaleY("+sy+")"; }
+    remove(){ this.el.remove(); }
+  }
+
+  function spawn(char){ if(figs.length>=40) return; figs.push(new Shimeji(char)); }
+  // Rakete: 5 verschiedene Icons gleichzeitig loslassen
+  function spawnFive(){ const pool=[...CHARS].sort(()=>Math.random()-0.5).slice(0,5); for(const c of pool) spawn(c); }
+  // Rakete danach: alle vorhandenen Figuren hochfliegen/springen lassen
+  function boostAll(){ for(const f of figs){ f.vy=-rnd(10,16); f.vx=rnd(-4,4); f.say(pick(["Abheben!","Hui!","Woohoo!","Höcher!"])); f.setState("fall",999); } }
+  function clearAll(){ while(figs.length) figs.pop().remove(); bar.classList.remove("revealed"); }
+  document.getElementById("sh-rocket").addEventListener("click", () => {
+    bar.classList.add("revealed");
+    if(figs.length===0) spawnFive(); else boostAll();
+    if (window._paq) window._paq.push(["trackEvent", "Engagement", "Rakete geklickt"]);
+  });
+  document.getElementById("sh-add").addEventListener("click", () => spawn());
+  document.getElementById("sh-minus").addEventListener("click", clearAll);
+
+  // --- Party-Modus (blaue Rakete): synthetische Musik + Farb-Lichtshow, Icons tanzen im Takt ---
+  let party = null;
+  function startMusic(onBeat){
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    const ctx = new Ctx(); if (ctx.resume) ctx.resume();
+    const master = ctx.createGain(); master.gain.value = 0.22; master.connect(ctx.destination);
+    const bpm = 124, step = 60 / bpm / 2;
+    const bass = [55, 55, 82.41, 55, 65.41, 55, 82.41, 98];
+    const mel = [440, 0, 554.37, 659.25, 0, 554.37, 440, 0];
+    let i = 0;
+    const osc = (freq, t, dur, type, g) => {
+      if (!freq) return;
+      const o = ctx.createOscillator(), ga = ctx.createGain();
+      o.type = type; o.frequency.value = freq; o.connect(ga); ga.connect(master);
+      ga.gain.setValueAtTime(0, t); ga.gain.linearRampToValueAtTime(g, t + 0.01);
+      ga.gain.exponentialRampToValueAtTime(0.001, t + dur); o.start(t); o.stop(t + dur + 0.03);
+    };
+    const kick = (t) => {
+      const o = ctx.createOscillator(), ga = ctx.createGain();
+      o.frequency.setValueAtTime(160, t); o.frequency.exponentialRampToValueAtTime(50, t + 0.12);
+      ga.gain.setValueAtTime(0.7, t); ga.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
+      o.connect(ga); ga.connect(master); o.start(t); o.stop(t + 0.17);
+    };
+    const timer = setInterval(() => {
+      const t = ctx.currentTime + 0.05;
+      if (i % 2 === 0) { kick(t); if (onBeat) { try { onBeat(); } catch (e) {} } }
+      osc(bass[i % bass.length], t, step * 0.9, "sawtooth", 0.16);
+      osc(mel[i % mel.length], t, step * 0.85, "square", 0.10);
+      i++;
+    }, step * 1000);
+    return { stop(){ clearInterval(timer); setTimeout(() => { try { ctx.close(); } catch (e) {} }, 300); } };
+  }
+  function startParty(){
+    if (party) return;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    while (figs.length < 12) spawn();                 // wilder: mehr Icons
+    const strobe = document.createElement("div"); strobe.id = "sh-strobe"; document.body.appendChild(strobe);
+    const colors = ["#da2c67", "#014080", "#ffd23c"]; let ci = 0;
+    const beat = () => {
+      if (!reduce) { ci = (ci + 1) % colors.length; strobe.style.background = colors[ci]; }
+      for (const f of figs) { f.vy = -rnd(7, 14); f.vx = rnd(-5, 5); f.setState("fall", 999); } // tanzen im Takt
+    };
+    if (reduce) strobe.style.background = "rgba(1,64,128,.12)";
+    const music = startMusic(beat);
+    const fallback = music ? null : setInterval(beat, 480);
+    const stopTimer = setTimeout(stopParty, 10000);
+    party = { strobe, music, fallback, stopTimer };
+  }
+  function stopParty(){
+    if (!party) return;
+    clearTimeout(party.stopTimer);
+    if (party.fallback) clearInterval(party.fallback);
+    if (party.music) party.music.stop();
+    if (party.strobe) party.strobe.remove();
+    party = null;
+  }
+  document.getElementById("sh-party").addEventListener("click", () => {
+    if (party) { stopParty(); return; }
+    startParty();
+    if (window._paq) window._paq.push(["trackEvent", "Engagement", "Party-Modus"]);
+  });
+
+  // Mobile: gleicher Scroll-Hide-Effekt wie der Menü-Balken (runter = weg, hoch = zurück)
+  let lastY = window.scrollY, ticking = false;
+  function onScroll(){
+    const y = window.scrollY;
+    if (matchMedia("(max-width:720px)").matches){
+      if (y > lastY && y > 120) bar.classList.add("sh-hidden");
+      else bar.classList.remove("sh-hidden");
+    } else {
+      bar.classList.remove("sh-hidden");
+    }
+    lastY = y; ticking = false;
+  }
+  window.addEventListener("scroll", () => { if(!ticking){ requestAnimationFrame(onScroll); ticking = true; } }, { passive:true });
+
+  (function loop(){ for(const f of figs) f.update(); requestAnimationFrame(loop); })();
+})();
+</script>
 
 <script>
   // Portfolio: bei jedem Laden 3 zufällige Projekte zeigen
@@ -229,13 +555,26 @@ const disciplines = [
     justify-content: center; /* vertikal zentriert */
   }
   .hero-text {
-    /* breiter, damit die H1 mehr ausläuft – Revision Jeffrey */
+    /* breiter, damit die H1 mehr ausläuft, Revision Jeffrey */
     max-width: min(1180px, 100%);
   }
+  /* Keine Silbentrennung in der Startseiten-H1: «Marken» darf mobil nicht
+     als «Mar-ken» brechen (Feedback Marcel 2026-08-28). Globale Mobile-
+     Hyphens auf h1-h4 bleiben für lange Wörter bestehen. */
+  .hero-h1 {
+    -webkit-hyphens: none;
+    hyphens: none;
+  }
+  /* ---------- Animierter Slogan: CSS liegt in <style is:global> ganz unten,
+       weil JS-injizierte Woerter keine Astro-Scoped-Attribute tragen. ---------- */
+
   .hero-lead {
-    font-size: clamp(1.15rem, 1.7vw, 1.45rem);
+    /* gleiche Grösse + Breite wie die Unterseiten-Heroes (SubHero/PageHero), Revision 2 */
+    font-size: clamp(1.3rem, 2.1vw, 1.9rem);
+    font-weight: 500;
+    line-height: 1.4;
     color: var(--color-blue);
-    max-width: 660px;
+    max-width: 780px;
     margin-block: clamp(1.75rem, 3vw, 2.5rem) clamp(2rem, 3.5vw, 3rem);
   }
   .hero-actions {
@@ -295,6 +634,17 @@ const disciplines = [
     margin-top: auto;
     padding-top: 0.75rem;
   }
+  /* Sekundaer-Link in der Karte: muss ueber dem Stretched-Link-Overlay
+     des Buttons liegen (z-index), sonst nicht klickbar */
+  .service-links a {
+    position: relative;
+    z-index: 1;
+    color: var(--color-blue);
+    font-weight: 700;
+  }
+  .service-links a:hover {
+    color: var(--color-pink);
+  }
 
   /* Disziplinen-Spektrum (mehr als nur die 3 Säulen) */
   .disciplines-intro {
@@ -310,7 +660,7 @@ const disciplines = [
     gap: 0.75rem;
   }
   .disciplines li {
-    /* Linie gleich dünn wie die grossen Karten oben (1px) – Revision Jeffrey */
+    /* Linie gleich dünn wie die grossen Karten oben (1px), Revision Jeffrey */
     border: 1px solid #e7ecf3;
     padding: 0.7rem 1.2rem;
     font-weight: 600;
@@ -333,7 +683,10 @@ const disciplines = [
 
   /* ---------- Team-Sektion: oben gelb, unten weiss; Fotos ragen an ---------- */
   .team-section {
-    --team-overhang: clamp(200px, 24vw, 360px); /* wie weit die Fotos auf Weiss ragen (gelb endet deutlich höher) */
+    /* Wie weit die Fotos auf Weiss ragen. Muss kleiner als die Fotohöhe (~22.5vw
+       bei 5 sichtbaren) bleiben, sonst überlappen die Portraits das Gelb gar nicht
+       mehr → deutlich reduziert, damit das Gelb länger ist, Revision 2. */
+    --team-overhang: clamp(120px, 13vw, 240px);
     background: #fff;
   }
   .team-yellow {
@@ -379,6 +732,11 @@ const disciplines = [
     aspect-ratio: 4 / 3;
     overflow: hidden;
   }
+  /* picture-Wrapper (webp/srcset): keine eigene Box -> img bleibt layout-seitig
+     direktes Kind der Karte (Containing Block unveraendert) */
+  picture {
+    display: contents;
+  }
   .project-img {
     width: 100%;
     height: 100%;
@@ -407,7 +765,7 @@ const disciplines = [
   .project-card:focus-visible .project-overlay {
     opacity: 1;
   }
-  /* Kreativere Einblendung: Kategorie + Titel gleiten gestaffelt nach oben – Revision Jeffrey */
+  /* Kreativere Einblendung: Kategorie + Titel gleiten gestaffelt nach oben, Revision Jeffrey */
   .project-cat,
   .project-title {
     transform: translateY(14px);
@@ -440,7 +798,7 @@ const disciplines = [
     margin-top: clamp(2.5rem, 5vw, 3.5rem);
     text-align: center;
   }
-  /* Button ganz links (z. B. „Ein erster Eindruck") – Revision Jeffrey */
+  /* Button ganz links (z. B. „Ein erster Eindruck"), Revision Jeffrey */
   .center-cta.cta-left {
     text-align: left;
   }
@@ -469,7 +827,7 @@ const disciplines = [
 
   /* ---------- shared ---------- */
   .lead-max {
-    max-width: 640px;
+    max-width: 760px; /* Lead breiter laufen lassen, Revision 2 */
     font-size: 1.1rem;
     margin-block: 1rem 1.75rem;
   }
@@ -483,5 +841,96 @@ const disciplines = [
       flex-direction: column;
       align-items: flex-start;
     }
+  }
+</style>
+
+{/* Rotator-CSS global: Die Woerter werden per JS eingesetzt (saubere H1 fuer
+    Crawler) und tragen deshalb keine Astro-Scoped-Attribute. */}
+<style is:global>
+  .rotator {
+    /* alle Wörter liegen in derselben Grid-Zelle -> Breite = längstes Wort,
+       kein Springen des Layouts beim Wechsel */
+    display: inline-grid;
+    vertical-align: top;
+    color: var(--color-blue);
+  }
+  .rotator-word {
+    grid-area: 1 / 1;
+    opacity: 0;
+    /* Ausblenden des ablösenden Wortes */
+    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+    pointer-events: none;
+    transform-origin: left center;
+    will-change: transform, opacity, filter;
+  }
+  /* Wort, das gerade verschwindet: kurz nach oben ausgleiten */
+  .rotator-word.is-leaving {
+    opacity: 0;
+    transform: translateY(-0.28em);
+    filter: blur(2px);
+  }
+
+  /* Jedes Wort bekommt einen zur Bedeutung passenden Einblende-Effekt.
+     animation-fill-mode: both hält Anfangs- und Endzustand sauber. */
+  .rotator-word.is-active { opacity: 1; }
+
+  /* wirkungsvoll, Farbwechsel Blau -> Pink -> Blau als kurzer Akzent */
+  .rotator-word.fx-impact.is-active {
+    animation: fx-impact 2.4s ease-in-out both;
+  }
+  @keyframes fx-impact {
+    0%   { opacity: 0; color: var(--color-blue); }
+    12%  { opacity: 1; color: var(--color-blue); }
+    35%  { color: var(--color-pink); }
+    70%  { color: var(--color-pink); }
+    100% { opacity: 1; color: var(--color-blue); }
+  }
+
+  /* vertrauenswürdig, ruhig, weich, unaufgeregt scharfstellen */
+  .rotator-word.fx-calm.is-active {
+    animation: fx-calm 0.95s var(--ease) both;
+  }
+  @keyframes fx-calm {
+    0%   { opacity: 0; filter: blur(8px); transform: translateY(0.12em); }
+    100% { opacity: 1; filter: blur(0); transform: none; }
+  }
+
+  /* dynamisch, energiegeladen von links reinschiessen, leicht geschert */
+  .rotator-word.fx-dynamic.is-active {
+    animation: fx-dynamic 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes fx-dynamic {
+    0%   { opacity: 0; transform: translateX(-0.7em) skewX(14deg); }
+    55%  { opacity: 1; transform: translateX(0.12em) skewX(-4deg); }
+    100% { opacity: 1; transform: none; }
+  }
+
+  /* schlagkräftig, harter Schlag mit Nachbeben */
+  .rotator-word.fx-punch.is-active {
+    animation: fx-punch 0.62s cubic-bezier(0.3, 0.8, 0.3, 1) both;
+  }
+  @keyframes fx-punch {
+    0%   { opacity: 0; transform: scale(1.25) translateX(0); }
+    18%  { opacity: 1; transform: scale(1) translateX(-8px); }
+    34%  { transform: translateX(6px); }
+    50%  { transform: translateX(-4px); }
+    66%  { transform: translateX(3px); }
+    82%  { transform: translateX(-2px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+
+  /* konstant, gleichmässig, ruhig, ohne Schnörkel */
+  .rotator-word.fx-constant.is-active {
+    animation: fx-constant 0.8s linear both;
+  }
+  @keyframes fx-constant {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  /* Bewegung reduzieren: alle Effekte auf einen ruhigen Fade zurückführen */
+  @media (prefers-reduced-motion: reduce) {
+    .rotator-word.is-active { animation: fx-constant 0.3s linear both; }
+    .rotator-word.is-leaving { transform: none; filter: none; }
   }
 </style>

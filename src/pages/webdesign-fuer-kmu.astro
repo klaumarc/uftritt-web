@@ -1,0 +1,356 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["garage-frei", "regan", "physio-rothe"].includes(p.slug)
+);
+
+const anforderungen = [
+  {
+    title: "Klare Leistungen",
+    note: "Besucher verstehen in Sekunden, was du anbietest, für wen und in welchem Gebiet du arbeitest.",
+  },
+  {
+    title: "Einfache Kontaktwege",
+    note: "Anruf, Formular oder Termin: Die nächste Anfrage ist nie mehr als einen Klick entfernt.",
+  },
+  {
+    title: "Mobil zuerst",
+    note: "Viele deiner Kunden schauen unterwegs auf dem Smartphone. Dort muss deine Website schnell laden und klar führen.",
+  },
+  {
+    title: "Auffindbar bei Google",
+    note: "Saubere Technik und Inhalte, die zu echten Suchbegriffen passen, damit dich Kundschaft aus deiner Region findet.",
+  },
+];
+
+const ablauf = [
+  "Kostenloses Erstgespräch: Wir hören zu, was dein Betrieb braucht und was die Website leisten soll",
+  "Transparentes Angebot: Umfang und Preis stehen schriftlich fest, bevor wir anfangen",
+  "Konzept und Entwurf: Struktur und Design, mit kompakten Abstimmungen statt endloser Schlaufen",
+  "Umsetzung: Texte, Bilder und Technik aus einer Hand, du lieferst nur dein Wissen über dein Geschäft",
+  "Launch und danach: Die Website geht live, auf Wunsch betreuen wir sie für CHF 33 pro Monat weiter",
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Website für ein KMU?",
+    a: "Einen Listenpreis gibt es bei uns nicht, weil kein Betrieb dem anderen gleicht: Umfang, Funktionen und Inhalte treiben den Aufwand. In unserem Guide zu den Website-Kosten legen wir die üblichen Marktpreise von Baukasten bis Agentur offen. Für dein Projekt bekommst du nach einem kostenlosen Erstgespräch ein transparentes Angebot, in dem jede Leistung und der Preis klar drinstehen.",
+  },
+  {
+    q: "Wie lange dauert es, bis unsere Website online ist?",
+    a: "Das hängt vom Umfang ab und davon, wie schnell Abstimmungen gehen. Weil wir aus eigener Erfahrung wissen, wie knapp die Zeit im KMU-Alltag ist, halten wir Feedbackschlaufen kompakt und bereiten Entscheide so vor, dass du sie in Minuten treffen kannst. Nach dem Erstgespräch bekommst du einen realistischen Zeitplan mit klaren Etappen.",
+  },
+  {
+    q: "Müssen wir Texte und Bilder selbst liefern?",
+    a: "Nein. Texte und Fotografie machen wir inhouse, und vorhandenes Material bauen wir gerne ein. Was wir von dir brauchen, ist dein Wissen über dein Geschäft und deine Kundschaft. Das holen wir uns in einem gut vorbereiteten Gespräch, nicht über endlose Fragebögen.",
+  },
+  {
+    q: "Wir haben keine Marketingabteilung. Ist das ein Problem?",
+    a: "Im Gegenteil: Genau dafür ist unsere Arbeitsweise gebaut. Du hast einen festen Ansprechpartner, wir übernehmen Konzept, Struktur, Texte und Technik, und wir erklären alles in verständlicher Sprache. Du musst weder ein Briefing schreiben noch Fachbegriffe lernen, nur dein Geschäft kennen.",
+  },
+  {
+    q: "Was passiert nach dem Launch mit der Website?",
+    a: "Auf Wunsch übernehmen wir die Betreuung: Hosting, Wartung, tägliche Backups und alle Updates für CHF 33 pro Monat, ohne Kleingedrucktes. Inhalte, die sich ändern, passen wir nach Absprache an. Du musst dich um nichts Technisches kümmern und hast trotzdem eine Website, die sicher und aktuell bleibt.",
+  },
+  {
+    q: "Lohnt sich eine Agentur-Website auch für einen kleinen Betrieb?",
+    a: "Ehrlich gesagt: nicht immer. Wenn du Zeit hast, dich einzuarbeiten, und die Website nur eine digitale Visitenkarte sein soll, kann ein Baukasten reichen. Sobald die Website aber Anfragen, Offerten oder Bewerbungen bringen soll, zahlen sich professionelle Struktur, gute Texte und saubere Technik aus. Genau das klären wir im kostenlosen Erstgespräch mit dir.",
+  },
+];
+---
+
+<Layout
+  title="Webdesign für KMU: Websites, die Anfragen bringen - Uftritt"
+  description="Webdesign für KMU ohne Marketingabteilung: ein Ansprechpartner, klare Schritte, Budget-Klarheit und eine Website, die Anfragen bringt. Hosting in der Schweiz."
+>
+  <PageHero
+    eyebrow="Für KMU ohne Marketingabteilung"
+    title={"Webdesign für KMU:\nWebsites, die Anfragen bringen"}
+    lead="Webdesign für KMU heisst bei uns: ein fester Ansprechpartner, klare Schritte und ein Budget, das vor dem Start feststeht, ganz ohne Marketingabteilung auf deiner Seite. Wir bauen Websites, die nicht nur gut aussehen, sondern Anfragen bringen. Hosting in der Schweiz, danach Betreuung für CHF 33 pro Monat."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Einordnung: KMU-Realität */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Webdesign für KMU: Was das bei uns heisst</h2>
+        <div class="lp-text">
+          <p>
+            Vom Einpersonenbetrieb bis zum Unternehmen mit mehreren hundert
+            Mitarbeitenden: Viele KMU haben keine eigene Marketingabteilung.
+            Die Website landet deshalb meist beim Inhaber oder bei der
+            Geschäftsführerin, irgendwo zwischen Tagesgeschäft, Kunden und
+            Administration.
+          </p>
+          <p>
+            Genau für diese Realität arbeiten wir: ein fester Ansprechpartner
+            statt wechselnder Kontakte, klare Schritte mit wenigen, gut
+            vorbereiteten Abstimmungen und ein Budget, das vor dem Start
+            feststeht. Du musst kein Briefing schreiben können. Wir stellen
+            die richtigen Fragen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Eine Website, die Anfragen bringt</h2>
+        <div class="lp-text">
+          <p>
+            Schön ist die Basis, nicht das Ziel. Entscheidend ist, was deine
+            Besucher tun: anrufen, eine Offerte anfordern, einen Termin buchen.
+            Struktur, Texte und Kontaktwege bauen wir genau darauf hin.
+          </p>
+          <p>
+            Deshalb fragen wir zuerst, woher deine Kundschaft heute kommt und
+            was dir eine Anfrage wert ist. Erst dann gestalten wir. So wird die
+            Website ein Arbeitsinstrument für deinen Betrieb und bleibt nicht
+            nur eine digitale Visitenkarte.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Hosting und Datenschutz in der Schweiz</h2>
+        <div class="lp-text">
+          <p>
+            Wir hosten deine Website in der Schweiz. Das heisst kurze Wege,
+            schnelle Ladezeiten hierzulande und im Störungsfall erreichst du
+            uns direkt, nicht ein Ticket-System irgendwo auf der Welt.
+          </p>
+          <p>
+            Auch beim Datenschutz bleibst du auf Schweizer Boden:
+            Kontaktformular, Datenschutzerklärung und den Umgang mit Daten
+            richten wir nach hiesigem Recht aus. Und wenn dein Fall juristische
+            Beratung braucht, sagen wir dir das ehrlich.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Was die Website können muss */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Das Wichtigste</span>
+        <h2>Was deine KMU-Website können muss</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          anforderungen.map((a) => (
+            <article class="karte">
+              <h3>{a.title}</h3>
+              <p class="karte-note">{a.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Ablauf, Kosten, Betreuung */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Und was kostet eine KMU-Website?</h2>
+        <div class="lp-text">
+          <p>
+            Einen Listenpreis gibt es bei uns nicht, weil kein Betrieb dem
+            anderen gleicht: Die kompakte Website eines Dienstleisters ist
+            weniger aufwändig als ein Auftritt mit Shop, Mitgliederbereich
+            oder mehreren Sprachen.
+          </p>
+          <p>
+            Was du von uns erwarten kannst: ein kostenloses Erstgespräch und
+            danach ein Angebot, in dem jede Leistung und der Preis klar
+            drinstehen. Die üblichen Marktpreise von Baukasten bis Agentur
+            haben wir im Guide zu den
+            <a href="/website-kosten/">Website-Kosten</a> offengelegt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Nach dem Launch: Betreuung statt Baustelle</h2>
+        <div class="lp-text">
+          <p>
+            Eine Website ist nie ganz fertig: Updates, Backups und kleine
+            Anpassungen gehören dazu. Unsere
+            <a href="/website-betreuung/">Website-Betreuung</a> deckt Hosting,
+            Wartung, tägliche Backups und alle Updates für CHF 33 pro Monat ab,
+            ohne Kleingedrucktes.
+          </p>
+          <p>
+            Wenn sich in deinem Betrieb etwas ändert, etwa neue Leistungen,
+            offene Stellen oder ein neues Team-Foto, passen wir die Inhalte
+            nach Absprache an. Du denkst nicht ans Technische und hast trotzdem
+            einen Auftritt, der aktuell bleibt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ehrliche Einordnung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann ein einfacher Start reicht</h2>
+        <div class="lp-text">
+          <p>
+            Wenn du gerade gründest und vorerst nur eine Adresse im Netz
+            brauchst, kann ein Baukasten oder eine simple Seite genügen. Auch
+            wenn du Zeit und Freude hast, dich selbst einzuarbeiten, kommst du
+            damit erstaunlich weit.
+          </p>
+          <p>
+            Und wenn wir im Erstgespräch merken, dass du noch keine Agentur
+            brauchst, sagen wir dir das offen. Das kommt vor.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wann sich Webdesign für dein KMU lohnt</h2>
+        <div class="lp-text">
+          <p>
+            Sobald die Website mitarbeiten soll: Anfragen, Offerten,
+            Bewerbungen, Verkäufe. Dann zahlen sich klare Struktur, gute
+            Texte, saubere Technik und Auffindbarkeit bei Google aus, und
+            zwar jeden Monat aufs Neue.
+          </p>
+          <p>
+            Und wenn dir im Tagesgeschäft schlicht die Zeit fehlt, dich in
+            Baukästen, Texte und Google einzuarbeiten, bist du bei uns richtig.
+            Wie der ganze Weg von der Idee bis zum Launch im Detail aussieht,
+            zeigen wir auf
+            <a href="/website-erstellen-lassen/">Website erstellen lassen</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Webdesign für KMU</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bringt deine Website Anfragen oder sieht sie nur gut aus?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns in einem kostenlosen Erstgespräch, was dein Betrieb braucht.
+        Wir sagen dir ehrlich, welcher Weg der richtige ist, und machen dir ein
+        transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--3, .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--3, .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,335 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["100pro-openair-2024", "youngstars-broschuere", "youngstars"].includes(p.slug)
+);
+
+const leistungen = [
+  {
+    title: "Konzept und ein klarer Gedanke",
+    note: "Was soll der Flyer bewirken, wer bekommt ihn in die Hand? Wir klären zuerst die Botschaft, dann das Layout, damit am Ende nicht drei Inhalte um dieselbe Aufmerksamkeit kämpfen.",
+  },
+  {
+    title: "Design in deinem Stil",
+    note: "Farben, Schriften und Bildwelt passend zu deinem Erscheinungsbild. Der Flyer sieht nach dir aus, nicht nach Vorlage.",
+  },
+  {
+    title: "Reinzeichnung fürs Drucken",
+    note: "Saubere Auflösung, die richtigen Farben fürs Druckverfahren, korrekter Beschnitt: Daten, mit denen jede Druckerei sofort arbeiten kann.",
+  },
+  {
+    title: "Druckabwicklung auf Wunsch",
+    note: "Wir beraten dich zu Papier und Auflage, stimmen alles mit der Druckerei ab und liefern das fertige Produkt zu dir. Du musst dich um nichts kümmern.",
+  },
+];
+
+const ranges = [
+  {
+    name: "Gestaltung einfacher Flyer",
+    price: "CHF 300 bis 800",
+    note: "Ein- bis zweiseitig, ein klares Thema, bestehendes Erscheinungsbild.",
+  },
+  {
+    name: "Gestaltung Faltflyer",
+    price: "CHF 800 bis 1500",
+    note: "Mehr Platz, mehr Varianten, mehr Abstimmung. Konzept und Text können zusätzlich dazukommen.",
+  },
+  {
+    name: "Druck dazu",
+    price: "CHF 250 bis 600",
+    note: "Beispiel: 1000 Flyer im Format A5 auf Standardpapier bei einer Druckerei in der Schweiz. Papierwahl, Veredelung und Auflage verschieben den Preis deutlich.",
+  },
+];
+
+const ablauf = [
+  "Kostenloses Erstgespräch: Was soll der Flyer bewirken, wer soll ihn lesen?",
+  "Konzept und Angebot: Botschaft, Format und Auflage festlegen, dazu ein transparenter Preis",
+  "Gestaltung: wir entwerfen, du gibst Feedback, wir feilen bis es sitzt",
+  "Reinzeichnung: druckfertige Daten mit sauberer Auflösung, Farben und Beschnitt",
+  "Druck und Lieferung: Abstimmung mit der Druckerei, das fertige Produkt kommt zu dir",
+];
+
+const faq = [
+  {
+    q: "Was kostet es, einen Flyer gestalten zu lassen?",
+    a: "Für die Gestaltung eines einfachen Flyers liegen Grafiker und Agenturen in der Schweiz grob bei CHF 300 bis 800, bei Faltflyern und mehrseitigen Stücken bei CHF 800 bis 1500. Der Druck kommt dazu: 1000 Flyer A5 kosten bei einer Druckerei in der Schweiz etwa CHF 250 bis 600. Richtwerte aus unserer Projekterfahrung. Nach einem kostenlosen Erstgespräch bekommst du von uns ein transparentes Angebot mit klarem Preis.",
+  },
+  {
+    q: "Welches Format passt für meinen Flyer?",
+    a: "Das entscheidet der Verteilweg, nicht der Geschmack: A6 ist handlich für Beilagen und Streuverteilung, A5 das meistgenutzte Format für Briefkasten und Theke, das lange DL-Format passt in Prospekthalter und Briefumschläge. Braucht dein Inhalt mehr Platz, wird daraus ein Faltflyer. Wir empfehlen dir Format und Umfang im Erstgespräch, je nachdem, wo dein Flyer landen soll.",
+  },
+  {
+    q: "Druckt ihr die Flyer auch?",
+    a: "Ja, auf Wunsch alles aus einer Hand: Wir beraten dich zu Papier und Auflage, stimmen die Daten mit der Druckerei ab und liefern das fertige Produkt zu dir. Du musst dich um keine Druckdaten kümmern. Arbeitest du bereits mit einer Druckerei zusammen, bekommst du von uns selbstverständlich nur die druckfertigen Daten.",
+  },
+  {
+    q: "Könnt ihr meinen Canva- oder KI-Entwurf verbessern?",
+    a: "Sehr gerne, das passiert immer öfter. Dein Entwurf zeigt uns auf den Punkt, in welche Richtung du willst. Wir prüfen Auflösung, Farben und Beschnitt, räumen Typografie und Layout auf und zeichnen alles druckfertig rein. Am Ende hast du Daten, mit denen jede Druckerei arbeiten kann, und einen Flyer, der nach dir aussieht statt nach Vorlage.",
+  },
+  {
+    q: "Reicht ein Flyer aus Canva oder KI nicht?",
+    a: "Für den internen Anlass oder das kleine Vereinsfest reicht das völlig. Sobald der Flyer aber nach draussen wirkt, Kunden gewinnen soll oder deine Marke trägt, entscheiden Bildwelt, Typografie und Papier über den ersten Eindruck. Und drucktechnisch hapert es bei DIY-Entwürfen oft an Auflösung und Beschnitt, was sich erst auf 1000 gedruckten Exemplaren zeigt.",
+  },
+  {
+    q: "Wie lange dauert es, bis der Flyer fertig ist?",
+    a: "Ein einfacher Flyer ist oft in ein bis zwei Wochen gestaltet und rein gezeichnet, dazu kommen Druck und Lieferung. Am meisten Zeit kosten Feedbackschlaufen und Sonderwünsche beim Papier. Hast du einen fixen Termin, etwa einen Anlass oder eine Messe, sag es uns gleich zu Beginn, dann planen wir rückwärts ab diesem Datum.",
+  },
+];
+---
+
+<Layout
+  title="Flyer gestalten lassen: Design und Druck, Uftritt"
+  description="Flyer gestalten lassen im Zürcher Oberland: Design, Reinzeichnung und Druck aus einer Hand. Ehrlich zum Vergleich mit Canva und KI, Formaten und Preisen."
+>
+  <PageHero
+    eyebrow="Print, der auffällt"
+    title={"Flyer\ngestalten lassen"}
+    lead="Du willst einen Flyer gestalten lassen, der auffällt und gelesen wird? Wir gestalten deinen Flyer, zeichnen ihn druckfertig rein und organisieren auf Wunsch den ganzen Druck: Format, Papier, Auflage, Lieferung zu dir. Aus dem Zürcher Oberland, für Vereine und KMU in der ganzen Schweiz."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Grafikdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Leistungen */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Aus einer Hand</span>
+        <h2>Was in deinem Flyer steckt</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          leistungen.map((l) => (
+            <article class="karte">
+              <h3>{l.title}</h3>
+              <p class="karte-note">{l.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Preisranges */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Was Flyer in der Schweiz kosten</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. Jeder Flyer ist individuell,
+        darum sind das Ranges und keine Ladenpreise.
+      </p>
+    </div>
+  </section>
+
+  {/* DIY vs. Profi */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann Canva und KI reichen</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlich gesagt: Für den internen Anlass, die kleine Grillparty im Verein
+            oder einen schnellen Entwurf zum Ausprobieren sind Canva und KI-Tools
+            heute erstaunlich gut. Du bekommst in Minuten etwas Brauchbares, fast
+            ohne Budget.
+          </p>
+          <p>
+            Und wenn du so einen Entwurf hast: Bring ihn mit. Er zeigt uns auf den
+            Punkt, was dir gefällt, und wird zur besten Gesprächsgrundlage für die
+            professionelle Umsetzung.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wann Profi-Design zählt</h2>
+        <div class="lp-text">
+          <p>
+            Sobald der Flyer nach draussen geht: im Briefkasten, am Messestand, im
+            Prospekthalter beim Coiffeur. Dort entscheidet sich in Sekunden, ob er
+            gelesen oder weggelegt wird, und genau daran arbeiten Bildwelt,
+            Typografie und ein klarer Gedanke statt drei Botschaften auf einmal.
+          </p>
+          <p>
+            Dazu kommt die Technik: DIY-Entwürfe scheitern im Druck oft an zu tiefer
+            Auflösung, falschen Farben oder fehlendem Beschnitt. Und Papier und
+            Auflage entscheiden mit, ob dein Flyer wertig wirkt oder billig.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Aus einer Hand + Ablauf */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gestaltung und Druck aus einer Hand</h2>
+        <div class="lp-text">
+          <p>
+            Ein Flyer wirkt nie allein. Er hängt an deinem
+            <a href="/corporate-design/">Corporate Design</a>, deiner Website,
+            deinem ganzen Auftritt. Darum gestalten wir ihn so, dass er sich nahtlos
+            einfügt: Farben, Schriften und Bildwelt aus deinem Erscheinungsbild,
+            übertragen aufs Papier. Hast du noch kein festes Erscheinungsbild, ist
+            der Flyer oft der Anlass, eines aufzubauen.
+          </p>
+          <p>
+            Flyer, Plakate und Inserate fürs 100Pro Openair gestalten wir nach
+            demselben Prinzip: jedes Druckstück als Teil eines Auftritts, der
+            zusammenpasst. Mehr zu unserem Ansatz findest du unter
+            <a href="/grafikdesign-zuercher-oberland/">Grafikdesign im Zürcher Oberland</a>.
+            Und wenn es mehr Seiten braucht, ist die Seite
+            <a href="/broschuere-erstellen-lassen/">Broschüre erstellen lassen</a>
+            die richtige Adresse.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((s, i) => <li><span class="modul-nr">{i + 1}</span>{s}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Flyer gestalten lassen</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Canva-Entwurf in der Tasche oder noch ganz am Anfang?</h2>
+      <p class="lp-cta-text">
+        Zeig uns deinen Entwurf oder erzähl uns, was dein Flyer bewirken soll.
+        Wir sagen dir ehrlich, was es braucht, und machen ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .ranges { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--4, .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--4, .ranges { grid-template-columns: 1fr; }
+  }
+</style>

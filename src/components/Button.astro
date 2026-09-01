@@ -39,7 +39,7 @@ const {
     transition: background 0.4s var(--ease), color 0.4s var(--ease);
   }
 
-  /* Marken-Pfeil links – gleitet bei Hover rein, beim Verlassen links raus + faded (wie im Menü) */
+  /* Marken-Pfeil links, gleitet bei Hover rein, beim Verlassen links raus + faded (wie im Menü) */
   .btn-arrow {
     display: inline-block;
     max-width: 0;
@@ -92,29 +92,6 @@ const {
     color: var(--color-blue);
     --arrow-color: var(--color-blue);
   }
-  /* Explizite Pink-Variante (Flächen-Button) */
-  .btn--pink {
-    background: var(--color-pink);
-    color: var(--color-white);
-    --arrow-color: var(--color-white);
-  }
-  .btn--pink:hover {
-    background: var(--color-pink-dark);
-  }
-
-  /* Revision Jeffrey: Flächen-Buttons werden pink, wo eine farbige
-     Hintergrundfläche (gelb) vorhanden ist. Text-Buttons bleiben unverändert. */
-  :global(.section--yellow) .btn--blue,
-  :global(.section--yellow) .btn--yellow {
-    background: var(--color-pink);
-    color: var(--color-white);
-    --arrow-color: var(--color-white);
-  }
-  :global(.section--yellow) .btn--blue:hover,
-  :global(.section--yellow) .btn--yellow:hover {
-    background: var(--color-pink-dark);
-  }
-
   :global(.section--blue) .btn--text {
     color: var(--color-white);
     --arrow-color: var(--color-white);

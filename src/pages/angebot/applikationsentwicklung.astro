@@ -8,7 +8,7 @@ import Button from "../../components/Button.astro";
 import { projects } from "../../data/projects";
 
 const bySlug = (slug: string) => projects.find((p) => p.slug === slug)!;
-// Noch keine echten App-Entwicklungs-Referenzen – Sektion bleibt ausgeblendet,
+// Noch keine echten App-Entwicklungs-Referenzen, Sektion bleibt ausgeblendet,
 // bis wir passende Projekte erstellt haben.
 const portfolio: typeof projects = [];
 
@@ -16,40 +16,44 @@ const blocks = [
   {
     title: "Analyse und Konzept",
     text: [
-      "Wir verstehen zuerst deine Prozesse und Ziele, bevor wir Funktionen definieren. So entsteht eine Lösung, die wirklich zu deinem Arbeitsalltag passt.",
-      "Statt Funktionen um ihrer selbst willen bauen wir, was dir nachweislich Arbeit abnimmt.",
+      "Wir verstehen zuerst deine Prozesse und Ziele, bevor wir Funktionen definieren. Möchtest du Prozesse automatisieren, die interne Kommunikation vereinfachen, die Zusammenarbeit vereinheitlichen oder eine eigene Shop-Lösung bereitstellen?",
+      "Je nach Anforderung entsteht eine Lösung, die wirklich zu deinem Arbeitsalltag passt.",
+      'Ein typisches Beispiel ist unsere <a href="/vereins-app/">Vereins-App</a>: Termine, News und Mitgliederinfos kommen direkt aufs Handy, statt in E-Mail-Listen und Zettelwirtschaft unterzugehen.',
     ],
   },
   {
-    title: "UX und Prototyping",
+    title: "UX-Design und Prototyping",
     text: [
-      "Bevor programmiert wird, machen wir die Anwendung erlebbar: Ein klickbarer Prototyp zeigt früh, wie sich deine App anfühlt – und lässt sich unkompliziert anpassen.",
+      "Bevor programmiert wird, machen wir die Anwendung erlebbar. Aufgrund des Konzepts erstellen wir einen klickbaren Prototyp, der früh zeigt, wie sich deine App anfühlt und sich unkompliziert anpassen und optimieren lässt.",
       "So gehen wir kein Risiko ein und du weisst genau, was entsteht.",
+      'Wie ein <a href="/app-prototyping/">App-Prototyp</a> deine Idee früh greifbar macht und was ein gutes <a href="/ux-ui-design/">UX/UI-Design</a> ausmacht, erfährst du auf den beiden Themenseiten.',
     ],
   },
   {
     title: "Entwicklung und Betrieb",
     text: [
-      "Wir setzen deine Applikation technisch sauber um, testen gründlich und sorgen für eine stabile, sichere Basis.",
-      "Auch nach dem Launch sind wir da: Wartung, Updates und Weiterentwicklung inklusive.",
+      "Auf Basis des Prototyps setzen wir deine Applikation technisch sauber um und testen diese gründlich vor der Veröffentlichung.",
+      "Auch nach dem Launch sind wir da für Wartung, Updates und Weiterentwicklung des neuen Tools.",
     ],
   },
 ];
 
 const steps = [
-  { icon: "/img/icons/zuhoeren-icon.svg", t: "Zuhören und verstehen", d: "Wir lernen deine Abläufe und Ziele kennen – die Basis für eine sinnvolle Lösung." },
-  { icon: "/img/icons/analyse-icon.svg", t: "Konzept und Anforderungen", d: "Wir definieren Funktionen, Datenflüsse und Rahmen – transparent und nachvollziehbar." },
+  { icon: "/img/icons/zuhoeren-icon.svg", t: "Zuhören und verstehen", d: "Wir lernen deine Abläufe und Ziele kennen, die Basis für eine sinnvolle Lösung." },
+  { icon: "/img/icons/analyse-icon.svg", t: "Konzept und Anforderungen", d: "Wir definieren Funktionen, Datenflüsse und Rahmen für deine Applikation und erstellen daraus das Grundlagenkonzept." },
   { icon: "/img/icons/brainstorm-icon.svg", t: "Prototyp", d: "Ein klickbarer Prototyp macht die App früh erlebbar und lässt sich leicht justieren." },
-  { icon: "/img/icons/austauschen-icon.svg", t: "Entwicklung", d: "Wir programmieren, testen und integrieren – Schritt für Schritt, mit dir im Loop." },
+  { icon: "/img/icons/austauschen-icon.svg", t: "Entwicklung", d: "Wir programmieren, testen und integrieren gemeinsam mit dir Schritt für Schritt." },
   { icon: "/img/icons/abheben-icon.svg", t: "Betrieb und Support", d: "Nach dem Launch begleiten wir dich mit Wartung, Updates und Weiterentwicklung." },
 ];
 ---
 
-<Layout title="App-Entwicklung – Uftritt" description="Digitale Lösungen, die auf deine Abläufe zugeschnitten sind – von der Analyse über den Prototyp bis zum laufenden Betrieb.">
+<Layout title="App-Entwicklung Schweiz, Uftritt" description="Digitale Lösungen, die auf deine Abläufe zugeschnitten sind, von der Analyse über den Prototyp bis zum laufenden Betrieb.">
   <PageHero
     eyebrow="Angebot"
     title="App-Entwicklung"
-    lead="Manchmal braucht es mehr als eine Website: eine Applikation, die genau auf deine Abläufe zugeschnitten ist. Wir entwickeln digitale Lösungen, die dir die Arbeit erleichtern und mit deinem Unternehmen wachsen."
+    lead="Manchmal braucht es mehr als eine Website: Eine Applikation, die genau auf deine Abläufe zugeschnitten ist. Wir entwickeln digitale Lösungen, die dir die Arbeit erleichtern und mit deinem Unternehmen wachsen."
+    lottie="/lottie/applikationsentwicklung.json"
+    lottieLabel="App-Entwicklung"
   />
 
   <section class="section">
@@ -58,7 +62,7 @@ const steps = [
         blocks.map((b) => (
           <article class="lp-block" data-reveal>
             <h2>{b.title}</h2>
-            <div class="lp-text">{b.text.map((p) => <p>{p}</p>)}</div>
+            <div class="lp-text">{b.text.map((p) => <p set:html={p} />)}</div>
           </article>
         ))
       }
@@ -75,7 +79,7 @@ const steps = [
   <section class="section section--yellow">
     <div class="container">
       <header class="section-head" data-reveal>
-        <span class="eyebrow">Unser Entwicklungs-Prozess</span>
+        <span class="eyebrow">Unser Entwicklungsprozess</span>
         <h2>Persönlich. Kreativ. Partnerschaftlich.</h2>
       </header>
       <ProcessSteps steps={steps} />
@@ -86,10 +90,21 @@ const steps = [
   {/* Referenzen */}
   <RefStrip title="Digitale Lösungen aus unserem Portfolio" projects={portfolio} />
 
+  {/* Interne Verlinkung LP-Programm */}
+  <section class="section">
+    <div class="container mehr-dazu" data-reveal>
+      <h2>Erfahre mehr</h2>
+      <ul class="md-liste">
+        <li><a href="/webapp-entwickeln-lassen/">Webapp entwickeln lassen</a></li>
+        <li><a href="/app-entwicklung-kosten/">Was kostet eine App?</a></li>
+      </ul>
+    </div>
+  </section>
+
   <section class="section section--yellow">
     <div class="container lp-cta" data-reveal>
       <h2>Hast du eine Idee für deine App?</h2>
-      <Button href="/kontakt" variant="blue">Schriib eus</Button>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
     </div>
   </section>
 </Layout>

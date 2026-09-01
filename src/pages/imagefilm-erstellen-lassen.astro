@@ -1,0 +1,329 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["heusser-holzbau", "aas-freight", "youngstars", "empower"].includes(p.slug)
+);
+
+const prozess = [
+  "Erstgespräch: Ziel, Zielgruppe und Kernbotschaft klären, kostenlos",
+  "Konzept und Drehbuch: Szenen, Texte und Bildideen auf Papier",
+  "Dreh bei dir vor Ort: konzentriert, meist an ein bis zwei Tagen",
+  "Schnitt, Colorgrading, Musik und Untertitel bei uns im Haus",
+  "Lieferung in allen Formaten: Website, Social Media, Präsentation",
+];
+
+const einsaetze = [
+  {
+    title: "Website",
+    note: "Auf der Startseite oder im Über-uns zeigt dein Film in zwei Minuten, wer du bist und wofür du stehst. Gerade für Firmen ohne grosse Marke baut das Vertrauen besonders schnell auf.",
+  },
+  {
+    title: "Social Media",
+    note: "Aus demselben Dreh entstehen kurze Cuts für Instagram, LinkedIn und YouTube. Ein Drehtag füllt deinen Kanal für Wochen, ohne dass du neu produzieren musst.",
+  },
+  {
+    title: "Recruiting",
+    note: "Bewerbende wollen sehen, wo sie arbeiten werden: dein Team, deine Räume, dein Alltag. Kein Stelleninserat vermittelt das so direkt wie ein Film aus deinem Betrieb.",
+  },
+  {
+    title: "Events und Verkauf",
+    note: "Am Messestand, im Verkaufsgespräch oder am Firmenanlass: Ein guter Film erzählt deine Geschichte immer gleich stark, auch wenn du gerade keine Zeit hast.",
+  },
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Imagefilm?",
+    a: "Das hängt davon ab, was der Film können muss: Drehtage, Teamgrösse, Sprecherin, Musik, Drohne und die Anzahl Versionen treiben den Preis. Ehrliche Preisranges für den Schweizer Markt und alle Preistreiber im Detail findest du auf unserer Seite Imagefilm-Kosten. Und bei uns gilt: kostenloses Erstgespräch, danach ein transparentes Angebot mit klarem Preis, ohne versteckte Kosten.",
+  },
+  {
+    q: "Wie lange dauert ein Imagefilm-Projekt?",
+    a: "Vom Erstgespräch bis zum fertigen Film vergehen in der Regel mehrere Wochen: Konzept und Drehbuch brauchen deine Rückmeldung, der Dreh selbst dauert meist nur ein bis zwei Tage, danach folgen Schnitt, Musik und ein bis zwei Korrekturschlaufen. Wer Feedback zügig gibt, kommt entsprechend schneller ans Ziel.",
+  },
+  {
+    q: "Wie viele Drehtage braucht es?",
+    a: "Für einen klassischen Firmenfilm reicht meist ein Drehtag, manchmal zwei. Entscheidend ist die Vorbereitung: Mit sauberem Drehbuch und klarem Plan filmen wir konzentriert und stören deinen Betrieb so wenig wie möglich. Mehr Drehtage braucht es bei mehreren Locations, vielen Beteiligten oder wenn Wetter und Jahreszeit mitspielen müssen.",
+  },
+  {
+    q: "Wem gehören die Rechte am Film, und was ist mit der Musik?",
+    a: "Die Nutzungsrechte regeln wir transparent im Angebot: In der Regel kannst du den fertigen Film unbegrenzt auf deinen Kanälen einsetzen, von der Website über Social Media bis zur Messe. Bei der Musik achten wir auf sauber lizenzierte Titel, damit dein Video auf YouTube und Co. nicht gesperrt wird. Offene Projektdateien erhältst du auf Wunsch.",
+  },
+  {
+    q: "Setzt ihr auch Drohnen ein?",
+    a: "Ja, wenn sie der Geschichte dienen: Luftaufnahmen von Areal, Umgebung oder Baustelle geben einem Film Grösse. Wir halten uns an die Schweizer Drohnen-Regeln und holen Bewilligungen ein, wo sie nötig sind. Und ehrlich: Nicht jeder Film braucht die Drohne, manchmal wirkt eine ruhige Kamera näher am Geschehen.",
+  },
+  {
+    q: "KI-Video oder echter Dreh: Was passt für uns?",
+    a: "Für schnelle Social-Snacks, Visualisierungen und Themen ohne echte Menschen sind KI-Videos inzwischen stark und günstig. Sobald deine Firma, dein Team und deine Kundinnen im Bild sind, zählt der echte Dreh, weil Vertrauen über echte Gesichter und echte Orte entsteht. Wir nutzen KI selbst für Ideen und Vorvisualisierung und sagen dir im Erstgespräch ehrlich, welcher Weg zu deinem Ziel passt.",
+  },
+];
+---
+
+<Layout
+  title="Imagefilm erstellen lassen: vom Konzept zum Film, Uftritt"
+  description="Imagefilm erstellen lassen: Konzept, Drehbuch, Dreh und Schnitt aus einer Hand. Ehrlich zum Prozess, zu Einsätzen und dazu, wann auch KI-Videos reichen."
+>
+  <PageHero
+    eyebrow="Videoproduktion · Imagefilm"
+    title="Imagefilm erstellen lassen"
+    lead="Vom ersten Konzept bis zum fertigen Film: Wir entwickeln das Drehbuch, drehen bei dir vor Ort und liefern Schnitt, Colorgrading und Musik aus einer Hand. Hier siehst du den Ablauf, die Einsätze deines Films und ehrlich, wann auch ein KI-Video schon reicht."
+    lottie="/lottie/videoproduktion.json"
+    lottieLabel="Imagefilm erstellen lassen"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/videoproduktion/" label="Videoproduktion" lottie="/lottie/videoproduktion.json" projects={cases} />
+
+  {/* Ablauf */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Erst denken, dann drehen</h2>
+        <div class="lp-text">
+          <p>
+            Der häufigste Fehler bei Imagefilmen: Die Kamera läuft, bevor klar ist,
+            was der Film eigentlich sagen soll. Darum starten wir immer mit dem
+            Konzept. Zielgruppe, Kernbotschaft und Einsatzorte stehen fest, bevor
+            der erste Drehtag geplant wird.
+          </p>
+          <p>
+            So weisst du schon vor dem Dreh, welche Szenen entstehen und warum.
+            Und der fertige Film wird nicht nur schön, sondern nützlich.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Einsätze */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Einsatzorte</span>
+        <h2>Wo dein Imagefilm überall wirkt</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          einsaetze.map((e) => (
+            <article class="karte">
+              <h3>{e.title}</h3>
+              <p class="karte-note">{e.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* KI ehrlich eingeordnet */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wo KI-Videos schon reichen</h2>
+        <div class="lp-text">
+          <p>
+            Für schnelle Social-Snacks, animierte Visualisierungen oder ein Thema,
+            das du erst testen willst, sind KI-Videos inzwischen stark: günstig,
+            schnell und erstaunlich gut. Auch wir nutzen KI im Prozess, etwa für
+            Ideen, Moodboards und Vorvisualisierungen vor dem Dreh.
+          </p>
+          <p>
+            Wenn du merkst, dass ein Thema zieht, lohnt sich der Schritt zum
+            echten Dreh umso mehr.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wo der echte Dreh zählt</h2>
+        <div class="lp-text">
+          <p>
+            Sobald deine Firma im Bild ist, geht es um Echtheit: dein Team, deine
+            Werkstatt, deine Kundinnen und Kunden. Vertrauen entsteht über echte
+            Gesichter und echte Orte, und genau das kann kein KI-Video liefern.
+          </p>
+          <p>
+            Darum unser ehrlicher Rat: Social-Snacks gerne mit KI, den einen Film,
+            der deine Firma jahrelang trägt, echt drehen.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Region, Kosten, mehr Formate */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gedreht in deiner Nähe</h2>
+        <div class="lp-text">
+          <p>
+            Unser Büro ist in Saland im Tösstal: Wir sind schnell bei dir, ob in
+            Wetzikon, Hinwil oder Winterthur. Kurze Anfahrten halten die Drehkosten
+            klein und machen Nachdrehs einfach, etwa wenn das Wetter nicht
+            mitgespielt hat.
+          </p>
+          <p>
+            Ein Beispiel aus der Region: das Projektvideo für Heusser Holzbau aus
+            Hinwil. Mehr über unsere Videoarbeit vor Ort findest du auf der Seite
+            <a href="/videoproduktion-zuercher-oberland/">Videoproduktion Zürcher Oberland</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet ein Imagefilm?</h2>
+        <div class="lp-text">
+          <p>
+            Die ehrliche Antwort: Es kommt darauf an, was der Film können muss.
+            Drehtage, Teamgrösse, Sprecherin, Musik, Drohne und die Anzahl
+            Versionen treiben den Preis, und kein seriöses Angebot fällt vom Himmel.
+          </p>
+          <p>
+            Ehrliche Preisranges für den Schweizer Markt und alle Preistreiber im
+            Detail haben wir auf der Seite
+            <a href="/imagefilm-kosten/">Imagefilm-Kosten</a> zusammengetragen.
+            Und bei uns gilt: kostenloses Erstgespräch, danach ein transparentes
+            Angebot mit klarem Preis.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wenn ein einzelner Film nicht reicht</h2>
+        <div class="lp-text">
+          <p>
+            Manche Themen brauchen Regelmässigkeit statt eines grossen Auftritts:
+            Wissen teilen, Kundinnen und Kunden begleiten, als Expertin oder
+            Experte sichtbar werden. Dafür ist ein wiederkehrendes Format oft die
+            bessere Lösung.
+          </p>
+          <p>
+            Wie das aussehen kann, zeigen wir auf der Seite
+            <a href="/video-podcast-produktion/">Video-Podcast-Produktion</a>:
+            einmal eingerichtet, entstehen Folge für Folge Inhalte aus deinem Alltag.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Imagefilm</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Dein Betrieb, deine Geschichte, dein Film</h2>
+      <p class="lp-cta-text">
+        Erzähl uns im kostenlosen Erstgespräch, was dein Film leisten soll.
+        Wir sagen dir ehrlich, was es dafür braucht, ob echter Dreh oder KI,
+        und machen dir ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--3, .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--3, .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

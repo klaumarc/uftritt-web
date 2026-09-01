@@ -1,0 +1,382 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["ripa-immobilien", "architekturmacher", "heusser-holzbau"].includes(p.slug)
+);
+
+const formate = [
+  {
+    title: "Drohnenaufnahmen",
+    note: "Lage, Grundstück und Umgebung aus der Luft: genau die Perspektive, die kein Foto vom Boden liefert und im Inserat sofort auffällt.",
+  },
+  {
+    title: "Walkthrough durchs Objekt",
+    note: "Ein geführter Rundgang durch alle Räume, ruhig gefilmt und sauber geschnitten. Interessenten bekommen ein ehrliches Gefühl für Grundriss, Licht und Proportionen.",
+  },
+  {
+    title: "Kurze Social-Cuts",
+    note: "Aus demselben Dreh entstehen auf Wunsch kurze Versionen für Instagram, Facebook oder das Inserat, im Hochformat und mit Untertiteln.",
+  },
+];
+
+const ranges = [
+  {
+    name: "Virtuelles Staging und KI-Clips",
+    price: "dreistelliger Betrag",
+    note: "Leere Räume werden digital möbliert oder aus Fotos kurze Clips generiert. Günstig und schnell, aber immer eine Darstellung, die es so nicht gibt. Ehrlich deklarieren gehört dazu.",
+  },
+  {
+    name: "Objektvideo Wohnung oder Einfamilienhaus",
+    price: "CHF 800 bis 2500",
+    note: "Ein kompakter Dreh vor Ort, Rundgang durch die Räume, Schnitt mit Musik und Untertiteln. Die typische Produktion fürs Verkaufsdossier.",
+  },
+  {
+    name: "Objektvideo mit Drohne",
+    price: "CHF 1500 bis 4000",
+    note: "Zusätzlich Luftaufnahmen von Lage, Grundstück und Quartier. Objektgrösse, Flugzeit und Anzahl Versionen entscheiden, wo du in dieser Range landest.",
+  },
+  {
+    name: "Neubauprojekt oder Serie",
+    price: "CHF 3000 bis 10 000",
+    note: "Mehrere Einheiten oder Etappen im einheitlichen Look, eigene Cuts pro Kanal. Hier wird pro Paket kalkuliert statt pro Objekt.",
+  },
+];
+
+const ablauf = [
+  "Erstgespräch und Besichtigung: Was macht das Objekt besonders, wen soll das Video überzeugen",
+  "Drehplan mit Wetterfenster: Innenaufnahmen gehen fast immer, die Drohne braucht passende Bedingungen",
+  "Drehtag: Rundgang, Details, Aussenaufnahmen und Flug",
+  "Schnitt: Musik, Farben, Untertitel und deine Korrekturrunde",
+  "Auslieferung: Master-Video plus Kurzversionen für jeden Kanal",
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Immobilienvideo?",
+    a: "Ein kompaktes Objektvideo für eine Wohnung oder ein Einfamilienhaus kostet am Markt CHF 800 bis 2500, mit Drohnenaufnahmen CHF 1500 bis 4000. Neubauprojekte und Serien liegen bei CHF 3000 bis 10 000. Was du bei uns genau zahlst, sagen wir dir erst nach dem Erstgespräch, weil kein Objekt dem anderen gleicht. Du bekommst ein transparentes Angebot mit einem klaren Preis, ohne Zusatzposten hinterher.",
+  },
+  {
+    q: "Wie lange dauert ein Objekt-Dreh?",
+    a: "Für eine Wohnung oder ein Einfamilienhaus reicht meist ein halber bis ganzer Drehtag: Rundgang durch alle Räume, Aussenaufnahmen und der Flug mit der Drohne. Dazu kommen Schnitt und deine Korrekturrunde. Vom Erstgespräch bis zum fertigen Video vergehen typischerweise ein bis drei Wochen, je nach Wetterfenster und Abstimmungstempo.",
+  },
+  {
+    q: "Was passiert bei schlechtem Wetter?",
+    a: "Innenaufnahmen sind bei fast jedem Wetter möglich. Die Drohne fliegt aber nicht bei Regen, starkem Wind oder Nebel, weil Bildqualität und Sicherheit vorgehen. Darum planen wir Objektvideos mit Wetterfenster und verschieben den Flug kurzfristig, statt schlechte Bilder zu liefern. Weil wir aus Saland kommen, ist die Anfahrt kurz und ein Nachholtermin schnell organisiert.",
+  },
+  {
+    q: "Braucht es für die Drohne eine Bewilligung?",
+    a: "Meistens nicht. In der Schweiz gelten die BAZL-Regeln: Drohne und Pilot sind registriert, das Höhenlimit gilt, Abstand zu unbeteiligten Personen ist Pflicht, und Sperrzonen prüfen wir vor jedem Flug. Rund um Flugplätze wie Dübendorf gelten strengere Auflagen, und bestimmte Flüge brauchen eine Bewilligung. Das klären wir vor dem Dreh für dich ab. Eine Rechtsberatung ist das nicht, aber wir kennen die Praxis.",
+  },
+  {
+    q: "Macht ihr auch die Fotos fürs Inserat?",
+    a: "Unser Fokus ist Bewegtbild, aber wir fotografieren auch: Für Kunden wie die RIPA Immobilien sind Website und Fotografie bei uns aus derselben Hand entstanden. Aus einem Videodreh können auf Wunsch zusätzlich Standbilder fürs Dossier entstehen. Sag uns im Erstgespräch, was du brauchst, dann bekommst du ein passendes Angebot.",
+  },
+  {
+    q: "Ersetzt KI-Homestaging einen echten Dreh?",
+    a: "Nein, und wir sagen das, obwohl wir selbst mit KI-Werkzeugen arbeiten. Virtuell möblierte Räume und generierte Clips sind als Stimmungsbild für leere Objekte legitim, solange sie als solche deklariert sind. Sie zeigen aber ein Objekt, das es so nicht gibt. Spätestens an der Besichtigung entscheidet der echte Eindruck, und genau den liefert ein ehrlicher Rundgang. KI ergänzt, der echte Dreh überzeugt.",
+  },
+  {
+    q: "Bringt ein Video wirklich mehr Interessenten?",
+    a: "Ein Video macht aus keinem schwer vermittelbaren Objekt einen Renner, das wäre unehrlich versprochen. Was es kann: Auf Portalen und in Social Media fällt Bewegtbild auf, Interessenten bekommen vor der Besichtigung ein realistisches Gefühl für Grundriss und Licht, und an die Termine kommen besser informierte Besucher. Gerade bei Verkaufsobjekten und Neubauprojekten zahlt sich das aus.",
+  },
+];
+---
+
+<Layout
+  title="Immobilienvideo: Objekt- und Drohnenvideos, Uftritt"
+  description="Immobilienvideo für Makler, Verwaltungen und Architekten: Drohnenaufnahmen, Walkthrough und Social-Cuts aus einer Hand. Ehrlich zu Ablauf, Regeln und Kosten."
+>
+  <PageHero
+    eyebrow="Immobilienvideo · Zürcher Oberland"
+    title={"Im­mo­bi­lien­vi­deo\nfür dein Objekt"}
+    lead="Ein gutes Immobilienvideo zeigt ein Objekt so, wie Fotos es nie können: Lage aus der Luft per Drohne, Rundgang durch alle Räume, dazu kurze Cuts für Social Media. Wir produzieren Objektvideos für Makler, Verwaltungen und Architekten im Zürcher Oberland, von der Planung über den Dreh bis zum fertigen Schnitt."
+    lottie="/lottie/videoproduktion.json"
+    lottieLabel="Immobilienvideo"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/videoproduktion/" label="Videoproduktion" lottie="/lottie/videoproduktion.json" projects={cases} />
+
+  {/* Formate */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Bausteine</span>
+        <h2>Was dein Immobilienvideo enthalten kann</h2>
+      </header>
+      <div class="karten karten--3" data-reveal>
+        {
+          formate.map((f) => (
+            <article class="karte">
+              <h3>{f.title}</h3>
+              <p class="karte-note">{f.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Für wen + Regeln */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gedreht für Makler, Verwaltungen und Architekten</h2>
+        <div class="lp-text">
+          <p>
+            Mit der Immobilien- und Baubranche arbeiten wir laufend: Für die RIPA
+            Immobilien GmbH in Pfäffikon haben wir Website, Fotografie und Texte
+            gemacht, für die Architekturmacher GmbH das Logo und das Corporate
+            Design. Und im Imagefilm für Heusser Holzbau in Hinwil stand ein
+            ganzes Holzbauwerk vor der Kamera.
+          </p>
+          <p>
+            Daraus wissen wir: Bei Immobilien zählen Licht, Grundriss und Lage,
+            und jedes Objekt hat nur einen ersten Eindruck. Mehr zu unserer Arbeit
+            hinter der Kamera findest du auf der Seite
+            <a href="/videoproduktion-zuercher-oberland/">Videoproduktion Zürcher Oberland</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Drohne: erlaubt, aber geregelt</h2>
+        <div class="lp-text">
+          <p>
+            Drohnenaufnahmen sind in der Schweiz grundsätzlich erlaubt, sie folgen
+            aber klaren BAZL-Regeln: Drohne und Pilot sind registriert, das
+            Höhenlimit gilt, und zu unbeteiligten Personen halten wir Abstand.
+            Sperrzonen prüfen wir vor jedem Flug, im Oberland etwa rund um den
+            Flugplatz Dübendorf.
+          </p>
+          <p>
+            Auch die Privatsphäre der Nachbarschaft respektieren wir: Wir filmen
+            das Objekt, nicht in fremde Gärten und Fenster. Das hier ist eine
+            praktische Einordnung, keine Rechtsberatung. Bei Spezialfällen klären
+            wir die Bewilligung vor dem Dreh ab.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Kosten-Ranges */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Was ein Immobilienvideo kostet</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. Jedes Objekt ist anders, darum
+        sind das Ranges und keine Ladenpreise. Für dein Objekt bekommst du nach dem Erstgespräch ein
+        transparentes Angebot mit klarem Preis.
+      </p>
+    </div>
+  </section>
+
+  {/* Ablauf + Deliverables */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>So läuft die Produktion</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Ein Master-Video in hoher Auflösung für Dossier und Website, dazu die
+            vereinbarten Kurzversionen im Hochformat für Social Media. Musik und
+            Nutzungsrechte sind geklärt, und die Dateien gehören dir.
+          </p>
+          <p>
+            Und weil wir auch Websites bauen, betten wir das fertige Video auf
+            Wunsch gleich sauber auf deiner Seite ein, damit es schnell lädt und
+            auf jedem Gerät funktioniert.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ehrliche Einordnung */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann sich das Video lohnt und wann nicht</h2>
+        <div class="lp-text">
+          <p>
+            Ein Profi-Video lohnt sich bei Verkaufsobjekten, Neubauprojekten und
+            Architektur-Referenzen: überall dort, wo ein Objekt Emotionen und
+            Vertrauen braucht, um seinen Preis zu rechtfertigen. Auch die
+            Vermarktung über Social Media profitiert, weil Bewegtbild in den
+            Feeds auffällt.
+          </p>
+          <p>
+            Für die Standard-Mietwohnung, für die sich ohnehin Dutzende bewerben,
+            reichen gute Fotos und ein sauberer Grundriss. Wir sagen dir im
+            Erstgespräch ehrlich, wenn ein Video dein Budget nicht wert ist. Und
+            wenn du statt eines einzelnen Objekts deine ganze Firma zeigen
+            willst, ist der <a href="/imagefilm-erstellen-lassen/">Imagefilm</a>
+            das richtige Format.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ehrlich zu KI-Homestaging-Videos</h2>
+        <div class="lp-text">
+          <p>
+            KI kann leere Räume virtuell möblieren und aus Fotos kurze Clips
+            generieren. Für ein erstes Stimmungsbild ist das günstig und schnell,
+            und wir nutzen solche Werkzeuge selbst, wenn es passt.
+          </p>
+          <p>
+            Aber ein KI-Video zeigt ein Objekt, das es so nicht gibt. Spätestens
+            an der Besichtigung holt die Realität jede Schönfärberei ein, und
+            Vertrauen ist im Immobiliengeschäft die Währung. Unser Rat: KI als
+            Ergänzung für Leerstand und Visualisierung, den echten Rundgang als
+            Basis. Und KI-Bilder im Inserat immer als solche deklarieren.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Immobilienvideo</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Ein Objekt, das mehr verdient als Fotos?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deinem Objekt. Wir sagen dir ehrlich, welches Format sich
+        lohnt, und machen dir ein transparentes Angebot, kostenlos und
+        unverbindlich.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--3, .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--3, .ranges { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,304 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["cynterim", "emotion-hinwil", "stahel-koeng", "physio-rothe"].includes(p.slug)
+);
+
+const orte = [
+  { name: "Hinwil", href: "/webdesign-hinwil/", note: "Nachbargemeinde und Bezirkshauptort" },
+  { name: "Rüti", href: "/webdesign-rueti/", note: "Nachbarort im Jonatal" },
+  { name: "Wald", href: "/webdesign-wald/", note: "Nachbargemeinde Richtung Oberland" },
+  { name: "Wetzikon", href: "/webdesign-wetzikon/", note: "grösste Stadt der Region" },
+  { name: "Bäretswil", href: "/webdesign-baeretswil/", note: "über den Hasenstrick erreichbar" },
+  { name: "Saland", href: "/webdesign-saland/", note: "hier sind wir zuhause" },
+];
+
+const weitere = ["Bubikon", "Girenbad", "Haslen", "Gossau ZH", "Seegräben", "Grüningen", "Fischenthal"];
+
+const faq = [
+  { q: "Was kostet eine Website für einen Betrieb in Dürnten?", a: "Das hängt vom Umfang ab, vom schlanken Onepager bis zur Seite mit Terminbuchung oder Shop. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit einem klaren Preis. Keine Pauschalen von der Stange, keine Überraschungen." },
+  { q: "Kommt ihr zu uns nach Dürnten?", a: "Klar, nach Tann, ins Dorf, nach Oberdürnten oder auf die Breitenmatt: Von Saland aus sind wir in rund 20 Minuten da. Besprechungen beim Kunden sind für uns der Normalfall. Auf Wunsch geht es auch per Video-Call." },
+  { q: "Macht ihr auch mehr als Websites?", a: "Ja: Logo, Erscheinungsbild, Broschüren, Fotografie und Video kommen bei uns aus demselben Haus. Für die Kinderarztpraxis in Tann zum Beispiel liefern wir laufend Teamporträts und Beschriftung, vom Klingelschild bis zur Fassadentafel." },
+  { q: "Lohnt sich eine eigene Website auch für ein kleines Gewerbe?", a: "Ja. Gerade in einer Gemeinde wie Dürnten googeln Kundinnen und Kunden zuerst, ob Schreinerei, Praxis oder Coiffeur. Eine klare, schnelle Website mit Leistungen, Öffnungszeiten und Kontakt wirkt rund um die Uhr. Und wir sagen dir ehrlich, was sich für dich lohnt und was nicht." },
+  { q: "Werde ich als Dürntner Betrieb überhaupt gefunden?", a: "Wenn die Basis stimmt: ja. Wir liefern jede Website mit sauberer SEO-Grundausstattung aus, Struktur, Ladezeiten, Meta-Texte. Und wir richten auf Wunsch dein Google-Unternehmensprofil ein, damit du in Tann, Dürnten und Umgebung auch auf der Karte auftauchst." },
+  { q: "Wir haben schon eine Website, lohnt sich ein Relaunch?", a: "Häufig. Wenn die Seite in die Jahre gekommen ist, auf dem Handy mühsam ist oder bei Google abrutscht, bringt ein Neubau mehr als endloses Flickwerk. Wir schauen uns deine Seite kostenlos an und sagen dir offen, ob sich ein Relaunch lohnt, oder ob die alte Seite noch etwas kann." },
+  { q: "Wer kümmert sich nach dem Launch um die Website?", a: "Auf Wunsch wir: Updates, Backups, kleine Anpassungen und laufende Betreuung, damit die Seite sicher bleibt und wächst. Oder wir schulen dich, damit du Inhalte wie Teamfotos oder Öffnungszeiten selbst pflegst." },
+  { q: "Wie lange dauert ein Website-Projekt?", a: "Je nach Umfang 4 bis 12 Wochen. Einen klickbaren Prototypen siehst du früh im Prozess, nicht erst kurz vor dem Go-Live." },
+];
+---
+
+<Layout
+  title="Webdesign Dürnten, Uftritt"
+  description="Webdesign für Dürnten: Webseite erstellen lassen für KMU in Tann, Oberdürnten und der Breitenmatt, Homepage, Relaunch und Betreuung von der Agentur aus Saland."
+>
+  <PageHero
+    eyebrow="Webdesign · Dürnten"
+    title={"Webdesign\nDürnten"}
+    lead="Du suchst Webdesign in Dürnten? Uftritt ist die Kommunikationsagentur aus Saland im Zürcher Oberland. Wir entwickeln Websites und Erscheinungsbilder für KMU in Tann, Dürnten, Oberdürnten und der Breitenmatt: persönlich, ohne Template und mit echter Nähe. In rund 20 Minuten sind wir bei dir."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Vier Ortsteile, eine Gemeinde im Tössbergland</h2>
+        <div class="lp-text">
+          <p>
+            Dürnten, im Dialekt schlicht «Dürte», urkundlich erwähnt seit dem
+            8. Jahrhundert, zählt gut 8000 Einwohnerinnen und Einwohner
+            (Stand 2024). Die Gemeinde im Tössbergland besteht aus vier
+            Ortsteilen: Mehr als die Hälfte lebt in Tann, dazu kommen das Dorf
+            Dürnten, Oberdürnten am Bachtelhang und die Breitenmatt.
+          </p>
+          <p>
+            Erschlossen ist Dürte bestens: Am Bahnhof Tann-Dürnten hält die
+            S 26 im Halbstundentakt Richtung Winterthur und Rüti, und im
+            Grossriet führt der Anschluss auf die Oberlandautobahn A15 Richtung
+            Zürich oder Rapperswil. Bekannt ist die Gemeinde ausserdem für die
+            Chilbi am zweiten Augustwochenende und das Nähmaschinen-Museum am
+            Pilgersteg.
+          </p>
+          <p>
+            Gelebt und gewirtschaftet wird vor Ort: Coop in Tann, Volg und Landi
+            im Dorf, der Dorfladen chlöti.ch in Oberdürnten, dazu ein aktives
+            Vereinsleben rund um die Chilbi, die Turnhallen und die Fägy am
+            Ortseingang. Genau diese Betriebe und Vereine sind unsere
+            Nachbarschaft.
+          </p>
+          <p>
+            Und wir? Unser Büro liegt in Saland, gleich das Tösstal hinauf: In
+            rund 20 Minuten sind wir bei dir, Besprechungen finden bei dir im
+            Betrieb statt, nicht in einer anonymen Agentur-Etage.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In Dürnten und drumherum schon sichtbar</h2>
+        <div class="lp-text">
+          <p>
+            In Tann kennen wir uns aus erster Hand: Für die Kinderarztpraxis an
+            der Alten Tannerstrasse liefern wir laufend Teamporträts für die
+            Website und die Beschriftung der Praxis, vom Klingelschild über
+            die Wegweisung im Treppenhaus bis zur Fassadentafel.
+          </p>
+          <p>
+            Die pinke Wortmarke des Unihockeyclubs emotion Hinwil-Tann, die in
+            der Region immer wieder auffällt? Von uns. Ebenso das Jubiläumslogo
+            zum 125-Jahr-Fest der Stahel + Köng AG. Und für den
+            Salesforce-Partner Cynterim aus Hinwil haben wir Logo, Branding,
+            Texte und Website von Grund auf gebaut.
+          </p>
+          <p>
+            Aus dem Tösstal kommt dazu die Website der Physio &amp; Sportreha
+            Rothe in Bauma, Struktur, Gestaltung und Fotografie aus einer
+            Hand. Ob Praxis, Industriebetrieb oder Sportclub: Wir wissen, wie
+            Kommunikation zwischen Bachtel und Tösstal funktioniert, weil wir
+            selbst hier arbeiten.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Webseite erstellen lassen, mit allem, was dazugehört</h2>
+        <div class="lp-text">
+          <p>
+            Was muss eine Website für einen Betrieb in Dürnten leisten? Zuerst
+            einmal: gefunden werden. Wer eine Schreinerei in Oberdürnten, einen
+            Coiffeur in Tann oder eine Praxis im Dorf sucht, googelt zuerst.
+            Deine Homepage muss dann sofort liefern, Leistungen,
+            Öffnungszeiten, Kontakt, auf dem Handy genauso klar wie am
+            Computer. Genau so bauen wir: schnell, übersichtlich und mit der
+            SEO-Basis gleich inklusive. Dasselbe gilt umgekehrt: Wer von
+            ausserhalb nach Angeboten in Dürnten sucht, findet deinen Betrieb
+            nur mit sauberer lokaler SEO, die gehört bei uns von Anfang an
+            dazu, nicht als teures Extra.
+          </p>
+          <p>
+            Dazu gehört dein Auftritt bei Google selbst: Ein gepflegtes
+            <a href="/google-business-profile/">Google-Unternehmensprofil</a>
+            sorgt dafür, dass du in der lokalen Suche und auf der Karte
+            auftauchst. Wir richten es ein und zeigen dir, wie du es aktuell
+            hältst.
+          </p>
+          <p>
+            Uftritt ist dabei mehr als eine Webagentur: Als Werbeagentur decken
+            wir ab, was über die Website hinausgeht, Logo und Erscheinungsbild,
+            Printwerbung, Video und die laufende Betreuung deiner Kommunikation.
+            Ein Partner für alles, statt fünf Ansprechpersonen für fünf
+            Disziplinen. Und wir sagen es auch, wenn weniger genügt: Für manchen
+            Betrieb im Tössbergland ist ein sauber gemachter Onepager die
+            bessere Lösung als ein Grossprojekt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In vier Schritten zur neuen Website</h2>
+        <div class="lp-text">
+          <p>
+            <strong>1. Erstgespräch bei dir.</strong> Kostenlos und
+            unverbindlich, am liebsten bei dir in Tann, im Dorf oder in
+            Oberdürnten, auf Wunsch bei uns in Saland oder per Video-Call. Wir
+            hören zu, fragen nach und beraten ehrlich.
+          </p>
+          <p>
+            <strong>2. Konzept und Prototyp.</strong> Du siehst früh einen
+            klickbaren Entwurf und gibst Rückmeldung, bevor es an die Feinheiten
+            geht, keine Überraschungen am Ende.
+          </p>
+          <p>
+            <strong>3. Umsetzung.</strong> Wir bauen die Seite, schreiben auf
+            Wunsch die Texte und organisieren Fotografie, alles aus einer
+            Hand.
+          </p>
+          <p>
+            <strong>4. Launch und danach.</strong> Nach dem Go-Live lassen wir
+            dich nicht im Stich: <a href="/website-betreuung/">Betreuung und
+            Wartung</a>, <a href="/seo-betreuung/">SEO-Begleitung</a> oder eine
+            Schulung, damit du die Seite selbst pflegst. Du hast schon eine
+            ältere Website? Dann ist ein
+            <a href="/website-relaunch/">Relaunch</a> der richtige Einstieg.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet das?</h2>
+        <div class="lp-text">
+          <p>
+            Die ehrliche Antwort: Es hängt davon ab, was du brauchst. Der
+            Onepager für einen Verein kostet weniger als die Geschäftsseite mit
+            Shop oder Terminbuchung. Pauschalpreise von der Stange wären
+            unseriös. Darum gilt bei uns: Nach dem kostenlosen Erstgespräch
+            erhältst du ein transparentes Angebot mit allen Leistungen und
+            einem klaren Preis.
+          </p>
+          <p>
+            Zur Orientierung vorab: In unserem <a href="/website-kosten/">Guide
+            zu Website-Kosten</a> legen wir echte Marktpreise in der Schweiz
+            offen, damit du weisst, was eine Website kosten darf, bevor du mit
+            uns oder einer anderen Agentur sprichst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">In deiner Nähe</span>
+        <h2>Webdesign in deinem Ort</h2>
+      </header>
+      <div class="orte" data-reveal>
+        {
+          orte.map((o) => (
+            <a class="ort-card" href={o.href}>
+              <span class="ort-name">{o.name}</span>
+              <span class="ort-note">{o.note}</span>
+            </a>
+          ))
+        }
+      </div>
+      <p class="orte-note" data-reveal>
+        Und natürlich auch in: {weitere.join(", ")}, kurzum: im ganzen
+        Tössbergland und Zürcher Oberland.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deinen neuen Webauftritt in Dürnten?</h2>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); text-decoration: underline; text-underline-offset: 0.15em; }
+
+  .orte { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .ort-card {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .ort-card:hover { border-color: var(--color-blue); transform: translateY(-2px); }
+  .ort-name { font-weight: 700; font-size: 1.25rem; color: var(--color-blue); }
+  .ort-note { color: var(--color-blue); opacity: 0.8; font-size: 0.95rem; }
+  .orte-note { margin-top: 1.5rem; color: var(--color-blue); line-height: 1.7; max-width: 75ch; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+
+  @media (max-width: 900px) {
+    .orte { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .orte { grid-template-columns: 1fr; }
+  }
+</style>

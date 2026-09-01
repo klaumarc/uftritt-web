@@ -1,0 +1,301 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["cynterim", "stahel-koeng", "physio-rothe", "it-stall"].includes(p.slug)
+);
+
+const orte = [
+  { name: "Rüti", href: "/webdesign-rueti/", note: "Nachbarort Richtung Rapperswil" },
+  { name: "Dürnten", href: "/webdesign-duernten/", note: "am Hasenstrick, an der A53" },
+  { name: "Hinwil", href: "/webdesign-hinwil/", note: "Bezirkshauptort am Bachtel" },
+  { name: "Bauma", href: "/webdesign-bauma/", note: "die Tössscheidi hinauf" },
+  { name: "Saland", href: "/webdesign-saland/", note: "hier sind wir zuhause" },
+  { name: "Wetzikon", href: "/webdesign-wetzikon/", note: "grösste Stadt der Region" },
+];
+
+const weitere = ["Fischenthal", "Bubikon", "Grüningen", "Gossau", "Eschenbach", "Goldingen", "Atzmännig"];
+
+const faq = [
+  { q: "Was kostet eine Website für einen Betrieb in Wald?", a: "Das hängt vom Umfang ab, vom schlanken Onepager bis zur zweisprachigen Plattform mit Produktkatalog. Nach einem kostenlosen Erstgespräch erhältst du ein transparentes Angebot mit klarem Preis. Keine Überraschungen, versprochen." },
+  { q: "Kommst du zu uns nach Wald?", a: "Gerne. Von unserem Büro in Saland sind wir mit dem Auto in einer Viertelstunde bei dir, im Dorf, in Laupen oder auf einer Aussenwacht wie Ried oder Hittenberg. Mit der S 26 dauert es vom Bahnhof Saland ebenfalls nur ein paar Minuten. Auf Wunsch treffen wir uns per Video-Call." },
+  { q: "Lohnt sich eine eigene Website auch für ein kleines Gewerbe?", a: "Ja. In einer Gewerbegemeinde wie Wald mit rund 480 Unternehmen googeln Kundinnen und Kunden zuerst. Eine klare, schnelle Website mit Leistungen, Öffnungszeiten und Kontakt wirkt rund um die Uhr. Wir sagen dir ehrlich, was sich lohnt und was nicht." },
+  { q: "Werde ich als Walder Betrieb überhaupt gefunden?", a: "Eine Website allein ist es nicht ganz, aber fast: Wir liefern jede Seite mit sauberer SEO-Basis aus (Struktur, Ladezeiten, Meta-Texte, Google-Anmeldung). Dazu gehört ein gepflegtes Google-Unternehmensprofil, damit wirst du in Wald und Umgebung gefunden, auch auf der Karte." },
+  { q: "Wir haben schon eine Website, lohnt sich ein Relaunch?", a: "Oft ja: Wenn die Seite älter als vier, fünf Jahre ist, auf dem Handy hakt oder bei Google abrutscht, bringt ein Neubau mehr als Flickwerk. Wir schauen uns deine Seite kostenlos an und sagen dir ehrlich, ob sich ein Relaunch lohnt." },
+  { q: "Wer kümmert sich nach dem Launch um die Website?", a: "Auf Wunsch wir: Updates, Backups, kleine Anpassungen und laufende Betreuung, so, wie wir das für Betriebe in Wald schon seit Jahren machen. Oder wir zeigen dir, wie du Inhalte selbst pflegst." },
+  { q: "Macht ihr auch mehr als Websites?", a: "Ja. Logo, Corporate Design, Prospekte, Fotografie und Video kommen bei uns aus demselben Haus. So entsteht dein Auftritt aus einem Guss, vom Erscheinungsbild bis zur fertigen Website." },
+  { q: "Wie lange dauert ein Website-Projekt?", a: "Je nach Umfang 4 bis 12 Wochen. Einen klickbaren Prototyp siehst du schon früh im Prozess." },
+];
+---
+
+<Layout
+  title="Webdesign Wald, Uftritt"
+  description="Webdesign Wald ZH: Webseite erstellen lassen bei der Webagentur aus Saland. Websites für KMU und Gewerbe im oberen Jonatal, persönlich, ohne Template."
+>
+  <PageHero
+    eyebrow="Webdesign · Wald"
+    title={"Webdesign\nWald"}
+    lead="Du suchst Webdesign in Wald? Uftritt ist die Kommunikationsagentur aus Saland im Zürcher Oberland: Wir entwickeln Websites und Erscheinungsbilder für KMU und Gewerbe in Wald, persönlich und ohne Template. Von unserem Büro im Tösstal sind wir in einer Viertelstunde bei dir."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Für den Gewerbeort im oberen Jonatal</h2>
+        <div class="lp-text">
+          <p>
+            Wald liegt auf gut 600 Metern im höchstgelegenen Teil des
+            Tössberglands, im oberen Tal der Jona zwischen Bachtel und
+            Batzberg. Die Gemeinde zählt 10 620 Einwohnerinnen und Einwohner
+            (Stand Ende 2024) und gehört zum Bezirk Hinwil. Zum Gemeindegebiet
+            gehören neben den Dörfern Wald und Laupen gegen 125 Weiler und
+            Einzelhöfe, die Aussenwachten, von Ried über Güntisberg bis
+            Hüebli und Hittenberg.
+          </p>
+          <p>
+            Um 1900 galt Wald als «Manchester des Kantons Zürich»: Aus der
+            Textilmetropole ist ein Gewerbeort geworden, in dem heute rund 480
+            Unternehmen arbeiten, von Industrie und Handwerk über Dienstleistung
+            bis Detailhandel. In den alten Fabrikarealen sind Metall- und
+            Kunststoffbetriebe, Apparatebauer und Verkaufsgeschäfte
+            eingezogen, und mit der früheren Höhenklinik, heute Reha-Zentrum,
+            hat Wald einen grossen Arbeitgeber im Gesundheitswesen. Über die
+            S 26 und die Tösstalstrasse ist der Ort fest mit dem Tösstal und
+            mit Rüti verbunden, und wir aus Saland sind in einer
+            Viertelstunde bei dir.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In Wald und drumherum schon im Einsatz</h2>
+        <div class="lp-text">
+          <p>
+            In Wald selbst sind wir kein unbeschriebenes Blatt: Für einen
+            Maschinenbaubetrieb aus dem Dorf, dessen Geräte für die
+            Kanalsanierung bis ins Ausland gehen, haben wir die Website neu
+            gebaut, inklusive Fotoshooting im Betrieb. Seitdem betreuen wir
+            den Auftritt laufend: neue Preislisten, Prospekte und Produktfotos,
+            auf Deutsch und Französisch.
+          </p>
+          <p>
+            Dazu kommen Projekte aus dem Umfeld: Für das
+            Salesforce-Partnerunternehmen Cynterim in Hinwil haben wir Logo,
+            Branding und Website von Grund auf gebaut. Der Hinwiler
+            Industriebetrieb Stahel + Köng hat sein 125-Jahre-Jubiläum mit
+            einer Kampagne aus unserem Haus gefeiert, vom Jubiläumslogo bis
+            zum gravierten Geschenk. Und die Physiotherapie &amp; Sport-Reha
+            in Bauma hat Website und Praxisfotos von uns.
+          </p>
+          <p>
+            Ob Maschinenbau, Industrie oder Praxis: Wir wissen, wie Betriebe
+            aus der Region online gefunden werden.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Webseite erstellen lassen, was dein Auftritt können muss</h2>
+        <div class="lp-text">
+          <p>
+            Was muss eine Homepage für einen Walder Betrieb leisten? Zuerst
+            dies: Wer nach dir sucht, findet dich, mit Leistungen,
+            Öffnungszeiten und Kontakt auf einen Blick, auf dem Handy genauso
+            wie am Computer. Und wer noch nicht nach dir sucht, soll dich über
+            Google entdecken: in Wald, im Jonatal und darüber hinaus. Dafür
+            bauen wir: schnell, klar strukturiert, SEO-Basis inklusive, auf
+            Wunsch mit einem sauber gepflegten
+            <a href="/google-business-profile/">Google-Unternehmensprofil</a>,
+            damit du auch auf der Karte sichtbar bist.
+          </p>
+          <p>
+            Uftritt ist dabei mehr als eine Webagentur: Als Werbeagentur decken
+            wir ab, was darüber hinausgeht, Logo und Erscheinungsbild,
+            Prospekte und Preislisten, Video und die laufende Betreuung deiner
+            Kommunikation. Ein Partner für alles, statt fünf Ansprechpersonen
+            für fünf Disziplinen, auch mehrsprachig, wenn deine Kundschaft
+            das verlangt. Und wir sagen es auch, wenn weniger genügt:
+            Für viele Betriebe ist ein gut gemachter Onepager die richtige
+            Lösung, kein Grossprojekt.
+          </p>
+          <p>
+            Wir arbeiten für KMU im <a href="/webdesign-zuercher-oberland/">ganzen
+            Zürcher Oberland</a> und sind auch in den Nachbarorten von Wald unterwegs:
+            Webdesign für <a href="/webdesign-rueti/">Rüti</a>,
+            <a href="/webdesign-duernten/">Dürnten</a> und
+            <a href="/webdesign-hinwil/">Hinwil</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In vier Schritten zur neuen Website</h2>
+        <div class="lp-text">
+          <p>
+            <strong>1. Erstgespräch bei dir.</strong> Kostenlos und
+            unverbindlich, am liebsten bei dir im Betrieb in Wald, in Laupen
+            oder draussen auf der Aussenwacht, auf Wunsch auch bei uns in
+            Saland oder per Video-Call. Wir hören zu, fragen nach und beraten
+            ehrlich.
+          </p>
+          <p>
+            <strong>2. Konzept und Prototyp.</strong> Du bekommst früh einen
+            klickbaren Entwurf zu sehen, nicht erst kurz vor dem Launch. So
+            gibt es keine Überraschungen.
+          </p>
+          <p>
+            <strong>3. Umsetzung.</strong> Wir bauen die Seite, schreiben auf
+            Wunsch die Texte und organisieren Fotografie, alles aus einer
+            Hand, zweisprachig Deutsch und Französisch, wenn es dein Markt
+            braucht.
+          </p>
+          <p>
+            <strong>4. Launch und Betreuung.</strong> Nach dem Go-Live lassen
+            wir dich nicht im Stich: <a href="/website-betreuung/">Betreuung
+            und Wartung</a>, <a href="/seo-betreuung/">SEO-Begleitung</a> oder
+            Schulung, damit du die Seite selbst pflegen kannst. Du hast schon
+            eine ältere Website? Dann ist ein
+            <a href="/website-relaunch/">Relaunch</a> der richtige Einstieg.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet das?</h2>
+        <div class="lp-text">
+          <p>
+            Die ehrliche Antwort: Es kommt darauf an, was du brauchst, ein
+            Onepager für einen Handwerksbetrieb kostet weniger als eine
+            zweisprachige Plattform mit Produktkatalog. Pauschalpreise von der
+            Stange wären unseriös. Was wir stattdessen anbieten: Nach dem
+            kostenlosen Erstgespräch erhältst du ein transparentes Angebot mit
+            allen Leistungen und einem klaren Preis.
+          </p>
+          <p>
+            Zur Orientierung vorab: In unserem <a href="/website-kosten/">Guide
+            zu Website-Kosten</a> zeigen wir echte Marktpreise in der Schweiz -
+            damit du weisst, was eine Website kosten darf, bevor du mit uns
+            oder einer anderen Agentur sprichst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">In deiner Nähe</span>
+        <h2>Webdesign in deinem Ort</h2>
+      </header>
+      <div class="orte" data-reveal>
+        {
+          orte.map((o) => (
+            <a class="ort-card" href={o.href}>
+              <span class="ort-name">{o.name}</span>
+              <span class="ort-note">{o.note}</span>
+            </a>
+          ))
+        }
+      </div>
+      <p class="orte-note" data-reveal>
+        Und natürlich auch in: {weitere.join(", ")}, kurzum: im ganzen oberen
+        Jonatal und Zürcher Oberland.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deinen neuen Webauftritt in Wald?</h2>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); text-decoration: underline; text-underline-offset: 0.15em; }
+
+  .orte { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .ort-card {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .ort-card:hover { border-color: var(--color-blue); transform: translateY(-2px); }
+  .ort-name { font-weight: 700; font-size: 1.25rem; color: var(--color-blue); }
+  .ort-note { color: var(--color-blue); opacity: 0.8; font-size: 0.95rem; }
+  .orte-note { margin-top: 1.5rem; color: var(--color-blue); line-height: 1.7; max-width: 75ch; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+
+  @media (max-width: 900px) {
+    .orte { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .orte { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,291 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["physio-rothe", "regan", "seatalytics", "ripa-immobilien"].includes(p.slug)
+);
+
+const leistungen = [
+  {
+    title: "Konzept und Struktur",
+    note: "Bevor gestaltet wird, klären wir Ziele, Zielgruppen und Inhalte. So entsteht eine Website, die führt statt nur gefällt.",
+  },
+  {
+    title: "Design und Bilder",
+    note: "Ein Gestaltungskonzept, das zu deiner Marke passt, plus Bildwelt und Fotografie von uns: von der Produkt-Fotobox bis zur Drohne mit Lizenz.",
+  },
+  {
+    title: "Texte, die ankommen",
+    note: "Wir texten so, dass deine Kundschaft versteht, was du anbietest und warum sie dich wählen soll. Verständlich statt Broschüren-Deutsch.",
+  },
+  {
+    title: "Technik und Auffindbarkeit",
+    note: "Sauber umgesetzt, schnell ladend, auf jedem Gerät gut und mit den Grundlagen, damit Google dich findet.",
+  },
+];
+
+const ablauf = [
+  "Erstgespräch: Wir hören zu, wo du stehst und was die Website leisten soll",
+  "Konzept und Prototyp: Struktur, Inhalte und ein erster visueller Entwurf",
+  "Design: Der Feinschliff, bis der Auftritt zu dir und deiner Marke passt",
+  "Umsetzung: Texte, Bilder und Technik kommen zusammen, alles aus einer Hand",
+  "Launch: Die Website geht live, getestet und sauber eingestellt",
+  "Betreuung: Auf Wunsch bleiben wir dran, damit die Website aktuell bleibt",
+];
+
+const faq = [
+  {
+    q: "Was kostet es, eine Website erstellen zu lassen?",
+    a: "Das hängt vom Umfang ab: Eine kompakte Firmenwebsite ist weniger aufwändig als ein grosser Auftritt mit Shop oder mehrsprachigen Inhalten. In unserem Guide zu den Website-Kosten zeigen wir ehrlich, mit welchen Marktpreisen du bei Baukasten, Freelancer und Agentur rechnen musst. Für dein Projekt bekommst du nach einem kostenlosen Erstgespräch ein transparentes Angebot, aus dem genau hervorgeht, was drin ist und was es kostet.",
+  },
+  {
+    q: "Wie lange dauert es, bis meine Website online ist?",
+    a: "Das kommt auf Umfang und Tempo der Abstimmungen an. Eine kompakte Firmenwebsite ist deutlich schneller fertig als ein umfangreicher Relaunch mit neuen Texten und Bildern. Nach dem Erstgespräch bekommst du von uns einen realistischen Zeitplan mit klaren Etappen, damit du jederzeit weisst, wo das Projekt steht.",
+  },
+  {
+    q: "Muss ich Texte und Bilder selbst liefern?",
+    a: "Nein. Wenn du schon Material hast, bauen wir es gerne ein. Wenn nicht, übernehmen wir Texte und Fotografie für dich, beides machen wir inhouse. Du musst uns vor allem eines liefern: dein Wissen über dein Geschäft und deine Kundschaft. Den Rest übersetzen wir in eine Website, die wirkt.",
+  },
+  {
+    q: "Baukasten oder Agentur: Was ist besser für mich?",
+    a: "Ehrlich gesagt: Für einen einfachen Start mit kleinem Budget kann ein Baukasten oder ein KI-Tool reichen, wir haben dazu einen eigenen Guide zum Website-Erstellen mit KI. Die Grenzen zeigen sich bei Struktur, Texten, Auffindbarkeit und Weiterentwicklung. Wenn die Website Kunden bringen soll und du keine Zeit hast, dich selbst einzuarbeiten, ist eine Agentur die entspanntere und meist nachhaltigere Wahl.",
+  },
+  {
+    q: "Warum soll ich meine Website bei Uftritt erstellen lassen?",
+    a: "Weil bei uns alles unter einem Dach entsteht: Konzept, Design, Text, Fotografie und auf Wunsch auch Video und die laufende Betreuung. Du hast einen Draht zu uns statt fünf verschiedene Lieferanten. Wir sind eine KMU-Agentur aus dem Zürcher Oberland und beraten ehrlich, auch dann, wenn wir dir mal von einer Massnahme abraten.",
+  },
+  {
+    q: "Betreut ihr die Website auch nach dem Launch?",
+    a: "Ja, auf Wunsch gerne. Wir halten deine Website technisch aktuell, spielen Updates ein und passen Inhalte an, wenn sich in deinem Betrieb etwas ändert. So bleibt der Auftritt gepflegt, ohne dass du dich selbst um das Technische kümmern musst.",
+  },
+];
+---
+
+<Layout
+  title="Website erstellen lassen: Agentur für KMU, Uftritt"
+  description="Website erstellen lassen bei der Agentur aus dem Zürcher Oberland: Konzept, Design, Text und Technik aus einer Hand, für KMU in der ganzen Schweiz."
+>
+  <PageHero
+    eyebrow="Webdesign"
+    title={"Website\nerstellen lassen"}
+    lead="Du willst deine Website erstellen lassen, statt selbst zu basteln? Wir übernehmen den ganzen Weg: Erstgespräch, Konzept, Design, Texte, Umsetzung und Launch, danach auf Wunsch die Betreuung. Aus dem Zürcher Oberland, für KMU in der ganzen Schweiz, alles aus einer Hand."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Einordnung + Baukasten + Kosten */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was es heisst, eine Website erstellen zu lassen</h2>
+        <div class="lp-text">
+          <p>
+            Eine Website bei einer Agentur erstellen zu lassen heisst: Du kaufst
+            nicht ein Design, du kaufst einen Prozess. Wir klären zuerst, wen du
+            erreichen willst und was die Besucher auf deiner Seite tun sollen.
+            Erst dann gestalten, texten und bauen wir.
+          </p>
+          <p>
+            Das Ergebnis ist mehr als eine hübsche Visitenkarte: eine Website mit
+            klarer Struktur, verständlichen Texten und sauberer Technik, die deine
+            Kundschaft abholt und Anfragen auslöst.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Agentur oder doch lieber Baukasten?</h2>
+        <div class="lp-text">
+          <p>
+            Baukästen und KI-Tools haben ihren Platz: Für einen schlanken Start
+            mit kleinem Budget kommt man damit erstaunlich weit. Unser Guide zum
+            <a href="/website-mit-ki-erstellen/">Website-Erstellen mit KI</a>
+            zeigt ehrlich, was diese Werkzeuge können und wo sie aufhören.
+          </p>
+          <p>
+            Wenn die Website aber Kunden bringen soll, wird es anspruchsvoller:
+            Struktur, Texte, Bilder, Auffindbarkeit bei Google und alles, was nach
+            dem Launch dazukommt. Genau dafür gibt es uns.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Und was kostet das Ganze?</h2>
+        <div class="lp-text">
+          <p>
+            Die ehrliche Antwort: Es kommt darauf an, was du brauchst. Was wir dir
+            hier nicht verheimlichen wollen, haben wir in unserem Guide zu den
+            <a href="/website-kosten/">Website-Kosten</a> offengelegt: Dort
+            findest du die üblichen Marktpreise von Baukasten bis Agentur und was
+            den Preis wirklich treibt.
+          </p>
+          <p>
+            Für dein konkretes Projekt bekommst du nach einem kostenlosen
+            Erstgespräch ein transparentes Angebot. Ohne Kleingedrucktes.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Was dabei ist */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Alles aus einer Hand</span>
+        <h2>Was bei uns in der Website steckt</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          leistungen.map((l) => (
+            <article class="karte">
+              <h3>{l.title}</h3>
+              <p class="karte-note">{l.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Ablauf + regionaler Anker */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in sechs Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Aus dem Zürcher Oberland, für die ganze Schweiz</h2>
+        <div class="lp-text">
+          <p>
+            Unser Büro ist in Saland im Zürcher Oberland, und wir arbeiten für KMU in der
+            ganzen Schweiz. Vieles läuft ohnehin digital, und wenn es persönlich
+            werden soll, sind wir schnell bei dir oder du bei uns.
+          </p>
+          <p>
+            Mehr über unsere Arbeit als
+            <a href="/webdesign-zuercher-oberland/">Webdesign-Agentur im Zürcher Oberland</a>
+            und über unser konkretes
+            <a href="/angebot/webdesign/">Webdesign-Angebot</a> findest du auf den
+            verlinkten Seiten.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Website erstellen lassen</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Sollen wir deine Website erstellen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du vorhast. Wir sagen dir ehrlich, welcher Weg für dich
+        der richtige ist, und machen dir ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

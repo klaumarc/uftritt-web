@@ -10,6 +10,15 @@ $absender   = 'no-reply@uftritt.ch';
 $danke_url  = '/danke/';
 $fehler_url = '/kontakt/?fehler=1';
 
+// ---- AJAX-Modus (fetch vom Kontakt-Modal): JSON statt Redirect ----
+$is_ajax = ($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'XMLHttpRequest';
+$json = static function (int $code, bool $ok): void {
+    http_response_code($code);
+    header('Content-Type: application/json');
+    echo json_encode(['ok' => $ok]);
+    exit;
+};
+
 // ---- Nur POST zulassen ----
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: /kontakt/');
@@ -18,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // ---- Spam-Honeypot: für Menschen unsichtbar, Bots füllen es aus ----
 if (!empty($_POST['bot-field'])) {
+    if ($is_ajax) $json(200, true); // Bot still "erfolgreich", aber nichts senden
     header('Location: ' . $danke_url); // Bot still "danken", aber nichts senden
     exit;
 }
@@ -30,6 +40,7 @@ $nachricht = trim($_POST['nachricht'] ?? '');
 // ---- Validierung ----
 $email_ok = filter_var($email, FILTER_VALIDATE_EMAIL);
 if ($name === '' || !$email_ok || $nachricht === '') {
+    if ($is_ajax) $json(400, false);
     header('Location: ' . $fehler_url);
     exit;
 }
@@ -58,12 +69,14 @@ $body .= "Automatische Benachrichtigung vom Kontaktformular · uftritt.ch\n";
 $headers  = "From: Uftritt Website <$absender>\r\n";
 $headers .= "Reply-To: $name_h <$email_h>\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+$headers .= "Content-Transfer-Encoding: quoted-printable\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
 $betreff_enc = '=?UTF-8?B?' . base64_encode($betreff) . '?=';
 
 // ---- Senden ----
-$gesendet = mail($empfaenger, $betreff_enc, $body, $headers, '-f' . $absender);
+$gesendet = mail($empfaenger, $betreff_enc, quoted_printable_encode($body), $headers, '-f' . $absender);
 
+if ($is_ajax) $json($gesendet ? 200 : 500, (bool) $gesendet);
 header('Location: ' . ($gesendet ? $danke_url : $fehler_url));
 exit;

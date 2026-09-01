@@ -1,0 +1,296 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "smart-navigator", "regan"].includes(p.slug)
+);
+
+const betreuung = [
+  {
+    title: "Technik und Ladezeiten",
+    note: "Core Web Vitals, sauberer Code, mobile Darstellung, fehlerfreie Seiten: Wir halten deine Website technisch fit, damit Google sie gerne und weit oben zeigt.",
+  },
+  {
+    title: "Lokale Sichtbarkeit",
+    note: "Dein Google Business Profile bleibt gepflegt: aktuelle Infos, Bilder und Bewertungen im Blick. Damit du gefunden wirst, wenn jemand in deiner Region sucht.",
+  },
+  {
+    title: "Content und Landingpages",
+    note: "Wir bauen Inhalte und Landingpages, die echte Suchanfragen deiner Kunden beantworten. Jede neue Seite ist eine zusätzliche Tür zu deinem Angebot.",
+  },
+  {
+    title: "Monitoring und Reporting",
+    note: "Wir messen mit Matomo, cookielos und aus der Schweiz. Du bekommst verständliche Berichte, die zeigen, was sich bei Besuchern, Sichtbarkeit und Anfragen tut.",
+  },
+];
+
+const ablauf = [
+  "Kostenloses Erstgespräch: wir schauen deine Website, deine Ziele und deinen Markt an",
+  "SEO-Audit: Technik, Inhalte und lokale Sichtbarkeit, wo hängt es am meisten",
+  "Prioritätenplan mit klarem monatlichem Rahmen: du weisst genau, was passiert",
+  "Laufende Umsetzung: Technik, Google Business Profile, Inhalte und Landingpages",
+  "Verständliches Reporting: was wir gemacht haben, was es gebracht hat, was als Nächstes kommt",
+];
+
+const faq = [
+  {
+    q: "Was kostet eine SEO-Betreuung?",
+    a: "Das hängt davon ab, was deine Website braucht und wie umkämpft dein Markt ist. Üblich sind zwei Modelle: eine einmalige Basis-Optimierung, bei der wir Technik, Struktur und lokale Sichtbarkeit einmal sauber aufsetzen, oder eine monatliche Betreuung mit klar umrissenem Umfang, in der wir laufend an Technik, Inhalten und deinem Google Business Profile arbeiten. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot, aus dem genau hervorgeht, was drin ist und was es kostet.",
+  },
+  {
+    q: "Wie lange dauert es, bis SEO Resultate bringt?",
+    a: "Ehrlich: Monate, nicht Tage. Technische Korrekturen können schon nach wenigen Wochen wirken, etwa wenn Seiten schneller laden oder überhaupt erst indexierbar werden. Inhalte und Rankings brauchen länger, je nach Markt und Konkurrenz oft drei bis sechs Monate, bis sich eine tragende Wirkung zeigt. Wer dir «Platz 1 garantiert» verkauft, ist unseriös: Seriöse Agenturen versprechen keinen festen Rang, sondern saubere Arbeit und messbare Fortschritte.",
+  },
+  {
+    q: "Ist SEO nicht eine einmalige Sache?",
+    a: "Die technische Basis ist weitgehend einmalig: sauberer Code, schnelle Ladezeiten, klare Struktur. Aber Google passt seine Bewertung laufend an, Konkurrenten publizieren neue Inhalte, und das Suchverhalten verändert sich. Wer nach der Basis nichts mehr tut, wird mit der Zeit überholt. Ob du danach eine laufende Betreuung brauchst, hängt von deinem Markt ab: In einem überschaubaren regionalen Umfeld reicht die Basis oft lange. Wir sagen dir ehrlich, welche Variante für dich Sinn ergibt.",
+  },
+  {
+    q: "Was genau ist in der monatlichen Betreuung drin?",
+    a: "Vier Bausteine: Erstens Technik, wir überwachen Ladezeiten, Core Web Vitals und Fehler und beheben sie. Zweitens lokale Sichtbarkeit, wir pflegen dein Google Business Profile und deine Präsenz in der lokalen Suche. Drittens Inhalte, wir bauen Texte und Landingpages, die Suchanfragen deiner Kunden beantworten. Viertens Reporting, du bekommst verständlich berichtet, was passiert ist und was es gebracht hat. Der monatliche Umfang ist vorher klar definiert.",
+  },
+  {
+    q: "Wie messt ihr, ob die Betreuung etwas bringt?",
+    a: "Wir messen mit Matomo, einer Analyse-Software, die cookielos arbeitet und aus der Schweiz betrieben wird. So siehst du Besucherzahlen, Suchanfragen und Anfragen ohne Cookie-Banner und ohne Datenabfluss an ausländische Konzerne. Wir berichten regelmässig in verständlicher Sprache: was wir getan haben, wie sich die Zahlen entwickeln und was wir als Nächstes empfehlen. Keine Dashboards, die niemand versteht.",
+  },
+  {
+    q: "Für wen lohnt sich eine monatliche Betreuung?",
+    a: "Für KMU, die über Google laufend neue Anfragen gewinnen wollen und in einem Markt mit aktiver Konkurrenz stehen. Typisch sind Dienstleister, Handwerker oder Praxen, deren Kunden online suchen und vergleichen. Wenn deine Website hingegen vor allem als Visitenkarte dient und die meisten Kunden über Empfehlung kommen, reicht meist die einmalige Basis-Optimierung. Genau diese Ehrlichkeit bekommst du von uns schon im Erstgespräch.",
+  },
+];
+---
+
+<Layout
+  title="SEO-Betreuung monatlich: Agentur Zürcher Oberland, Uftritt"
+  description="SEO-Betreuung monatlich für KMU: Technik, lokale Sichtbarkeit, Content und Reporting mit Matomo. Ehrlich, ohne Platz-1-Versprechen, aus dem Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="Suchmaschinenoptimierung"
+    title={"Laufende\nSEO-Betreuung"}
+    lead="Deine Website steht, aber bei Google findet dich kaum jemand? Wir betreuen deine Suchmaschinenoptimierung laufend: Technik und Ladezeiten, dein Google Business Profile, Inhalte und Landingpages sowie verständliches Reporting mit Matomo. Monat für Monat, ohne Platz-1-Versprechen, dafür mit ehrlicher Einschätzung, was sich für deinen Betrieb lohnt."
+    lottie="/lottie/marketingbegleitung.json"
+    lottieLabel="Laufende Betreuung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/marketingbegleitung/" label="Marketingbegleitung" lottie="/lottie/marketingbegleitung.json" projects={cases} />
+
+  {/* Einordnung + Problembewusstsein */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Woran du merkst, dass deine Website Aufmerksamkeit braucht</h2>
+        <div class="lp-text">
+          <p>
+            Die Website ist vor zwei Jahren live gegangen und wurde seither kaum
+            angefasst. Gibst du deine Dienstleistung bei Google ein, erscheinen
+            Konkurrenten vor dir. Neue Anfragen kommen über Empfehlungen, aber
+            kaum über die Website.
+          </p>
+          <p>
+            Eine Website ist kein Plakat, das einmal hängt und fertig ist. Google
+            bewertet laufend neu: Technik, Ladezeiten, Inhalte, lokale Signale.
+            Wer nichts tut, fällt langsam zurück, während andere dranbleiben. Und
+            manchmal ist ehrlicherweise nicht SEO das erste Thema, sondern die
+            Website selbst: Dann sprechen wir lieber zuerst über unser
+            <a href="/angebot/webdesign/">Webdesign-Angebot</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Die ehrliche Einordnung zuerst</h2>
+        <div class="lp-text">
+          <p>
+            Suchmaschinenoptimierung wirkt nicht über Nacht. Zwischen einer
+            Massnahme und ihrer Wirkung bei Google liegen oft Wochen, bis sich
+            tragende Resultate zeigen, vergehen eher Monate. Wer etwas anderes
+            behauptet, erzählt dir ein Märchen.
+          </p>
+          <p>
+            Darum bekommst du von uns kein Platz-1-Versprechen. Keine seriöse
+            Agentur verspricht einen festen Rang, denn Rankings hängen von Google,
+            deinem Markt und deiner Konkurrenz ab. Was wir versprechen: saubere
+            Arbeit, verständliche Berichte und eine ehrliche Einschätzung, was
+            sich für deinen Betrieb lohnt und was nicht.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Was in der Betreuung steckt */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Vier Bausteine</span>
+        <h2>Was in der laufenden Betreuung steckt</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          betreuung.map((b) => (
+            <article class="karte">
+              <h3>{b.title}</h3>
+              <p class="karte-note">{b.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Ablauf + Abgrenzung */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Betreuung oder einmalige Basis-Optimierung?</h2>
+        <div class="lp-text">
+          <p>
+            Eine monatliche Betreuung lohnt sich, wenn du über Google laufend
+            neue Kunden gewinnen willst und deine Konkurrenz aktiv ist. Sie läuft
+            bei uns im Rahmen der
+            <a href="/angebot/marketingbegleitung/">Marketingbegleitung</a>, mit
+            klarem monatlichem Umfang. Eine einmalige Basis-Optimierung reicht
+            oft, wenn deine Website technisch sauber ist, du hauptsächlich unter
+            dem Firmennamen gefunden werden willst und Empfehlungen dein
+            Hauptkanal bleiben.
+          </p>
+          <p>
+            Wir machen selbst genau das, was wir dir anbieten: Diese Seite ist
+            Teil unserer eigenen Landingpage-Strategie, mit der wir unsere
+            Agentur bei Google sichtbar machen, etwa rund ums
+            <a href="/webdesign-zuercher-oberland/">Webdesign im Zürcher Oberland</a>.
+            Am eigenen Auftritt testen wir, was funktioniert, bevor wir es für
+            Kunden umsetzen. Und falls sich zeigt, dass deine Website zuerst eine
+            neue Basis braucht: Was das kostet, legen wir in unserem Guide zu den
+            <a href="/website-kosten/">Website-Kosten</a> offen.
+          </p>
+          <p>
+            Übrigens verändert sich die Suche gerade spürbar: Immer öfter
+            liefert eine KI die Antwort, bevor überhaupt jemand auf ein
+            Suchresultat klickt. Wir behalten darum neben klassischem
+            <a href="/local-seo/">Local SEO</a> auch deine
+            <a href="/ki-sichtbarkeit/">KI-Sichtbarkeit</a> im Blick und
+            berücksichtigen beides in der laufenden Betreuung.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur SEO-Betreuung</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Soll deine Website Monat für Monat sichtbarer werden?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, wo du stehst. Wir schauen deine Website ehrlich an und sagen
+        dir, ob sich eine laufende SEO-Betreuung lohnt oder ob eine einmalige
+        Basis-Optimierung reicht.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

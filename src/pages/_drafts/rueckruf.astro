@@ -1,0 +1,275 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SubHero from "../components/SubHero.astro";
+---
+
+<Layout
+  title="Rückruf anfordern: Wir melden uns bei dir, Uftritt"
+  description="Unkompliziert Kontakt mit Uftritt: Telefonnummer oder E-Mail dalassen und Marcel meldet sich persönlich innert 24 Stunden bei dir. Ohne Formular-Marathon."
+>
+  <SubHero
+    eyebrow="Kontakt"
+    title="Sollen wir uns bei dir melden?"
+    lead="Kein Formular-Marathon, keine Warteschleife: Lass deine Telefonnummer oder E-Mail-Adresse da und wir melden uns innert 24 Stunden an Arbeitstagen persönlich bei dir."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="rr-wrap" data-reveal>
+        <div class="rr-person">
+          <img class="rr-avatar" src="/team/marcel.jpg" alt="Marcel Klausberger" width="104" height="104" loading="lazy" />
+          <div>
+            <h2>Marcel meldet sich persönlich bei dir</h2>
+            <p>
+              Erzähl uns in einem Satz, worum es geht, oder lass einfach nur deine
+              Kontaktdaten da. Wir rufen zurück oder schreiben, wie es dir lieber ist.
+            </p>
+          </div>
+        </div>
+
+        <form class="rr-form" id="rr-form" action="/rueckruf.php" method="POST">
+          {/* Spam-Honeypot: für Menschen unsichtbar, Bots füllen es aus */}
+          <p hidden aria-hidden="true">
+            <label>Bitte leer lassen: <input name="website" tabindex="-1" autocomplete="off" /></label>
+          </p>
+          <input type="hidden" name="seite" value="/rueckruf/" />
+          <label class="rr-label" for="rr-kontakt">Deine Telefonnummer oder E-Mail-Adresse</label>
+          <div class="rr-inputrow">
+            <input
+              id="rr-kontakt"
+              name="kontakt"
+              type="text"
+              placeholder="Telefon oder E-Mail"
+              autocomplete="tel"
+              required
+            />
+            <button type="submit" class="rr-submit" id="rr-submit">
+              <span class="rr-arrow" aria-hidden="true"><i></i></span>
+              <span>Meldet eus</span>
+            </button>
+          </div>
+          <p class="rr-error" id="rr-error" role="alert" hidden>
+            Das hat leider nicht geklappt. Versuche es noch einmal, oder schreib
+            direkt an <a href="mailto:info@uftritt.ch">info@uftritt.ch</a>.
+          </p>
+          <p class="rr-hint">
+            Unverbindlich und ohne Verkaufsdruck. Deine Angaben verwenden wir nur
+            für die Kontaktaufnahme, Details stehen in der
+            <a href="/datenschutz/">Datenschutzerklärung</a>.
+          </p>
+        </form>
+
+        <div class="rr-success" id="rr-success" hidden>
+          <h2>Danke, ist notiert!</h2>
+          <p>
+            Wir melden uns innert 24 Stunden an Arbeitstagen bei dir.
+            Versprochen ist versprochen.
+          </p>
+        </div>
+      </div>
+
+      <div class="rr-alts" data-reveal>
+        <span>Lieber anders?</span>
+        <a href="tel:+41445002955">044 500 29 55</a>
+        <a href="mailto:info@uftritt.ch">info@uftritt.ch</a>
+        <a href="/kontakt/">Ausführlich schreiben</a>
+        <a href="/besprechung/">Gleich einen Termin machen</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const form = document.getElementById("rr-form");
+  const success = document.getElementById("rr-success");
+  const error = document.getElementById("rr-error");
+  const submit = document.getElementById("rr-submit");
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!(form instanceof HTMLFormElement) || !(submit instanceof HTMLButtonElement)) return;
+    error.hidden = true;
+    submit.disabled = true;
+    try {
+      const res = await fetch("/rueckruf.php", { method: "POST", body: new FormData(form) });
+      const text = (await res.text()).trim();
+      if (res.ok && text === "ok") {
+        form.hidden = true;
+        success.hidden = false;
+        success.scrollIntoView({ behavior: "smooth", block: "center" });
+      } else {
+        error.hidden = false;
+      }
+    } catch {
+      error.hidden = false;
+    } finally {
+      submit.disabled = false;
+    }
+  });
+</script>
+
+<style>
+  .rr-wrap {
+    max-width: 640px;
+    margin-inline: auto;
+  }
+  .rr-person {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+  }
+  .rr-avatar {
+    flex: none;
+    width: clamp(80px, 10vw, 104px);
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .rr-person h2 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.3rem, 2.4vw, 1.6rem);
+  }
+  .rr-person p {
+    margin: 0;
+    color: var(--color-blue);
+    line-height: 1.65;
+  }
+
+  .rr-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .rr-label {
+    font-weight: 600;
+    color: var(--color-blue);
+  }
+  .rr-inputrow {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .rr-inputrow input {
+    flex: 1 1 240px;
+    font-family: var(--font-base);
+    font-size: 1.1rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid #e7ecf3;
+    background: #fff;
+    color: var(--color-blue);
+  }
+  .rr-inputrow input:focus {
+    outline: none;
+    border-color: var(--color-blue);
+  }
+  .rr-submit {
+    align-self: stretch;
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    line-height: 1;
+    color: #fff;
+    background: var(--color-blue);
+    border: none;
+    padding: 1rem 1.7rem;
+    cursor: var(--cur-hand);
+    transition: background 0.4s var(--ease);
+  }
+  .rr-submit:hover {
+    background: var(--color-blue-dark);
+  }
+  .rr-arrow {
+    display: inline-block;
+    max-width: 0;
+    overflow: visible;
+    transition: max-width 0.6s var(--ease), margin-right 0.6s var(--ease);
+  }
+  .rr-arrow i {
+    display: block;
+    width: 1.1em;
+    height: 0.85em;
+    background-color: #fff;
+    -webkit-mask: url("/img/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    mask: url("/img/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+  }
+  .rr-submit:hover .rr-arrow,
+  .rr-submit:focus-visible .rr-arrow {
+    max-width: 1.1em;
+    margin-right: 0.55rem;
+  }
+  .rr-submit:hover .rr-arrow i,
+  .rr-submit:focus-visible .rr-arrow i {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rr-arrow,
+    .rr-arrow i {
+      transition: none;
+    }
+  }
+  .rr-error {
+    border-left: 3px solid var(--color-pink);
+    padding: 0.6rem 0.9rem;
+    color: var(--color-blue);
+    font-weight: 600;
+    background: #fff;
+  }
+  .rr-error a {
+    color: var(--color-pink);
+  }
+  .rr-hint {
+    color: var(--color-blue);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+  .rr-hint a {
+    color: var(--color-blue);
+    font-weight: 700;
+  }
+  .rr-hint a:hover {
+    color: var(--color-pink);
+  }
+
+  .rr-success {
+    background: var(--color-blue);
+    padding: clamp(1.5rem, 3.5vw, 2.25rem);
+  }
+  .rr-success h2 {
+    margin: 0 0 0.5rem;
+    color: #fff;
+    font-size: 1.4rem;
+  }
+  .rr-success p {
+    margin: 0;
+    color: #fff;
+    line-height: 1.65;
+  }
+
+  .rr-alts {
+    max-width: 640px;
+    margin: 2.5rem auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    align-items: baseline;
+    justify-content: center;
+    color: var(--color-blue);
+  }
+  .rr-alts span {
+    font-weight: 600;
+  }
+  .rr-alts a {
+    color: var(--color-blue);
+    font-weight: 700;
+  }
+  .rr-alts a:hover {
+    color: var(--color-pink);
+  }
+</style>

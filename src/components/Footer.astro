@@ -1,11 +1,11 @@
 ---
 const siteNav = [
-  { label: "Über Uftritt", href: "/agentur" },
-  { label: "Angebot", href: "/angebot" },
-  { label: "Projekte", href: "/projekte" },
-  { label: "Partner", href: "/partner" },
-  { label: "Kontakt", href: "/kontakt" },
-  { label: "News", href: "/aktuell" },
+  { label: "Agentur", href: "/agentur/" },
+  { label: "Angebot", href: "/angebot/" },
+  { label: "Projekte", href: "/projekte/" },
+  { label: "Partner", href: "/partner/" },
+  { label: "Kontakt", href: "/kontakt/" },
+  { label: "News", href: "/aktuell/" },
 ];
 
 const social = [
@@ -16,9 +16,9 @@ const social = [
 ];
 
 const legal = [
-  { label: "Datenschutz", href: "/datenschutz" },
-  { label: "Impressum", href: "/impressum" },
-  { label: "AGB", href: "/agb" },
+  { label: "Datenschutz", href: "/datenschutz/" },
+  { label: "Impressum", href: "/impressum/" },
+  { label: "AGB", href: "/agb/" },
 ];
 ---
 
@@ -94,6 +94,10 @@ const legal = [
   .footer-social {
     display: flex;
     gap: 0.5rem;
+    /* Erstes Icon buendig mit Logo/Text: das Glyphen-Zentrum der 40px-
+       Touch-Flaeche um ihren halben Ueberschuss nach links ziehen
+       (Revision Jeffrey 2026-08-28) */
+    margin-left: -10px;
   }
   .footer-social a {
     display: grid;
@@ -172,7 +176,7 @@ const legal = [
     display: block;
   }
 
-  /* Rechtliches ganz unten – ohne Trennlinie (Revision Jeffrey) */
+  /* Rechtliches ganz unten, ohne Trennlinie (Revision Jeffrey) */
   .footer-bottom {
   }
   .footer-bottom-inner {
@@ -207,7 +211,7 @@ const legal = [
       grid-column: 1 / -1;
     }
   }
-  /* Seiten + Kontakt bleiben 2-spaltig, solange Platz ist – erst auf sehr
+  /* Seiten + Kontakt bleiben 2-spaltig, solange Platz ist, erst auf sehr
      schmalen Screens einspaltig. */
   @media (max-width: 360px) {
     .footer-top {

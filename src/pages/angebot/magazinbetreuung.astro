@@ -15,39 +15,42 @@ const blocks = [
     title: "Redaktion und Konzept",
     text: [
       "Welche Themen bewegen deine Leserinnen und Leser? Gemeinsam entwickeln wir das inhaltliche Konzept, planen Rubriken und Ausgaben und sorgen dafür, dass jede Geschichte ihren Platz findet.",
-      "So entsteht ein roter Faden, der dein Magazin über alle Ausgaben hinweg trägt.",
+      "So entsteht ein roter Faden, der sich durch einzelne Ausgaben und auch durch alle Erscheinungen zieht.",
+      'Das gilt vor allem für das klassische <a href="/kundenmagazin/">Kundenmagazin</a>: Es hält deine Kundinnen und Kunden informiert und bleibt auf dem Tisch liegen, statt im Postfach unterzugehen.',
     ],
   },
   {
     title: "Gestaltung und Layout",
     text: [
-      "Ein durchdachtes Layout führt durch die Seiten und macht Lust aufs Weiterblättern. Wir gestalten ein Erscheinungsbild, das zu deiner Marke passt und wiedererkennbar bleibt.",
-      "Bild und Text spielen zusammen – ruhig, klar und mit dem nötigen Mut zur Wirkung.",
+      "Ein durchdachtes Layout führt durch die Seiten und macht Lust aufs Weiterblättern. Wir gestalten ein Erscheinungsbild, das zu deiner Marke passt, der Leserschaft klare Leitlinien und gleichzeitig grosszügigen Raum für jeden einzelnen Inhalt bietet.",
+      "Bild und Text werden professionell bearbeitet und spielen mal mutig, mal dezent miteinander.",
     ],
   },
   {
-    title: "Produktion und Druck",
+    title: "Druckproduktion",
     text: [
-      "Vom Reinzeichnen bis zur Druckabwicklung behalten wir Termine, Budget und Qualität im Blick.",
-      "Wir liefern dein Magazin termingerecht – gedruckt oder digital, ganz wie du es brauchst.",
+      "Vom Reinzeichnen bis zur Druckabwicklung behalten wir Termine, Budget und Qualität im Blick. Gemeinsam mit der Druckerei deiner Wahl oder mit unseren Druckpartnern garantieren wir eine termingerechte Auslieferung.",
+      "Auch die digitale Ausgabe des Magazins stellen wir dir optimiert zur Verfügung.",
     ],
   },
 ];
 
 const steps = [
-  { icon: "/img/icons/zuhoeren-icon.svg", t: "Zuhören und verstehen", d: "Wir lernen dich, dein Publikum und deine Ziele kennen – und nehmen deine Themen auf." },
+  { icon: "/img/icons/zuhoeren-icon.svg", t: "Zuhören und verstehen", d: "Wir lernen dich, dein Publikum und deine Ziele kennen und nehmen deine Themen auf." },
   { icon: "/img/icons/analyse-icon.svg", t: "Konzept und Redaktionsplan", d: "Wir strukturieren Inhalte, Rubriken und Ausgaben in einem klaren Redaktionsplan." },
-  { icon: "/img/icons/brainstorm-icon.svg", t: "Gestaltung", d: "Wir entwickeln Layout und Bildsprache – ein Auftritt, der zu deiner Marke passt." },
+  { icon: "/img/icons/brainstorm-icon.svg", t: "Gestaltung", d: "Wir entwickeln Layout und Bildsprache, ein Auftritt, der zu deiner Marke passt." },
   { icon: "/img/icons/austauschen-icon.svg", t: "Feinschliff und Korrektorat", d: "Du gibst Feedback, wir feilen an Text und Gestaltung, bis alles sitzt." },
-  { icon: "/img/icons/abheben-icon.svg", t: "Produktion und Übergabe", d: "Wir bereiten alles für Druck oder digitale Ausgabe vor und begleiten dich bis zum Erscheinen." },
+  { icon: "/img/icons/abheben-icon.svg", t: "Produktion und Auslieferung", d: "Wir bereiten alles für den Druck oder die digitale Ausgabe vor und begleiten dich bis zum Erscheinen." },
 ];
 ---
 
-<Layout title="Magazinbetreuung – Uftritt" description="Von der Redaktion über die Gestaltung bis zur Produktion – wir begleiten dein Magazin Ausgabe für Ausgabe.">
+<Layout title="Kundenmagazin erstellen lassen, Uftritt" description="Von der Redaktion über die Gestaltung bis zur Produktion, wir begleiten dein Magazin Ausgabe für Ausgabe.">
   <PageHero
     eyebrow="Angebot"
     title="Magazinbetreuung"
-    lead="Ein Magazin ist mehr als bedrucktes Papier – es ist eine Bühne für deine Geschichten. Von der ersten Idee über die Redaktion bis zur fertigen Ausgabe begleiten wir dein Magazin Schritt für Schritt."
+    lead="Ein Magazin ist eine grosse Bühne für deine Geschichten in haptisch erlebbarer Form. Von der ersten Idee über die Redaktion bis zur fertigen Ausgabe begleiten wir dein periodisch erscheinendes Medium Schritt für Schritt."
+    lottie="/lottie/magazinbetreuung.json"
+    lottieLabel="Magazinbetreuung"
   />
 
   <section class="section">
@@ -56,7 +59,7 @@ const steps = [
         blocks.map((b) => (
           <article class="lp-block" data-reveal>
             <h2>{b.title}</h2>
-            <div class="lp-text">{b.text.map((p) => <p>{p}</p>)}</div>
+            <div class="lp-text">{b.text.map((p) => <p set:html={p} />)}</div>
           </article>
         ))
       }
@@ -84,10 +87,21 @@ const steps = [
   {/* Referenzen */}
   <RefStrip title="Magazine und Editorials aus unserem Portfolio" projects={portfolio} />
 
+  {/* Interne Verlinkung LP-Programm */}
+  <section class="section">
+    <div class="container mehr-dazu" data-reveal>
+      <h2>Erfahre mehr</h2>
+      <ul class="md-liste">
+        <li><a href="/magazin-erstellen-lassen/">Magazin erstellen und drucken lassen</a></li>
+        <li><a href="/vereinsmagazin/">Vereinsmagazin erstellen lassen</a></li>
+      </ul>
+    </div>
+  </section>
+
   <section class="section section--yellow">
     <div class="container lp-cta" data-reveal>
       <h2>Bereit für deine nächste Ausgabe?</h2>
-      <Button href="/kontakt" variant="blue">Schriib eus</Button>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
     </div>
   </section>
 </Layout>

@@ -66,7 +66,10 @@ const {
 <style>
   .lmap {
     width: 100%;
-    height: clamp(320px, 42vw, 520px);
+    /* füllt die Höhe des Eltern-Containers (kontakt.astro steuert die Grösse,
+       damit Foto und Karte exakt gleich gross sind), Revision 2 */
+    height: 100%;
+    min-height: 240px;
     background: var(--color-bg-soft);
   }
   /* Leaflet-Steuerelemente dezent im CD */
@@ -81,7 +84,7 @@ const {
     font-family: var(--font-base);
   }
   .lmap :global(.lmap-pin) {
-    /* Pin per SVG gefärbt – kein Standard-Marker-Bild */
+    /* Pin per SVG gefärbt, kein Standard-Marker-Bild */
     background: none;
     border: none;
   }

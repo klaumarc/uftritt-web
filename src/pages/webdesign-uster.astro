@@ -1,0 +1,300 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["garage-frei", "ripa-immobilien", "cynterim"].includes(p.slug)
+);
+
+const orte = [
+  { name: "Wetzikon", href: "/webdesign-wetzikon/", note: "das andere Zentrum des Oberlands" },
+  { name: "Pfäffikon", href: "/webdesign-pfaeffikon/", note: "direkte Nachbarsgemeinde" },
+  { name: "Hinwil", href: "/webdesign-hinwil/", note: "am Fuss des Bachtels" },
+  { name: "Winterthur", href: "/webdesign-winterthur/", note: "zweitgrösste Stadt im Kanton" },
+  { name: "Zürcher Oberland", href: "/webdesign-zuercher-oberland/", note: "unsere Heimregion" },
+  { name: "Zürich", href: "/webdesign-zuerich/", note: "per S-Bahn in 14 Minuten" },
+];
+
+const weitere = ["Dübendorf", "Volketswil", "Fehraltorf", "Mönchaltorf", "Gossau", "Seegräben", "Fällanden", "Maur"];
+
+const faq = [
+  { q: "Was kostet eine Website für einen Betrieb in Uster?", a: "Das hängt vom Umfang ab, vom schlanken Onepager bis zur Plattform mit Shop oder Mitgliederbereich. Nach einem kostenlosen Erstgespräch erhältst du ein transparentes Angebot mit klarem Preis. Keine Pauschalen von der Stange, keine versteckten Kosten. Zur Orientierung findest du auf unserer Website auch einen Kosten-Guide mit echten Schweizer Marktpreisen." },
+  { q: "Kommt ihr zu uns nach Uster?", a: "Gerne. Von unserem Büro in Saland sind wir in gut 20 Minuten bei dir, sei es im Zentrum, in Kirchuster oder Niederuster oder in einer Aussenwacht wie Nänikon oder Wermatswil. Auf Wunsch auch per Video-Call." },
+  { q: "Werde ich als Ustermer Betrieb überhaupt gefunden?", a: "Nur mit einer neuen Website ist es nicht getan, aber fast. Wir liefern jede Seite mit sauberer SEO-Basis aus: klare Struktur, schnelle Ladezeiten, saubere Meta-Texte und die Anmeldung bei Google. Dazu gehört ein gepflegtes Google-Unternehmensprofil, damit du bei Suchanfragen in Uster und Umgebung auch auf der Karte auftauchst. In einer Stadt mit 1350 Unternehmen ist genau das oft der Unterschied zwischen dir und der Konkurrenz." },
+  { q: "Macht ihr auch mehr als Websites?", a: "Ja: Logo, Corporate Design, Broschüren, Fotografie und Video kommen bei uns aus demselben Haus. So entsteht dein Auftritt aus einem Guss, vom Erscheinungsbild bis zur fertigen Website, und du hast eine Ansprechperson statt fünf." },
+  { q: "Wir haben schon eine Website, lohnt sich ein Relaunch?", a: "Oft ja. Wenn deine Seite älter als vier, fünf Jahre ist, auf dem Handy hakt oder bei Google abrutscht, bringt ein sauberer Neubau meist mehr als weiteres Flickwerk. Wir schauen uns deine bestehende Seite kostenlos an und sagen dir ehrlich, ob sich ein Relaunch lohnt, oder ob ein paar gezielte Anpassungen genügen." },
+  { q: "Wer kümmert sich nach dem Launch um die Website?", a: "Auf Wunsch wir: Updates, Backups und kleine Anpassungen, damit die Seite sicher bleibt und mit deinem Betrieb mitwächst. Oder wir zeigen dir in einer Schulung, wie du Inhalte selbst pflegst. Beides funktioniert, nichts davon ist Pflicht." },
+  { q: "Wie lange dauert ein Website-Projekt?", a: "Je nach Umfang 4 bis 12 Wochen. Du siehst früh einen klickbaren Prototypen und bleibst durchgehend im Bild." },
+];
+---
+
+<Layout
+  title="Webdesign Uster, Uftritt"
+  description="Webdesign für Uster: Websites für KMU und Gewerbe, persönlich und ohne Template. Von der Agentur aus Saland im Zürcher Oberland, gut 20 Minuten entfernt."
+>
+  <PageHero
+    eyebrow="Webdesign · Uster"
+    title={"Webdesign\nUster"}
+    lead="Du suchst Webdesign in Uster? Uftritt ist die Kommunikationsagentur aus Saland im Zürcher Oberland. Wir entwickeln Websites und Erscheinungsbilder für KMU und Gewerbe in Uster: persönlich, ohne Template und mit echter Nähe. Von unserem Büro aus sind wir in gut 20 Minuten bei dir."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Für das Zentrum am Greifensee</h2>
+        <div class="lp-text">
+          <p>
+            Uster ist mit rund 36 500 Einwohnerinnen und Einwohnern (Stand Ende
+            2024) die drittgrösste Stadt des Kantons Zürich und Hauptort des
+            gleichnamigen Bezirks. Zusammen mit Wetzikon bildet die Stadt am
+            Greifensee eines der beiden Zentren des Zürcher Oberlands, mit elf
+            Ortsteilen von Kirchuster und Niederuster bis zu den Aussenwachten
+            Nänikon, Wermatswil und Freudwil.
+          </p>
+          <p>
+            Aus der Baumwollstadt der industriellen Revolution ist ein moderner
+            Wirtschaftsstandort geworden: Rund 1350 Unternehmen bieten hier etwa
+            13 000 Arbeitsplätze, die meisten im Dienstleistungssektor.
+            Weltweit bekannte Namen wie Uster Technologies stehen neben
+            Hunderten KMU, und das Spital Uster ist der grösste Arbeitgeber
+            der Region.
+          </p>
+          <p>
+            Für uns ist Uster Nahbereich: Unser Büro liegt in Saland, gut
+            20 Minuten entfernt. Besprechungen finden bei dir statt, im
+            Zentrum, im Gewerbe in Niederuster oder in einer der Aussenwachten.
+            Und keine Sorge: Dass in der «Kreiselstadt» fast alle Ampeln
+            verschwunden sind, halten wir für Fortschritt, nicht für ein
+            Verkehrshindernis.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Gleich neben Uster bereits im Einsatz</h2>
+        <div class="lp-text">
+          <p>
+            Direkt in Uster haben wir noch kein öffentliches Referenzprojekt -
+            das sagen wir offen, bevor du fragst. Dafür gleich nebenan: Die
+            Websites der Autogarage Frei in Dübendorf und der Garage Gisel &amp;
+            Pfeiffer in Gutenswil stammen von uns, zwei Fachwerkstätten
+            derselben Betriebsgruppe mit einem gemeinsamen, klaren Auftritt.
+          </p>
+          <p>
+            Für RIPA Immobilien in Pfäffikon betreuen wir Website, Fotografie,
+            Texte und Inserate seit 2020 laufend, von den über 50
+            Liegenschaftsseiten bis zur jährlichen Weihnachtskarte. Und für das
+            Salesforce-Partnerunternehmen Cynterim aus Hinwil haben wir Logo,
+            Branding und Website von Grund auf neu gebaut. Kommunikation für
+            die Region um Uster, aus einer Hand.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Webseite erstellen lassen, in einer Stadt, die googelt</h2>
+        <div class="lp-text">
+          <p>
+            Was muss eine Website für einen Ustermer Betrieb leisten? In einer
+            Stadt mit 1350 Unternehmen suchen sich Kundinnen und Kunden ihren
+            Anbieter zuerst bei Google aus, ob Coiffeur im Zentrum, Praxis in
+            Kirchuster oder Handwerker in Wermatswil. Deine Homepage muss dann
+            sofort zeigen, was du anbietest: Leistungen, Öffnungszeiten und
+            Kontakt auf einen Blick, auf dem Handy genauso wie am Computer.
+          </p>
+          <p>
+            Genau dafür bauen wir: schnell, klar strukturiert und mit der
+            SEO-Basis gleich mitgeliefert, von sauberen Meta-Texten bis zur
+            Anmeldung bei Google. Auf Wunsch richten wir dir auch dein
+            <a href="/google-business-profile/">Google-Unternehmensprofil</a>
+            ein, damit du in Uster und Umgebung auch auf der Karte gefunden
+            wirst.
+          </p>
+          <p>
+            Uftritt ist dabei mehr als eine Webagentur: Als Werbeagentur
+            decken wir ab, was darüber hinausgeht, Logo und Erscheinungsbild,
+            Printwerbung, Video und die laufende Betreuung deiner
+            Kommunikation. Ein Partner für alles, statt fünf Ansprechpersonen
+            für fünf Disziplinen.
+          </p>
+          <p>
+            Und wir sagen es auch, wenn weniger genügt: Für viele kleinere
+            Betriebe ist ein gut gemachter Onepager die richtige Lösung -
+            kein Grossprojekt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In vier Schritten zur neuen Website</h2>
+        <div class="lp-text">
+          <p>
+            <strong>1. Erstgespräch bei dir.</strong> Kostenlos und
+            unverbindlich, am liebsten bei dir im Betrieb in Uster, auf Wunsch
+            bei uns in Saland oder per Video-Call. Wir hören zu, fragen nach
+            und beraten ehrlich, auch dann, wenn die Antwort «das braucht es
+            nicht» lautet.
+          </p>
+          <p>
+            <strong>2. Konzept und Prototyp.</strong> Du bekommst früh einen
+            klickbaren Entwurf zu sehen, nicht erst kurz vor dem Launch. So
+            gibt es keine Überraschungen und keine teuren Korrekturen
+            am Schluss.
+          </p>
+          <p>
+            <strong>3. Umsetzung.</strong> Wir bauen die Seite, schreiben auf
+            Wunsch die Texte und organisieren die Fotografie, alles aus einer
+            Hand, alles abgestimmt auf dein Erscheinungsbild.
+          </p>
+          <p>
+            <strong>4. Launch und Betreuung.</strong> Nach dem Go-Live lassen
+            wir dich nicht im Stich: <a href="/website-betreuung/">Betreuung
+            und Wartung</a>, <a href="/seo-betreuung/">SEO-Begleitung</a> oder
+            eine Schulung, damit du die Seite selbst pflegen kannst. Und wenn
+            du schon eine ältere Website hast, ist ein
+            <a href="/website-relaunch/">Relaunch</a> der richtige Einstieg.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet das?</h2>
+        <div class="lp-text">
+          <p>
+            Die ehrliche Antwort: Es kommt darauf an, was du brauchst, ein
+            Onepager für einen Kleinbetrieb kostet weniger als eine Plattform
+            mit Shop oder Mitgliederbereich. Pauschalpreise von der Stange
+            wären unseriös. Was wir stattdessen anbieten: Nach dem kostenlosen
+            Erstgespräch erhältst du ein transparentes Angebot mit allen
+            Leistungen und einem klaren Preis. Auch die laufenden Kosten für
+            Hosting und Betreuung legen wir offen, du weisst vor der
+            Unterschrift, was auf dich zukommt.
+          </p>
+          <p>
+            Zur Orientierung vorab: In unserem
+            <a href="/website-kosten/">Guide zu Website-Kosten</a> zeigen wir
+            echte Marktpreise in der Schweiz, damit du weisst, was eine
+            Website kosten darf, bevor du mit uns oder einer anderen Agentur
+            sprichst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">In deiner Nähe</span>
+        <h2>Webdesign in deinem Ort</h2>
+      </header>
+      <div class="orte" data-reveal>
+        {
+          orte.map((o) => (
+            <a class="ort-card" href={o.href}>
+              <span class="ort-name">{o.name}</span>
+              <span class="ort-note">{o.note}</span>
+            </a>
+          ))
+        }
+      </div>
+      <p class="orte-note" data-reveal>
+        Und natürlich auch in: {weitere.join(", ")}, kurzum: rund um Uster und
+        im ganzen Zürcher Oberland.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deinen neuen Webauftritt in Uster?</h2>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); text-decoration: underline; text-underline-offset: 0.15em; }
+
+  .orte { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .ort-card {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .ort-card:hover { border-color: var(--color-blue); transform: translateY(-2px); }
+  .ort-name { font-weight: 700; font-size: 1.25rem; color: var(--color-blue); }
+  .ort-note { color: var(--color-blue); opacity: 0.8; font-size: 0.95rem; }
+  .orte-note { margin-top: 1.5rem; color: var(--color-blue); line-height: 1.7; max-width: 75ch; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+
+  @media (max-width: 900px) {
+    .orte { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .orte { grid-template-columns: 1fr; }
+  }
+</style>

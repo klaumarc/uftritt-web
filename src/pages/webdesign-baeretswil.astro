@@ -1,0 +1,291 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["dtb-redesign", "dt-baeretswil", "cynterim", "stahel-koeng"].includes(p.slug)
+);
+
+const orte = [
+  { name: "Saland", href: "/webdesign-saland/", note: "hier sind wir zuhause" },
+  { name: "Bauma", href: "/webdesign-bauma/", note: "Nachbardorf Richtung Tösstal" },
+  { name: "Hinwil", href: "/webdesign-hinwil/", note: "unser Bezirkshauptort" },
+  { name: "Wetzikon", href: "/webdesign-wetzikon/", note: "per Bus über Kempten verbunden" },
+  { name: "Pfäffikon", href: "/webdesign-pfaeffikon/", note: "Nachbargemeinde am Pfäffikersee" },
+  { name: "Tösstal", href: "/webdesign-toesstal/", note: "gleich hinter dem Sattel" },
+];
+
+const weitere = ["Adetswil", "Wappenswil", "Bettswil", "Neuthal", "Hittnau", "Fischenthal", "Russikon"];
+
+const faq = [
+  { q: "Was kostet eine Website für einen Betrieb in Bäretswil?", a: "Das hängt vom Umfang ab: Die schlanke Seite für einen Verein kostet weniger als die Firmenwebsite mit Shop. Nach einem kostenlosen Erstgespräch erhältst du ein transparentes Angebot mit klarem Preis, ohne Kleingedrucktes. So weisst du vor dem ersten Franken, was du bekommst." },
+  { q: "Kommst du zu uns nach Bäretswil?", a: "Gerne. Von unserem Büro in Saland sind wir in gut zehn Minuten bei dir, im Dorf, in Adetswil, in Wappenswil oder auf dem Hof. Auf Wunsch treffen wir uns auch per Video-Call." },
+  { q: "Werde ich als Bäretswiler Betrieb überhaupt gefunden?", a: "Ja, wenn die Basis stimmt: Wir liefern jede Website mit sauberem SEO-Fundament aus, Struktur, Ladezeiten, Meta-Texte, Google-Anmeldung. Dazu gehört ein gepflegtes Google-Unternehmensprofil, damit du in Bäretswil, Adetswil und Umgebung auch auf der Karte sichtbar bist. Gerade in einer Weiler-Gemeinde suchen viele ganz konkret in der Nähe, dann entscheidet, wer sauber eingetragen ist." },
+  { q: "Macht ihr auch mehr als Websites?", a: "Ja: Logo, Corporate Design, Broschüren, Fotografie und Video kommen bei uns aus demselben Haus. In Bäretswil siehst du das beim Auftritt von DT Bäretswil, vom Logo über die Match-Tenues bis zur jährlichen Vereinsbroschüre." },
+  { q: "Arbeitest du auch für Vereine?", a: "Sehr gerne. Für DT Bäretswil haben wir den ganzen Auftritt erneuert und gestalten seither jede Saison die Vereinsbroschüre. Wir kennen die Realität ehrenamtlich geführter Vereine und liefern Lösungen, die zum Budget passen." },
+  { q: "Wir haben schon eine Website, lohnt sich ein Relaunch?", a: "Kommt auf den Zustand an: Wenn deine Seite älter als vier, fünf Jahre ist, auf dem Handy hakt oder bei Google abrutscht, ist ein sauberer Neubau meist sinnvoller als weiteres Flickwerk. Wir schauen uns deine Seite kostenlos an und sagen dir ehrlich, ob sich ein Relaunch lohnt, auch dann, wenn die Antwort Nein ist." },
+  { q: "Wer kümmert sich nach dem Launch um die Website?", a: "Auf Wunsch wir: mit Updates, Backups, kleinen Anpassungen und laufender Betreuung. Oder wir schulen dich, damit du die Inhalte selbst pflegen kannst, ganz, wie es für dich passt." },
+  { q: "Wie lange dauert ein Website-Projekt?", a: "Je nach Umfang vier bis zwölf Wochen. Einen klickbaren Prototypen siehst du schon früh im Prozess, nicht erst kurz vor dem Launch." },
+];
+---
+
+<Layout
+  title="Webdesign Bäretswil, Uftritt"
+  description="Webdesign Bäretswil: Webseite erstellen lassen bei der Webagentur aus Saland, Websites und Branding für KMU und Vereine, persönlich und ohne Template."
+>
+  <PageHero
+    eyebrow="Webdesign · Bäretswil"
+    title={"Webdesign\nBäretswil"}
+    lead="Du suchst Webdesign in Bäretswil? Uftritt ist die Kommunikationsagentur aus Saland, auf der Tösstal-Seite des Sattels, gut zehn Minuten entfernt. Wir entwickeln Websites und Erscheinungsbilder für KMU, Betriebe und Vereine in Bäretswil, Adetswil und den Weilern: persönlich, ehrlich und ohne Template."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Für das Dorf auf dem Sattel</h2>
+        <div class="lp-text">
+          <p>
+            Bäretswil liegt im Bezirk Hinwil auf einem Sattel zwischen Glatt- und
+            Tösstal und zählt rund 5100 Einwohnerinnen und Einwohner (Stand Ende
+            2024). Zum Hauptort kommen das stark gewachsene Adetswil, Aussenwachten
+            wie Bettswil, Wappenswil und Neuthal sowie über hundert Einzelhöfe:
+            Flächenmässig ist Bäretswil die siebtgrösste Landgemeinde des Kantons
+            Zürich, fast vierzig Prozent davon Wald.
+          </p>
+          <p>
+            Dank der nebelfreien Lage ist die Gemeinde seit den 1960er-Jahren eine
+            beliebte Wohngemeinde; viele Erwerbstätige pendeln zur Arbeit aus,
+            Richtung Wetzikon, Uster oder Zürich. Bekannt ist Bäretswil auch für
+            seine Textilgeschichte: Die Dampfbahn des DVZO fährt auf der alten
+            Strecke zwischen Bauma und Hinwil, und im Neuthal erinnert das
+            Industrieensemble mit dem Spinnereimuseum an die Webfabriken am Aabach.
+            Unser Büro liegt in Saland, gleich hinter Bauma, Besprechungen finden
+            deshalb bei dir statt, kurze Wege sind bei uns Programm.
+          </p>
+          <p>
+            Geprägt ist die Gemeinde bis heute von Gewerbe, Landwirtschaft und
+            einem lebendigen Vereinsleben, vom Unihockeyclub bis zum
+            Dampfbahn-Verein. Genau für diese Betriebe und Vereine arbeiten wir:
+            Wir kennen die Realität vor Ort, weil wir selbst hier leben.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In Bäretswil schon gut sichtbar</h2>
+        <div class="lp-text">
+          <p>
+            Das Logo des Unihockeyvereins DT Bäretswil, die Match-Tenues und das
+            Merchandise? Von uns. Und auch die Vereinsbroschüre, die der Club jede
+            Saison neu herausbringt, kommt aus unserem Haus: vom Redesign des
+            Auftritts bis zum lesefreundlichen Layout mit Chronik, Teamtexten und
+            Sponsorenseiten. Der Club ist aus der Jungschar-Unihockeygruppe Dream
+            Team hervorgegangen und spielt heute mit zwei Herren-Teams, A-Junioren
+            und starkem Nachwuchs.
+          </p>
+          <p>
+            Aus dem Bezirk kommen weitere Auftritte von uns: Für die Cynterim GmbH
+            in Hinwil haben wir Logo, Erscheinungsbild und Website von Grund auf
+            gebaut; für Stahel + Köng in Hinwil haben wir den Auftritt zum
+            125-Jahr-Jubiläum gestaltet. Genau so arbeiten wir auch für dich:
+            alles aus einer Hand, vom ersten Logo bis zur fertigen Website.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Webseite erstellen lassen, damit dich die Region findet</h2>
+        <div class="lp-text">
+          <p>
+            Was muss eine Homepage für einen Betrieb in Bäretswil leisten? In einer
+            Gemeinde, aus der viele täglich zur Arbeit wegpendeln, zählt der lokale
+            Auftritt doppelt: Wer nach dir sucht, ob im Dorf, in Adetswil oder von
+            einem der Höfe aus, findet dich mit Leistungen, Öffnungszeiten und
+            Kontakt auf einen Blick, auf dem Handy genauso wie am Computer. Und wer
+            dich noch nicht kennt, soll dich über Google entdecken können, weil
+            der nächste Kunde oft im selben Dorf wohnt, zählt jede Suchanfrage aus
+            der Region.
+          </p>
+          <p>
+            Genau dafür bauen wir: schnelle, klar strukturierte Websites, bei denen
+            die SEO-Basis gleich mitgeliefert wird. Auf Wunsch richten wir auch
+            dein <a href="/google-business-profile/">Google-Unternehmensprofil</a>
+            ein, damit du bei Suchanfragen aus der Region und auf der Karte
+            präsent bist.
+          </p>
+          <p>
+            Uftritt ist dabei mehr als eine Webagentur: Als Werbeagentur decken wir
+            ab, was darüber hinausgeht, Logo und Erscheinungsbild, Printwerbung,
+            Video und die laufende Betreuung deiner Kommunikation. Und wir sagen es
+            auch, wenn weniger genügt: Für manchen Betrieb oder Verein ist ein
+            sauber gemachter Onepager die richtige Lösung, kein Grossprojekt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In vier Schritten zur neuen Website</h2>
+        <div class="lp-text">
+          <p>
+            <strong>1. Erstgespräch bei dir.</strong> Kostenlos und unverbindlich -
+            am liebsten bei dir in Bäretswil, in Adetswil oder auf dem Hof, auf
+            Wunsch auch bei uns in Saland oder per Video-Call. Wir hören zu, fragen
+            nach und beraten ehrlich.
+          </p>
+          <p>
+            <strong>2. Konzept und Prototyp.</strong> Du siehst früh einen
+            klickbaren Entwurf, nicht erst kurz vor dem Launch, so gibt es keine
+            Überraschungen.
+          </p>
+          <p>
+            <strong>3. Umsetzung.</strong> Wir bauen die Seite, schreiben auf Wunsch
+            die Texte und organisieren Fotografie, alles aus einer Hand.
+          </p>
+          <p>
+            <strong>4. Launch und Betreuung.</strong> Nach dem Go-Live lassen wir
+            dich nicht im Stich: <a href="/website-betreuung/">Betreuung und
+            Wartung</a>, <a href="/seo-betreuung/">SEO-Begleitung</a> oder eine
+            Schulung, damit du die Seite selbst pflegen kannst. Du hast eine ältere
+            Website? Dann ist ein <a href="/website-relaunch/">Relaunch</a> der
+            richtige Einstieg.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet das?</h2>
+        <div class="lp-text">
+          <p>
+            Die ehrliche Antwort: Es kommt darauf an, was du brauchst, der
+            Onepager für den Verein kostet weniger als die Firmenwebsite mit Shop.
+            Pauschalpreise von der Stange wären unseriös. Was wir stattdessen
+            anbieten: Nach dem kostenlosen Erstgespräch erhältst du ein
+            transparentes Angebot mit allen Leistungen und einem klaren Preis.
+          </p>
+          <p>
+            Zur Orientierung vorab: In unserem <a href="/website-kosten/">Guide zu
+            Website-Kosten</a> zeigen wir echte Marktpreise in der Schweiz, damit
+            du weisst, was eine Website kosten darf, bevor du mit uns oder einer
+            anderen Agentur sprichst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">In deiner Nähe</span>
+        <h2>Webdesign in deinem Ort</h2>
+      </header>
+      <div class="orte" data-reveal>
+        {
+          orte.map((o) => (
+            <a class="ort-card" href={o.href}>
+              <span class="ort-name">{o.name}</span>
+              <span class="ort-note">{o.note}</span>
+            </a>
+          ))
+        }
+      </div>
+      <p class="orte-note" data-reveal>
+        Und natürlich auch in: {weitere.join(", ")}, kurzum: auf dem Sattel, in
+        den Weilern und im ganzen Zürcher Oberland.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deinen neuen Webauftritt in Bäretswil?</h2>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); text-decoration: underline; text-underline-offset: 0.15em; }
+
+  .orte { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .ort-card {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .ort-card:hover { border-color: var(--color-blue); transform: translateY(-2px); }
+  .ort-name { font-weight: 700; font-size: 1.25rem; color: var(--color-blue); }
+  .ort-note { color: var(--color-blue); opacity: 0.8; font-size: 0.95rem; }
+  .orte-note { margin-top: 1.5rem; color: var(--color-blue); line-height: 1.7; max-width: 75ch; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+
+  @media (max-width: 900px) {
+    .orte { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .orte { grid-template-columns: 1fr; }
+  }
+</style>

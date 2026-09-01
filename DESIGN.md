@@ -38,16 +38,16 @@ Definiert in `:root` in `global.css`:
 ## 2. Typografie
 
 - **Schrift:** `--font-base: "Rational", system-ui, …` – eine Familie mit echten Weights (400/400i/500/600/700/800/900), Webfonts `font-display: swap`.
-- **Fliesstext:** `font-weight: 500` (Rational Medium), `font-size: 1.0625rem` (~17px), `line-height: 1.5`.
+- **Fliesstext:** `font-weight: 500` (Rational Medium), `font-size: 1.0625rem` (~17px), `line-height: 1.45` (engerer Zeilenabstand – Revision 2).
 - **Überschriften:** Blau, `line-height: 1.04`, `letter-spacing: -0.015em`, alle `font-weight: 700` (Rational Bold).
 
-Skala (aus CD-Export gemessen, responsiv via `clamp`):
+Skala (aus CD-Export gemessen, responsiv via `clamp`; Mobile-Werte = Stand `global.css`):
 
 | Element | Desktop | Mobile (≤600px) |
 |---|---|---|
-| `h1` | `clamp(2.85rem, 7.2vw, 6.5rem)` (~104px) | `clamp(2.05rem, 8.5vw, 2.85rem)` |
-| `h2` | `clamp(1.95rem, 4vw, 3rem)` (~48px) | `clamp(1.6rem, 6vw, 1.95rem)` |
-| `h3` | `clamp(1.45rem, 2.6vw, 2.15rem)` (~34px) | `clamp(1.25rem, 4.8vw, 1.45rem)` |
+| `h1` | `clamp(2.85rem, 7.2vw, 6.5rem)` (~104px) | `clamp(2.4rem, 10vw, 3.3rem)` |
+| `h2` | `clamp(1.95rem, 4vw, 3rem)` (~48px) | `clamp(1.8rem, 7vw, 2.3rem)`, lh 1.18 |
+| `h3` | `clamp(1.45rem, 2.6vw, 2.15rem)` (~34px) | `clamp(1.4rem, 5.6vw, 1.75rem)` |
 | `.eyebrow` | `1.05rem`, `font-weight:700`, Label über Sektionen | – |
 
 **Silbentrennung:** `hyphens: auto` mit `lang="de-CH"`. **Desktop (≥601px) OHNE Silbentrennung** (Headings laufen in breiter Spalte aus), Mobile MIT Trennung.

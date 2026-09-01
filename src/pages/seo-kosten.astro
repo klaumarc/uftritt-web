@@ -1,0 +1,306 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "physio-rothe", "garage-frei", "regan", "smart-navigator", "seatalytics"].includes(p.slug)
+);
+
+const ranges = [
+  {
+    name: "SEO-Audit / Basis-Optimierung",
+    price: "CHF 1500 bis 8000 einmalig",
+    note: "Analyse von Technik, Inhalten und Sichtbarkeit, dazu ein priorisierter Massnahmenplan. Der Preis hängt von Seitenzahl, Sprachen und Shop oder Nicht-Shop ab. Eine reine On-Page-Optimierung einer kleinen Website liegt am unteren Ende.",
+  },
+  {
+    name: "SEO-Betreuung, klein / lokal",
+    price: "CHF 300 bis 1500 pro Monat",
+    note: "Lokale Sichtbarkeit: Google-Unternehmensprofil, lokale Verzeichnisse, wenige Ziel-Keywords, Grundsatz-Arbeit an der Website. Typisch für Einzelfirmen und kleine Betriebe mit regionalem Einzugsgebiet.",
+  },
+  {
+    name: "SEO-Betreuung, umfassend",
+    price: "CHF 1500 bis 5000 pro Monat",
+    note: "Technik, Content, Linkaufbau und Reporting im Paket, bei einer Agentur mit Team. Nationaler Wettbewerb, E-Commerce und Mehrsprachigkeit gehen auch deutlich darüber hinaus.",
+  },
+  {
+    name: "Content / Landingpages",
+    price: "CHF 500 bis 1500 pro Inhalt",
+    note: "Projektweise produziert: eine Landingpage oder ein Fachartikel, der auf ein recherchiertes Keyword zielt. Günstige Massentexte von der Content-Plattform kosten wenig, bringen aber selten Anfragen.",
+  },
+];
+
+const faq = [
+  {
+    q: "Was kostet SEO in der Schweiz?",
+    a: "Ein einmaliges SEO-Audit kostet je nach Umfang CHF 1500 bis 8000. Eine monatliche Betreuung startet bei rund CHF 300 für lokale Sichtbarkeit und geht bei umfassender Betreuung durch eine Agentur Richtung CHF 1500 bis 5000 pro Monat. Content und Landingpages werden meist projektweise abgerechnet, grob CHF 500 bis 1500 pro Inhalt. Wo du landest, entscheiden Ausgangslage, Wettbewerb und Ziele.",
+  },
+  {
+    q: "Was kostet SEO-Betreuung bei euch?",
+    a: "Auch wir nennen keinen Listenpreis, weil jedes Keyword-Feld und jede Website anders ist. Bei uns startet es mit einem kostenlosen Erstgespräch, in dem wir uns deine Website und deine Ziele ansehen. Danach bekommst du ein transparentes Angebot mit allen Leistungen und einem klaren Preis. Wie unsere Betreuung grundsätzlich aufgebaut ist, zeigen wir auf unserer Seite zur SEO-Betreuung.",
+  },
+  {
+    q: "Einmalig optimieren oder monatlich betreuen lassen?",
+    a: "Beides hat seinen Platz. Ein Audit mit Basis-Optimierung reicht, wenn deine Website technisch solide ist und du vor allem Klarheit brauchst. Monatliche Betreuung lohnt sich, wenn du in einem umkämpften Feld wachsen willst: Google bewertet Kontinuität, und die Konkurrenz schläft nicht. Ehrlich gesagt: Wer einmal optimiert und dann zwei Jahre nichts tut, verschenkt einen Teil der Investition.",
+  },
+  {
+    q: "Wann rechnet sich SEO?",
+    a: "Wenn Kunden nach deinem Angebot suchen und ein gewonnener Auftrag mehr wert ist als die monatlichen Kosten. Ein Rechenbeispiel: Bringt SEO zwei zusätzliche qualifizierte Anfragen pro Monat und eine wird zum Auftrag, amortisiert sich eine Betreuung bei den meisten Dienstleistungen schnell. Anders als bei Google Ads bleiben die Ergebnisse, wenn du pausierst. Dafür braucht SEO Geduld: Rechne mit drei bis sechs Monaten bis zu ersten spürbaren Effekten, die eigentliche Rendite kommt nach zwölf Monaten und mehr.",
+  },
+  {
+    q: "Warum verspricht niemand Seriöses Platz 1?",
+    a: "Weil niemand Google kontrolliert. Rankings hängen von Hunderten Faktoren ab, und der Algorithmus ändert laufend. Wer Platz 1 garantiert, arbeitet entweder mit kurzlebigen Tricks, die Google früher oder später abstraft, oder meint Keywords, nach denen niemand sucht. Seriöse Anbieter versprechen saubere Arbeit, transparente Reports und messbare Entwicklung bei Sichtbarkeit und Anfragen, keinen fixen Rang.",
+  },
+  {
+    q: "Kann ich SEO auch selber machen?",
+    a: "Die Grundlagen ja: ein gepflegtes Google-Unternehmensprofil, klare Seitentitel, echte Inhalte zu den Fragen deiner Kunden und Bewertungen, die du aktiv einholst. Das kostet Zeit statt Geld. An Grenzen stösst du bei Technik, Keyword-Recherche mit Profi-Tools und Linkaufbau. Viele unserer Kunden kombinieren beides: Sie liefern ihr Fachwissen, wir bauen daraus Seiten, die gefunden werden.",
+  },
+];
+---
+
+<Layout
+  title="Was kostet SEO?, Uftritt"
+  description="Was kostet SEO in der Schweiz? Ehrliche Preisranges für Audit, monatliche Betreuung und Content. Dazu Preistreiber und die Antwort, wann sich SEO rechnet."
+>
+  <PageHero
+    eyebrow="SEO-Kosten · Schweiz"
+    title={"Was kostet\nSEO?"}
+    lead="Die ehrliche Antwort vorweg: Ein SEO-Audit kostet in der Schweiz CHF 1500 bis 8000 einmalig, eine monatliche Betreuung CHF 300 bis 5000 je nach Umfang, Content und Landingpages CHF 500 bis 1500 pro Inhalt. Entscheidend ist nicht der Preis allein, sondern ob am richtigen Hebel gearbeitet wird."
+    lottie="/lottie/marketingbegleitung.json"
+    lottieLabel="SEO-Kosten"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/marketingbegleitung/" label="Marketingbegleitung" lottie="/lottie/marketingbegleitung.json" projects={cases} />
+
+  {/* Antwort-Block: Preisranges */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Die Preisranges im Überblick</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. SEO ist keine Standardleistung,
+        darum sind das Ranges und keine Ladenpreise.
+      </p>
+    </div>
+  </section>
+
+  {/* Preistreiber + warum monatlich */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was den Preis wirklich treibt</h2>
+        <div class="lp-text">
+          <p>
+            Der grösste Treiber ist der Wettbewerb in deinem Keyword-Feld. «Anwalt
+            Zürich» zu erobern kostet ein Vielfaches von «Steuerberatung Wetzikon».
+            Lokal sichtbar werden ist fast immer günstiger als national, und national
+            günstiger als international.
+          </p>
+          <p>
+            Zweiter Punkt: die Ausgangslage deiner Website. Eine sauber gebaute,
+            schnelle Website braucht wenig Bereinigung, eine über Jahre gewachsene
+            Baustelle frisst Budget, bevor überhaupt Inhalte ranken können. Dritter
+            Punkt: Content-Umfang. Wer in einem Themenfeld gefunden werden will,
+            braucht Inhalte, und gute Inhalte sind Handarbeit.
+          </p>
+          <p>
+            Zum Einordnen: SEO-Fachleute in der Schweiz rechnen mit Stundensätzen von
+            rund CHF 140 bis 220.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Warum SEO monatlich kostet</h2>
+        <div class="lp-text">
+          <p>
+            SEO ist kein Schalter, den man einmal umlegt. Google bewertet Kontinuität:
+            neue Inhalte, gepflegte Technik, wachsende Verlinkung. Und deine Konkurrenz
+            optimiert weiter, während du pausierst. Darum wird Betreuung fast immer
+            monatlich abgerechnet, als definiertes Leistungspaket mit Reporting.
+          </p>
+          <p>
+            Plane realistisch: Erste messbare Effekte zeigen sich nach drei bis sechs
+            Monaten, die eigentliche Rendite nach zwölf Monaten und mehr. Wer dir
+            Platz 1 in vier Wochen verspricht, verkauft dir etwas, das er nicht
+            halten kann.
+          </p>
+          <p>
+            Wie eine solche Betreuung konkret aussieht, zeigen wir auf unserer Seite
+            zur <a href="/seo-betreuung/">SEO-Betreuung</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Einmalig vs. laufend + seriöse Anbieter */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Audit, Betreuung oder Content zuerst?</h2>
+        <div class="lp-text">
+          <p>
+            Die Reihenfolge entscheidet mehr als das Budget. Bei den meisten KMU ist
+            der sinnvolle Start ein Audit oder eine gezielte Analyse: Wo liegen die
+            echten Engpässe, bei der Technik, bei fehlenden Inhalten oder bei der
+            lokalen Sichtbarkeit? Dasselbe Budget am richtigen Hebel bringt Anfragen,
+            am falschen nur schönere Reports.
+          </p>
+          <p>
+            Oft ist die Basis schon beim Bau gelegt: Eine Website, die von Anfang an
+            für Google gebaut ist, spart später viel Optimierungsbudget. Was eine
+            solche Website kostet, zeigen wir in unserem Guide zu den
+            <a href="/website-kosten/">Website-Kosten</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Woran du unseriöse Angebote erkennst</h2>
+        <div class="lp-text">
+          <p>
+            Vorsicht bei «kompletter SEO-Betreuung» für wenige Hundert Franken: Dahinter
+            stecken oft automatisch generierte Reports, gekaufte Massenlinks oder
+            KI-Texte ohne Qualitätskontrolle. Gekaufte Links verstossen gegen die
+            Google-Richtlinien, und eine Abstrafung kostet mehr als die gesparte
+            Betreuung je bringt.
+          </p>
+          <p>
+            Seriöse Anbieter erklären, was sie tun, zeigen Referenzen aus dem Schweizer
+            Markt und versprechen keinen fixen Rang. Sie versprechen saubere Arbeit
+            und messbare Entwicklung bei Sichtbarkeit und Anfragen.
+          </p>
+          <p>
+            Darum arbeiten wir so: kostenloses Erstgespräch, danach ein transparentes
+            Angebot mit allen Leistungen und einem klaren Preis. Wir sind eine Agentur
+            aus dem Zürcher Oberland und arbeiten vor allem für Betriebe aus der
+            Region, mehr dazu auf unserer Seite zu
+            <a href="/webdesign-zuercher-oberland/">Webdesign im Zürcher Oberland</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu SEO-Kosten</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Willst du wissen, was SEO für dich kostet?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deinem Vorhaben. Du bekommst ein ehrliches, transparentes
+        Angebot, kostenlos und unverbindlich.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .kosten-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .kosten-liste li {
+    display: flex; flex-direction: column; gap: 0.15rem;
+    padding: 0.9rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem;
+  }
+  .kosten-liste li:last-child { border-bottom: 0; }
+  .kosten-liste span { opacity: 0.85; }
+  .abo-hinweis {
+    margin-top: 1.25rem; padding: 1rem 1.25rem;
+    border-left: 4px solid var(--color-yellow);
+    background: #fff; color: var(--color-blue);
+    font-size: 1.05rem !important; line-height: 1.6;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges { grid-template-columns: 1fr; }
+  }
+</style>

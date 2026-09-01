@@ -1,0 +1,317 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["cynterim", "regan", "seatalytics"].includes(p.slug)
+);
+
+const pakete = [
+  {
+    name: "Start",
+    price: "CHF 5950",
+    einmalig: "einmalig",
+    features: [
+      "Onepager: deine Website auf einer Seite, konzipiert, gestaltet und umgesetzt",
+      "Logo in 3 hochwertig ausgearbeiteten Varianten, sauber reingezeichnet, inklusive allen Dateiformaten",
+      "Visitenkarten, gestaltet und druckfertig",
+      "E-Mail-Adresse auf deiner Domain, eingerichtet und erklärt",
+    ],
+    zugabe: "Website-Wartung mit Hosting, Updates und Backups für CHF 33 pro Monat dazu.",
+  },
+  {
+    name: "Wachstum",
+    price: "CHF 12 450",
+    einmalig: "einmalig",
+    features: [
+      "Website mit bis zu 7 Unterseiten, konzipiert, gestaltet und umgesetzt",
+      "Kleines Corporate Design mit Manual: Logo, Farbwelt, Typografie",
+      "E-Mail-Adresse auf deiner Domain, eingerichtet und erklärt",
+      "E-Mail-Signatur im neuen Erscheinungsbild",
+      "Flyer, gestaltet und druckfertig",
+      "Visitenkarten, gestaltet und druckfertig",
+    ],
+    zugabe: "Auch hier: Website-Wartung für CHF 33 pro Monat dazu.",
+  },
+  {
+    name: "Markteintritt",
+    price: "CHF 24 500",
+    einmalig: "einmalig",
+    features: [
+      "Website mit bis zu 40 Unterseiten, konzipiert, gestaltet und umgesetzt",
+      "Grosses Corporate Design mit Manual: Logo, Farbwelt, Typografie, Bildwelt, Gestaltungselemente",
+      "E-Mail-Adresse und E-Mail-Signatur im neuen Erscheinungsbild",
+      "Flyer und Visitenkarten, gestaltet und druckfertig",
+      "Social-Media-Aufbau: Profile eingerichtet, Start-Content produziert",
+      "Foto-Shooting (halber Tag) für Bildmaterial, das wirklich nach dir aussieht",
+      "Optional erweiterbar: Onlineshop, Mehrsprachigkeit oder Intranet (wird transparent dazu offeriert)",
+    ],
+    zugabe: "Website-Wartung für CHF 33 pro Monat dazu.",
+  },
+];
+
+const ablauf = [
+  "Kostenloses Erstgespräch: Wir hören zu, was dein Startup braucht",
+  "Paketwahl und Kick-off: Wir fixieren Umfang, Preis und Zeitplan schriftlich",
+  "Konzept und Design: Du siehst früh Entwürfe und einen klickbaren Prototypen",
+  "Umsetzung und Launch: Website live, Unterlagen druckfertig, E-Mail läuft",
+  "Betreuung danach: Wartung im Monatspreis oder laufende Begleitung, wenn du mehr willst",
+];
+
+const faq = [
+  {
+    q: "Warum zeigt ihr hier Preise und sonst nirgends?",
+    a: "Weil Startups am Anfang Planungssicherheit brauchen. Diese drei Pakete sind klar umrissene Produkte mit klar umrissenem Umfang, darum können wir sie mit einem Fixpreis anbieten. Für alles Individuelle, etwa Shops, Apps oder Sonderfunktionen, bekommst du weiterhin ein transparentes Angebot nach dem Erstgespräch.",
+  },
+  {
+    q: "Was ist im Paketpreis alles drin, was nicht?",
+    a: "Drin ist exakt das, was aufgelistet ist: Konzeption, Design, Umsetzung und die genannten Produkte. Nicht drin sind laufende Kosten wie die Website-Wartung (CHF 33 pro Monat), Druckkosten für Flyer und Visitenkarten und alles, was über den beschriebenen Umfang hinausgeht, etwa mehr Unterseiten oder Sonderfunktionen. Das besprechen wir vorher, nie hinterher auf der Rechnung.",
+  },
+  {
+    q: "Wir sind mehrere Gründer ohne Zeit. Wie aufwendig ist das für uns?",
+    a: "Für dich minimal: Ein Erstgespräch, Feedback zu den Entwürfen, fertig. Wir brauchen von dir nur, was wir nicht wissen können: wer ihr seid, was ihr anbietet und wen ihr erreichen wollt. Den Rest machen wir.",
+  },
+  {
+    q: "Können wir später erweitern?",
+    a: "Jederzeit. Viele starten mit dem Onepager und bauen später Unterseiten, Blog oder Shop dazu. Deine Website wird von Anfang an so gebaut, dass sie wachsen kann, und dein Erscheinungsbild trägt das mit.",
+  },
+  {
+    q: "Wie schnell sind wir live?",
+    a: "Das hängt vom Paket und deinen Feedbackschlaufen ab, gerechnet in Wochen, nicht Monaten. Beim Kick-off bekommt ihr einen verbindlichen Zeitplan mit eurem Lancierungsdatum, falls ihr eines habt.",
+  },
+  {
+    q: "Brauchen wir schon eine Domain und E-Mail?",
+    a: "Nein. Wir richten Domain und E-Mail-Adresse für euch ein und zeigen euch, wie alles funktioniert. Wenn ihr schon etwas habt, ziehen wir es um oder binden es ein.",
+  },
+];
+---
+
+<Layout
+  title="Website und Branding für Startups - Uftritt"
+  description="Startup-Pakete mit Fixpreis: Onepager ab CHF 5950 oder Website mit Corporate Design ab CHF 12 450. Logo, Visitenkarten und E-Mail aus einer Hand."
+>
+  <PageHero
+    eyebrow="Startup-Pakete · Fixpreis"
+    title={"Dein Startup,\nsichtbar ab Tag 1"}
+    lead="Du gründest und brauchst einen Auftritt, der sitzt: Website, Logo, Visitenkarten und E-Mail, alles aus einer Hand. Unsere Startup-Pakete gibt es zum Fixpreis, weil du am Anfang Planungssicherheit brauchst. Konzipiert und gebaut von der Agentur aus dem Zürcher Oberland, mit Betreuung nach dem Launch."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Pakete */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Drei Pakete, klare Preise</span>
+        <h2>Wähl deinen Startpunkt</h2>
+      </header>
+      <div class="pakete" data-reveal>
+        {
+          pakete.map((p) => (
+            <article class="paket">
+              <h3>{p.name}</h3>
+              <p class="paket-preis">{p.price} <span>{p.einmalig}</span></p>
+              <ul class="modul-liste">
+                {p.features.map((f) => <li><span class="modul-check">✓</span>{f}</li>)}
+              </ul>
+              <p class="paket-zugabe">{p.zugabe}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Alle Preise exkl. MwSt., einmalig, inklusive Konzeption, Design und
+        Umsetzung. Nicht enthalten: Druckkosten und laufende Kosten. Alles, was
+        über den Paketumfang hinausgeht, besprechen wir vorher und offerieren
+        transparent.
+      </p>
+    </div>
+  </section>
+
+  {/* Ehrlichkeit */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Warum wir das können</h2>
+        <div class="lp-text">
+          <p>
+            Weil bei uns alles unter einem Dach entsteht: Konzept,
+            <a href="/angebot/grafikdesign/">Grafikdesign</a>,
+            <a href="/angebot/webdesign/">Webentwicklung</a>, Text und
+            <a href="/angebot/videoproduktion/">Video</a>. Du hast einen Draht
+            zu uns statt vier verschiedene Lieferanten, und dein Auftritt kommt
+            aus einem Guss.
+          </p>
+          <p>
+            Und weil wir selbst ein junges Unternehmen sind. Wir wissen, wie es sich
+            anfühlt, wenn jeder Franken sitzen muss, und haben unsere Prozesse so
+            gebaut, dass Qualität auch im Paket bezahlbar bleibt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ehrlich: Was Pakete nicht können</h2>
+        <div class="lp-text">
+          <p>
+            Eine App oder individuelle Sonderfunktionen passen in kein Paket.
+            Sowas rechnen wir sauber als Projekt, mit transparentem Angebot
+            nach dem Erstgespräch. Ein Onlineshop, Mehrsprachigkeit oder ein
+            Intranet sind als Erweiterung des Markteintritt-Pakets möglich und
+            werden ebenfalls transparent offeriert, bevor es losgeht.
+          </p>
+          <p>
+            Auch ehrlich: Ein Paket heisst klarer Umfang. Mehr Unterseiten, mehr
+            Korrekturrunden, mehr Produkte gehen immer, kosten aber mehr. Das legen
+            wir vorher offen, versprochen.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Nach dem Launch</h2>
+        <div class="lp-text">
+          <p>
+            Deine Website braucht Pflege: Updates, Backups, kleine Anpassungen. Das
+            übernehmen wir mit der <a href="/website-betreuung/">Website-Betreuung
+            für CHF 33 pro Monat</a>, ohne dass du dich um Technik kümmern musst.
+          </p>
+          <p>
+            Und wenn du merkst, dass Marketing mehr braucht als eine gute Basis:
+            Wir werden deine <a href="/marketing-auslagern/">externe
+            Marketingabteilung</a>, sobald du bereit bist.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu den Startup-Paketen</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deinen Markteintritt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deinem Startup. Wir sagen dir ehrlich, welches Paket passt,
+        und schicken dir das schriftliche Angebot dazu.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .pakete { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); align-items: stretch; }
+  .paket {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .paket h3 { color: var(--color-blue); font-size: 1.35rem; margin: 0; }
+  .paket-preis { color: var(--color-pink); font-weight: 800; font-size: 1.6rem; margin: 0 0 0.75rem; }
+  .paket-preis span { color: var(--color-blue); font-weight: 500; font-size: 0.95rem; opacity: 0.7; }
+  .paket-zugabe { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0.75rem 0 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+  .modul-check {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.85rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .pakete { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+</style>

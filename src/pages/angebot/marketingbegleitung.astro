@@ -14,22 +14,24 @@ const blocks = [
   {
     title: "Strategie und Planung",
     text: [
-      "Wer soll wann und womit erreicht werden? Gemeinsam definieren wir Ziele, Zielgruppen und einen Massnahmenplan, der zu deinem Budget passt.",
-      "So weisst du von Anfang an, wohin die Reise geht – und warum.",
+      "Deine Botschaft, deine Dienstleistung oder dein Produkt bringen wenig Erfolg, wenn sie nicht auf direktem Weg an deine Zielgruppe gelangen. Wer soll wann und womit erreicht werden? Gemeinsam definieren wir Ziele, Zielgruppen und einen Massnahmenplan, der zu deinem Budget passt.",
+      "So weisst du von Anfang an, wohin die Reise geht und warum.",
     ],
   },
   {
     title: "Content und Kampagnen",
     text: [
-      "Von Social Media über Newsletter bis zur Printkampagne: Wir produzieren Inhalte, die zusammenpassen und deine Botschaft konsequent transportieren.",
-      "Ein Auftritt aus einer Hand – über alle Kanäle hinweg stimmig.",
+      "Von Social Media über Newsletter bis zur Printkampagne: Wir produzieren Inhalte, die aus einem Guss kommen und deine Botschaft auf allen Kanälen konsequent transportieren.",
+      "So erhält die Botschaft maximale Aufmerksamkeit und bleibt im Kopf hängen.",
+      'Auf Wunsch übernehmen wir die komplette <a href="/social-media-betreuung/">Social-Media-Betreuung</a> für dich, von der Planung bis zum Posten. Und damit deine Website in Google gefunden wird, zeigt ein <a href="/seo-audit/">SEO-Audit</a>, wo du stehst und welche Massnahmen sich lohnen.',
     ],
   },
   {
     title: "Begleitung und Auswertung",
     text: [
-      "Wir bleiben dran, behalten die Resultate im Blick und justieren laufend nach.",
+      "Wir bleiben dran, behalten die Resultate von Kampagnen und anderen Massnahmen im Blick und justieren, wo nötig, in Absprache mit dir, nach.",
       "So wirkt dein Marketing nicht nur einmal, sondern wächst mit dir mit.",
+      'Damit du regional gefunden wirst, kümmern wir uns um <a href="/local-seo/">Local SEO</a>. Und wenn es schneller gehen soll, bringt dich unsere <a href="/google-ads-betreuung/">Google-Ads-Betreuung</a> mit bezahlten Anzeigen direkt vor die passende Zielgruppe.',
     ],
   },
 ];
@@ -38,16 +40,16 @@ const steps = [
   { icon: "/img/icons/zuhoeren-icon.svg", t: "Zuhören und verstehen", d: "Was willst du erreichen, wen willst du ansprechen? Wir nehmen deine Ziele auf." },
   { icon: "/img/icons/analyse-icon.svg", t: "Strategie", d: "Wir analysieren Markt und Zielgruppe und entwickeln einen klaren Massnahmenplan." },
   { icon: "/img/icons/brainstorm-icon.svg", t: "Konzept und Content", d: "Wir entwickeln Ideen und produzieren die passenden Inhalte für deine Kanäle." },
-  { icon: "/img/icons/austauschen-icon.svg", t: "Umsetzung", d: "Wir bringen die Kampagne live – koordiniert über alle Kanäle hinweg." },
-  { icon: "/img/icons/abheben-icon.svg", t: "Auswerten und Optimieren", d: "Wir messen, lernen und justieren nach, damit dein Marketing besser und besser wird." },
+  { icon: "/img/icons/austauschen-icon.svg", t: "Umsetzung", d: "Wir bringen die Kampagne live, koordiniert über alle Kanäle hinweg." },
+  { icon: "/img/icons/abheben-icon.svg", t: "Auswerten und optimieren", d: "Wir messen, lernen und justieren nach, damit dein Marketing besser und besser wird." },
 ];
 ---
 
-<Layout title="Marketingbegleitung – Uftritt" description="Strategisch geplant, kreativ umgesetzt und messbar – wir begleiten dein Marketing über Kampagnen und Kanäle hinweg.">
+<Layout title="Marketingbegleitung im Zürcher Oberland, Uftritt" description="Strategisch geplant, kreativ umgesetzt und messbar, wir begleiten dein Marketing über Kampagnen und Kanäle hinweg.">
   <PageHero
     eyebrow="Angebot"
     title="Marketingbegleitung"
-    lead="Gutes Marketing ist kein Einzelschuss, sondern ein roter Faden. Wir begleiten dich über Kampagnen und Kanäle hinweg – strategisch geplant, kreativ umgesetzt und messbar."
+    lead="Sichtbarkeit entsteht nicht zufällig. Wir begleiten dich strategisch über die passenden Kanäle, planen die Massnahmen gemeinsam und sorgen dafür, dass deine Botschaft konstant und glaubwürdig bei deiner Zielgruppe ankommt."
     lottie="/lottie/marketingbegleitung.json"
     lottieLabel="Marketingbegleitung"
   />
@@ -58,7 +60,7 @@ const steps = [
         blocks.map((b) => (
           <article class="lp-block" data-reveal>
             <h2>{b.title}</h2>
-            <div class="lp-text">{b.text.map((p) => <p>{p}</p>)}</div>
+            <div class="lp-text">{b.text.map((p) => <p set:html={p} />)}</div>
           </article>
         ))
       }
@@ -86,10 +88,23 @@ const steps = [
   {/* Referenzen */}
   <RefStrip title="Kampagnen aus unserem Portfolio" projects={portfolio} />
 
+  {/* Interne Verlinkung LP-Programm */}
+  <section class="section">
+    <div class="container mehr-dazu" data-reveal>
+      <h2>Erfahre mehr</h2>
+      <ul class="md-liste">
+        <li><a href="/marketing-auslagern/">Marketing auslagern</a></li>
+        <li><a href="/seo-betreuung/">SEO-Betreuung</a></li>
+        <li><a href="/seo-kosten/">Was kostet SEO?</a></li>
+        <li><a href="/google-business-profile/">Google Business Profile</a></li>
+      </ul>
+    </div>
+  </section>
+
   <section class="section section--yellow">
     <div class="container lp-cta" data-reveal>
       <h2>Bereit, sichtbar zu werden?</h2>
-      <Button href="/kontakt" variant="blue">Schriib eus</Button>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
     </div>
   </section>
 </Layout>

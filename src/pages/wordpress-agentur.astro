@@ -1,0 +1,281 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) => ["aweso", "regan", "garage-frei"].includes(p.slug));
+
+const passt = [
+  {
+    title: "Grosse Content-Strukturen",
+    note: "Viele Seiten, Bereiche und Archive sauber organisiert: WordPress bildet auch umfangreiche Websites mit klarer Struktur ab, etwa für Firmen mit mehreren Angeboten oder Standorten.",
+  },
+  {
+    title: "Blog und News im Zentrum",
+    note: "WordPress ist als Blogsystem geboren, und man merkt es: Beiträge schreiben, kategorisieren und publizieren geht schnell und ohne Technik-Wissen. Ideal, wenn du regelmässig Inhalte veröffentlichst.",
+  },
+  {
+    title: "Mehrsprachigkeit",
+    note: "Deutsch, Französisch, Englisch oder mehr: Mehrsprachige Websites sind mit WordPress bewährt umsetzbar, wie unsere zweisprachige Arbeit für aweso.ch zeigt.",
+  },
+  {
+    title: "Bestehende WordPress-Welt",
+    note: "Läuft dein Umfeld bereits auf WordPress, steigst du nahtlos ein. Und für fast jeden Sonderwunsch existiert ein bewährtes Plugin aus einer riesigen Auswahl.",
+  },
+];
+
+const faq = [
+  {
+    q: "WordPress oder Webflow: Was passt für uns?",
+    a: "Kommt aufs Projekt an. WordPress glänzt bei grossen Content-Strukturen, Blogs und Mehrsprachigkeit oder wenn dein Umfeld bereits darauf läuft. Webflow ist stark bei massgeschneidertem Design und geringem Wartungsaufwand. Wir beherrschen beides und empfehlen dir das, was zu deinem Vorhaben passt, nicht das, was uns gerade in den Kram passt.",
+  },
+  {
+    q: "Was kostet eine WordPress-Website bei euch?",
+    a: "Das hängt vom Umfang ab: Onepager, Firmenwebsite mit Blog oder ein mehrsprachiger Auftritt mit vielen Seiten. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit allen Leistungen und einem klaren Preis. Auch die laufenden Kosten für Hosting und Betreuung legen wir offen, ohne versteckte Posten.",
+  },
+  {
+    q: "Ist WordPress sicher?",
+    a: "Ja, wenn die Website gepflegt wird. Sicherheitslücken entstehen fast immer durch veraltete Plugins, Themes oder eine vernachlässigte Grundinstallation, nicht durch WordPress selbst. Wir halten System und Erweiterungen aktuell, sichern die Website regelmässig und härten sie ab. Auf Wunsch übernehmen wir das komplett für dich.",
+  },
+  {
+    q: "Kann ich meine WordPress-Website selbst pflegen?",
+    a: "Ja, genau dafür ist WordPress gemacht: Texte, Bilder, Beiträge und Seiten bearbeitest du im Editor selbst, ohne Programmierkenntnisse. Wir richten alles so ein, dass du dich schnell zurechtfindest, und schulen dich in einer kurzen Session. Die technische Pflege wie Updates kannst du uns überlassen.",
+  },
+  {
+    q: "Übernehmt ihr auch bestehende WordPress-Sites?",
+    a: "Gerne. Wir schauen uns den Stand an: Installation, Plugins, Performance und Sicherheit. Danach sagen wir dir ehrlich, was sich lohnt, ob Aufräumen und Weiterbauen reicht oder ob ein Relaunch mehr bringt. Auch verwilderte Sites mit Plugin-Chaos bringen wir wieder auf Kurs.",
+  },
+  {
+    q: "Baut ihr auch mehrsprachige WordPress-Websites?",
+    a: "Ja, Mehrsprachigkeit gehört zu den grössten Stärken von WordPress. Für die Aweso AG haben wir den Auftritt zweisprachig auf Deutsch und Französisch umgesetzt. Wir richten die Sprachstruktur so ein, dass du alle Versionen bequem selbst pflegst, für Google sauber getrennt.",
+  },
+];
+---
+
+<Layout
+  title="WordPress-Agentur Zürcher Oberland - Uftritt"
+  description="Schlanke WordPress-Websites für KMU zum Selbstpflegen, aus dem Zürcher Oberland. Was kostet eine WordPress-Website? Ehrliche Antwort im gratis Erstgespräch."
+>
+  <PageHero
+    eyebrow="WordPress · Über ein Jahrzehnt Erfahrung"
+    title={"WordPress-Agentur\nin der Schweiz"}
+    lead="Uftritt ist eine WordPress-Agentur aus dem Zürcher Oberland. Wir bauen schlanke WordPress-Websites für KMU, die du selbst pflegen kannst, und betreuen sie nach dem Launch weiter. Hier erfährst du ehrlich, wann WordPress die richtige Wahl ist, wo die Grenzen liegen und wann wir dir stattdessen Webflow empfehlen."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Einordnung */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was ist WordPress?</h2>
+        <div class="lp-text">
+          <p>
+            WordPress ist das meistgenutzte System für Websites der Welt: Über
+            40 Prozent aller Websites laufen damit. Die Software ist Open
+            Source, in der Grundversion kostenlos und wird von einer riesigen
+            Community laufend weiterentwickelt.
+          </p>
+          <p>
+            Vom einfachen Blog bis zur mehrsprachigen Firmenwebsite: WordPress
+            bildet fast jede Struktur ab und wächst mit. Für KMU heisst das:
+            eine bewährte Basis ohne Lizenzkosten, mit der du deine Inhalte
+            selbst pflegst. Wie wir Websites umsetzen, zeigt unser{" "}
+            <a href="/angebot/webdesign/">Angebot Webdesign</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Beleg aus eigener Werkstatt</h2>
+        <div class="lp-text">
+          <p>
+            WordPress ist bei uns keine Theorie: Die Website der Aweso AG aus
+            Wetzikon haben wir auf WordPress konzipiert und gebaut, zweisprachig
+            auf Deutsch und Französisch. Seit dem Launch betreuen wir den
+            Auftritt laufend weiter.
+          </p>
+          <p>
+            Wir arbeiten seit über einem Jahrzehnt mit WordPress und kennen
+            Stärken und Stolpersteine aus dem Effeff. Den Aweso-Case siehst du
+            in unserem <a href="/projekte/aweso/">Projekt Aweso</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Wann WordPress passt */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Die Stärken</span>
+        <h2>Wann WordPress passt</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          passt.map((k) => (
+            <article class="karte">
+              <h3>{k.title}</h3>
+              <p class="karte-note">{k.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Grenzen ehrlich + was wir anders machen */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wo WordPress ehrlich an Grenzen stösst</h2>
+        <div class="lp-text">
+          <p>
+            WordPress will gewartet werden: Updates fürs System, fürs Theme und
+            für jedes Plugin. Wer das schleifen lässt, riskiert
+            Sicherheitslücken und eine langsame Website. Diese Betreuung musst
+            du einplanen, bei uns oder intern.
+          </p>
+          <p>
+            Und Vorsicht beim Plugin-Markt: Zu viele oder schlecht gepflegte
+            Plugins machen Websites langsam und fehleranfällig. Das berühmte
+            Plugin-Chaos ist der häufigste Grund, warum WordPress-Sites mit den
+            Jahren verkommen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was wir bei WordPress anders machen</h2>
+        <div class="lp-text">
+          <p>
+            Wir bauen schlank: Nur geprüfte Plugins, die wirklich gebraucht
+            werden, statt einer Plugin-Wüste. Dazu Performance von Anfang an
+            mit sauberem Code, optimierten Bildern und schnellem Hosting.
+          </p>
+          <p>
+            Nach dem Launch lassen wir dich nicht allein: Wir schulen dich,
+            damit du Inhalte selbst pflegst, und kümmern uns auf Wunsch um
+            Updates, Backups und Sicherheit. Und wenn Webflow für dein Projekt
+            die bessere Wahl ist, sagen wir dir das ehrlich: Als{" "}
+            <a href="/webflow-agentur/">Webflow-Agentur</a> kennen wir beide
+            Welten und empfehlen nach Projekt, nicht nach Ideologie.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wartung und Betreuung, auch für bestehende Sites</h2>
+        <div class="lp-text">
+          <p>
+            WordPress lebt von Pflege: Updates für System, Theme und Plugins,
+            regelmässige Backups, Sicherheits-Härtung und ein Auge auf die
+            Ladezeiten. Genau das übernehmen wir als laufende Betreuung,
+            auch für Websites, die nicht von uns gebaut wurden.
+          </p>
+          <p>
+            Du hast eine WordPress-Site geerbt oder sie ist über die Jahre
+            verwildert? Wir schauen uns Installation, Plugins, Performance und
+            Sicherheit an und sagen dir ehrlich, ob Aufräumen reicht oder ein
+            Relaunch mehr bringt. Mehr dazu auf unserer Seite zur
+            <a href="/website-betreuung/">Website-Betreuung</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu WordPress</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Passt WordPress zu deinem Projekt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du vorhast. Wir sagen dir ehrlich, ob WordPress die
+        richtige Basis ist, und machen ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

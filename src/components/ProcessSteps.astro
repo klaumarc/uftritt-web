@@ -21,7 +21,7 @@ const { steps, showIcons = false } = Astro.props;
     steps.map((s, i) => (
       <li class="step">
         {showIcons && s.icon && (
-          <img class="step-icon" src={s.icon} alt="" width="48" height="48" />
+          <img class="step-icon" src={s.icon} alt={s.t} width="48" height="48" />
         )}
         <span class="step-no">{String(i + 1).padStart(2, "0")}</span>
         <h3>{s.t}</h3>

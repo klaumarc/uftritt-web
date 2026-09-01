@@ -1,0 +1,298 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["it-stall", "100pro-openair-2024", "physio-rothe"].includes(p.slug)
+);
+
+const orte = [
+  { name: "Bauma", href: "/webdesign-bauma/", note: "unser Gemeindehauptort" },
+  { name: "Tösstal", href: "/webdesign-toesstal/", note: "unser Tal" },
+  { name: "Bäretswil", href: "/webdesign-baeretswil/", note: "Nachbargemeinde von Bauma" },
+  { name: "Hinwil", href: "/webdesign-hinwil/", note: "am Fusse des Bachtels" },
+  { name: "Pfäffikon", href: "/webdesign-pfaeffikon/", note: "am Pfäffikersee" },
+  { name: "Wetzikon", href: "/webdesign-wetzikon/", note: "Einkaufsstadt der Region" },
+];
+
+const weitere = ["Wila", "Wildberg", "Hittnau", "Turbenthal", "Fischenthal", "Sternenberg", "Steg im Tösstal"];
+
+const faq = [
+  { q: "Was kostet eine Website für einen Betrieb in Saland?", a: "Das hängt vom Umfang ab, vom Onepager bis zur grösseren Plattform. Nach einem kostenlosen Erstgespräch erhältst du ein transparentes Angebot mit klarem Preis. Ohne Kleingedrucktes." },
+  { q: "Wo genau ist euer Büro?", a: "An der Frauwisstrasse 9 in Saland, bei den Festhütten, mitten im Dorf. Komm einfach vorbei oder ruf kurz an: +41 44 500 29 55." },
+  { q: "Macht ihr auch etwas Kleines, z. B. nur eine Visitenkarten-Website?", a: "Klar, nicht jeder Betrieb braucht die grosse Plattform. Für viele im Dorf reicht eine schlanke Seite mit Leistungen, Öffnungszeiten und Kontakt. Wir beraten dich ehrlich, welcher Umfang für dich Sinn macht, und bauen genau das, nicht mehr." },
+  { q: "Werde ich als Betrieb in Saland überhaupt gefunden?", a: "Ja, wenn die Basis stimmt. Wer in Saland einen Handwerker, eine Praxis oder einen Laden sucht, googelt zuerst. Wir liefern jede Website mit sauberer SEO-Grundlage aus: klare Struktur, schnelle Ladezeiten, korrekte Meta-Texte, Anmeldung bei Google. Und mit einem gepflegten Google-Unternehmensprofil tauchst du auch auf der Karte auf, dort, wo viele lokale Suchen enden." },
+  { q: "Wir haben schon eine Website, lohnt sich ein Relaunch?", a: "Kommt auf den Zustand an: Ist die Seite älter als fünf Jahre, lädt sie langsam oder funktioniert sie auf dem Handy schlecht, ist ein Neubau meist sinnvoller als Flickwerk. Wir schauen uns deine bestehende Seite kostenlos an und sagen dir offen, ob sich ein Relaunch lohnt, auch dann, wenn die Antwort Nein lautet." },
+  { q: "Wer kümmert sich nach dem Launch um die Website?", a: "Wenn du willst: wir. Wir übernehmen Updates, Backups und kleine Anpassungen und bleiben erreichbar, wenn etwas hakt. Möchtest du die Seite lieber selbst pflegen? Dann zeigen wir dir, wie es geht, und stehen im Hintergrund bereit." },
+  { q: "Kann ich die Website danach selbst pflegen?", a: "Ja. Wir bauen die Seite so, dass du Texte, Bilder und Beiträge selbst anpassen kannst, und zeigen dir in einer Schulung, wie es geht. Und wenn doch einmal etwas hakt, sind wir nur einen Anruf entfernt." },
+  { q: "Wie lange dauert ein Website-Projekt?", a: "Je nach Umfang 4 bis 12 Wochen, du siehst früh einen klickbaren Prototypen." },
+];
+---
+
+<Layout
+  title="Webdesign Saland, Uftritt"
+  description="Webdesign in Saland: Webseite erstellen lassen bei der Webagentur mitten im Dorf, Frauwisstrasse 9, für KMU, Gewerbe und Vereine im oberen Tösstal."
+>
+  <PageHero
+    eyebrow="Webdesign · Saland"
+    title={"Webdesign\nSaland"}
+    lead="Du suchst Webdesign in Saland? Dann musst du nicht weit: Uftritt ist mitten im Dorf zuhause, an der Frauwisstrasse 9. Wir entwickeln Websites für KMU und Gewerbe in Saland und im oberen Tösstal, persönlich, ehrlich und ohne Template. Kürzere Wege geht es nicht."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Mitten im Dorf, nicht irgendwo in der Stadt</h2>
+        <div class="lp-text">
+          <p>
+            Saland, «im Saland», wie es hier heisst, ist ein Dorf der Gemeinde
+            Bauma im oberen Tösstal: gut 5000 Einwohnerinnen und Einwohner in der
+            Gemeinde, die Töss mitten durchs Dorf, dazu die Weiler Blitterswil,
+            Juckern und Dillhaus. Der eigene Haltepunkt der S 26 verbindet uns mit
+            Winterthur und Rüti, der Campingplatz liegt direkt an der Töss, und
+            bei den Festhütten, mitten im Dorf, ist unsere Agentur zuhause.
+          </p>
+          <p>
+            Für dich heisst das: Du sprichst dein Anliegen nicht in ein
+            Kontaktformular einer Grossstadt-Agentur, sondern direkt bei uns am
+            Tisch, der Kaffee steht bereit. Und wir kennen das Umfeld: die
+            Betriebe im Dorf und entlang der Töss, die Vereine, die Leute. Wer
+            hier arbeitet, weiss, wie Kommunikation in einem Dorf funktioniert.
+          </p>
+          <p>
+            Erreichen kannst du uns übrigens auch ohne Auto: mit der S 26 bis
+            Haltepunkt Saland. Mit dem Auto findest du uns direkt über die
+            Tösstalstrasse, anfahren, klingeln, fertig.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Auch in Saland schon am Werk</h2>
+        <div class="lp-text">
+          <p>
+            Für das IT-Unternehmen it-stall hier im Dorf haben wir Corporate
+            Design und Website entwickelt, vom Logo über die Texte bis zur
+            Fotografie. Und das 100pro Openair, der Musikanlass, der jedes Jahr
+            Menschen ins Tösstal zieht, läuft mit Marketing, Website und
+            Werbemitteln von uns.
+          </p>
+          <p>
+            Ebenfalls in der Gemeinde, einen Ort weiter: Für die Physiotherapie
+            &amp; Sport-Reha in Bauma haben wir die Website neu gebaut und Praxis
+            und Team fotografiert. Und unsere eigene Website? Komplett in Saland
+            entstanden, von der ersten Zeile Code bis zum letzten Text. Was wir
+            für dich bauen, benutzen wir selbst.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Webseite erstellen lassen, bei der Webagentur mitten im Dorf</h2>
+        <div class="lp-text">
+          <p>
+            Was muss eine Website für einen Betrieb in Saland leisten? Zuerst
+            einmal: gefunden werden. Wer nach dir sucht, soll Leistungen,
+            Öffnungszeiten und Kontaktmöglichkeiten sofort finden, auf dem Handy
+            genauso wie am Computer, denn ein grosser Teil der Besuche kommt heute
+            übers Smartphone. Und wer dich noch nicht kennt, soll dich über Google
+            entdecken können. Deshalb ist die SEO-Basis bei uns keine Zusatzoption,
+            sondern immer dabei: saubere Struktur, schnelle Ladezeiten, korrekte
+            Meta-Texte, Anmeldung bei Google.
+          </p>
+          <p>
+            Und weil wir nicht nur Webagentur, sondern Werbeagentur sind,
+            bekommst du bei uns auch alles rund um die Homepage: Logo und
+            Erscheinungsbild, Printwerbung, Video, Social Media. Ein Partner für
+            die ganze Kommunikation, statt fünf Ansprechpersonen für fünf
+            Disziplinen. Das spart dir Abstimmungsaufwand, und am Ende kommt
+            alles aus einem Guss.
+          </p>
+          <p>
+            Damit du in Saland und Umgebung auch auf der Karte sichtbar bist,
+            richten wir dir auf Wunsch das
+            <a href="/google-business-profile/">Google-Unternehmensprofil</a> ein
+            und zeigen dir, wie du es pflegst, für viele Dorfbetriebe der
+            einfachste erste Schritt zu mehr Sichtbarkeit. Und wir sagen es auch,
+            wenn weniger genügt: Für manchen Betrieb ist ein gut gemachter
+            Onepager die richtige Antwort, kein Grossprojekt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In vier Schritten zur neuen Website</h2>
+        <div class="lp-text">
+          <p>
+            Vom ersten Kaffee bis zum Go-Live: So läuft ein Website-Projekt bei
+            uns ab, transparent, ohne Fachchinesisch und ohne Endlosschleifen.
+          </p>
+          <p>
+            <strong>1. Erstgespräch, bei dir oder bei uns.</strong> Kostenlos
+            und unverbindlich. Wir kommen gerne in deinen Betrieb, oder du
+            schaust bei uns an der Frauwisstrasse vorbei. Wir hören zu, stellen
+            Fragen und sagen dir ehrlich, was du brauchst. Und was nicht.
+          </p>
+          <p>
+            <strong>2. Konzept und Prototyp.</strong> Du siehst früh, wie die
+            Seite aussieht und sich anfühlt, als klickbarer Entwurf, nicht als
+            abstraktes Konzeptpapier. Erst wenn es dir gefällt, geht es weiter.
+          </p>
+          <p>
+            <strong>3. Umsetzung.</strong> Design, Texte, Fotografie, Technik:
+            Wir bauen die Website komplett, auf Wunsch inklusive Texten, die wir
+            für dich schreiben, und Bildern, die wir bei dir im Betrieb
+            fotografieren.
+          </p>
+          <p>
+            <strong>4. Launch und danach.</strong> Nach dem Go-Live bleiben wir
+            erreichbar: mit <a href="/website-betreuung/">laufender Betreuung und
+            Wartung</a>, mit <a href="/seo-betreuung/">SEO-Begleitung</a> oder mit
+            einer Schulung, damit du Inhalte selbst anpassen kannst. Deine
+            bestehende Website ist in die Jahre gekommen? Dann starten wir mit
+            einem <a href="/website-relaunch/">Relaunch</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Und was kostet das Ganze?</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlich gesagt: Das kann dir keine seriöse Agentur pauschal
+            beantworten, der Onepager für den Handwerksbetrieb kostet weniger
+            als die Plattform mit Shop und Mitgliederbereich. Was wir versprechen:
+            Nach dem kostenlosen Erstgespräch erhältst du ein detailliertes
+            Angebot mit allen Leistungen und einem festen Preis. Was wir für
+            welchen Betrag liefern, steht schriftlich, kein Kleingedrucktes,
+            keine Überraschungen. Und wenn das Budget begrenzt ist, bauen wir in
+            Etappen: erst die schlanke Basis, dann der Ausbau, wenn er sich
+            rechnet.
+          </p>
+          <p>
+            Wenn du vorher wissen willst, mit welchen Grössenordnungen zu rechnen
+            ist: Unser <a href="/website-kosten/">Guide zu den Website-Kosten</a>
+            zeigt echte Marktpreise in der Schweiz, nützlich, egal ob du am Ende
+            mit uns arbeitest oder mit jemand anderem.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">In deiner Nähe</span>
+        <h2>Webdesign in deinem Ort</h2>
+      </header>
+      <div class="orte" data-reveal>
+        {
+          orte.map((o) => (
+            <a class="ort-card" href={o.href}>
+              <span class="ort-name">{o.name}</span>
+              <span class="ort-note">{o.note}</span>
+            </a>
+          ))
+        }
+      </div>
+      <p class="orte-note" data-reveal>
+        Und natürlich auch in: {weitere.join(", ")}, und überall sonst zwischen
+        Bachtel und Hörnli.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deinen neuen Webauftritt in Saland?</h2>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); text-decoration: underline; text-underline-offset: 0.15em; }
+
+  .orte { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .ort-card {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .ort-card:hover { border-color: var(--color-blue); transform: translateY(-2px); }
+  .ort-name { font-weight: 700; font-size: 1.25rem; color: var(--color-blue); }
+  .ort-note { color: var(--color-blue); opacity: 0.8; font-size: 0.95rem; }
+  .orte-note { margin-top: 1.5rem; color: var(--color-blue); line-height: 1.7; max-width: 75ch; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+
+  @media (max-width: 900px) {
+    .orte { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .orte { grid-template-columns: 1fr; }
+  }
+</style>

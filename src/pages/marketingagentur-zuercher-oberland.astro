@@ -1,0 +1,142 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "100pro-openair-2024", "youngstars", "aas-freight"].includes(p.slug)
+);
+
+const faq = [
+  { q: "Was kostet laufende Marketingbetreuung?", a: "Das hängt vom Umfang ab: vom gelegentlichen Support bis zur kompletten externen Marketingabteilung mit monatlichem Kontingent. Nach einem kostenlosen Erstgespräch erhältst du ein transparentes Angebot, klar und kündbar." },
+  { q: "Für wen lohnt sich Marketing auslagern?", a: "Für KMU ohne eigene Marketingstelle: Du konzentrierst dich auf dein Geschäft, wir kümmern uns um Website, Social Media, Inserate und Kampagnen, mit fixem Ansprechpartner und planbaren Kosten." },
+  { q: "Kommst du zu uns in den Betrieb?", a: "Gerne, unser Büro ist in Saland, und wir sind in wenigen Minuten in Wetzikon, Hinwil, Bauma, Rüti oder Pfäffikon. Gerade am Anfang lernen wir dein Geschäft am liebsten vor Ort kennen." },
+  { q: "Macht ihr auch nur einzelne Kampagnen?", a: "Klar, es muss kein Dauerauftrag sein. Eine Kampagne, ein Inserat oder ein Relaunch-Push funktioniert auch projektweise." },
+];
+---
+
+<Layout
+  title="Marketingagentur Zürcher Oberland, Uftritt"
+  description="Marketingagentur im Zürcher Oberland: Marketingbegleitung für KMU, Strategie, Kampagnen, Social Media und laufende Betreuung. Von der Agentur aus Saland."
+>
+  <PageHero
+    eyebrow="Marketing · Zürcher Oberland"
+    title={"Marketing­agentur im\nZürcher Oberland"}
+    lead="Uftritt ist die Marketingagentur aus Saland für das Zürcher Oberland: Wir begleiten KMU aus Wetzikon, Hinwil, Bauma und Umgebung im Marketing, von der Strategie über Kampagnen bis zur laufenden Betreuung. Als externe Marketingabteilung, ohne dass du jemanden anstellen musst."
+    lottie="/lottie/marketingbegleitung.json"
+    lottieLabel="Marketingbegleitung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/marketingbegleitung/" label="Marketingbegleitung" lottie="/lottie/marketingbegleitung.json" projects={cases} />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Marketing auslagern an Leute von nebenan</h2>
+        <div class="lp-text">
+          <p>
+            Viele KMU in der Region haben keine eigene Marketingstelle, und brauchen
+            auch keine. Wir übernehmen: Website-Pflege, Social Media, Inserate,
+            Newsletter, Kampagnen. Mit einem fixen Ansprechpartner und planbaren
+            monatlichen Kosten.
+          </p>
+          <p>
+            Weil unser Büro in Saland ist, sind wir schnell bei dir: in Wetzikon in einer
+            Viertelstunde, in Hinwil in zehn Minuten, in Bauma in fünf. Marketing
+            funktioniert am besten, wenn man sich kennt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Bewährt in der Region</h2>
+        <div class="lp-text">
+          <p>
+            Die Steuerberatung Aweso aus dem Zürcher Oberland betreuen wir laufend im
+            Marketing, von der Website über Inhalte bis zur Sichtbarkeit bei Google.
+            Das 100pro Openair im Tösstal füllt die Festwirtschaft mit unserem
+            kompletten Marketingpaket. Und die Non-Profit Youngstars International
+            begleiten wir in der Kommunikation.
+          </p>
+          <p>
+            Was diese Projekte verbindet: langfristige Zusammenarbeit auf Augenhöhe -
+            und messbare Ergebnisse statt Agentur-Floskeln.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für Marketing, das wirkt?</h2>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+</style>

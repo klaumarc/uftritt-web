@@ -1,0 +1,325 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "ripa-immobilien", "regan", "physio-rothe", "seatalytics", "garage-frei"].includes(p.slug)
+);
+
+const ranges = [
+  {
+    name: "Kleiner Shop",
+    price: "CHF 5000 bis 10 000",
+    note: "Wenige Produkte, Standard-Checkout, Zahlung per TWINT oder Karte. Sauber aufgesetzt für Hofläden, Vereine oder den Nebenerwerb, mit Produktdaten, die auch Google versteht.",
+  },
+  {
+    name: "KMU-Onlineshop",
+    price: "CHF 10 000 bis 50 000",
+    note: "Der typische Shop für einen Schweizer Betrieb: TWINT, Karten und Kauf auf Rechnung, Versandlogik, Mehrwertsteuer und individuelles Design. Sortiment und Funktionen entscheiden, wo du in dieser Range landest.",
+  },
+  {
+    name: "Grosser Shop, individuell",
+    price: "ab CHF 50 000",
+    note: "Mehrsprachigkeit, Schnittstellen zu Warenwirtschaft und Buchhaltung, tausende Produkte oder B2B-Funktionen. Solche Projekte gehen auch Richtung sechsstellig.",
+  },
+  {
+    name: "Shop-Baukasten (Abo)",
+    price: "ca. CHF 30 bis 300 pro Monat",
+    note: "Shopify und Co. heisst mieten statt besitzen. Dazu kommen kostenpflichtige Apps, Transaktionsgebühren und deine eigene Zeit für Aufbau und Produkterfassung.",
+  },
+];
+
+const laufend = [
+  { name: "Hosting oder Shop-Plattform", value: "ca. CHF 30 bis 250 pro Monat, je nach System und Besucherzahlen" },
+  { name: "Domain (.ch)", value: "ca. CHF 10 bis 25 pro Jahr" },
+  { name: "Zahlungsgebühren (TWINT, Karten, Rechnung)", value: "ca. 1.3 bis 3 Prozent pro Verkauf plus ca. CHF 0.30 pro Transaktion" },
+  { name: "Wartung, Updates, Rechtstexte", value: "jährlich einbudgetieren, vom Sicherheits-Update bis zur neuen AGB-Version" },
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Webshop in der Schweiz?",
+    a: "Ein kleiner professioneller Shop mit wenigen Produkten kostet CHF 5000 bis 10 000. Der typische KMU-Onlineshop mit TWINT, Karten, Kauf auf Rechnung, Versand und Steuern liegt bei CHF 10 000 bis 50 000. Grosse Lösungen mit Schnittstellen und Mehrsprachigkeit gehen darüber hinaus. Mit einem Baukasten-Abo startest du günstiger, zahlst aber laufend und steckst viel eigene Zeit rein.",
+  },
+  {
+    q: "Lohnt sich ein eigener Shop für uns?",
+    a: "Das rechnest du am besten ehrlich durch: Was bleibt pro Bestellung nach Versand, Zahlungsgebühren und deiner Zeit? Für drei Bestellungen im Monat lohnt sich kein grosses Shop-Projekt. Als zweiter Vertriebskanal neben dem Laden oder als Ersatz für Bestellungen per Telefon und Mail oft schon. Im Erstgespräch sagen wir dir offen, wenn ein Shop für dich im Moment keinen Sinn ergibt.",
+  },
+  {
+    q: "Shopify, WooCommerce oder individuell bauen lassen?",
+    a: "Shopify ist Miete: schnell am Start, Abo ab ca. CHF 30 pro Monat, dafür Lock-in, App-Kosten und Gebühren pro Verkauf. WooCommerce auf WordPress gehört dir, ist flexibel und bewährt, braucht aber Wartung. Individuell entwickeln lohnt sich bei Schnittstellen, B2B-Preisen oder besonderen Prozessen. Wir selbst bauen Shops mit Shopify oder WooCommerce und empfehlen das System erst, wenn wir Sortiment und Abläufe kennen.",
+  },
+  {
+    q: "Was kostet ein Shop bei euch?",
+    a: "Das sagen wir dir nach einem kostenlosen Erstgespräch. Du bekommst ein transparentes Angebot, in dem alle Leistungen und der Preis klar drinstehen. Listenpreise wären unehrlich: Kein Shop mit 30 Produkten gleicht einem mit 3000, und kein Checkout mit TWINT gleicht einem mit zehn Zahlarten und Warenwirtschaft.",
+  },
+  {
+    q: "Was kostet ein Webshop pro Jahr?",
+    a: "Rechne mit Hosting oder Plattform-Abo (ca. CHF 30 bis 250 pro Monat), der Domain (ca. CHF 10 bis 25 pro Jahr) und Zahlungsgebühren von ca. 1.3 bis 3 Prozent pro Verkauf. Dazu kommt Wartung: Updates, Backups, Produktepflege und angepasste Rechtstexte. Bei Abo-Plattformen summieren sich Abo, Apps und Gebühren über drei Jahre oft über den Erstellungspreis einer eigenen Lösung.",
+  },
+  {
+    q: "Braucht mein Shop wirklich TWINT?",
+    a: "Ja, wenn du in der Schweiz verkaufst. TWINT ist für viele Schweizer Kundinnen und Kunden die bevorzugte Zahlart am Handy, und ohne sie brechen spürbar mehr Käufe im Checkout ab. Die Anbindung läuft über einen Payment-Provider und kostet rund 1.3 Prozent plus ca. CHF 0.30 pro Transaktion.",
+  },
+];
+---
+
+<Layout
+  title="Was kostet ein Webshop?, Uftritt"
+  description="Was kostet ein Webshop? Ehrliche Preisranges für die Schweiz: kleiner Shop, KMU-Onlineshop mit TWINT, Individual-Lösung, laufende Kosten und Preistreiber."
+>
+  <PageHero
+    eyebrow="Webshop-Kosten · Schweiz"
+    title={"Was kostet\nein Webshop?"}
+    lead="Die ehrliche Antwort vorweg: Ein professioneller Onlineshop kostet in der Schweiz ab CHF 5000 für einen kleinen Shop, als KMU-Shop mit TWINT, Karten und Versandlogik CHF 10 000 bis 50 000. Günstiger geht es mit einem Baukasten-Abo, dann steckst du aber deine eigene Zeit rein und mietest den Shop, statt ihn zu besitzen."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webshop-Kosten"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Antwort-Block: Preisranges */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Die Preisranges im Überblick</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. Jeder Shop ist individuell, darum
+        sind das Ranges und keine Ladenpreise.
+      </p>
+    </div>
+  </section>
+
+  {/* Preistreiber + laufende Kosten */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was den Preis wirklich treibt</h2>
+        <div class="lp-text">
+          <p>
+            Die Seitenzahl ist es nicht. Den Preis eines Shops bestimmen Produktdaten
+            und Varianten: 20 Produkte mit sauberen Fotos und Texten sind schnell
+            erfasst, 500 Produkte aus einer alten Warenwirtschaft sind ein eigenes
+            Projekt. Jede Variante wie Grösse oder Farbe vervielfacht den Pflegeaufwand.
+          </p>
+          <p>
+            Der zweite grosse Block ist der Verkaufsprozess: Zahlungsanbindung mit
+            TWINT, Karten und Kauf auf Rechnung, Versandlogik mit Staffelpreisen und
+            Gratisversand-Schwellen, dazu die Mehrwertsteuer. Alles will eingerichtet,
+            getestet und rechtlich sauber dokumentiert sein.
+          </p>
+          <p>
+            Und zwei Treiber, die in der Schweiz fast immer dazukommen:
+            Mehrsprachigkeit, die Produkttexte und Pflege vervielfacht, und
+            Schnittstellen zu Warenwirtschaft, Lager oder Buchhaltung. Darum kostet
+            ein Shop deutlich mehr als eine gleich grosse Firmenwebsite, deren Ranges
+            du in unserer Übersicht der <a href="/website-kosten/">Website-Kosten</a> findest.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Laufende Kosten, an die niemand denkt</h2>
+        <div class="lp-text">
+          <p>
+            Der Kaufpreis ist nicht die Gesamtrechnung. Diese Posten kommen jedes Jahr
+            dazu, egal wer den Shop gebaut hat:
+          </p>
+          <ul class="kosten-liste">
+            {
+              laufend.map((l) => (
+                <li>
+                  <strong>{l.name}</strong>
+                  <span>{l.value}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="abo-hinweis" data-reveal>
+            <strong>Ehrlich über drei Jahre gerechnet:</strong> Bei Abo-Shops laufen
+            Abo, Apps und Gebühren still weiter. Die laufenden Kosten übersteigen dann
+            oft den Erstellungspreis einer eigenen Lösung, und der Shop gehört dir
+            trotzdem nicht.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Systemwahl + Listenpreise */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Shopify, WooCommerce oder individuell?</h2>
+        <div class="lp-text">
+          <p>
+            Shopify und ähnliche Plattformen sind Miete: Du bist schnell am Start,
+            zahlst ab ca. CHF 30 pro Monat, dazu Apps und einen Anteil von jedem
+            Verkauf. Zum Testen einer Idee ist das ehrlich gesagt oft richtig. Deine
+            eigene Zeit kommt obendrauf, realistisch 20 bis 60 Stunden für Aufbau und
+            Produkterfassung, und der Shop gehört dir nie.
+          </p>
+          <p>
+            WooCommerce auf WordPress ist der verbreitetste eigene Weg: flexibel,
+            bewährt und in deinem Besitz, professionell aufgesetzt ab ca. CHF 3000
+            bis 8000 für kleine Shops. Dafür braucht es Wartung und Updates.
+            Individuell entwickeln lohnt sich, wenn Schnittstellen, B2B-Preise oder
+            besondere Prozesse im Spiel sind.
+          </p>
+          <p>
+            Unsere Empfehlung ist immer dieselbe: Erst Sortiment, Abläufe und Ziele
+            anschauen, dann das System wählen. Was wir im Bereich <a href="/angebot/webdesign/">Webdesign
+            und Onlineshops</a> anbieten, siehst du auf unserer Angebotsseite.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Warum seriöse Agenturen keine Listenpreise nennen</h2>
+        <div class="lp-text">
+          <p>
+            Weil kein Shop dem anderen gleicht. Ein Hofladen mit 15 Produkten und
+            Abholung ist ein anderes Projekt als ein Fachhandel mit 2000 Artikeln und
+            Warenwirtschaft. Ein Listenpreis wäre für das eine Projekt zu hoch und für
+            das andere zu tief kalkuliert. Für beide Seiten unehrlich.
+          </p>
+          <p>
+            Vorsicht bei Lockangeboten: Der «Shop ab CHF 990» holt sich seinen Preis
+            über Zusatzposten zurück. Payment extra, Rechtstexte extra, Produkterfassung
+            extra. Verlange von jedem Anbieter eine schriftliche Offerte mit klarem
+            Umfang: Anzahl Produkte, Zahlarten, Sprachen und wer die Produkte erfasst.
+          </p>
+          <p>
+            Darum arbeiten wir so: kostenloses Erstgespräch, danach ein transparentes
+            Angebot mit allen Leistungen und einem klaren Preis. Wir bauen Websites
+            und Shops für KMU <a href="/webdesign-zuercher-oberland/">im Zürcher Oberland</a> und
+            darüber hinaus, mit Prototyp, damit du siehst, was du bekommst, bevor du
+            dich entscheidest.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu Webshop-Kosten</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Willst du wissen, was dein Shop kostet?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deinem Sortiment und deinen Plänen. Du bekommst ein ehrliches,
+        transparentes Angebot, kostenlos und unverbindlich.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .kosten-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .kosten-liste li {
+    display: flex; flex-direction: column; gap: 0.15rem;
+    padding: 0.9rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem;
+  }
+  .kosten-liste li:last-child { border-bottom: 0; }
+  .kosten-liste span { opacity: 0.85; }
+  .abo-hinweis {
+    margin-top: 1.25rem; padding: 1rem 1.25rem;
+    border-left: 4px solid var(--color-yellow);
+    background: #fff; color: var(--color-blue);
+    font-size: 1.05rem !important; line-height: 1.6;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges { grid-template-columns: 1fr; }
+  }
+</style>

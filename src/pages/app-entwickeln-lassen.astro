@@ -1,0 +1,285 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+
+const leistungen = [
+  {
+    title: "Konzept und klickbarer Prototyp",
+    note: "Bevor eine Zeile Code entsteht, klickst du dich durch deine App: Bildschirme, Abläufe, Logik. So siehst du früh, was du bekommst, und es gibt keine Überraschungen.",
+  },
+  {
+    title: "Entwicklung aus einer Hand",
+    note: "Konzept, Design und Code kommen bei uns vom selben Tisch. Du hast eine Ansprechperson statt einer Kette aus Dienstleistern, und nichts geht zwischen den Stühlen verloren.",
+  },
+  {
+    title: "Betrieb und Weiterentwicklung",
+    note: "Nach dem Launch lassen wir dich nicht im Stich: Hosting, Wartung, Updates und neue Funktionen kommen auf Wunsch aus derselben Hand, mit klaren Absprachen.",
+  },
+  {
+    title: "Ehrliche Beratung, auch gegen die App",
+    note: "Wenn eine Website oder ein einfaches Tool dein Problem günstiger löst, sagen wir dir das im Erstgespräch offen. Wir verkaufen keine App um der App willen.",
+  },
+];
+
+const faq = [
+  {
+    q: "Was kostet es, eine App entwickeln zu lassen?",
+    a: "Das hängt vom Umfang ab: Ein fokussierter MVP kostet in der Schweiz CHF 15 000 bis 40 000, eine mittlere Geschäfts-App mit Login und Schnittstellen CHF 40 000 bis 100 000. Alle Marktpreise und Preistreiber legen wir transparent in unserem Guide zu den App-Entwicklungskosten offen. Für dein Projekt rechnen wir sauber durch: Nach dem kostenlosen Erstgespräch bekommst du ein Angebot mit einem klaren Preis.",
+  },
+  {
+    q: "Web-App oder native App: Was baut ihr für uns?",
+    a: "Für die meisten KMU-Vorhaben empfehlen wir die Web-App: eine Codebasis für alle Geräte, kein App-Store, sofort per Link verteilbar, günstiger in Bau und Wartung. Zwei getrennte native Apps kosten fast das Doppelte und lohnen sich nur bei Games, Augmented Reality oder sehr hohen Sicherheitsanforderungen. Welche Richtung für dich stimmt, klären wir im Erstgespräch ehrlich.",
+  },
+  {
+    q: "Wie lange dauert die Entwicklung?",
+    a: "Das hängt von Umfang und Schnittstellen ab. Sicher ist der Ablauf: Der klickbare Prototyp kommt früh, danach entwickeln wir schrittweise und du siehst laufend Fortschritt. Eine ehrliche Zeitschätzung bekommst du mit dem Konzept, nicht erst mittendrin.",
+  },
+  {
+    q: "Gehört uns der Code der App?",
+    a: "Ja. Der Quellcode deiner App gehört dir, zusammen mit allem, was dazugehört. Du hängst nicht an uns: Wenn du die App irgendwann anderswo weiterentwickeln lassen willst, ist das dein gutes Recht. Wir finden allerdings, dass wir ein gutes Team für den Weiterbetrieb sind.",
+  },
+  {
+    q: "Was passiert nach dem Launch?",
+    a: "Auf Wunsch übernehmen wir Hosting, Wartung und Updates und entwickeln die App mit dir weiter. Oder wir richten alles in deiner Umgebung ein und zeigen deinem Team, wie es die Anwendung pflegt. Beides klären wir transparent, bevor irgendetwas gebaut wird.",
+  },
+  {
+    q: "Können wir klein starten?",
+    a: "Ja, das empfehlen wir sogar oft: Zuerst ein fokussierter MVP mit der einen Kernfunktion, die am meisten bringt. Was sich im Alltag bewährt, bauen wir schrittweise aus. So bleibt das Risiko klein und die App wächst mit dem Betrieb statt am Bedarf vorbei.",
+  },
+];
+---
+
+<Layout
+  title="App entwickeln lassen, Uftritt"
+  description="App entwickeln lassen für KMU: Web-Apps, Kundenportale und interne Werkzeuge vom Konzept über den Prototyp bis zum Betrieb. Ehrlich, aus einer Hand, aus dem Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="App-Entwicklung für KMU"
+    title={"App\nentwickeln lassen"}
+    lead="Du hast einen Prozess, der heute über Excel, Papier oder Mailketten läuft, oder eine App-Idee für deine Kundschaft? Wir entwickeln Apps und Web-Apps für KMU: vom kostenlosen Erstgespräch über den klickbaren Prototyp bis zum laufenden Betrieb. Ehrlich, aus einer Hand, aus dem Zürcher Oberland."
+    lottie="/lottie/applikationsentwicklung.json"
+    lottieLabel="App entwickeln lassen"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/applikationsentwicklung/" label="App-Entwicklung" lottie="/lottie/applikationsentwicklung.json" />
+
+  {/* Einordnung: was wir bauen + Web-App zuerst */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was wir für KMU bauen</h2>
+        <div class="lp-text">
+          <p>
+            Am häufigsten entstehen bei uns Werkzeuge für den Arbeitsalltag:
+            interne Tools für Rapporte, Checklisten oder Freigaben, die heute
+            über Tabellen und Mailketten laufen. Dazu Kundenbereiche, in denen
+            deine Kundschaft Dokumente, Bestellungen oder den Projektstand
+            findet, und Buchungstools für Termine und Anmeldungen.
+          </p>
+          <p>
+            Gemeinsam ist diesen Projekten eines: Sie digitalisieren einen
+            echten Prozess, statt nur gut auszusehen. Genau darum beginnt jedes
+            Projekt bei uns mit Zuhören, nicht mit Technik.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Web-App zuerst, aus ehrlichen Gründen</h2>
+        <div class="lp-text">
+          <p>
+            Für die meisten KMU-Vorhaben ist die Web-App der richtige Weg: eine
+            Codebasis für alle Geräte, kein App-Store, Updates sofort für alle
+            und deutlich günstiger in Bau und Wartung. Was eine Web-App genau
+            ist und wann sie sich lohnt, erklären wir auf der Seite
+            <a href="/webapp-entwickeln-lassen/">Webapp entwickeln lassen</a>.
+          </p>
+          <p>
+            Und wenn dein Vorhaben wirklich eine native App braucht, sagen wir
+            dir das offen: bei Games, Augmented Reality oder sehr hohen
+            Sicherheitsanforderungen. Dann reden wir ehrlich über den doppelten
+            Aufwand, statt ihn kleinzureden.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Leistungen */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Alles aus einer Hand</span>
+        <h2>Was du von uns bekommst</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          leistungen.map((l) => (
+            <article class="karte">
+              <h3>{l.title}</h3>
+              <p class="karte-note">{l.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Prozess + eigene Praxis + Kosten */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>In vier Schritten zu deiner App</h2>
+        <div class="lp-text">
+          <p>
+            <strong>1. Erstgespräch.</strong> Kostenlos und unverbindlich: Wir
+            hören zu, verstehen deine Abläufe und sagen ehrlich, ob sich eine
+            App lohnt, auch wenn die Antwort nein ist.
+          </p>
+          <p>
+            <strong>2. Konzept und Prototyp.</strong> Funktionen, Rahmen und ein
+            klickbarer Prototyp, der zeigt, wie sich deine App anfühlt. Erst
+            dann wird programmiert.
+          </p>
+          <p>
+            <strong>3. Entwicklung.</strong> Wir bauen schrittweise, du testest
+            laufend mit. So bleibt das Projekt steuerbar, auch wenn sich unterwegs
+            etwas ändert.
+          </p>
+          <p>
+            <strong>4. Launch und Betrieb.</strong> Nach dem Go-Live kümmern wir
+            uns auf Wunsch um Hosting, Wartung und Weiterentwicklung, oder wir
+            übergeben alles sauber an dein Team.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Gebaut aus eigener Praxis</h2>
+        <div class="lp-text">
+          <p>
+            Wir verkaufen nichts, das wir nicht selbst einsetzen: Unsere eigene
+            Aufgaben-App ist eine selbst gebaute Web-App, die wir täglich nutzen,
+            vom ersten Login am Morgen bis zur letzten Erledigung am Abend.
+          </p>
+          <p>
+            Diese Erfahrung fliesst in dein Projekt ein. Wir wissen, wo solche
+            Werkzeuge im Alltag haken, und bauen sie so, dass ein Team sie
+            wirklich annimmt, statt sie nach zwei Wochen zu ignorieren.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet das?</h2>
+        <div class="lp-text">
+          <p>
+            Die ehrliche Antwort: Eine professionelle App ist in der Schweiz
+            praktisch immer fünfstellig. Ein fokussierter MVP kostet CHF 15 000
+            bis 40 000, eine mittlere Geschäfts-App CHF 40 000 bis 100 000.
+          </p>
+          <p>
+            Alle Marktpreise, Preistreiber und die laufenden Kosten, an die
+            niemand denkt, legen wir offen in unserem Guide zu den
+            <a href="/app-entwicklung-kosten/">App-Entwicklungskosten</a>. So
+            weisst du vor jedem Gespräch, was eine App kosten darf, bei uns wie
+            bei jeder anderen Agentur.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur App-Entwicklung</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Hast du eine App-Idee im Kopf?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns davon. Wir sagen dir ehrlich, ob und wie sie sich bauen
+        lässt, und machen dir ein transparentes Angebot, kostenlos und
+        unverbindlich.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); text-decoration: underline; text-underline-offset: 0.15em; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

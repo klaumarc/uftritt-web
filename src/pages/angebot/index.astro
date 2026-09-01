@@ -5,44 +5,47 @@ import Lottie from "../../components/Lottie.astro";
 import Button from "../../components/Button.astro";
 import ProcessSteps from "../../components/ProcessSteps.astro";
 import { projects } from "../../data/projects";
+import { webpSrcSet } from "../../utils/img";
 
 const bySlug = (slug: string) => projects.find((p) => p.slug === slug)!;
+// Referenz-Kacheln: 3-spaltig Desktop, <=760px horizontaler Swipe (Karte = 68vw).
+const REF_SIZES = "(max-width: 760px) 68vw, 33vw";
 
 const services = [
   {
     lottie: "/lottie/grafikdesign.json",
     title: "Grafikdesign",
-    href: "/angebot/grafikdesign",
+    href: "/angebot/grafikdesign/",
     refs: ["spinnereiplatz", "cva", "dtb-redesign", "arte-bellezza", "stahel-koeng", "emotion-hinwil"],
   },
   {
     lottie: "/lottie/webdesign.json",
     title: "Webdesign und Entwicklung",
-    href: "/angebot/webdesign",
+    href: "/angebot/webdesign/",
     refs: ["ripa-immobilien", "regan", "seatalytics", "physio-rothe", "smart-navigator", "garage-frei"],
-  },
-  {
-    lottie: "/lottie/videoproduktion.json",
-    title: "Videoproduktion",
-    href: "/angebot/videoproduktion",
-    refs: ["aas-freight", "empower", "heusser-holzbau", "peter-ott", "youngstars", "fahrschule-schweiz"],
   },
   {
     lottie: "/lottie/marketingbegleitung.json",
     title: "Marketingbegleitung",
-    href: "/angebot/marketingbegleitung",
+    href: "/angebot/marketingbegleitung/",
     refs: ["aweso", "aas-freight", "youngstars"],
+  },
+  {
+    lottie: "/lottie/videoproduktion.json",
+    title: "Videoproduktion",
+    href: "/angebot/videoproduktion/",
+    refs: ["aas-freight", "empower", "heusser-holzbau", "peter-ott", "youngstars", "fahrschule-schweiz"],
   },
   {
     lottie: "",
     title: "App-Entwicklung",
-    href: "/angebot/applikationsentwicklung",
+    href: "/angebot/applikationsentwicklung/",
     refs: [],
   },
   {
     lottie: "",
     title: "Magazinbetreuung",
-    href: "/angebot/magazinbetreuung",
+    href: "/angebot/magazinbetreuung/",
     refs: ["sam-focus", "dt-baeretswil", "youngstars-broschuere"],
   },
 ];
@@ -52,18 +55,18 @@ const featured = ["100pro-openair-2024", "youngstars", "fahrschule-schweiz"].map
 
 const steps = [
   { icon: "/img/icons/zuhoeren-icon.svg", t: "Zuhören und Verstehen", d: "Wir starten mit offenen Ohren: Was macht dich besonders? Welche Ziele verfolgst du? Wer soll angesprochen werden?" },
-  { icon: "/img/icons/analyse-icon.svg", t: "Analysieren", d: "Wir schauen genau hin – Zielgruppe, Markt und Wettbewerb. Daraus entsteht ein massgeschneidertes Konzept." },
+  { icon: "/img/icons/analyse-icon.svg", t: "Analysieren", d: "Wir schauen genau hin, Zielgruppe, Markt und Wettbewerb. Daraus entsteht ein massgeschneidertes Konzept." },
   { icon: "/img/icons/brainstorm-icon.svg", t: "Brainstormen", d: "Gemeinsam entwickeln wir Ideen, Richtungen und die passende kreative Lösung." },
-  { icon: "/img/icons/austauschen-icon.svg", t: "Austauschen", d: "Enge Zusammenarbeit mit klaren Feedbackschlaufen – du gestaltest jederzeit mit." },
-  { icon: "/img/icons/abheben-icon.svg", t: "Abheben und feiern", d: "Umsetzung, Liveschaltung – und gemeinsam den Erfolg feiern." },
+  { icon: "/img/icons/austauschen-icon.svg", t: "Austauschen", d: "Enge Zusammenarbeit mit klaren Feedbackschlaufen, du gestaltest jederzeit mit." },
+  { icon: "/img/icons/abheben-icon.svg", t: "Abheben und feiern", d: "Umsetzung, Liveschaltung, und gemeinsam den Erfolg feiern." },
 ];
 ---
 
-<Layout title="Angebot – Uftritt" description="Corporate Design, Webdesign, Videoproduktion und mehr – wir machen uns mit dir auf den Weg zur durchdachten, wirkungsvollen Lösung.">
+<Layout title="Angebot, Uftritt" description="Corporate Design, Webdesign, Videoproduktion und mehr, wir machen uns mit dir auf den Weg zur durchdachten, wirkungsvollen Lösung.">
   <SubHero
     eyebrow="Angebot"
-    title="Alles aus einer Hand"
-    lead="Ob Corporate Design, Editorial Design, die Entwicklung einer neuen Website, ein aussagekräftiges Video oder das Gesamtpaket für deine Kommunikation – wir machen uns mit dir auf den Weg zur durchdachten und wirkungsvollen Lösung."
+    title="Alles, was dich weiterbringt"
+    lead="Ob Corporate Design, Editorial Design, die Entwicklung einer neuen Website, ein aussagekräftiges Video oder das Gesamtpaket für deine Kommunikation, wir machen uns mit dir auf den Weg zur durchdachten und wirkungsvollen Lösung."
     lottie="/lottie/angebot-uebersicht.json"
     lottieLabel="Angebot"
   />
@@ -82,18 +85,19 @@ const steps = [
               <div class="svc-intro">
                 <h2><a href={s.href}>{s.title}</a></h2>
               </div>
-              <Button href={s.href} variant="text" class="svc-more">
-                Mehr zu {s.title}
-              </Button>
             </header>
 
             {s.refs.length > 0 && (
               <div class="svc-refs">
                 {s.refs.map((slug) => {
                   const p = bySlug(slug);
+                  const srcset = webpSrcSet(p.image);
                   return (
-                    <a href={`/projekte/${p.slug}`} class="ref-card" aria-label={p.title}>
-                      <img class="ref-img" src={p.image} alt={p.title} loading="lazy" />
+                    <a href={`/projekte/${p.slug}/`} class="ref-card" aria-label={p.title}>
+                      <picture>
+                        {srcset && <source type="image/webp" srcset={srcset} sizes={REF_SIZES} />}
+                        <img class="ref-img" src={p.image} alt={p.title} loading="lazy" decoding="async" />
+                      </picture>
                       <span class="ref-overlay">
                         <span class="ref-cat">{p.categories.join(" · ")}</span>
                         <span class="ref-title">{p.title}</span>
@@ -113,7 +117,7 @@ const steps = [
     <div class="container">
       <header class="section-head" data-reveal>
         <span class="eyebrow">So gehen wir vor</span>
-        <h2>Persönlich. Kreativ. Partnerschaftlich.</h2>
+        <h2>Persönlich, kreativ und partnerschaftlich</h2>
         <p class="lead-max">
           Die optimale Lösung für dein Projekt entsteht in einem zielgerichteten
           Prozess. Darum folgen wir grundsätzlich fünf einfachen Schritten.
@@ -130,19 +134,25 @@ const steps = [
       </header>
       <div class="ang-featured">
         {
-          featured.map((p, i) => (
-            <a href={`/projekte/${p.slug}`} class="ref-card" aria-label={p.title} data-reveal style={`--reveal-delay:${i * 80}ms`}>
-              <img class="ref-img" src={p.image} alt={p.title} loading="lazy" />
-              <span class="ref-overlay">
-                <span class="ref-cat">{p.categories.join(" · ")}</span>
-                <span class="ref-title">{p.title}</span>
-              </span>
-            </a>
-          ))
+          featured.map((p, i) => {
+            const srcset = webpSrcSet(p.image);
+            return (
+              <a href={`/projekte/${p.slug}/`} class="ref-card" aria-label={p.title} data-reveal style={`--reveal-delay:${i * 80}ms`}>
+                <picture>
+                  {srcset && <source type="image/webp" srcset={srcset} sizes={REF_SIZES} />}
+                  <img class="ref-img" src={p.image} alt={p.title} loading="lazy" decoding="async" />
+                </picture>
+                <span class="ref-overlay">
+                  <span class="ref-cat">{p.categories.join(" · ")}</span>
+                  <span class="ref-title">{p.title}</span>
+                </span>
+              </a>
+            );
+          })
         }
       </div>
       <div class="ang-cta" data-reveal>
-        <Button href="/projekte" variant="blue">Alli Projekt aluege</Button>
+        <Button href="/projekte/" variant="blue">Alli Projekt aluege</Button>
       </div>
     </div>
   </section>
@@ -180,10 +190,6 @@ const steps = [
   .svc-intro h2 a:hover {
     color: var(--color-pink);
   }
-  .svc-more {
-    flex: none;
-    white-space: nowrap;
-  }
 
   .svc-refs,
   .ang-featured {
@@ -199,13 +205,18 @@ const steps = [
     display: none;
   }
 
-  /* Referenz-Kacheln – Hover wie auf der Startseite (Bild-Zoom + blaues Overlay) */
+  /* Referenz-Kacheln, Hover wie auf der Startseite (Bild-Zoom + blaues Overlay) */
   .ref-card {
     position: relative;
     display: block;
     aspect-ratio: 4 / 3;
     overflow: hidden;
     background: #f1f4f8;
+  }
+  /* picture-Wrapper (webp/srcset): keine eigene Box -> img bleibt layout-seitig
+     direktes Kind der Karte (Containing Block unveraendert) */
+  picture {
+    display: contents;
   }
   .ref-img {
     width: 100%;
@@ -236,15 +247,31 @@ const steps = [
   .ref-card:focus-visible .ref-overlay {
     opacity: 1;
   }
+  /* Textformatierung + gestaffelte Einblendung wie auf der Startseite, Revision 2 */
+  .ref-cat,
+  .ref-title {
+    transform: translateY(14px);
+    opacity: 0;
+    transition: transform 0.55s var(--ease), opacity 0.55s var(--ease);
+  }
+  .ref-card:hover .ref-cat,
+  .ref-card:focus-visible .ref-cat,
+  .ref-card:hover .ref-title,
+  .ref-card:focus-visible .ref-title {
+    transform: none;
+    opacity: 1;
+  }
+  .ref-card:hover .ref-title,
+  .ref-card:focus-visible .ref-title {
+    transition-delay: 0.08s;
+  }
   .ref-cat {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    opacity: 0.85;
+    letter-spacing: 0.04em;
   }
   .ref-title {
-    font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+    font-size: clamp(1.25rem, 2vw, 1.7rem);
     font-weight: 700;
     line-height: 1.15;
   }
@@ -263,6 +290,12 @@ const steps = [
       text-align: left;
       padding: 0.8rem 0.9rem;
       gap: 0.1rem;
+    }
+    .ref-cat,
+    .ref-title {
+      transform: none;
+      opacity: 1;
+      transition: none;
     }
     .ref-cat {
       font-size: 0.62rem;
@@ -351,10 +384,6 @@ const steps = [
     }
     .svc-intro {
       flex: 1 1 60%;
-    }
-    .svc-more {
-      flex-basis: 100%;
-      white-space: normal;
     }
     .svc-refs,
     .ang-featured {

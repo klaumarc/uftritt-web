@@ -1,0 +1,320 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["dtb-redesign", "smart-navigator", "emotion-hinwil", "cynterim"].includes(p.slug)
+);
+
+const ausstattung = [
+  {
+    title: "Visitenkarten",
+    note: "Der Klassiker bleibt: Gestaltung im Corporate Design, dazu die passende Papierwahl, die richtige Auflage und auf Wunsch Veredelungen wie Lack oder Prägung.",
+  },
+  {
+    title: "Briefpapier und Couverts",
+    note: "Die Briefschaft für Offerten, Rechnungen und Briefe, dazu passende Couverts. Damit jedes Schriftstück, das dein Unternehmen verlässt, einheitlich aussieht.",
+  },
+  {
+    title: "Word-Briefvorlage",
+    note: "Der meistgenutzte Geschäftsdrucksatz ist digital: eine Vorlage mit Briefkopf und Formatvorlagen, die im Alltag wirklich funktioniert und die jede Person im Team bedienen kann.",
+  },
+  {
+    title: "E-Mail-Signatur",
+    note: "Die digitale Visitenkarte: Einheitlich für das ganze Team, mit Logo, Kontaktangaben und allem, was rechtlich dazugehört.",
+  },
+];
+
+const ranges = [
+  {
+    name: "Visitenkarten",
+    price: "CHF 300 bis 800",
+    note: "Gestaltung im bestehenden Corporate Design. Der Druck kommt dazu: grob CHF 50 bis 300 für 250 bis 500 Karten, je nach Papier, Druckerei und Veredelung.",
+  },
+  {
+    name: "Briefpapier und Couverts",
+    price: "CHF 200 bis 600",
+    note: "Gestaltung von Briefschaft und Couverts. Der Druck richtet sich nach Auflage und Papier, als groben Anhaltspunkt CHF 150 bis 400 für 500 Blatt Briefpapier.",
+  },
+  {
+    name: "Digitale Vorlagen",
+    price: "CHF 200 bis 600",
+    note: "Word-Briefvorlage mit Formatvorlagen und E-Mail-Signatur, sauber aufgesetzt, damit sie im Teamalltag nicht zerfallen.",
+  },
+  {
+    name: "Komplette Ausstattung",
+    price: "CHF 1000 bis 3000",
+    note: "Alle Drucksachen und Vorlagen in einem Gang, gestaltet im bestehenden Corporate Design. Gibt es noch kein Erscheinungsbild, gehört die Ausstattung ins Corporate-Design-Projekt.",
+  },
+];
+
+const faq = [
+  {
+    q: "Was gehört alles zu den Geschäftsdrucksachen?",
+    a: "Der klassische Teil: Visitenkarten, Briefpapier (Briefschaft) und Couverts. Heute mindestens so wichtig sind die digitalen Geschäftsdrucksachen: die Word-Briefvorlage, mit der du Offerten und Briefe schreibst, und die E-Mail-Signatur fürs ganze Team. Auf Wunsch kommen Präsentationsvorlagen, Notizblöcke oder Stempel dazu. Entscheidend ist weniger die Liste als das Prinzip: Alles, womit du geschäftlich auftrittst, sieht aus wie aus einem Guss.",
+  },
+  {
+    q: "Was kosten Geschäftsdrucksachen?",
+    a: "Am Schweizer Markt liegt die Gestaltung einzelner Drucksachen grob zwischen CHF 200 und 800 pro Anwendung, eine komplette Geschäftsausstattung im bestehenden Corporate Design zwischen CHF 1000 und 3000, jeweils plus Druckkosten (Richtwerte aus unserer Projekterfahrung). Bei uns gibt es keinen Listenpreis: Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit allen Leistungen und einem klaren Preis. Und falls noch kein Erscheinungsbild existiert: Unser Paket Corporate Design klein enthält Visitenkarte, Briefschaft und E-Mail-Signatur bereits zum Fixpreis.",
+  },
+  {
+    q: "Bekommen wir die offenen Dateien?",
+    a: "Ja. Du erhältst die druckfertigen PDFs und auf Wunsch die offenen Gestaltungsdateien. Die Word-Briefvorlage bleibt ohnehin editierbar, genau dafür ist sie da. Was wir für dich bauen, gehört dir: ohne Lizenzfallen und ohne dass du für jede kleine Änderung zu uns musst.",
+  },
+  {
+    q: "Gibt es Mindestauflagen beim Druck?",
+    a: "Bei uns nicht, denn wir sind keine Druckerei mit eigenen Maschinen, sondern wählen pro Auftrag das passende Verfahren. Digitaldruck macht schon kleine Auflagen ab etwa 100 bis 250 Visitenkarten wirtschaftlich. Offsetdruck lohnt sich erst bei grösseren Mengen, dafür wird das einzelne Stück günstiger und die Farben exakter. Wir sagen dir ehrlich, welche Auflage sich für dich rechnet, auch wenn das eine kleinere Bestellung bedeutet.",
+  },
+  {
+    q: "Wickelt ihr auch den Druck ab?",
+    a: "Ja, komplett: Reinzeichnung mit Beschnitt und Farbprofilen, Papierauswahl mit Mustern zum Anfassen, Offertvergleich bei unseren Druckpartnern und die Qualitätskontrolle vor der Lieferung. Wir arbeiten mit Druckereien in der Schweiz zusammen und koordinieren alles, bis die Kartons bei dir stehen. Du hast einen einzigen Ansprechpartner für Gestaltung und Produktion.",
+  },
+  {
+    q: "Können wir die Karten nicht einfach online bestellen?",
+    a: "Klar, und für manche Zwecke ist das okay: ein interner Anlass, eine temporäre Aktion. Drei Dinge bekommst du dort aber nicht: eine Gestaltung, die es nur einmal gibt statt einer Vorlage, die Tausende nutzen, eine kontrollierte Reinzeichnung mit Beschnitt und Farbprofilen und eine einheitliche Linie über Karte, Briefpapier und Signatur hinweg. Gerade der letzte Punkt entscheidet, ob dein Auftritt professionell wirkt oder zusammengestückelt.",
+  },
+];
+---
+
+<Layout
+  title="Geschäftsdrucksachen: Visitenkarten, Briefvorlage, Uftritt"
+  description="Geschäftsdrucksachen aus einer Hand: Visitenkarten, Briefpapier, Word-Briefvorlage und E-Mail-Signatur im Corporate Design, Druckabwicklung inklusive."
+>
+  <PageHero
+    eyebrow="Von der Visitenkarte bis zur E-Mail-Signatur"
+    title={"Ge­schäfts­druck­sachen\nfür dein Unter­nehmen"}
+    lead="Geschäftsdrucksachen sind alles, womit dein Unternehmen auf Papier und digital auftritt: Visitenkarten, Briefpapier, Couverts, Word-Briefvorlage und E-Mail-Signatur. Wir gestalten die komplette Geschäftsausstattung in deinem Corporate Design und wickeln den Druck gleich mit ab. Ein Erscheinungsbild, ein Ansprechpartner, keine Übergabeverluste. Typisch nach einem Logo-Projekt oder als Refresh deines bestehenden Auftritts."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Grafikdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Was dazugehört */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Die Geschäftsausstattung</span>
+        <h2>Was alles dazugehört</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          ausstattung.map((a) => (
+            <article class="karte">
+              <h3>{a.title}</h3>
+              <p class="karte-note">{a.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Wann + Druckabwicklung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Typisch: nach dem Logo oder als Refresh</h2>
+        <div class="lp-text">
+          <p>
+            Die meisten Geschäftsausstattungen entstehen direkt nach einem neuen
+            Logo oder einem Relaunch: Das Zeichen steht, jetzt muss es auf Karte,
+            Papier und Signatur. Wenn du noch ganz am Anfang stehst, startest du
+            am besten mit dem <a href="/logo-erstellen-lassen/">Logo erstellen lassen</a>
+            oder gleich mit dem <a href="/corporate-design/">Corporate Design</a>,
+            dort sind die Basis-Anwendungen schon enthalten.
+          </p>
+          <p>
+            Der zweite typische Fall ist der Refresh: Dein Logo bleibt, aber die
+            Visitenkarte stammt aus einem anderen Jahrzehnt, die Word-Vorlage zickt
+            und jede Signatur im Team sieht anders aus. Dann richten wir die
+            bestehenden Elemente neu aus, ohne deine Marke umzukrempeln.
+          </p>
+          <p>
+            Ehrlich gesagt: Wenn dein Auftritt insgesamt uneinheitlich ist, sind
+            neue Karten allein Flickwerk. Dann lohnt sich zuerst das Fundament,
+            und die Drucksachen folgen daraus fast von selbst.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Druckabwicklung inklusive</h2>
+        <div class="lp-text">
+          <p>
+            Gestaltung ist die eine Hälfte, der Druck die andere. Wir sind keine
+            Druckerei und besitzen keine Maschinen. Wir wickeln die Produktion für
+            dich ab: Reinzeichnung mit Beschnitt und Farbprofilen, Papierauswahl
+            mit Mustern zum Anfassen, Offertvergleich bei unseren Druckpartnern
+            in der Schweiz und die Qualitätskontrolle vor der Lieferung.
+          </p>
+          <p>
+            Du musst dich nicht mit Beschnitt, Farbräumen und Druckerei-Jargon
+            herumschlagen: Am Ende stehen fertige Kartons bei dir vor der Tür.
+            Und bei der Nachbestellung kennen wir deine Daten bereits.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Markt-Ranges */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Was Geschäftsdrucksachen kosten</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. Gestaltung und Druck hängen von
+        Umfang, Papier und Auflage ab, darum Ranges statt Ladenpreise. Was dein Projekt konkret
+        kostet, steht in einem transparenten Angebot nach dem kostenlosen
+        Erstgespräch, fix und ohne Zusatzposten.
+      </p>
+    </div>
+  </section>
+
+  {/* Online bestellen oder gestalten lassen */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wo es hakt, wenn es zählt</h2>
+        <div class="lp-text">
+          <p>
+            Die Vorlagen-Karte sieht aus wie tausend andere, weil tausend andere
+            sie auch nutzen. Farben und Beschnitt kontrolliert niemand, und über
+            Karte, Briefpapier und Signatur hinweg entsteht keine Linie, sondern
+            ein Sammelsurium. Digitale Vorlagen wie die Word-Briefvorlage oder
+            die E-Mail-Signatur bekommst du dort gar nicht.
+          </p>
+          <p>
+            Wenn dein Auftritt Vertrauen schaffen soll, etwa bei Offerten, im
+            Verkauf oder bei neuen Kontakten, lohnt sich Gestaltung, die zu
+            deiner Marke passt. Mehr dazu findest du bei
+            <a href="/grafikdesign-zuercher-oberland/">Grafikdesign im Zürcher Oberland</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu Geschäftsdrucksachen</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Soll dein Auftritt aussehen wie aus einem Guss?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du brauchst: neue Visitenkarten, die komplette
+        Geschäftsausstattung oder einen Refresh deines Papiers. Nach einem
+        kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit
+        einem klaren Preis.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--4, .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--4, .ranges { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,260 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["regan", "seatalytics", "smart-navigator"].includes(p.slug)
+);
+
+const kann = [
+  {
+    title: "Gestaltung ohne Template-Zwang",
+    note: "Dein Design wird nicht in eine Vorlage gezwängt, sondern massgeschneidert gebaut und direkt als sauberer Code umgesetzt. Was wir gestalten, geht auch live.",
+  },
+  {
+    title: "Schnell und schlank im Unterhalt",
+    note: "Hosting mit weltweitem CDN und SSL inklusive, ohne Plugin-Wartung und ohne Sicherheitslücken durch veraltete Erweiterungen. Gepflegt werden will die Seite trotzdem: Inhalte, Formulare und Weiterentwicklung übernehmen wir auf Wunsch für dich.",
+  },
+  {
+    title: "CMS zum Selberpflegen",
+    note: "Texte, Bilder und Referenzen passt du im Editor selbst an, ohne Technik-Wissen und ohne Angst, etwas zu zerreissen. Wir schulen dich darin.",
+  },
+  {
+    title: "Saubere Basis für Google",
+    note: "Schnelle Ladezeiten, sauber strukturierter Code und eingebaute SEO-Grundlagen: Genau das, womit Websites gefunden werden.",
+  },
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Webflow-Website bei euch?",
+    a: "Das hängt vom Umfang ab: Onepager, mehrseitige Firmenwebsite oder ein Auftritt mit CMS und Schnittstellen. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit allen Leistungen und einem klaren Preis. Ohne versteckte Kosten, auch beim Hosting: Wir legen alle laufenden Gebühren offen.",
+  },
+  {
+    q: "Webflow oder WordPress: Was passt für uns?",
+    a: "Kommt aufs Projekt an. Webflow glänzt bei massgeschneidertem Design, schneller Umsetzung und geringem Wartungsaufwand. WordPress ist stark bei grossen Content-Strukturen, speziellen Plugins oder wenn dein Umfeld bereits auf WordPress läuft. Wir beherrschen beides und empfehlen dir das, was zu deinem Vorhaben passt, nicht das, was uns gerade in den Kram passt.",
+  },
+  {
+    q: "Kann ich die Website danach selbst bearbeiten?",
+    a: "Ja, das ist eine der grössten Stärken von Webflow: Im Editor passt du Texte, Bilder und CMS-Inhalte wie Referenzen oder News selbst an. Wir richten alles so ein, dass du nichts kaputt machen kannst, und schulen dich in einer kurzen Session.",
+  },
+  {
+    q: "Übernehmt ihr auch bestehende Webflow-Sites?",
+    a: "Gerne. Ob Relaunch, Erweiterung oder einfach Pflege: Als zertifizierte Partner steigen wir in bestehende Webflow-Projekte ein, prüfen den Stand und sagen dir ehrlich, was sich lohnt weiterzubauen und was nicht.",
+  },
+  {
+    q: "Wie sieht es mit Hosting und Datenschutz aus?",
+    a: "Webflow hostet auf moderner Cloud-Infrastruktur mit weltweitem CDN, was für schnelle Ladezeiten auch in der Schweiz sorgt. Beim Datenschutz bauen wir datensparsam: Auf Wunsch mit cookieloser Statistik ohne Cookie-Banner, wie wir es auch auf unserer eigenen Website machen. Wir beraten dich ehrlich zu den Rahmenbedingungen.",
+  },
+  {
+    q: "Baut ihr auch Onlineshops mit Webflow?",
+    a: "Ehrlich gesagt: nur bedingt. Der eingebaute Webflow-Shop kennt keine Schweizer Zahlungsarten wie TWINT. Wir ergänzen Webflow darum mit passenden Shop-Lösungen oder empfehlen dir gleich eine andere Basis, wenn der Shop im Zentrum steht. Das sagen wir dir im ersten Gespräch, nicht erst in der Offerte.",
+  },
+];
+---
+
+<Layout
+  title="Webflow-Agentur in der Schweiz - Uftritt"
+  description="Zertifizierte Webflow-Partner aus dem Zürcher Oberland: massgeschneiderte Websites mit Webflow, ehrlich beraten. Wir sagen, wann Webflow passt und wann nicht."
+>
+  <PageHero
+    eyebrow="Webflow · Zertifizierte Partner"
+    title={"Webflow-Agentur\nin der Schweiz"}
+    lead="Uftritt ist zertifizierte Webflow-Partner-Agentur aus dem Zürcher Oberland. Wir entwickeln Websites für KMU mit Webflow und kennen die Plattform von innen: Unsere eigene Agentur-Website lief jahrelang darauf. Hier erfährst du ehrlich, was Webflow kann, wo es an Grenzen stösst und ob es zu deinem Projekt passt."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Einordnung */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was ist Webflow?</h2>
+        <div class="lp-text">
+          <p>
+            Webflow ist eine Entwicklungsplattform, mit der Websites visuell gestaltet
+            und direkt als sauberer, professioneller Code umgesetzt werden. Kein
+            Baukasten mit starren Vorlagen, sondern ein Werkzeug, mit dem Design
+            eins zu eins Realität wird.
+          </p>
+          <p>
+            Dazu gehören ein eigenes CMS zum Selberpflegen und ein schnelles,
+            sicheres Hosting. Für KMU heisst das: ein individueller Auftritt ohne
+            Agentur-Grossprojekt und ohne Plugin-Wartung wie bei klassischen Systemen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was dir zertifizierte Partner bringen</h2>
+        <div class="lp-text">
+          <p>
+            Die Webflow-Zertifizierung ist kein Dekoschild: Sie bestätigt geprüfte
+            Qualität bei Design, CMS und komplexen Datenstrukturen. Wir arbeiten
+            täglich in der Plattform und kennen ihre Stärken aus dem Effeff.
+          </p>
+          <p>
+            Und wir kennen auch ihre Grenzen, weil wir selbst darauf gebaut haben:
+            Unsere eigene Agentur-Website lief jahrelang auf Webflow. Diese
+            Praxis aus dem eigenen Betrieb bekommst du bei uns gratis dazu.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Was Webflow kann */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Die Stärken</span>
+        <h2>Was Webflow kann</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          kann.map((k) => (
+            <article class="karte">
+              <h3>{k.title}</h3>
+              <p class="karte-note">{k.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Grenzen ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wo Webflow an Grenzen stösst</h2>
+        <div class="lp-text">
+          <p>
+            Kein System kann alles. Einen Onlineshop mit Schweizer Zahlungsarten wie
+            TWINT bildet Webflow nicht allein ab, und komplexe Schnittstellen zu
+            Drittsystemen brauchen eigenen Code.
+          </p>
+          <p>
+            Genau da kommt unsere Entwicklungskompetenz ins Spiel: Für einen
+            Sportclub aus der Region haben wir Spielpläne und Ranglisten des Verbands
+            per eigener Schnittstelle direkt in die Webflow-Website gebracht. Wenn
+            dein Projekt mehr braucht, bauen wir die Ergänzung selbst oder sagen dir
+            ehrlich, dass eine andere Basis besser passt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Webflow oder WordPress?</h2>
+        <div class="lp-text">
+          <p>
+            Wir arbeiten mit beiden Welten und haben keine Ideologie zu verkaufen.
+            Webflow passt, wenn du einen massgeschneiderten Auftritt willst, den du
+            selbst pflegst, ohne dich um Technik zu kümmern. WordPress passt, wenn
+            du grosse Content-Strukturen, spezielle Plugins oder eine bestehende
+            WordPress-Landschaft hast.
+          </p>
+          <p>
+            Im Erstgespräch hören wir zu, was du vorhast, und empfehlen dir die
+            Technik, die dazu passt. Auch dann, wenn das nicht Webflow heisst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu Webflow</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Passt Webflow zu deinem Projekt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du vorhast. Wir sagen dir ehrlich, ob Webflow die richtige
+        Basis ist, und machen ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

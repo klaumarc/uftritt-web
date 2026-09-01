@@ -25,9 +25,9 @@ import { reviews, reviewsMeta } from "../data/reviews";
     <button class="rev-btn" type="button" data-rev-prev aria-label="Vorherige Stimme">
       <span class="rev-arrow rev-arrow--left"></span>
     </button>
-    <div class="reviews-dots" role="tablist">
+    <div class="reviews-dots" role="group" aria-label="Stimme wählen">
       {reviews.map((_, i) => (
-        <button class:list={["rev-dot", { "is-active": i === 0 }]} type="button" data-dot={i} aria-label={`Stimme ${i + 1}`}></button>
+        <button class:list={["rev-dot", { "is-active": i === 0 }]} type="button" data-dot={i} aria-label={`Stimme ${i + 1}`} aria-current={i === 0 ? "true" : null}></button>
       ))}
     </div>
     <button class="rev-btn" type="button" data-rev-next aria-label="Nächste Stimme">
@@ -137,7 +137,7 @@ import { reviews, reviewsMeta } from "../data/reviews";
     border-radius: 50%;
     border: none;
     padding: 0;
-    background: rgba(218, 44, 103, 0.28); /* Pink gedimmt – Revision Jeffrey */
+    background: rgba(218, 44, 103, 0.28); /* Pink gedimmt, Revision Jeffrey */
     cursor: var(--cur-hand);
     transition: background 0.4s var(--ease), transform 0.4s var(--ease);
   }
@@ -173,7 +173,11 @@ import { reviews, reviewsMeta } from "../data/reviews";
     function show(n: number) {
       i = (n + slides.length) % slides.length;
       slides.forEach((s, idx) => s.classList.toggle("is-active", idx === i));
-      dots.forEach((d, idx) => d.classList.toggle("is-active", idx === i));
+      dots.forEach((d, idx) => {
+        d.classList.toggle("is-active", idx === i);
+        if (idx === i) d.setAttribute("aria-current", "true");
+        else d.removeAttribute("aria-current");
+      });
     }
     function nextSlide() {
       show(i + 1);

@@ -1,0 +1,310 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["dtb-redesign", "arte-bellezza", "stahel-koeng", "architekturmacher", "emotion-hinwil", "cva"].includes(p.slug)
+);
+
+const ranges = [
+  {
+    name: "KI / Online-Generator",
+    price: "kostenlos bis ca. CHF 100",
+    note: "Schnell ein Bild für die Website oder den Vereinsanlass. Aber: kein Unikat, Nutzungsrechte oft unklar, meist keine Vektordaten und keine Strategie dahinter.",
+  },
+  {
+    name: "Freelancer",
+    price: "CHF 500 bis 3000",
+    note: "Ein individuell gestaltetes Logo mit zwei bis drei Entwürfen und Korrekturschlaufen. Persönlich und handwerklich solide, meist ohne tiefere Recherche und ohne System rundherum.",
+  },
+  {
+    name: "Agentur",
+    price: "CHF 2000 bis 8000",
+    note: "Mit Briefing, Recherche, mehreren begründeten Konzepten und sauberer Reinzeichnung in allen Formaten. Dazu Farbwelt und Schriften. Der typische Weg für ein Firmenlogo, das Jahre tragen soll.",
+  },
+  {
+    name: "Logo im Corporate Design",
+    price: "CHF 8000 bis 30 000",
+    note: "Das Logo als Teil eines ganzen Erscheinungsbilds: Varianten-System, Farbpalette, Typografie und Guidelines für alle Anwendungen vom Web bis zur Fahrzeugbeschriftung.",
+  },
+];
+
+const paket = [
+  { name: "Logo-Varianten", value: "Hauptversion, Kompaktversion und Signet für Profilbilder und Favicon" },
+  { name: "Dateiformate", value: "Vektordaten (AI, EPS, SVG) plus PNG und PDF für den Alltag" },
+  { name: "Farbvarianten", value: "Vollfarbe, Schwarzweiss und invertiert für dunkle Hintergründe" },
+  { name: "Nutzungsrechte", value: "exklusiv und vollständig auf dich übertragen" },
+  { name: "Kurzguide", value: "Farbcodes, Mindestgrössen und Freiflächen, damit der Auftritt konsistent bleibt" },
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Logo in der Schweiz?",
+    a: "Die Spanne ist gross: Generatoren und Plattformen liefern Logos ab wenigen Franken, Freelancer gestalten individuelle Logos für CHF 500 bis 3000, und Agenturen mit Recherche, Konzept und Reinzeichnung liegen bei CHF 2000 bis 8000. Ein Logo als Teil eines ganzen Corporate Designs kostet CHF 8000 bis 30 000.",
+  },
+  {
+    q: "Warum nicht der Generator für CHF 50?",
+    a: "Für ein Hobbyprojekt oder einen Prototyp ist das völlig okay. Die Haken: Das Ergebnis ist kein Unikat, ähnliche Logos kursieren auch bei anderen Firmen, die Nutzungsrechte sind oft unklar, und ohne Vektordaten scheitert der Druck auf Visitenkarte oder Fahrzeug. Eine Marke mit Strategie dahinter kann kein Generator bauen.",
+  },
+  {
+    q: "Was bekomme ich bei einer Agentur alles?",
+    a: "Ein strukturiertes Briefing, Recherche zu Zielgruppe und Wettbewerb, mehrere begründete Entwürfe, Feedbackschlaufen und die Reinzeichnung in allen Formaten. Dazu gehören Logo-Varianten, Vektordaten, Farbvarianten, die vollständigen Nutzungsrechte und ein Kurzguide, damit dein Auftritt überall konsistent bleibt.",
+  },
+  {
+    q: "Wie lange dauert ein Logo-Projekt?",
+    a: "Bei Freelancern rechne mit zwei bis vier Wochen, bei einer Agentur mit Recherche und Konzeptphase mit vier bis acht Wochen. Generatoren liefern in Minuten, dafür ohne jede Vorarbeit. Wer am Montag ein Logo fürs Wochenende braucht, kauft Geschwindigkeit statt Qualität.",
+  },
+  {
+    q: "Brauche ich gleich ein ganzes Corporate Design?",
+    a: "Nicht zwingend. Wenn das Logo nur auf der Website und in den sozialen Medien läuft, reicht oft ein gutes Logo mit Varianten. Sobald Fahrzeuge, Fassaden, Arbeitskleidung oder Drucksachen dazukommen, lohnt sich ein System mit Farbpalette, Typografie und Regeln, sonst flickst du später alles einzeln nach.",
+  },
+  {
+    q: "Was kostet ein Logo bei euch?",
+    a: "Das hängt vom Umfang ab: ein einzelnes Logo, ein Logo mit Varianten und Regeln oder ein ganzes Erscheinungsbild. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit allen Leistungen und einem klaren Preis. Ohne versteckte Kosten und ohne Überraschungen auf der Rechnung.",
+  },
+];
+---
+
+<Layout
+  title="Was kostet ein Logo?, Uftritt"
+  description="Was kostet ein Logo? Ehrliche Preisranges für die Schweiz: Generator, Freelancer, Agentur und Corporate Design. Plus Preistreiber und was du fürs Geld bekommst."
+>
+  <PageHero
+    eyebrow="Logo-Kosten · Schweiz"
+    title={"Was kostet\nein Logo?"}
+    lead="Die ehrliche Antwort vorweg: Ein professionelles Logo kostet in der Schweiz bei einem Freelancer CHF 500 bis 3000, bei einer Agentur mit Recherche und Konzept CHF 2000 bis 8000. Generatoren liefern für wenig Geld ein Bild, aber keine Marke. Was den Unterschied ausmacht, zeigen wir hier."
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Antwort-Block: Preisranges */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Die Preisranges im Überblick</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. Jedes Logo ist individuell, darum
+        sind das Ranges und keine Ladenpreise.
+      </p>
+    </div>
+  </section>
+
+  {/* Preistreiber + Paketinhalt */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was den Preis wirklich treibt</h2>
+        <div class="lp-text">
+          <p>
+            Der grösste Treiber ist die Konzepttiefe: Ein Logo aus der Schublade ist
+            schnell gemacht, ein Logo mit Briefing, Recherche zu Zielgruppe und
+            Wettbewerb und begründeten Entwürfen braucht Zeit. Genau diese Zeit
+            zahlst du, und genau sie macht den Unterschied.
+          </p>
+          <p>
+            Der zweite Punkt sind Anzahl Entwürfe und Feedbackschlaufen: Mehr Auswahl
+            und mehr Korrekturrunden bedeuten mehr Stunden. Und der Anwendungsumfang:
+            Ein Logo nur fürs Web ist einfacher als eines, das auf dem Fahrzeug, an
+            der Fassade und gestickt auf der Arbeitskleidung funktionieren muss.
+          </p>
+          <p>
+            Zum Einordnen: Grafikdesigner in der Schweiz rechnen mit Stundensätzen
+            ab ca. CHF 130.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was ein professionelles Logo-Paket enthält</h2>
+        <div class="lp-text">
+          <p>
+            Der Preis steckt weniger im einen Bild als in allem, was dazugehört.
+            Darauf solltest du bei jeder Offerte bestehen:
+          </p>
+          <ul class="kosten-liste">
+            {
+              paket.map((l) => (
+                <li>
+                  <strong>{l.name}</strong>
+                  <span>{l.value}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="abo-hinweis" data-reveal>
+            <strong>Kurz gesagt:</strong> Ohne Vektordaten und exklusive
+            Nutzungsrechte kaufst du kein Logo, sondern leihst dir ein Bild.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Generator vs. Agentur + Listenpreise */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Generator oder Agentur?</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlich gesagt: Für das Hobbyprojekt, den Prototyp oder den
+            Vereinsanlass reicht ein Logo aus dem Generator. Du bekommst schnell
+            etwas Ansehliches für wenig Geld. Drei Haken solltest du kennen: Das
+            Ergebnis ist kein Unikat, die Nutzungsrechte sind oft unklar, und ohne
+            Vektordaten wird es beim Druck oder auf dem Fahrzeug schwierig.
+          </p>
+          <p>
+            Was KI-Logos heute können und wo sie an Grenzen stossen, zeigen wir
+            übrigens ehrlich auf unserer Seite zum Thema
+            <a href="/ki-logo/">KI-Logo</a>. Eine Agentur lohnt sich, wenn aus dem
+            Bild eine Marke werden soll: mit Recherche, Konzept, Varianten für jede
+            Anwendung und jemandem, der Verantwortung für das Ergebnis übernimmt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Warum seriöse Agenturen keine Listenpreise nennen</h2>
+        <div class="lp-text">
+          <p>
+            Weil kein Logo-Projekt dem anderen gleicht. Ein Vereinswappen und eine
+            Firmenmarke mit Anwendungsregeln sind zwei verschiedene Produkte. Ein
+            Listenpreis wäre für das eine zu hoch und für das andere zu tief
+            kalkuliert. Für beide Seiten unehrlich.
+          </p>
+          <p>
+            Darum arbeiten wir so: kostenloses Erstgespräch, danach ein transparentes
+            Angebot mit allen Leistungen und einem klaren Preis. Keine versteckten
+            Kosten, keine Überraschungen auf der Rechnung. Wie wir ein Logo von der
+            ersten Skizze bis zur Reinzeichnung entwickeln, zeigen wir unter
+            <a href="/logo-erstellen-lassen/">Logo erstellen lassen</a>, und was wir
+            sonst noch gestalten, findest du beim
+            <a href="/angebot/grafikdesign/">Grafikdesign-Angebot</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu Logo-Kosten</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Willst du wissen, was dein Logo kostet?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deinem Vorhaben. Du bekommst ein ehrliches, transparentes
+        Angebot, kostenlos und unverbindlich.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .kosten-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .kosten-liste li {
+    display: flex; flex-direction: column; gap: 0.15rem;
+    padding: 0.9rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem;
+  }
+  .kosten-liste li:last-child { border-bottom: 0; }
+  .kosten-liste span { opacity: 0.85; }
+  .abo-hinweis {
+    margin-top: 1.25rem; padding: 1rem 1.25rem;
+    border-left: 4px solid var(--color-yellow);
+    background: #fff; color: var(--color-blue);
+    font-size: 1.05rem !important; line-height: 1.6;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges { grid-template-columns: 1fr; }
+  }
+</style>

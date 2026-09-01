@@ -10,7 +10,7 @@ export interface NewsItem {
   youtube?: string; // optionale YouTube-Video-ID
 }
 
-// Veröffentlichte Beiträge – Quelle: uftritt.ch/news (Live) + gelieferte Texte.
+// Veröffentlichte Beiträge, Quelle: uftritt.ch/news (Live) + gelieferte Texte.
 // Reihenfolge: neueste zuerst. Nur Originaltexte, keine KI-Platzhalter.
 export const news: NewsItem[] = [
   {
@@ -32,9 +32,9 @@ export const news: NewsItem[] = [
     date: "2026",
     image: "/news/sam-focus.jpg",
     excerpt:
-      "serve and multiply – wir übernehmen neu die redaktionelle Arbeit und Gestaltung des Magazins SAM focus.",
+      "serve and multiply, wir übernehmen neu die redaktionelle Arbeit und Gestaltung des Magazins SAM focus.",
     body: [
-      "serve and multiply – dies ist der Grundsatz der christlichen NGO SAM global. Das Magazin SAM focus oder SAM allons im westschweizerischen Raum, ist nach wie vor ein wichtiges Kommunikationsorgan des schweizerischen Hilfswerks. In enger Zusammenarbeit mit dem Kommunikationsteam dürfen wir neu die redaktionelle Arbeit und die Gestaltung des Magazins übernehmen.",
+      "serve and multiply, dies ist der Grundsatz der christlichen NGO SAM global. Das Magazin SAM focus oder SAM allons im westschweizerischen Raum ist nach wie vor ein wichtiges Kommunikationsorgan des schweizerischen Hilfswerks. In enger Zusammenarbeit mit dem Kommunikationsteam dürfen wir neu die redaktionelle Arbeit und die Gestaltung des Magazins übernehmen.",
       "Damit dieses auch visuell weiterhin attraktiv bleibt für die Lesenden, haben wir ein zeitgemässes Redesign umgesetzt. Das Magazin glänzt nun mit einem luftigen Layout, einem ausgewogenen Bild-Text-Verhältnis, klaren Texthierarchien und passenden Illustrationen.",
       "Auf der Website von SAM global können die Ausgaben im frischen Kleid mit spannenden Berichten gelesen oder das Magazin gleich abonniert werden > www.sam-global.org",
     ],
@@ -48,7 +48,7 @@ export const news: NewsItem[] = [
     excerpt:
       "Für den Unihockeyverein emotion Hinwil haben wir das Erscheinungsbild von Grund auf neu entwickelt.",
     body: [
-      "Der Unihockeyverein emotion Hinwil mit seiner markanten Vereinsfarbe ist bereits seit 2011 mit verschiedenen Teams erfolgreich in den Ligen von swiss unihockey unterwegs – mit dem Herren 1 Team sogar in der höchsten Kleinfeld-Liga der Schweiz. Das bisherige Erscheinungsbild war jedoch in die Jahre gekommen und aus diesem Grund galt es dieses von Grund auf neu zu entwickeln.",
+      "Der Unihockeyverein emotion Hinwil mit seiner markanten Vereinsfarbe ist bereits seit 2011 mit verschiedenen Teams erfolgreich in den Ligen von swiss unihockey unterwegs, mit dem Herren 1 Team sogar in der höchsten Kleinfeld-Liga der Schweiz. Das bisherige Erscheinungsbild war jedoch in die Jahre gekommen und aus diesem Grund galt es dieses von Grund auf neu zu entwickeln.",
       "Für uns als Unihockeyfans war es eine grosse Freude, dass wir in Zusammenarbeit mit dem Verein ein neues Logo, neue Gestaltungselemente und Design-Richtlinien für die verschiedenen Kommunikationskanäle wie Social Media, Printmedien und Kleidung entwickeln durften. Dabei wurde an der starken, identitätsstiftenden Farbe Pink festgehalten, wobei der Farbton frischer und moderner überarbeitet wurde. An der Mitgliederversammlung im Juni wurde das Rebranding dem ganzen Verein vorgestellt.",
     ],
   },
@@ -74,9 +74,9 @@ export const news: NewsItem[] = [
     excerpt:
       "Für eine aussergewöhnliche Wohnung in der ehemaligen Spinnerei Mannegg entwickelten wir eine Verkaufs-Website.",
     body: [
-      "Ein schmucke Oase in der Grossstadt🏡",
-      "Die ehemalige Spinnerei Mannegg am Spinnereiplatz 1 steht als beeindruckender Zeitzeuge mitten im modernen Zürcher Quartier Green City. Der geschichtsträchtige Bau wird heute als Wohngebäude genutzt wozu auch eine grosszügige und aussergewöhnlich gestaltete Wohnung in der 3. Etage gehört.",
-      "Um das leerstehende Objekt für den Verkauf optimal zu bewerben und in das beste Licht zu rücken, durften wir in Zusammenarbeit mit dem zuständigen Makler eine informative und anschauliche Website entwickeln. Diese lebt unter anderem von den – durch uns gemachten – hochwertigen Fotos der Räumlichkeiten, welche die vielen Vorzüge und die einmalige Atmosphäre der Wohneinheit und deren Umgebung zum Ausdruck bringen. Zudem verfassten wir kurze, informative Texte.",
+      "Eine schmucke Oase in der Grossstadt🏡",
+      "Die ehemalige Spinnerei Mannegg am Spinnereiplatz 1 steht als beeindruckender Zeitzeuge mitten im modernen Zürcher Quartier Green City. Der geschichtsträchtige Bau wird heute als Wohngebäude genutzt, wozu auch eine grosszügige und aussergewöhnlich gestaltete Wohnung in der 3. Etage gehört.",
+      "Um das leerstehende Objekt für den Verkauf optimal zu bewerben und in das beste Licht zu rücken, durften wir in Zusammenarbeit mit dem zuständigen Makler eine informative und anschauliche Website entwickeln. Diese lebt unter anderem von den, durch uns gemachten, hochwertigen Fotos der Räumlichkeiten, welche die vielen Vorzüge und die einmalige Atmosphäre der Wohneinheit und deren Umgebung zum Ausdruck bringen. Zudem verfassten wir kurze, informative Texte.",
     ],
   },
   {
@@ -86,7 +86,7 @@ export const news: NewsItem[] = [
     date: "April 2025",
     image: "/news/umzug-saland.jpg",
     excerpt:
-      "Wir beziehen ein neues Büro im Tösstal – bei den Festhütten in Saland.",
+      "Wir beziehen ein neues Büro im Tösstal, bei den Festhütten in Saland.",
     body: [
       "Wir beziehen eine neue Station im Zürcher Oberland! 🥳",
       "Mit der Startphase in Rüti durften wir eine wertvolle Grundlage für unsere Agentur legen und wir sind dankbar dafür. Nun nehmen wir die nächste Stufe und werden ab 1. April 2025 ein schönes neues Büro im Tösstal, genauer gesagt bei den Festhütten in Saland beziehen. Der Charme von Schindler & Scheibling Bauwerk wird unser kreatives Schaffen mit Sicherheit sehr positiv beeinflussen. Das Büro teilen wir uns mit dem it-stall, Partner für Netzwerk, Support und IoT.",
@@ -100,12 +100,12 @@ export const news: NewsItem[] = [
     date: "2025",
     image: "/news/smart-navigator.jpg",
     excerpt:
-      "Für die Unternehmensberatung smart navigator bauten wir die Marke von Grund auf – Name, Logo, Briefschaften, Website.",
+      "Für die Unternehmensberatung smart navigator bauten wir die Marke von Grund auf, Name, Logo, Briefschaften, Website.",
     body: [
       "Auf klarem Kurs zum Ziel ⛵",
-      "So werden Besucherinnen und Besucher der Anfang diesen Jahres gelaunchten Webseite der Unternehmensberatung smart navigator begrüsst.",
+      "So werden Besucherinnen und Besucher der Anfang dieses Jahres gelaunchten Webseite der Unternehmensberatung smart navigator begrüsst.",
       "Der smart navigator selbst, Hans-Peter Bareth, ist Organisationsentwickler, Sparring-Partner und Trainer für vielfältige unternehmerische Fragestellungen. Mit seinem reichen Erfahrungsschatz ist er ein wertvolles Gegenüber, das eine gesunde und erfolgreiche Entwicklung von Firmen und Organisationen begleitet und fördert.",
-      "Seine Leidenschaft für den Segelsport und damit zusammenhängende Narrative und Prinzipien sind das leitende Motiv im Erscheinungsbild von smart navigator. Für den Aufbau seiner Marke durften wir den Kunden von Beginn weg begleiten – von der Namensfindung, der Entwicklung eines Logos, den Briefschaften bis zum Aufbau einer informativen Webseite.",
+      "Seine Leidenschaft für den Segelsport und damit zusammenhängende Narrative und Prinzipien sind das leitende Motiv im Erscheinungsbild von smart navigator. Für den Aufbau seiner Marke durften wir den Kunden von Beginn weg begleiten, von der Namensfindung, der Entwicklung eines Logos, den Briefschaften bis zum Aufbau einer informativen Webseite.",
     ],
   },
   {
@@ -119,7 +119,7 @@ export const news: NewsItem[] = [
     body: [
       "Get ready for part 2! (mit ein wenig Verspätung) 🎙️",
       "Höre dir jetzt auf Spotify die neue Podcast-Folge an: Uf Tritt und Schritt mit Uftritt.",
-      "In der neuen Folge blicken wir, Marcel und Jeffrey, zurück auf unser erstes, gut überstandenes Jahr der Selbstständigkeit. Erfahre, wer den ersten Schritt gemacht hatte, wieso wir grün hinter den Ohren sind und welches die Highlights der hinter uns liegenden Zeit sind.",
+      "In der neuen Folge blicken wir, Marcel und Jeffrey, zurück auf unser erstes, gut überstandenes Jahr der Selbstständigkeit. Erfahre, wer den ersten Schritt gemacht hatte, wieso wir grün hinter den Ohren sind und welche die Highlights der hinter uns liegenden Zeit sind.",
     ],
   },
   {
@@ -157,7 +157,7 @@ export const news: NewsItem[] = [
     date: "Oktober 2024",
     image: "/news/yi-broschuere.jpg",
     excerpt:
-      "Eine Fundraising-Broschüre für Youngstars International – konzipiert, getextet und gestaltet.",
+      "Eine Fundraising-Broschüre für Youngstars International, konzipiert, getextet und gestaltet.",
     body: [
       "Eine Broschüre, ein Flyer oder eine Visitenkarte können am Bildschirm noch so ansprechend aussehen, wenn der Druck nicht stimmt, verliert das ganze Produkt.",
       "Unsere Drucksachen lassen wir deshalb bei unserer Druckerei des Vertrauens produzieren: der dt druck-team ag in Wetzikon. Vielen Dank für die gute Zusammenarbeit!",
@@ -173,7 +173,7 @@ export const news: NewsItem[] = [
     excerpt:
       "Für Martin Brunner vom it-stall entwickelten wir Erscheinungsbild und Webseite.",
     body: [
-      "Hast du schon einmal versucht, eine 100kg schwere Stalltüre per App öffnen zu lassen? Oder die Garagentür so zu programmieren, dass sie bei deiner Einfahrt selbst aufgeht?",
+      "Hast du schon einmal versucht, eine 100 kg schwere Stalltüre per App öffnen zu lassen? Oder die Garagentür so zu programmieren, dass sie bei deiner Einfahrt selbst aufgeht?",
       "Für genau solche Projekte ist Martin Brunner vom it-stall dein Partner. Sein Traum, dass aus «Was-wäre-wenn»-Wünschen funktionale it-Lösungen werden, ist nun in ein von uns entwickeltes Erscheinungsbild gehüllt sowie mit einer durch uns gestalteten und getexteten Webseite ausgerüstet.",
       "Vielen Dank für das Vertrauen, Martin Brunner!",
       "Eine verrückte IT-Idee im Kopf? Hier geht's zum it-Stall: it-stall.ch",
@@ -186,10 +186,10 @@ export const news: NewsItem[] = [
     date: "September 2024",
     image: "/news/ratsam.jpg",
     excerpt:
-      "Bevor man an den neuen Auftritt denkt, ist es ratsam, seine Identität zu kennen – mit Sam Urech.",
+      "Bevor man an den neuen Auftritt denkt, ist es ratsam, seine Identität zu kennen, mit Sam Urech.",
     body: [
       "Bevor man an den neuen #uftritt denkt, ist es #ratsam seine Identität zu kennen.",
-      "Wer bin ich? Was macht mich aus? Diese Fragen sollten immer am Anfang einer Unternehmensgründung, eines Rebrandings, einer neuen Webseite oder eines Imagefilmes stehen. Gut, dass wir uns mit diesen Fragen jetzt an einen echten Experten wenden können: Sam Urech – Potenzialentdecker, Identitätsfinder und Kommunikationsberater bei ratsam.",
+      "Wer bin ich? Was macht mich aus? Diese Fragen sollten immer am Anfang einer Unternehmensgründung, eines Rebrandings, einer neuen Webseite oder eines Imagefilmes stehen. Gut, dass wir uns mit diesen Fragen jetzt an einen echten Experten wenden können: Sam Urech, Potenzialentdecker, Identitätsfinder und Kommunikationsberater bei ratsam.",
       "Sam legt die Grundlage für einen authentischen kommunikativen Auftritt, indem er einem Unternehmen auf den Zahn fühlt und den Herzschlag herausschält. Ist die Identität geklärt, kümmern wir uns um den nächsten Schritt: den passenden visuellen Auftritt und die Umsetzung von Kommunikationsmassnahmen.",
       "Wir freuen uns auf dein Wissen, dein Feingefühl, dein ehrliches Interesse an deinem Gegenüber und vor allem auf die Zusammenarbeit mit dir, Sam. Schön, dürfen wir mit dir unterwegs sein.",
     ],
@@ -204,7 +204,7 @@ export const news: NewsItem[] = [
       "Für das Ferienhaus Regan in Obersaxen konzipierten, gestalteten und texteten wir die Webseite.",
     body: [
       "Eichen sollst du weichen, Buchen sollst du suchen. 🌳",
-      "Wir würden beide (be)suchen – zumindest wenn es um das Ferienhaus Regan in Obersaxen geht. Denn sowohl die Esche, als auch die Buche, der Ahorn, die Ulme und weitere edle Holzarten sind da stilvoll eingerichteten Ferienwohnungen, die es sich zu suchen lohnt.",
+      "Wir würden beide (be)suchen, zumindest wenn es um das Ferienhaus Regan in Obersaxen geht. Denn sowohl die Esche als auch die Buche, der Ahorn, die Ulme und weitere edle Holzarten sind da stilvoll eingerichtete Ferienwohnungen, die es sich zu suchen lohnt.",
       "Einen guten Einblick in die Heimat auf Zeit findest du jetzt auf der von uns konzipierten, gestalteten und getexteten Webseite: www.regan.swiss",
       "Wir wünschen: Erholsame Ferien!",
     ],
@@ -216,7 +216,7 @@ export const news: NewsItem[] = [
     date: "2024",
     image: "/news/ki.jpg",
     excerpt:
-      "KI revolutioniert die Kommunikation – menschliche Expertise bleibt unverzichtbar.",
+      "KI revolutioniert die Kommunikation, menschliche Expertise bleibt unverzichtbar.",
     body: [
       "KI revolutioniert die Kommunikation, aber menschliche Expertise bleibt unverzichtbar!",
       "🤖 + 🧠 = 💡",
@@ -224,7 +224,7 @@ export const news: NewsItem[] = [
     ],
   },
   {
-    title: "Produktefilm für Sportgetränk",
+    title: "Produktfilm für Sportgetränk",
     slug: "empower",
     category: "Video",
     date: "2024",
@@ -233,7 +233,7 @@ export const news: NewsItem[] = [
       "Für das EMPOWER High Carb Pulver entwickelten wir einen kraftvollen Produktfilm.",
     body: [
       "Empower your performance!",
-      "Ein starkes Sportgetränk braucht eine starke Plattform. Das EMPOWER High Carb Pulver sorgt für langanhaltende Energie während des Trainings und schmeckt erfrischend dazu. Um das Pulvergetränk zu promoten, durften wir in Zusammenarbeit mit den Gründern Stefan Müller und Angie Müller von Crossfit Zug einen kraftvollen Produktfilm entwickeln und umsetzen. Hauptakteure waren die Sportlerinnen und Sportler, für welche das Pulvergetränk entwickelt wurde. Überzeuge dich selbst vom Video – und dem Getränk.",
+      "Ein starkes Sportgetränk braucht eine starke Plattform. Das EMPOWER High Carb Pulver sorgt für langanhaltende Energie während des Trainings und schmeckt erfrischend dazu. Um das Pulvergetränk zu promoten, durften wir in Zusammenarbeit mit den Gründern Stefan Müller und Angie Müller von Crossfit Zug einen kraftvollen Produktfilm entwickeln und umsetzen. Hauptakteure waren die Sportlerinnen und Sportler, für welche das Pulvergetränk entwickelt wurde. Überzeuge dich selbst vom Video, und dem Getränk.",
       "Und was möchtest du mit uns ins beste Licht rücken?",
     ],
   },
@@ -247,7 +247,7 @@ export const news: NewsItem[] = [
       "Christian Angst ergänzt unser Team im Bereich Videografie.",
     body: [
       "Das Uftritt-Team wächst!",
-      "Christian Angst ergänzt uns seit Anfang April mit seinen Skills im Bereich Videografie. Von prägnanten Social-Media-Inhalten über Produktvideos hin zu aussagekräftigen Imagefilmen – wir freuen uns darauf, mit ihm die spannenden Geschichten und Botschaften unserer Kundschaft im Bewegtbild zu erzählen!",
+      "Christian Angst ergänzt uns seit Anfang April mit seinen Skills im Bereich Videografie. Von prägnanten Social-Media-Inhalten über Produktvideos hin zu aussagekräftigen Imagefilmen, wir freuen uns darauf, mit ihm die spannenden Geschichten und Botschaften unserer Kundschaft im Bewegtbild zu erzählen!",
       "Film ab für Christian Angst!",
     ],
   },
@@ -297,7 +297,7 @@ export const news: NewsItem[] = [
     ],
   },
   {
-    title: "Fahrschule Schweiz",
+    title: "Neuer Auftritt für Fahrschule Schweiz",
     slug: "fahrschule-schweiz",
     category: "Corporate Design",
     date: "2024",
@@ -377,11 +377,11 @@ export const news: NewsItem[] = [
     date: "Oktober 2023",
     image: "/news/team.jpg",
     excerpt:
-      "Uftritt – das sind wir: Marcel Klausberger und Jeffrey Meier.",
+      "Uftritt, das sind wir: Marcel Klausberger und Jeffrey Meier.",
     body: [
-      "Uftritt – das sind wir, Marcel Klausberger und Jeffrey Meier.",
+      "Uftritt, das sind wir, Marcel Klausberger und Jeffrey Meier.",
       "Marcel ist die Schaltzentrale der Agentur. Ob kreatives Visionieren, initiatives Vorantreiben von Ideen, Buchhaltung, Akquise oder Netzwerken, er verleiht Uftritt den Auftrieb. Der Familienvater ist als Webentwickler zudem dafür verantwortlich, dass die Webprojekte unserer Kundschaft zum vollen Erfolg werden. Dafür wählt er gerne neue und individuelle Wege, die auf die Vielfalt der Menschen und deren Anforderungen eingehen.",
-      "Jeffrey ist das kreative Hirn von Uftritt. Er konzipiert und kreiert visuelle Auftritte, die den jeweiligen Ansprüchen exakt auf den Körper geschneidert sind. Als leidenschaftlicher Musiker bringt er auch die trockenste Materie gestalterisch zum Klingen und sorgt dafür, dass sich Kundinnen und Kunden mit Stolz präsentieren können – sei es eine Visitenkarte oder das gesamte Erscheinungsbild.",
+      "Jeffrey ist das kreative Hirn von Uftritt. Er konzipiert und kreiert visuelle Auftritte, die den jeweiligen Ansprüchen exakt auf den Körper geschneidert sind. Als leidenschaftlicher Musiker bringt er auch die trockenste Materie gestalterisch zum Klingen und sorgt dafür, dass sich Kundinnen und Kunden mit Stolz präsentieren können, sei es eine Visitenkarte oder das gesamte Erscheinungsbild.",
       "Und wer bist du? Wir freuen uns darauf, dich einmal unverbindlich kennenzulernen. Schreib uns dazu einfach eine Nachricht.",
     ],
   },
@@ -395,7 +395,7 @@ export const news: NewsItem[] = [
       "Für die servus GmbH entwickelten wir die brandneue Website inkl. Portraitshooting.",
     body: [
       "servus setzt Potenziale frei!",
-      "Von Organisationsentwicklung und Leadership-Training über Business Consulting zu Coaching/Sparring-Partnerschaften – Die Berater der servus GmbH begleiten und unterstützen internationale Konzerne, KMU oder soziale Institutionen bei der Multiplikation von Fähigkeiten, Kompetenzen und Werten.",
+      "Von Organisationsentwicklung und Leadership-Training über Business Consulting zu Coaching/Sparring-Partnerschaften, Die Berater der servus GmbH begleiten und unterstützen internationale Konzerne, KMU oder soziale Institutionen bei der Multiplikation von Fähigkeiten, Kompetenzen und Werten.",
       "Wir durften für und mit dem Unternehmen ihre brandneue Website entwickeln und umsetzen inklusive Portraitshooting der Mitarbeitenden. Die Website glänzt mit einer übersichtlichen Struktur sowie der Spür- und Sichtbarkeit des optimistischen Unternehmensgeistes.",
       "Verschaffe dir selbst einen Eindruck: www.servus.ch",
     ],
@@ -407,7 +407,7 @@ export const news: NewsItem[] = [
     date: "Oktober 2023",
     image: "/news/gruendung.jpg",
     excerpt:
-      "Wir feiern den Start von Uftritt – spezialisiert auf visuelle Kommunikation.",
+      "Wir feiern den Start von Uftritt, spezialisiert auf visuelle Kommunikation.",
     body: [
       "🎉 Wir feiern den Start von Uftritt! 🎉",
       "Liebe Freunde, Bekannte, Geschäftspartner und Unternehmer",

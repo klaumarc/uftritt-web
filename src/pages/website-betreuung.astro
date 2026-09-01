@@ -1,0 +1,292 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["physio-rothe", "regan", "seatalytics", "ripa-immobilien"].includes(p.slug)
+);
+
+const inklusive = [
+  {
+    title: "Hosting in der Schweiz",
+    note: "Deine Website läuft bei Kreativ Media auf Servern in der Schweiz: Deine Daten bleiben im Land, und wir kümmern uns um den technischen Betrieb. Du musst dich um nichts kümmern.",
+  },
+  {
+    title: "Wartung und Updates",
+    note: "System und Erweiterungen bleiben aktuell. Alle Updates spielen wir laufend ein, damit deine Website sicher und stabil bleibt.",
+  },
+  {
+    title: "Tägliche Backups",
+    note: "Deine Website wird jeden Tag gesichert. Geht einmal etwas schief, stellen wir einen früheren Stand wieder her.",
+  },
+  {
+    title: "Kleine Anpassungen",
+    note: "Ein Bild tauschen, eine Öffnungszeit ändern, ein Datum aktualisieren: Solche Kleinigkeiten erledigen wir einfach mit.",
+  },
+];
+
+const ablauf = [
+  "Kostenloses Erstgespräch: wir schauen uns deine Website und deine Situation an",
+  "Klare Ansage: wir sagen dir, was die Betreuung abdeckt und was nicht",
+  "Übernahme: Hosting, Wartung und tägliche Backups laufen ab jetzt bei uns",
+  "Du meldest dich, wenn du etwas ändern willst, wir kümmern uns",
+];
+
+const faq = [
+  {
+    q: "Ist für CHF 33 pro Monat wirklich alles drin?",
+    a: "Alles, was deine Website technisch braucht: Hosting, Wartung, tägliche Backups und alle Updates. Das ist ein Fixpreis ohne Kleingedrucktes, derselbe, den wir auch in unserem Kosten-Guide nennen. Nicht drin sind grössere Umbauten, neue Funktionen und das Erstellen von Inhalten. Wenn du mehr brauchst, besprechen wir das vorher und machen dir ein transparentes Angebot.",
+  },
+  {
+    q: "Gibt es eine Mindestlaufzeit?",
+    a: "Das klären wir transparent im Gespräch. Uns ist wichtig, dass die Zusammenarbeit für beide Seiten passt, darum besprechen wir Konditionen und Laufzeit offen, bevor irgendetwas läuft. Du erlebst bei uns keine Überraschungen im Kleingedruckten.",
+  },
+  {
+    q: "Was passiert, wenn meine Website ein Problem hat?",
+    a: "Dann meldest du dich bei uns, per Mail oder Telefon, und wir schauen es uns an. Weil wir Hosting, Wartung und Backups selbst machen, kennen wir deine Website und finden die Ursache in der Regel schnell. Dank den täglichen Backups können wir im Ernstfall auch einen früheren Stand wiederherstellen. Kostet eine Lösung mehr als die Betreuung, sagen wir dir das vorher.",
+  },
+  {
+    q: "Könnt ihr unsere bestehende Website übernehmen?",
+    a: "In den meisten Fällen ja. Wir schauen uns deine Website zuerst in einem kostenlosen Gespräch an: welche Technik dahintersteckt, wo sie gehostet ist und was eine Übernahme braucht. Danach sagen wir dir ehrlich, ob und wie wir sie betreuen können und was ein allfälliger Umzug kostet.",
+  },
+  {
+    q: "Wir haben bereits ein Hosting. Geht die Betreuung trotzdem?",
+    a: "Ja. Wenn du dein bestehendes Hosting behalten willst, übernehmen wir Wartung, Updates und Backups auf deiner Infrastruktur, sofern die Technik sauber läuft. In dem Fall bekommst du die Betreuung mit CHF 100 Rabatt pro Jahr. Wir schauen uns dein Setup im kostenlosen Erstgespräch an und sagen dir ehrlich, welche Variante für dich sinnvoller ist.",
+  },
+  {
+    q: "Was kostet mehr als die Basis-Betreuung?",
+    a: "Alles, was über den technischen Betrieb hinausgeht: grössere Umbauten, neue Seiten oder Funktionen, ein Relaunch und das laufende Erstellen von Inhalten wie Texten, Bildern oder News. Solche Arbeiten offerieren wir jeweils transparent pro Projekt. Eine Übersicht über typische Website-Kosten in der Schweiz findest du in unserem Kosten-Guide.",
+  },
+];
+---
+
+<Layout
+  title="Website-Betreuung für CHF 33 pro Monat - Uftritt"
+  description="Website-Betreuung für CHF 33 pro Monat: Hosting in der Schweiz, Wartung, tägliche Backups und Updates, ohne Kleingedrucktes. Von der Agentur aus dem Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="Fixpreis: CHF 33 pro Monat"
+    title={"Website-\nBetreuung"}
+    lead="Website-Betreuung heisst: Wir kümmern uns um Hosting, Wartung, tägliche Backups und alle Updates deiner Website, für fix CHF 33 pro Monat, ohne Kleingedrucktes. Gehostet wird in der Schweiz, bei Kreativ Media: Deine Daten bleiben im Land. Du hast keine Zeit fürs Technische? Genau dafür ist das Paket da: Deine Website bleibt sicher, aktuell und erreichbar, und du hast einen direkten Draht zu uns."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Website-Betreuung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Für wen + Fixpreis */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Für wen das Paket gedacht ist</h2>
+        <div class="lp-text">
+          <p>
+            In vielen kleinen und mittleren Betrieben kümmert sich niemand aktiv
+            um die Website. Sie läuft, bis sie es nicht mehr tut: ein veraltetes
+            System, ein gekipptes Kontaktformular, ein Update, das etwas
+            zerreisst. Und im Alltag fehlt schlicht die Zeit, sich darum zu
+            kümmern.
+          </p>
+          <p>
+            Genau dafür haben wir die Website-Betreuung gebaut: für KMU, Vereine
+            und Selbständige, die eine gute Website haben und sie ohne eigenen
+            Aufwand sicher und aktuell halten wollen. Du konzentrierst dich auf
+            dein Geschäft, wir kümmern uns um den Rest.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ein Fixpreis, weil er fair ist</h2>
+        <div class="lp-text">
+          <p>
+            CHF 33 pro Monat für Hosting, Wartung, tägliche Backups und alle
+            Updates, exkl. MwSt.: Das können wir als Fixpreis anbieten, weil der
+            Aufwand planbar ist, ganz anders als bei Projekten wie einem Relaunch
+            oder einer neuen Website. Daneben gibt es nur unsere klar umrissenen
+            <a href="/startup-website/">Startup-</a> und
+            <a href="/corporate-design/">Corporate-Design-Pakete</a> mit Fixpreis.
+          </p>
+          <p>
+            Bauen wir deine Website, gehört die Betreuung automatisch dazu und
+            steht von Anfang an im Angebot: Dein Auftritt läuft vom ersten Tag
+            an sicher und gepflegt. Hast du bereits ein Hosting, das du behalten
+            willst? Auch gut: Dann übernehmen wir Wartung, Updates und Backups
+            auf deiner Infrastruktur, und du bekommst CHF 100 Rabatt pro Jahr.
+          </p>
+          <p>
+            Was Websites sonst kosten, vom Aufbau bis zum Unterhalt, zeigen wir
+            übrigens transparent in unserem
+            <a href="/website-kosten/">Kosten-Guide</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Was drin ist */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Alles inklusive</span>
+        <h2>Was in der Betreuung drin ist</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          inklusive.map((u) => (
+            <article class="karte">
+              <h3>{u.title}</h3>
+              <p class="karte-note">{u.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Was nicht drin ist + Ablauf */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Ehrlich gesagt: Das ist nicht drin</h2>
+        <div class="lp-text">
+          <p>
+            Grössere Umbauten sind keine Betreuung mehr: ein neuer Bereich, eine
+            zusätzliche Funktion, ein Relaunch oder frische Inhalte wie Texte,
+            Bilder und News. Solche Arbeiten gehören für uns in ein eigenes,
+            transparentes Angebot, nie einfach auf die Rechnung.
+          </p>
+          <p>
+            Brauchst du laufend mehr als den technischen Betrieb? Dann passt
+            unser Betreuungs-Abo mit monatlichem Stundenkontingent: Damit bauen
+            wir zum Beispiel neue <a href="/landingpage-erstellen-lassen/">Landingpages</a>,
+            pflegen Inhalte ein, halten dein Angebot aktuell und schulen dein
+            Team im Umgang mit der Website. Umfang und Konditionen legen wir
+            gemeinsam fest, passend zu deinem Bedarf.
+          </p>
+          <p>
+            Ob einmalig oder im Abo: Schau dir unser
+            Angebot im <a href="/angebot/webdesign/">Webdesign</a> an oder sag
+            es uns gleich im Erstgespräch. Wir sagen dir ehrlich, was sich
+            lohnt und was nicht.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>So startest du</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Website-Betreuung</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Sollen wir deine Website betreuen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deiner Website. Wir sagen dir ehrlich, ob die Betreuung
+        für CHF 33 pro Monat passt und was sie für dich abdeckt.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

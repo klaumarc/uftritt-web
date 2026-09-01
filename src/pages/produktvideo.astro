@@ -1,0 +1,353 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["empower", "heusser-holzbau", "aas-freight", "peter-ott"].includes(p.slug)
+);
+
+const ranges = [
+  {
+    name: "Eigenproduktion mit dem Smartphone",
+    price: "fast nichts",
+    note: "Für spontane Clips aus dem Alltag völlig okay. Du zahlst nicht mit Geld, sondern mit deiner Zeit, und bei Ton und Licht zeigt sich der Unterschied schnell.",
+  },
+  {
+    name: "Kurzer Produktclip für Social Media",
+    price: "CHF 800 bis 3000",
+    note: "Ein kompakter Dreh, ein Schnitt, Untertitel: kurze Clips für Instagram, LinkedIn oder die Produkteseite. Konzept und Aufwand der Postproduktion entscheiden, wo du in dieser Range landest.",
+  },
+  {
+    name: "Klassisches Produktvideo",
+    price: "CHF 3000 bis 15 000",
+    note: "Konzept, professioneller Dreh, sauberes Licht und Ton, Schnitt und Musik: das Video, das dein Produkt auf Website, Messe und im Verkaufsgespräch verkauft.",
+  },
+  {
+    name: "Aufwendige Produktion mit 3D und Motion Design",
+    price: "CHF 15 000 bis 50 000",
+    note: "Mehrere Drehtage und Locations, 3D-Render, Animation und Motion Design, etwa für technische Produkte oder Kampagnen mit vielen Formaten.",
+  },
+];
+
+const einsatzorte = [
+  {
+    title: "Webshop",
+    note: "Auf der Produkteseite zeigt das Video, was Fotos nicht können: Grösse, Bedienung, Details in Bewegung. Es beantwortet Kauffragen, bevor sie im Warenkorb bremsen.",
+  },
+  {
+    title: "Social Media",
+    note: "Kurze Clips aus demselben Dreh füllen deine Kanäle für Wochen. Die ersten drei Sekunden entscheiden, darum bauen wir den Hook gleich ins Konzept.",
+  },
+  {
+    title: "Messe",
+    note: "Am Stand läuft dein Video in der Schlaufe und erklärt dein Produkt, auch wenn gerade alle Hände voll sind. Dank Untertiteln auch ohne Ton verständlich.",
+  },
+  {
+    title: "Verkaufsgespräch",
+    note: "Dein Verkaufsteam zeigt das Produkt in Aktion, auch wenn es zu gross, zu weit weg oder gerade nicht lieferbar ist. Gleich stark erzählt, jedes Mal.",
+  },
+];
+
+const prozess = [
+  "Erstgespräch: Produkt, Zielgruppe und Einsatzorte klären, kostenlos",
+  "Konzept: Kernbotschaft, Szenen und Formate auf Papier",
+  "Dreh bei dir vor Ort, in unserer Fotobox oder als 3D-Render, je nach Produkt",
+  "Schnitt, Farben, Musik und Untertitel bei uns im Haus",
+  "Lieferung in allen Formaten: Webshop, Social Media, Messe, Präsentation",
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Produktvideo in der Schweiz?",
+    a: "Ein kurzer Produktclip für Social Media kostet CHF 800 bis 3000, ein klassisches Produktvideo mit professionellem Dreh CHF 3000 bis 15 000, eine aufwendige Produktion mit 3D und Motion Design CHF 15 000 bis 50 000. Entscheidend sind Drehtage, Team, Konzept und die Anzahl Versionen. Bei uns gilt: kostenloses Erstgespräch, danach ein transparentes Angebot mit allen Leistungen und einem klaren Preis, ohne versteckte Kosten.",
+  },
+  {
+    q: "Wie lang soll ein Produktvideo sein?",
+    a: "So kurz wie möglich, so lang wie nötig. Auf Social Media zählen die ersten Sekunden: 15 bis 60 Sekunden. Auf der Produkteseite im Webshop funktionieren 30 bis 90 Sekunden gut. Erklärende Videos für technische Produkte oder den Messestand dürfen zwei bis drei Minuten lang sein. Wichtiger als die Länge: Das Wichtigste gehört an den Anfang, weil viele Zuschauer vor dem Ende abspringen.",
+  },
+  {
+    q: "Filmt ihr bei uns vor Ort?",
+    a: "Ja. Unser Büro ist in Saland im Tösstal, und wir sind schnell in Wetzikon, Hinwil, Bauma, Rüti oder Uster. Kurze Anfahrten halten die Kosten klein und machen Nachdrehs einfach. Kleine Produkte kannst du auch zu uns bringen: Für Tabletop-Aufnahmen, Detailshots und Packshots braucht es keine grosse Location.",
+  },
+  {
+    q: "Wem gehören die Rechte am Video, und was ist mit der Musik?",
+    a: "Die Nutzungsrechte regeln wir transparent im Angebot: In der Regel kannst du das fertige Video unbegrenzt auf deinen Kanälen einsetzen, vom Webshop über Social Media bis zur Messe. Bei der Musik achten wir auf sauber lizenzierte Titel, damit dein Video auf YouTube und Co. nicht gesperrt wird. Offene Projektdateien erhältst du auf Wunsch.",
+  },
+  {
+    q: "Bekommen wir auch kurze Formate für Social Media?",
+    a: "Ja, und am besten planen wir sie von Anfang an mit: Aus einem Dreh schneiden wir das Hauptvideo für Website oder Messe plus Kurzversionen für Instagram, LinkedIn und YouTube, hochkant oder quadratisch, mit Untertiteln für alle, die ohne Ton schauen. So wird aus einem Drehtag ein ganzes Paket, und der Preis pro Video sinkt.",
+  },
+  {
+    q: "Echter Dreh, 3D-Render oder KI-Video: Was passt zu unserem Produkt?",
+    a: "Für technische Produkte sind 3D-Render und Animation oft die stärkere Wahl: Explosionsgrafiken, der Blick ins Innenleben oder der Prototyp, den es noch gar nicht als Serienmodell gibt. Sobald es um Vertrauen und Haptik geht, gewinnt der echte Dreh: dein Produkt in echten Händen, in echtem Licht. Wir nutzen KI selbst für Ideen und Vorvisualisierung und sagen dir im Erstgespräch ehrlich, welcher Weg zu deinem Produkt und Budget passt.",
+  },
+];
+---
+
+<Layout
+  title="Produktvideo erstellen lassen, Uftritt"
+  description="Produktvideo erstellen lassen: Konzept, Dreh oder 3D-Render und Schnitt aus einer Hand, für Webshop, Social Media und Messe. Ehrliche Preisranges inklusive."
+>
+  <PageHero
+    eyebrow="Videoproduktion · Produktvideo"
+    title={"Produkt­video\nerstellen lassen"}
+    lead="Ein gutes Produktvideo zeigt in Sekunden, was dein Produkt kann, und verkauft im Webshop, auf Social Media, an der Messe und im Verkaufsgespräch. Wir konzipieren, drehen und schneiden aus einer Hand und sagen dir ehrlich, wann ein echter Dreh nötig ist und wann Render oder KI reichen."
+    lottie="/lottie/videoproduktion.json"
+    lottieLabel="Produktvideo erstellen lassen"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/videoproduktion/" label="Videoproduktion" lottie="/lottie/videoproduktion.json" projects={cases} />
+
+  {/* Antwort-Block: Preisranges */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Was ein Produktvideo kostet</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. Sie decken sich mit den Ranges auf
+        unserer Seite{" "}
+        <a href="/imagefilm-kosten/">Imagefilm-Kosten</a>: gleicher Markt, gleiche
+        Posten. Jedes Video ist individuell, darum sind das Ranges und keine
+        Ladenpreise.
+      </p>
+    </div>
+  </section>
+
+  {/* Einsatzorte */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Einsatzorte</span>
+        <h2>Wo dein Produktvideo verkauft</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          einsatzorte.map((e) => (
+            <article class="karte">
+              <h3>{e.title}</h3>
+              <p class="karte-note">{e.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Abgrenzung + Prozess */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Ein Produktvideo ist kein Imagefilm</h2>
+        <div class="lp-text">
+          <p>
+            Der Imagefilm erzählt, wer du bist und wofür deine Firma steht. Das
+            Produktvideo hat einen engeren Job: Es zeigt, was dein Produkt kann,
+            wie es funktioniert und warum man es kaufen soll. Darum ist es kürzer,
+            direkter und näher am Produkt gebaut. Mehr zum Firmenfilm findest du
+            auf unserer Seite{" "}
+            <a href="/imagefilm-erstellen-lassen/">Imagefilm erstellen lassen</a>.
+          </p>
+          <p>
+            Damit das Video verkauft, klären wir zuerst drei Fragen: Wer kauft das
+            Produkt, welche Frage hält ihn vom Kauf ab und wo läuft das Video?
+            Erst dann kommt die Kamera. Und wenn der passende Verkaufsort dazu
+            noch fehlt: Wir bauen auch den{" "}
+            <a href="/webshop-erstellen-lassen/">Webshop</a>, in dem dein
+            Produktvideo später arbeitet.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* KI/3D ehrlich + Paket */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Echter Dreh, 3D-Render oder KI?</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlich gesagt: Nicht jedes Produktvideo braucht einen Drehtag. Für
+            technische Produkte sind 3D-Render und Animation oft die stärkere
+            Wahl: Explosionsgrafiken, der Blick ins Innenleben oder der Prototyp,
+            den es noch gar nicht als Serienmodell gibt. Auch KI-Videos werden
+            besser und reichen für Visualisierungen ohne echte Menschen.
+          </p>
+          <p>
+            Sobald es um Vertrauen geht, gewinnt der echte Dreh: dein Produkt in
+            echten Händen, in echtem Licht, in deiner echten Werkstatt. Gerade
+            bei Dingen, die man anfassen will, schlägt Echtheit jeden Render.
+          </p>
+          <p>
+            Wir arbeiten selbst täglich mit KI, für Ideen, Moodboards und
+            Vorvisualisierung. Im Erstgespräch sagen wir dir ehrlich, welcher Weg
+            zu deinem Produkt und deinem Budget passt, auch wenn das der
+            günstigere ist.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ein Dreh, mehrere Cuts</h2>
+        <div class="lp-text">
+          <p>
+            Das Teuerste am Video ist der Drehtag. Darum denken wir in Paketen:
+            Aus einem Dreh entstehen das Hauptvideo für Website oder Messe, kurze
+            Cuts für Instagram und LinkedIn und Standbilder für Print und Webshop.
+            Einmal aufgebaut, mehrfach verwertet.
+          </p>
+          <p>
+            So sinkt der Preis pro Video mit jedem Format, und dein Auftritt
+            bleibt überall im gleichen Look. Und weil wir aus Saland kommen, ist
+            die Anfahrt zu dir kurz: Mehr dazu auf unserer Seite{" "}
+            <a href="/videoproduktion-zuercher-oberland/">Videoproduktion im Zürcher Oberland</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Produktvideo</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Soll dein Produkt verkaufen statt nur schön aussehen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deinem Produkt und davon, wo das Video laufen soll. Wir
+        sagen dir ehrlich, was es braucht, und machen ein transparentes Angebot,
+        kostenlos und unverbindlich.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+  .quellen a { color: var(--color-blue); font-weight: 700; }
+  .quellen a:hover { color: var(--color-pink); }
+
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges, .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges, .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

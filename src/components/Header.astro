@@ -2,23 +2,23 @@
 import Lottie from "./Lottie.astro";
 
 const nav = [
-  { label: "Agentur", href: "/agentur" },
+  { label: "Agentur", href: "/agentur/" },
   {
     label: "Angebot",
-    href: "/angebot",
+    href: "/angebot/",
     children: [
-      { label: "Grafikdesign", href: "/angebot/grafikdesign" },
-      { label: "Webdesign und Entwicklung", href: "/angebot/webdesign" },
-      { label: "Videoproduktion", href: "/angebot/videoproduktion" },
-      { label: "App-Entwicklung", href: "/angebot/applikationsentwicklung" },
-      { label: "Marketingbegleitung", href: "/angebot/marketingbegleitung" },
-      { label: "Magazinbetreuung", href: "/angebot/magazinbetreuung" },
+      { label: "Grafikdesign", href: "/angebot/grafikdesign/" },
+      { label: "Webdesign und Entwicklung", href: "/angebot/webdesign/" },
+      { label: "Marketingbegleitung", href: "/angebot/marketingbegleitung/" },
+      { label: "Videoproduktion", href: "/angebot/videoproduktion/" },
+      { label: "App-Entwicklung", href: "/angebot/applikationsentwicklung/" },
+      { label: "Magazinbetreuung", href: "/angebot/magazinbetreuung/" },
     ],
   },
-  { label: "Projekte", href: "/projekte" },
-  { label: "Partner", href: "/partner" },
-  { label: "News", href: "/aktuell" },
-  { label: "Kontakt", href: "/kontakt" },
+  { label: "Projekte", href: "/projekte/" },
+  { label: "Partner", href: "/partner/" },
+  { label: "News", href: "/aktuell/" },
+  { label: "Kontakt", href: "/kontakt/" },
 ];
 
 const social = [
@@ -52,7 +52,7 @@ const angebotChildren = nav.find((n) => n.children)?.children ?? [];
         social.map((s) => (
           <li>
             <a href={s.href} target="_blank" rel="noopener" aria-label={s.label} class={`social--${s.key}`}>
-              <img src={s.icon} alt="" />
+              <img src={s.icon} alt={s.label} />
             </a>
           </li>
         ))
@@ -93,12 +93,12 @@ const angebotChildren = nav.find((n) => n.children)?.children ?? [];
             <span class="m-arrow" aria-hidden="true"><i></i></span><span class="m-label">{item.label}</span>
           </a>
           {item.children && (
-            <button class="submenu-toggle" type="button" aria-label={`${item.label} – Unterpunkte`}>
+            <button class="submenu-toggle" type="button" aria-label={`${item.label}, Unterpunkte`}>
               <span class="sub-arrow" aria-hidden="true"></span>
             </button>
           )}
           {item.children && (
-            <ul class="submenu" aria-label={`${item.label} – Dienstleistungen`}>
+            <ul class="submenu" aria-label={`${item.label}, Dienstleistungen`}>
               {item.children.map((c) => (
                 <li>
                   <a href={c.href}>
@@ -123,7 +123,7 @@ const angebotChildren = nav.find((n) => n.children)?.children ?? [];
   </nav>
 
   {angebotChildren.length > 0 && (
-    <div class="submenu-panel" id="submenu-panel" role="dialog" aria-label="Angebot – Dienstleistungen" hidden>
+    <div class="submenu-panel" id="submenu-panel" role="dialog" aria-label="Angebot, Dienstleistungen" hidden>
       <div class="container submenu-panel-top">
         <button class="submenu-back" type="button">
           <span class="sub-back-arrow" aria-hidden="true"></span>
@@ -133,9 +133,9 @@ const angebotChildren = nav.find((n) => n.children)?.children ?? [];
           <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path d="M6 6l20 20M26 6L6 26" stroke="currentColor" stroke-width="3.4" stroke-linecap="square" /></svg>
         </button>
       </div>
-      <nav class="submenu-panel-nav" aria-label="Angebot – Dienstleistungen">
+      <nav class="submenu-panel-nav" aria-label="Angebot, Dienstleistungen">
         <ul>
-          <li><a href="/angebot">Übersicht</a></li>
+          <li><a href="/angebot/">Übersicht</a></li>
           {angebotChildren.map((c) => (
             <li><a href={c.href}>{c.label}</a></li>
           ))}
@@ -172,7 +172,7 @@ const angebotChildren = nav.find((n) => n.children)?.children ?? [];
     width: auto;
   }
 
-  /* Exakt in der Container-Mitte (50 %) – deckt sich mit dem X im Overlay */
+  /* Exakt in der Container-Mitte (50 %), deckt sich mit dem X im Overlay */
   .menu-trigger {
     position: absolute;
     left: 50%;
@@ -188,7 +188,7 @@ const angebotChildren = nav.find((n) => n.children)?.children ?? [];
     padding: 0.65rem 0.6rem;
     transition: transform 0.32s var(--ease);
   }
-  /* Hover wie die SoMe-Icons: leichter Lift, keine Unterstreichungs-Linie – Revision Jeffrey */
+  /* Hover wie die SoMe-Icons: leichter Lift, keine Unterstreichungs-Linie, Revision Jeffrey */
   .menu-trigger:hover {
     transform: translate(-50%, -50%) translateY(-3px);
   }
@@ -218,10 +218,10 @@ const angebotChildren = nav.find((n) => n.children)?.children ?? [];
     height: 18px;
   }
   .social--facebook img {
-    height: 17px; /* schmales, hohes "f" – etwas kleiner, damit es nicht dominiert */
+    height: 17px; /* schmales, hohes "f", etwas kleiner, damit es nicht dominiert */
   }
   .social--youtube img {
-    height: 15px; /* breites Icon – über Höhe begrenzt */
+    height: 15px; /* breites Icon, über Höhe begrenzt */
   }
 
   /* ---------- Overlay ---------- */
@@ -272,8 +272,10 @@ const angebotChildren = nav.find((n) => n.children)?.children ?? [];
     align-items: flex-start;
     text-align: left;
     width: 100%;
-    /* linksbündig, aber Block beginnt ~Bildschirmmitte + 10% (≈60%) */
-    padding-left: 58vw;
+    /* linksbündig, Block beginnt ~Bildschirmmitte + 10% (≈60%). Gedeckelt, damit
+       rechts genug Platz für das ausfliegende Submenu bleibt (sonst lief
+       „Webdesign und Entwicklung" auf Laptop-Breiten aus dem Bild), Revision 2. */
+    padding-left: min(58vw, calc(100vw - 700px));
     padding-right: var(--gutter);
     padding-block: 0 8vh;
     overflow-y: auto;
@@ -372,7 +374,7 @@ const angebotChildren = nav.find((n) => n.children)?.children ?? [];
     font-weight: 700;
     line-height: 1.2;
   }
-  /* "Angebot" selbst zeigt keinen Pfeil – der Hover öffnet stattdessen das Submenu */
+  /* "Angebot" selbst zeigt keinen Pfeil, der Hover öffnet stattdessen das Submenu */
   @media (min-width: 821px) {
     .menu-nav > ul > li.has-sub > a:hover .m-arrow,
     .menu-nav > ul > li.has-sub > a:focus-visible .m-arrow {
@@ -545,7 +547,7 @@ const angebotChildren = nav.find((n) => n.children)?.children ?? [];
   }
 
   @media (max-width: 720px) {
-    /* Top-Bar: Logo links, Social rechts – "Menü" wandert nach unten */
+    /* Top-Bar: Logo links, Social rechts, "Menü" wandert nach unten */
     .header-inner {
       justify-content: space-between;
       gap: 1rem;

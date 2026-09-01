@@ -1,0 +1,1015 @@
+---
+// WebsiteCheckTool: interaktiver Gratis-Website-Check (Freemium-Tool).
+// Ablauf: URL eingeben -> Fortschrittsanzeige -> 5 Kategorie-Scores + Fazit-Teaser
+// (Technik/SEO je bis 5 Befunde offen, Rest geblurred) -> Unlock-Card (CHF 9 via Stripe).
+// Backend: POST /api/roast.php und /api/checkout.php (FormData, kein JSON).
+// Server-Daten werden ausschliesslich via textContent/createElement ins DOM gesetzt.
+---
+
+<div class="wct" id="wct">
+  {/* Schritt 1: URL-Eingabe */}
+  <form class="wct-form" id="wct-form" action="/api/roast.php" method="POST">
+    {/* Spam-Honeypot: für Menschen unsichtbar, Bots füllen es aus */}
+    <p class="hp-field" hidden aria-hidden="true">
+      <label>Bitte leer lassen: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+    </p>
+    <label class="wct-label" for="wct-url">Deine Website-Adresse</label>
+    <div class="wct-inputrow">
+      <input
+        id="wct-url"
+        name="url"
+        type="text"
+        inputmode="url"
+        autocomplete="url"
+        placeholder="www.deine-firma.ch"
+        required
+      />
+      <button type="submit" class="wct-submit" id="wct-submit">
+        <span class="wct-arrow" aria-hidden="true"><i></i></span>
+        <span>Check starten</span>
+      </button>
+    </div>
+    <p class="wct-hint">
+      2 Gratis-Checks pro Tag. Das Resultat siehst du in unter einer Minute.
+      Bitte prüfe nur Websites, für deren Analyse du berechtigt bist. In der
+      Regel ist das deine eigene.
+    </p>
+  </form>
+
+  {/* Schritt 2: Fortschritt (rotierende Schritt-Texte) */}
+  <div class="wct-progress" id="wct-progress" hidden aria-live="polite">
+    <div class="wct-spinner" aria-hidden="true"></div>
+    <p class="wct-step" id="wct-step">Seite wird geladen …</p>
+    <p class="wct-progress-note">
+      Wir prüfen über 40 Kriterien. Das kann bis zu einer Minute dauern.
+    </p>
+  </div>
+
+  {/* Fehler-State */}
+  <div class="wct-error" id="wct-error" role="alert" hidden>
+    <p class="wct-error-text" id="wct-error-text"></p>
+    <button type="button" class="wct-retry" id="wct-retry">
+      <span class="wct-arrow" aria-hidden="true"><i></i></span>
+      <span>Nochmals versuchen</span>
+    </button>
+  </div>
+
+  {/* Schritt 3: Resultat */}
+  <div class="wct-result" id="wct-result" hidden>
+    <div class="wct-result-head">
+      <div class="wct-grade" id="wct-grade" role="img"></div>
+      <div class="wct-result-headtext">
+        <p class="wct-result-for" id="wct-result-for"></p>
+        <p class="wct-score" id="wct-score"></p>
+        <p class="wct-cached" id="wct-cached" hidden>
+          Diese Seite wurde kürzlich schon geprüft, du siehst das gespeicherte Resultat.
+        </p>
+      </div>
+    </div>
+
+    <div class="wct-cats" id="wct-cats"></div>
+
+    <div class="wct-teaser">
+      <h3>Unser Fazit, kurz gefasst</h3>
+      <p id="wct-teaser-text"></p>
+    </div>
+
+    {/* Schritt 4: Report freischalten (Zahlung via Stripe) */}
+    <div class="wct-gate" id="wct-gate" hidden>
+      <h3>Der volle Report gehört dir. Für CHF 9.</h3>
+      <p>
+        Alle 40+ Befunde im Detail, der priorisierte Aktionsplan und die komplette
+        Analyse: sofort als Webseite und zusätzlich per E-Mail zum Weiterleiten
+        und Ausdrucken. Einmalig, inkl. MwSt., kein Abo.
+      </p>
+      <p class="wct-quota" id="wct-quota-wrap" hidden>
+        Heute übrig: <strong id="wct-quota">2 von 2 Gratis-Checks</strong>
+      </p>
+      <p class="wct-gate-error" id="wct-gate-error" role="alert" hidden></p>
+      <div class="wct-gate-actions">
+        <button type="button" class="wct-submit" id="wct-gate-submit">
+          <span class="wct-arrow" aria-hidden="true"><i></i></span>
+          <span>Report freischalten, CHF 9</span>
+        </button>
+        <button type="button" class="wct-restart" id="wct-restart" hidden>
+          Website neu prüfen
+        </button>
+      </div>
+      <p class="wct-unlock-note">
+        Sichere Zahlung via Stripe (Karte oder TWINT). Die Rechnung kommt per E-Mail.
+        Der Report wird sofort nach der Zahlung freigeschaltet: Mit dem Kauf stimmst
+        du der sofortigen Lieferung des digitalen Inhalts zu, ein allfälliges
+        Widerrufsrecht (EU) erlischt dadurch. Mit dem Kauf gelten unsere
+        <a href="/agb/">AGB</a>.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const wctRoot = document.getElementById("wct");
+  if (wctRoot) {
+    const form = document.getElementById("wct-form") as HTMLFormElement;
+    const urlInput = document.getElementById("wct-url") as HTMLInputElement;
+    const submitBtn = document.getElementById("wct-submit") as HTMLButtonElement;
+    const progress = document.getElementById("wct-progress") as HTMLElement;
+    const stepEl = document.getElementById("wct-step") as HTMLElement;
+    const errorBox = document.getElementById("wct-error") as HTMLElement;
+    const errorTextEl = document.getElementById("wct-error-text") as HTMLElement;
+    const retryBtn = document.getElementById("wct-retry") as HTMLButtonElement;
+    const result = document.getElementById("wct-result") as HTMLElement;
+    const gradeEl = document.getElementById("wct-grade") as HTMLElement;
+    const resultForEl = document.getElementById("wct-result-for") as HTMLElement;
+    const scoreEl = document.getElementById("wct-score") as HTMLElement;
+    const cachedEl = document.getElementById("wct-cached") as HTMLElement;
+    const catsEl = document.getElementById("wct-cats") as HTMLElement;
+    const teaserEl = document.getElementById("wct-teaser-text") as HTMLElement;
+    const gate = document.getElementById("wct-gate") as HTMLElement;
+    const gateError = document.getElementById("wct-gate-error") as HTMLElement;
+    const gateSubmit = document.getElementById("wct-gate-submit") as HTMLButtonElement;
+    const restartBtn = document.getElementById("wct-restart") as HTMLButtonElement;
+    const quotaWrap = document.getElementById("wct-quota-wrap") as HTMLElement;
+    const quotaEl = document.getElementById("wct-quota") as HTMLElement;
+
+    const STEPS = [
+      "Seite wird geladen …",
+      "Technik wird geprüft …",
+      "SEO-Signale werden gelesen …",
+      "Performance wird gemessen …",
+      "Inhalt und Conversion werden bewertet …",
+      "KI schreibt das Fazit …",
+    ];
+    const STATUS_LABELS: Record<string, string> = {
+      ok: "Passt",
+      warn: "Luft nach oben",
+      bad: "Handlungsbedarf",
+      info: "Zur Info",
+    };
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let lastDomain = "";
+    let lastRoastId = "";
+    let lastUrl = "";
+    let stepTimer: ReturnType<typeof setInterval> | null = null;
+    let typeTimer: ReturnType<typeof setTimeout> | null = null;
+
+    // Matomo-Event, guarded (Pattern aus matomo-cta-tracking)
+    function track(action: string, name: string) {
+      if (typeof (window as any)._paq !== "undefined") {
+        (window as any)._paq.push(["trackEvent", "WebsiteCheck", action, name]);
+      }
+    }
+
+    function normalizeUrl(raw: string): string | null {
+      let v = raw.trim();
+      if (!v) return null;
+      if (!/^https?:\/\//i.test(v)) v = "https://" + v;
+      try {
+        const u = new URL(v);
+        if (!u.hostname.includes(".")) return null;
+        return u.href;
+      } catch {
+        return null;
+      }
+    }
+
+    async function postForm(url: string, fd: FormData, timeoutMs: number) {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), timeoutMs);
+      try {
+        const res = await fetch(url, { method: "POST", body: fd, signal: ctrl.signal });
+        let data: any = null;
+        try {
+          data = await res.json();
+        } catch {
+          data = null;
+        }
+        return { status: res.status, data };
+      } finally {
+        clearTimeout(t);
+      }
+    }
+
+    function errorMessage(code: string | null, message?: unknown, retryAfterH?: unknown): string {
+      if (typeof code === "string") {
+        switch (code) {
+          case "invalid_url":
+            return "Diese Adresse sieht nicht nach einer gültigen URL aus. Bitte prüfe die Schreibweise, zum Beispiel www.deine-firma.ch.";
+          case "bot_detected":
+            return "Das hat leider nicht geklappt. Bitte lade die Seite neu und versuche es erneut.";
+          case "ssrf_blocked":
+            return "Diese Adresse können wir nicht prüfen. Bitte gib eine öffentlich erreichbare Website ein.";
+          case "unreachable":
+            return "Deine Website ist von uns aus nicht erreichbar. Läuft sie gerade? Manchmal blockiert auch eine Firewall unsere Anfrage.";
+          case "rate_limited": {
+            let t = "Du hast in letzter Zeit schon einige Checks gemacht, darum bitten wir um eine kurze Pause.";
+            const h = typeof retryAfterH === "number" ? retryAfterH : 0;
+            if (h > 0) {
+              t += " Versuche es in etwa " + h + (h === 1 ? " Stunde" : " Stunden") + " erneut.";
+            } else {
+              t += " Bitte versuche es später erneut.";
+            }
+            return t;
+          }
+          case "global_cap":
+            return "Heute ist unser Kontingent für automatische Checks aufgebraucht. Morgen geht es wieder, versprochen.";
+          case "fetch_failed":
+            return "Die Seite konnte nicht geladen werden. Bitte versuche es in ein paar Minuten erneut.";
+          case "internal":
+            return "Auf unserer Seite ist etwas schiefgelaufen. Bitte versuche es gleich noch einmal.";
+        }
+      }
+      if (typeof message === "string" && message.trim() !== "") return message;
+      return "Das hat leider nicht geklappt. Bitte versuche es gleich noch einmal.";
+    }
+
+    function startProgress() {
+      let i = 0;
+      stepEl.textContent = STEPS[0];
+      progress.hidden = false;
+      stepTimer = setInterval(() => {
+        i = (i + 1) % STEPS.length;
+        stepEl.textContent = STEPS[i];
+      }, 2800);
+    }
+
+    function stopProgress() {
+      if (stepTimer) clearInterval(stepTimer);
+      stepTimer = null;
+      progress.hidden = true;
+    }
+
+    // Kontingent-Anzeige: „noch x von 2 Gratis-Checks" (kommt vom Server)
+    function showQuota(left: number) {
+      quotaEl.textContent =
+        left > 0 ? left + " von 2 Gratis-Checks" : "heute keine weiteren Gratis-Checks";
+      quotaWrap.hidden = false;
+    }
+
+    function showError(code: string | null, message?: unknown, retryAfterH?: unknown) {
+      errorTextEl.textContent = errorMessage(code, message, retryAfterH);
+      errorBox.hidden = false;
+      form.hidden = true;
+      result.hidden = true;
+      errorBox.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "center" });
+    }
+
+    function gradeClass(grade: string): string {
+      const g = grade.toUpperCase();
+      if (g === "A" || g === "B") return "wct-grade--good";
+      if (g === "C") return "wct-grade--mid";
+      return "wct-grade--low";
+    }
+
+    const STATUS_ICON: Record<string, string> = { ok: "✓", warn: "!", bad: "✕", info: "i" };
+    const SEV_ORDER: Record<string, number> = { bad: 0, warn: 1, ok: 2, info: 3 };
+
+    // Befunde einer Kategorie: nach Schwere sortiert, Fallback auf top_finding (Alt-Cache)
+    function sortedFindings(cat: any): any[] {
+      const list = Array.isArray(cat.findings) ? cat.findings.slice() : [];
+      if (
+        list.length === 0 &&
+        cat.top_finding &&
+        typeof cat.top_finding.title === "string" &&
+        cat.top_finding.title
+      ) {
+        list.push({
+          status: cat.top_finding.status,
+          title: cat.top_finding.title,
+          detail: cat.top_finding.detail,
+        });
+      }
+      return list
+        .filter((f: any) => f && typeof f.title === "string" && f.title)
+        .sort(
+          (a: any, b: any) =>
+            (SEV_ORDER[a.status] ?? 3) - (SEV_ORDER[b.status] ?? 3)
+        );
+    }
+
+    function buildFindingEl(f: any): HTMLElement {
+      const row = document.createElement("p");
+      row.className = "wct-fi";
+      const st = ["ok", "warn", "bad", "info"].includes(f.status) ? f.status : "info";
+      const dot = document.createElement("span");
+      dot.className = "wct-fi-st wct-fi-st--" + st;
+      dot.textContent = STATUS_ICON[st];
+      dot.setAttribute("aria-hidden", "true");
+      const txt = document.createElement("span");
+      const t = document.createElement("strong");
+      t.textContent = f.title;
+      txt.append(t);
+      if (typeof f.detail === "string" && f.detail) {
+        txt.append(document.createTextNode(" " + f.detail));
+      }
+      row.append(dot, txt);
+      return row;
+    }
+
+    function buildCatCard(cat: any, locked: boolean): HTMLElement {
+      const card = document.createElement("article");
+      card.className = "wct-cat";
+
+      const head = document.createElement("div");
+      head.className = "wct-cat-head";
+      const h = document.createElement("h4");
+      h.textContent = typeof cat.label === "string" ? cat.label : "Kategorie";
+      const status =
+        cat.top_finding && typeof cat.top_finding.status === "string" ? cat.top_finding.status : "info";
+      const safeStatus = ["ok", "warn", "bad", "info"].includes(status) ? status : "info";
+      const chip = document.createElement("span");
+      chip.className = "wct-chip wct-chip--" + safeStatus;
+      chip.textContent = STATUS_LABELS[safeStatus];
+      head.append(h, chip);
+
+      const num = typeof cat.score === "number" && isFinite(cat.score) ? cat.score : 0;
+      const clamped = Math.max(0, Math.min(10, num));
+      const score = document.createElement("p");
+      score.className = "wct-cat-score";
+      score.textContent = clamped.toFixed(1) + " von 10";
+
+      const bar = document.createElement("div");
+      bar.className = "wct-bar";
+      bar.setAttribute("role", "img");
+      bar.setAttribute("aria-label", "Score " + clamped.toFixed(1) + " von 10");
+      const fill = document.createElement("span");
+      fill.dataset.w = String((clamped / 10) * 100);
+      bar.append(fill);
+
+      card.append(head, score, bar);
+
+      const list = sortedFindings(cat);
+      if (!locked) {
+        // Technik + SEO: bis zu 5 Befunde offen zeigen (Fleisch in der Gratis-Version)
+        const show = list.slice(0, 5);
+        show.forEach((f) => card.append(buildFindingEl(f)));
+        if (list.length > show.length) {
+          const more = document.createElement("p");
+          more.className = "wct-more-note";
+          more.textContent = "+ " + (list.length - show.length) + " weitere im vollen Report";
+          card.append(more);
+        }
+      } else if (list.length > 0) {
+        // Restliche Kategorien: Befunde mit Milchglaseffekt gesperrt (Paid-Teaser)
+        const wrap = document.createElement("div");
+        wrap.className = "wct-locked";
+        wrap.setAttribute("aria-hidden", "true");
+        list.slice(0, 2).forEach((f) => wrap.append(buildFindingEl(f)));
+        const lockNote = document.createElement("p");
+        lockNote.className = "wct-lock-note";
+        lockNote.textContent = "Alle " + list.length + " Befunde dieser Kategorie im vollen Report";
+        card.append(wrap, lockNote);
+      }
+      return card;
+    }
+
+    function renderResult(data: any) {
+      lastDomain = typeof data.domain === "string" ? data.domain : "";
+      resultForEl.textContent = lastDomain ? "Dein Resultat für " + lastDomain : "Dein Resultat";
+
+      const grade =
+        data.overall && typeof data.overall.grade === "string" && data.overall.grade
+          ? data.overall.grade
+          : "?";
+      gradeEl.textContent = grade;
+      gradeEl.className = "wct-grade " + gradeClass(grade);
+      gradeEl.setAttribute("aria-label", "Gesamtnote " + grade);
+
+      const overallScore =
+        data.overall && typeof data.overall.score === "number" ? data.overall.score : null;
+      scoreEl.textContent =
+        overallScore !== null ? overallScore.toFixed(1) + " von 10 Punkten" : "";
+
+      cachedEl.hidden = data.cached !== true;
+
+      catsEl.replaceChildren();
+      const cats = Array.isArray(data.categories) ? data.categories : [];
+      cats.forEach((cat: any, i: number) => catsEl.append(buildCatCard(cat, i >= 2)));
+
+      teaserEl.textContent = typeof data.teaser === "string" ? data.teaser : "";
+
+      lastRoastId = typeof data.roast_id === "string" ? data.roast_id : "";
+      lastUrl = typeof data.url === "string" ? data.url : "";
+      gateError.hidden = true;
+      restartBtn.hidden = true;
+      gate.hidden = false;
+      showQuota(
+        typeof data.checks_left === "number" && isFinite(data.checks_left)
+          ? Math.max(0, Math.min(2, data.checks_left))
+          : 1
+      );
+
+      errorBox.hidden = true;
+      form.hidden = true;
+      result.hidden = false;
+      result.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+
+      // Balken animieren (von 0 auf Zielbreite)
+      const fills = catsEl.querySelectorAll<HTMLElement>(".wct-bar span");
+      requestAnimationFrame(() => {
+        fills.forEach((f) => {
+          f.style.width = (f.dataset.w || "0") + "%";
+        });
+      });
+    }
+
+    function gateFail(msg: string, expired = false) {
+      gateError.textContent = msg;
+      gateError.hidden = false;
+      restartBtn.hidden = !expired;
+    }
+
+    function resetTool() {
+      result.hidden = true;
+      gate.hidden = true;
+      errorBox.hidden = true;
+      form.hidden = false;
+      urlInput.focus();
+      form.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "center" });
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorBox.hidden = true;
+      const url = normalizeUrl(urlInput.value);
+      if (!url) {
+        showError("invalid_url");
+        track("roast_error", "invalid_url");
+        return;
+      }
+      submitBtn.disabled = true;
+      form.hidden = true;
+      result.hidden = true;
+      startProgress();
+      const startedAt = Date.now();
+      try {
+        const fd = new FormData(form);
+        fd.set("url", url);
+        const { data } = await postForm("/api/roast.php", fd, 60000);
+        if (data && data.ok === true) {
+          // Mindest-Analysezeit: auch bei Blitz-Cache soll es sich wie echte
+          // Arbeit anfühlen (Marcel 2026-08-18: mind. 7 Sekunden)
+          const wait = 7000 - (Date.now() - startedAt);
+          if (wait > 0) {
+            await new Promise((r) => setTimeout(r, wait));
+          }
+          renderResult(data);
+          track("roast_completed", "");
+        } else {
+          const code = data && typeof data.error === "string" ? data.error : "internal";
+          showError(code, data && data.message, data && data.retry_after_h);
+          track("roast_error", code);
+        }
+      } catch (err: any) {
+        if (err && err.name === "AbortError") {
+          showError(null, "Die Analyse dauert leider zu lange. Bitte versuche es gleich noch einmal.");
+          track("roast_error", "timeout");
+        } else {
+          showError(null, "Keine Verbindung zu unserem Server. Bitte prüfe dein Internet und versuche es erneut.");
+          track("roast_error", "network");
+        }
+      } finally {
+        stopProgress();
+        submitBtn.disabled = false;
+      }
+    });
+
+    retryBtn.addEventListener("click", () => {
+      errorBox.hidden = true;
+      form.hidden = false;
+      urlInput.focus();
+    });
+
+    restartBtn.addEventListener("click", resetTool);
+
+    gateSubmit.addEventListener("click", async () => {
+      gateError.hidden = true;
+      restartBtn.hidden = true;
+      if (!lastRoastId && !lastUrl) {
+        gateFail("Dein Check ist abgelaufen. Bitte starte ihn noch einmal.", true);
+        return;
+      }
+      gateSubmit.disabled = true;
+      try {
+        const fd = new FormData();
+        fd.set("roast_id", lastRoastId);
+        fd.set("url", lastUrl);
+        fd.set("bot-field", "");
+        const { data } = await postForm("/api/checkout.php", fd, 30000);
+        if (
+          data &&
+          data.ok === true &&
+          typeof data.checkout_url === "string" &&
+          data.checkout_url.startsWith("https://")
+        ) {
+          track("unlock_started", "");
+          window.location.assign(data.checkout_url);
+          return;
+        }
+        const code = data && typeof data.error === "string" ? data.error : "internal";
+        gateFail(
+          errorMessage(code, data && data.message, data && data.retry_after_h),
+          code === "roast_expired"
+        );
+        track("roast_error", "checkout_" + code);
+      } catch (err: any) {
+        if (err && err.name === "AbortError") {
+          gateFail("Das dauert leider zu lange. Bitte versuche es gleich noch einmal.");
+        } else {
+          gateFail("Keine Verbindung zu unserem Server. Bitte prüfe dein Internet und versuche es erneut.");
+        }
+      } finally {
+        gateSubmit.disabled = false;
+      }
+    });
+
+    // Platzhalter-Tippanimation: Beispiel-Adressen durchrotieren, bis das
+    // Feld fokussiert wird (bei reduced-motion bleibt der statische Platzhalter)
+    const PLACEHOLDERS = ["www.deine-firma.ch", "www.dein-verein.ch", "www.dein-laden.ch", "www.deine-praxis.ch"];
+    function startTyping() {
+      if (reducedMotion) return;
+      let p = 0;
+      let c = 0;
+      let deleting = false;
+      const tick = () => {
+        const word = PLACEHOLDERS[p];
+        if (!deleting) {
+          c++;
+          urlInput.placeholder = word.slice(0, c);
+          if (c >= word.length) {
+            deleting = true;
+            typeTimer = setTimeout(tick, 1700);
+            return;
+          }
+        } else {
+          c--;
+          urlInput.placeholder = word.slice(0, c);
+          if (c <= 0) {
+            deleting = false;
+            p = (p + 1) % PLACEHOLDERS.length;
+          }
+        }
+        typeTimer = setTimeout(tick, deleting ? 35 : 75);
+      };
+      typeTimer = setTimeout(tick, 900);
+    }
+    function stopTyping() {
+      if (typeTimer) clearTimeout(typeTimer);
+      typeTimer = null;
+      urlInput.placeholder = PLACEHOLDERS[0];
+    }
+    urlInput.addEventListener("focus", stopTyping, { once: true });
+
+    // Kern der Seite: Adressfeld sofort fokussieren (ohne Scroll-Sprung)
+    urlInput.focus({ preventScroll: true });
+    startTyping();
+  }
+</script>
+
+<style is:global>
+  /* WICHTIG: is:global, weil der ganze Widget-Inhalt per JS erzeugt wird und
+     Astro-Scoped-Styles auf solchen Elementen nicht greifen (Lesson 2026-08-14).
+     Alle Klassen sind wct-*-präfixiert, Kollisionen ausgeschlossen. */
+  /* hidden muss gegen eigene display-Regeln gewinnen */
+  .wct [hidden] {
+    display: none !important;
+  }
+
+  .wct {
+    max-width: 1080px;
+    margin-inline: auto;
+  }
+
+  /* Eingabe */
+  .wct-form {
+    background: var(--color-yellow);
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+    margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  }
+  .wct-label {
+    display: block;
+    font-weight: 700;
+    color: var(--color-blue);
+    margin-bottom: 0.6rem;
+  }
+  .wct-inputrow {
+    display: flex;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+  .wct-inputrow input {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-family: var(--font-base);
+    font-size: 1.1rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid #e7ecf3;
+    background: #fff;
+    color: var(--color-blue);
+  }
+  .wct-inputrow input:focus {
+    outline: none;
+    border-color: var(--color-blue);
+  }
+  .wct-hint {
+    margin: 0.9rem 0 0;
+    color: var(--color-blue);
+    opacity: 0.7;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* Buttons im CD-Stil (wie Kontakt-Submit) */
+  .wct-submit {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    line-height: 1;
+    color: #fff;
+    background: var(--color-blue);
+    border: none;
+    padding: 1rem 1.7rem;
+    cursor: var(--cur-hand);
+    transition: background 0.4s var(--ease);
+  }
+  .wct-submit:hover {
+    background: var(--color-blue-dark);
+  }
+  .wct-submit:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+  .wct-arrow {
+    display: inline-block;
+    max-width: 0;
+    overflow: visible;
+    transition: max-width 0.6s var(--ease), margin-right 0.6s var(--ease);
+  }
+  .wct-arrow i {
+    display: block;
+    width: 1.1em;
+    height: 0.85em;
+    background-color: #fff;
+    -webkit-mask: url("/img/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    mask: url("/img/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+  }
+  .wct-submit:hover .wct-arrow,
+  .wct-submit:focus-visible .wct-arrow,
+  .wct-retry:hover .wct-arrow,
+  .wct-retry:focus-visible .wct-arrow {
+    max-width: 1.1em;
+    margin-right: 0.55rem;
+  }
+  .wct-submit:hover .wct-arrow i,
+  .wct-submit:focus-visible .wct-arrow i,
+  .wct-retry:hover .wct-arrow i,
+  .wct-retry:focus-visible .wct-arrow i {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Fortschritt */
+  .wct-progress {
+    margin-top: clamp(1.5rem, 3vw, 2.25rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    background: #fff;
+    border: 1px solid #e7ecf3;
+    padding: clamp(2rem, 5vw, 3.5rem);
+  }
+  .wct-spinner {
+    width: 34px;
+    height: 34px;
+    background: var(--color-blue);
+    animation: wct-spin 1.1s var(--ease) infinite;
+  }
+  @keyframes wct-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .wct-step {
+    margin: 0;
+    color: var(--color-blue);
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+  .wct-progress-note {
+    margin: 0;
+    color: var(--color-blue);
+    opacity: 0.7;
+    font-size: 0.95rem;
+  }
+
+  /* Fehler */
+  .wct-error {
+    background: #fff;
+    border: 1px solid #e7ecf3;
+    border-left: 3px solid var(--color-pink);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .wct-error-text {
+    margin: 0;
+    color: var(--color-blue);
+    font-weight: 600;
+    line-height: 1.6;
+  }
+  .wct-retry {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    line-height: 1;
+    color: #fff;
+    background: var(--color-blue);
+    border: none;
+    padding: 0.85rem 1.4rem;
+    cursor: var(--cur-hand);
+    transition: background 0.4s var(--ease);
+  }
+  .wct-retry:hover {
+    background: var(--color-blue-dark);
+  }
+
+  /* Resultat-Kopf */
+  .wct-result {
+    margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  }
+  .wct-result-head {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2rem);
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .wct-grade {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: clamp(72px, 10vw, 104px);
+    height: clamp(72px, 10vw, 104px);
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1;
+  }
+  .wct-grade--good { background: var(--color-blue); color: #fff; }
+  .wct-grade--mid { background: var(--color-yellow); color: var(--color-blue); }
+  .wct-grade--low { background: var(--color-pink); color: #fff; }
+  .wct-result-for {
+    margin: 0 0 0.25rem;
+    color: var(--color-blue);
+    font-weight: 700;
+    font-size: clamp(1.2rem, 2.4vw, 1.6rem);
+    overflow-wrap: anywhere;
+  }
+  .wct-score {
+    margin: 0;
+    color: var(--color-blue);
+    opacity: 0.85;
+    font-size: 1.1rem;
+  }
+  .wct-cached {
+    margin: 0.5rem 0 0;
+    color: var(--color-blue);
+    opacity: 0.65;
+    font-size: 0.9rem;
+  }
+
+  /* Kategorie-Karten */
+  .wct-cats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .wct-cat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    background: #fff;
+    border: 1px solid #e7ecf3;
+    padding: clamp(1.1rem, 2.5vw, 1.6rem);
+  }
+  .wct-cat-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .wct-cat-head h4 {
+    margin: 0;
+    color: var(--color-blue);
+    font-size: 1.1rem;
+  }
+  .wct-chip {
+    flex: none;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.3rem 0.6rem;
+    line-height: 1;
+  }
+  .wct-chip--ok { background: var(--color-blue); color: #fff; }
+  .wct-chip--warn { background: var(--color-yellow); color: var(--color-blue); }
+  .wct-chip--bad { background: var(--color-pink); color: #fff; }
+  .wct-chip--info { background: #f5f7fa; color: var(--color-blue); }
+  .wct-cat-score {
+    margin: 0;
+    color: var(--color-blue);
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+  .wct-bar {
+    height: 8px;
+    background: rgba(1, 64, 128, 0.12);
+    overflow: hidden;
+  }
+  .wct-bar span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--color-blue);
+    transition: width 0.9s var(--ease);
+  }
+  /* Befund-Zeilen (Gratis-Sicht Technik/SEO + gesperrte Vorschau) */
+  .wct-fi {
+    display: flex;
+    gap: 0.55rem;
+    align-items: flex-start;
+    margin: 0.45rem 0 0;
+    color: var(--color-blue);
+    font-size: 0.93rem;
+    line-height: 1.5;
+  }
+  .wct-fi strong {
+    font-weight: 700;
+  }
+  .wct-fi-st {
+    flex: none;
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+  .wct-fi-st--ok {
+    background: #1a7f37;
+  }
+  .wct-fi-st--warn {
+    background: #b26a00;
+  }
+  .wct-fi-st--bad {
+    background: #c4281c;
+  }
+  .wct-fi-st--info {
+    background: var(--color-blue);
+  }
+  .wct-more-note {
+    margin: 0.6rem 0 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-blue);
+    opacity: 0.8;
+  }
+
+  /* Fazit-Teaser */
+  .wct-teaser {
+    background: var(--color-yellow);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .wct-teaser h3 {
+    margin: 0 0 0.6rem;
+    color: var(--color-blue);
+    font-size: 1.3rem;
+  }
+  .wct-teaser p {
+    margin: 0;
+    color: var(--color-blue);
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  /* E-Mail-Gate */
+  .wct-gate {
+    background: #f5f7fa;
+    border: 1px solid #e7ecf3;
+    padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  }
+  .wct-gate h3 {
+    margin: 0 0 0.6rem;
+    color: var(--color-blue);
+    font-size: 1.3rem;
+  }
+  .wct-gate > p {
+    margin: 0 0 1.25rem;
+    color: var(--color-blue);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    max-width: 65ch;
+  }
+  /* Gesperrte Befunde: Milchglaseffekt */
+  .wct-locked {
+    filter: blur(6px);
+    pointer-events: none;
+    user-select: none;
+  }
+  .wct-lock-note {
+    margin: 0.5rem 0 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-pink);
+  }
+  .wct-quota {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #e7ecf3;
+    border-left: 3px solid var(--color-yellow);
+    padding: 0.5rem 0.9rem;
+    font-size: 0.95rem;
+  }
+  .wct-quota strong {
+    font-variant-numeric: tabular-nums;
+    color: var(--color-pink);
+  }
+  .wct-unlock-note {
+    margin: 0.9rem 0 0;
+    font-size: 0.9rem;
+    color: var(--color-blue);
+    opacity: 0.75;
+  }
+  .wct-gate-error {
+    margin: 0;
+    border-left: 3px solid var(--color-pink);
+    padding: 0.6rem 0.9rem;
+    color: var(--color-blue);
+    font-weight: 600;
+    font-size: 0.95rem;
+    background: #fff;
+  }
+  .wct-gate-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .wct-gate-actions .wct-submit {
+    align-self: flex-start;
+  }
+  .wct-restart {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--color-blue);
+    text-decoration: underline;
+    cursor: var(--cur-hand);
+  }
+  .wct-restart:hover {
+    color: var(--color-pink);
+  }
+
+  @media (max-width: 600px) {
+    .wct-inputrow {
+      flex-direction: column;
+    }
+    .wct-submit {
+      align-self: flex-start;
+    }
+    .wct-result-head {
+      align-items: flex-start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wct-spinner {
+      animation: none;
+    }
+    .wct-bar span,
+    .wct-arrow,
+    .wct-arrow i,
+    .wct-submit,
+    .wct-retry {
+      transition: none;
+    }
+  }
+</style>

@@ -19,7 +19,7 @@
         <span class="recall-person">Marcel meldet sich persönlich bei dir</span>
       </div>
     </div>
-    <p>Lass mir kurz deine Telefonnummer oder E-Mail da – unverbindlich.</p>
+    <p>Lass mir kurz deine Telefonnummer oder E-Mail da, unverbindlich.</p>
     <form class="recall-form" data-recall-submit>
       <p class="recall-hp" hidden aria-hidden="true">
         <label>Bitte leer lassen: <input name="website" tabindex="-1" autocomplete="off" /></label>
@@ -43,7 +43,7 @@
       <img class="recall-avatar" src="/team/marcel.jpg" alt="Marcel Klausberger" width="88" height="88" loading="lazy" />
       <div class="recall-head-text">
         <h3>Merci! 🎉</h3>
-        <span class="recall-person">– Marcel</span>
+        <span class="recall-person">- Marcel</span>
       </div>
     </div>
     <p>Ich melde mich so schnell wie möglich bei dir.</p>
@@ -68,6 +68,7 @@
 
     // nach 10 s einblenden
     window.setTimeout(() => {
+      if (sessionStorage.getItem(KEY) === "1") return;
       el.hidden = false;
       void el.offsetWidth;
       el.classList.add("is-open");
@@ -90,6 +91,7 @@
         if (!res.ok) throw new Error("fehler");
         el.querySelector<HTMLElement>("[data-recall-form]")!.hidden = true;
         el.querySelector<HTMLElement>("[data-recall-done]")!.hidden = false;
+        (window as any)._paq?.push(["trackEvent", "Lead", "Rückruf gesendet"]);
         sessionStorage.setItem(KEY, "1");
         window.setTimeout(close, 3500);
       } catch {
@@ -152,7 +154,7 @@
   .recall-avatar {
     width: 88px;
     height: 88px;
-    border-radius: 0; /* eckig – Markenstil */
+    border-radius: 0; /* eckig, Markenstil */
     object-fit: cover;
     object-position: center top;
     flex: none;
@@ -212,8 +214,6 @@
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--color-blue);
-    text-decoration: underline;
-    text-underline-offset: 3px;
   }
   .recall-call:hover {
     color: var(--color-pink);

@@ -1,0 +1,318 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["dt-baeretswil", "sam-focus"].includes(p.slug)
+);
+
+const leistungen = [
+  {
+    title: "Redaktion und Texte",
+    note: "Wir planen die Inhalte, schreiben die Texte und holen bei Bedarf die Geschichten direkt aus deinem Verein: Interviews mit Spielern, Porträts von Ehrenamtlichen, Rückblicke aufs Fest.",
+  },
+  {
+    title: "Gestaltung und Bildwelt",
+    note: "Editorial Design, das zu deinem Verein passt: klare Texthierarchien, ein ausgewogenes Bild-Text-Verhältnis und ein Layout, das man gerne in die Hand nimmt.",
+  },
+  {
+    title: "Druck und Auslieferung",
+    note: "Wir bereiten die Druckdaten auf, wählen mit dir Papier und Auflage und begleiten das Heft bis in den Briefkasten deiner Mitglieder.",
+  },
+  {
+    title: "Laufende Betreuung",
+    note: "Mit einem Redaktionsplan weiss jeder im Verein, wer was bis wann liefert. So bleibt das Magazin lebendig statt zum jährlichen Kraftakt zu werden.",
+  },
+];
+
+const ablauf = [
+  "Kostenloses Erstgespräch: Was soll das Magazin leisten, wer liest es, was gibt es schon",
+  "Konzept und Redaktionsplan: Rubriken, Umfang, Erscheinungsrhythmus, Aufgaben",
+  "Redaktion: Wir schreiben, recherchieren und führen Interviews, ihr liefert Input",
+  "Gestaltung und Korrektur: Du und dein Vorstand schaut drüber, bevor gedruckt wird",
+  "Druck und Versand: Das fertige Heft kommt zu deinen Mitgliedern und Gönnern",
+];
+
+const faq = [
+  {
+    q: "Was kostet es, ein Vereinsmagazin erstellen zu lassen?",
+    a: "Das hängt von Umfang, Auflage und Erscheinungsrhythmus ab und davon, wie viel Redaktion du selbst übernimmst. Ein schlankes Saisonheft ist etwas anderes als ein viermal jährlich erscheinendes Magazin mit eigenen Interviews. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot, aus dem genau hervorgeht, was drin ist und was es kostet.",
+  },
+  {
+    q: "Wer schreibt die Texte fürs Magazin?",
+    a: "Auf Wunsch wir. Wir können die Redaktion komplett übernehmen, von der Themenplanung über Interviews bis zu den fertigen Artikeln. Viele Vereine liefern uns Stichworte, Resultate und Fotos, und wir machen daraus lesbare Geschichten. Beim Magazin SAM FOCUS des Hilfswerks SAM global zum Beispiel übernehmen wir die redaktionelle Arbeit laufend in enger Zusammenarbeit mit dem Kommunikationsteam.",
+  },
+  {
+    q: "Wie oft sollte ein Vereinsmagazin erscheinen?",
+    a: "So oft, wie ihr es inhaltlich füllen könnt, nicht öfter. Lieber ein oder zwei richtig gute Ausgaben pro Jahr als vier lieblose. Der Unihockeyverein DT Bäretswil bringt sein Heft einmal pro Saison heraus, mit Rückblick, Ausblick und Spielplan, und das funktioniert bestens. Ein Redaktionsplan hilft, den Rhythmus realistisch zu halten.",
+  },
+  {
+    q: "Macht ihr auch den Druck?",
+    a: "Ja. Wir bereiten die Druckdaten sauber auf, beraten dich zu Papier, Umfang und Auflage und wickeln den Druck für dich ab. Du bekommst das fertige Heft geliefert und musst dich um nichts Technisches kümmern.",
+  },
+  {
+    q: "Gedruckt oder digital, was ist besser?",
+    a: "Für Mitglieder, Gönner und Sponsoren ist gedruckt meist stärker: Das Heft liegt auf dem Tisch, wird weitergegeben und zeigt Wertschätzung, die ein Newsletter-Link selten schafft. Auf Wunsch gibt es die digitale Version als PDF oder Online-Ausgabe dazu. Gerade bei jüngeren Mitgliedern lohnt sich diese Kombination.",
+  },
+  {
+    q: "Wir haben schon ein Magazin, aber es sieht verstaubt aus. Könnt ihr helfen?",
+    a: "Genau das ist ein klassischer Fall. Beim Saison Guide von DT Bäretswil ging es nicht um ein neues Magazin, sondern um einen neuen Anstrich: lesefreundlicher, leichter, mit klaren Text-Bild-Strukturen. Oft reicht ein durchdachtes Redesign, damit ein bestehendes Heft wieder gelesen wird. Die Substanz und die Leser sind ja schon da.",
+  },
+];
+---
+
+<Layout
+  title="Vereinsmagazin erstellen lassen - Uftritt"
+  description="Vereinsmagazin erstellen lassen: Redaktion, Gestaltung und Druck aus einer Hand. Damit deine Vereinszeitung Mitglieder und Gönner wirklich erreicht."
+>
+  <PageHero
+    eyebrow="Für Vereine"
+    title={"Vereins­magazin\nerstellen lassen"}
+    lead="Du willst ein Vereinsmagazin erstellen lassen, das Mitglieder und Gönner wirklich lesen? Wir übernehmen Redaktion, Gestaltung und Druck deiner Vereinszeitung aus einer Hand: von den Texten und Bildern über das Editorial Design bis zum fertigen Heft im Briefkasten. Ehrlich geplant, mit Redaktionsplan und ohne ehrenamtlichen Frust."
+    lottie="/lottie/magazinbetreuung.json"
+    lottieLabel="Vereinsmagazin"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/magazinbetreuung/" label="Magazinbetreuung" lottie="/lottie/magazinbetreuung.json" projects={cases} />
+
+  {/* Warum Print + warum auslagern */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Warum ein gedrucktes Magazin wirkt</h2>
+        <div class="lp-text">
+          <p>
+            Ein Verein lebt von seinen Menschen: Aktive, Eltern, Gönner,
+            Sponsoren. Genau diese Menschen erreichst du mit einem gedruckten
+            Heft anders als mit jedem Post. Es liegt auf dem Tisch, es wird
+            weitergegeben, und es zeigt, dass sich der Verein Mühe gibt.
+          </p>
+          <p>
+            Für Gönner und Sponsoren ist das Magazin oft der greifbarste Beweis,
+            dass ihr Beitrag ankommt. Ein schönes Heft mit echten Geschichten
+            aus dem Vereinsleben bindet stärker als jeder Dankesbrief.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Warum Vereine das auslagern</h2>
+        <div class="lp-text">
+          <p>
+            In fast jedem Verein hängt das Magazin an einer einzigen
+            ehrenamtlichen Person. Die sammelt Beiträge, kämpft mit dem Layout
+            und geht nachts um zwei auf Korrekturjagd. Das geht eine Weile gut,
+            dann wird jede Ausgabe zum Kraftakt.
+          </p>
+          <p>
+            Wir nehmen dem Vorstand diese Arbeit ab, ohne ihm das Heft zu
+            entfremden: Die Inhalte kommen aus dem Verein, die Professionalität
+            von uns. Du behältst die Hoheit über jedes Wort, wir kümmern uns um
+            Redaktionsplan, Texte, Gestaltung und Druck. Details zur laufenden
+            Betreuung findest du unter <a href="/angebot/magazinbetreuung/">Magazinbetreuung</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Leistungen */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Alles aus einer Hand</span>
+        <h2>Was wir für dein Vereinsmagazin übernehmen</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          leistungen.map((u) => (
+            <article class="karte">
+              <h3>{u.title}</h3>
+              <p class="karte-note">{u.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Ablauf + ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ehrlich gesagt: Der Aufwand sitzt in der Redaktion</h2>
+        <div class="lp-text">
+          <p>
+            Das Layout ist die lösbare Aufgabe. Der Knackpunkt jedes
+            Vereinsmagazins ist die Redaktion: Wer liefert wann welche Inhalte?
+            Ohne Redaktionsplan verschiebt sich jede Ausgabe, und aus dem
+            Frühlingsheft wird ein Herbstheft. Darum planen wir realistisch und
+            sagen dir auch, wenn ein kleinerer Rhythmus mehr bringt.
+          </p>
+          <p>
+            Und falls du kein Verein bist, sondern ein Unternehmen: Für dich
+            gibt es das passende Gegenstück unter <a href="/magazin-erstellen-lassen/">Magazin erstellen lassen</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Cases */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Vereinsheft aus der Region: DT Bäretswil</h2>
+        <div class="lp-text">
+          <p>
+            Der Unihockeyverein <a href="/projekte/dt-baeretswil/">DT Bäretswil</a> spielt
+            mit seiner Herren-1-Mannschaft in der höchsten Kleinfeldliga der
+            Schweiz. Pro Saison erscheint der Saison Guide, eine gedruckte
+            Vereinsbroschüre mit Rückblick auf die vergangene Saison, den Zielen
+            der Teams und Einblicken ins Vereinsleben. Der Spielplan aller Teams
+            ist als heraustrennbare Doppelseite in der Heftmitte eingebaut.
+          </p>
+          <p>
+            Wir haben dem Heft einen neuen Anstrich verpasst: lesefreundlicher,
+            leichter, mit klaren Text-Bild-Strukturen. So bleibt die Substanz
+            des Vereins erhalten und bekommt ein Gewand, das man gerne durchblättert.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Redaktion und Gestaltung laufend: SAM FOCUS</h2>
+        <div class="lp-text">
+          <p>
+            Das Magazin <a href="/projekte/sam-focus/">SAM FOCUS</a> ist das wichtigste
+            Kommunikationsorgan des christlichen Hilfswerks SAM global. In
+            enger Zusammenarbeit mit dem Kommunikationsteam übernehmen wir die
+            redaktionelle Arbeit und die Gestaltung des Magazins.
+          </p>
+          <p>
+            Mit einem zeitgemässen Redesign haben wir das Heft visuell
+            aufgefrischt: luftiges Layout, ausgewogenes Bild-Text-Verhältnis,
+            klare Texthierarchien und passende Illustrationen. Genau diese
+            Kombination aus laufender Redaktion und Gestaltung aus einer Hand
+            bieten wir auch deinem Verein.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Vereinsmagazin</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Sollen wir euer Vereinsmagazin übernehmen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deinem Verein und eurem Heft, ob es schon existiert oder
+        erst eine Idee ist. Wir sagen dir ehrlich, was sinnvoll ist, und machen
+        ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,77 @@
+---
+// Vertrauens-Band fuer lokale Landingpages: echte Google-Reviews (reviews.ts)
+// + Gratis-URL-Check als Lead-Magnet (Muster der Wettbewerber, siehe
+// Strategie/2026-08-14_Wettbewerbsanalyse-SEO-Agenturen.md).
+import { reviewsMeta } from "../data/reviews";
+
+interface Props {
+  check?: boolean;
+}
+
+const { check = true } = Astro.props;
+---
+
+<div class="lt" data-reveal>
+  <div class="container lt-inner">
+    <p class="lt-reviews" aria-label={`${reviewsMeta.average} von 5 Sternen aus ${reviewsMeta.count} Google-Bewertungen`}>
+      <span class="lt-stars" aria-hidden="true">★★★★★</span>
+      <strong>{reviewsMeta.average.toFixed(1)}</strong> aus {reviewsMeta.count} Google-Bewertungen
+    </p>
+    {
+      check && (
+        <p class="lt-audit">
+          Schon eine Website? Schick uns deine URL, du erhältst innert 48 Stunden eine ehrliche
+          Einschätzung, gratis. <a href="/kontakt/">Zum Gratis-Check →</a>
+        </p>
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .lt {
+    background: #fff;
+    border-block: 1px solid #e7ecf3;
+  }
+  .lt-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem 3rem;
+    flex-wrap: wrap;
+    padding-block: 1.4rem;
+  }
+  .lt-reviews {
+    color: var(--color-blue);
+    font-size: 1.05rem;
+    margin: 0;
+    white-space: nowrap;
+  }
+  .lt-stars {
+    color: var(--color-yellow);
+    text-shadow: 0 0 1px var(--color-blue);
+    letter-spacing: 0.08em;
+    margin-right: 0.4rem;
+  }
+  .lt-audit {
+    color: var(--color-blue);
+    margin: 0;
+    line-height: 1.6;
+    max-width: 60ch;
+  }
+  .lt-audit a {
+    color: var(--color-blue);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .lt-audit a:hover {
+    color: var(--color-pink);
+  }
+  @media (max-width: 760px) {
+    .lt-inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+  }
+</style>

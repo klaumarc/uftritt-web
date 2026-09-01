@@ -1,0 +1,278 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["fahrschule-schweiz", "heusser-holzbau", "peter-ott"].includes(p.slug)
+);
+
+const uebernahme = [
+  {
+    title: "Konzept und Format",
+    note: "Wir entwickeln mit dir Titel, Format, Folgenlänge und Dramaturgie: Wer spricht, worüber, mit welchem Ziel. So hat jede Folge eine klare Aufgabe.",
+  },
+  {
+    title: "Aufnahme und Regie",
+    note: "Wir kommen mit Kameras, Licht und Ton zu dir oder an einen passenden Ort und führen durch die Aufnahme. Du musst kein Medienprofi sein, wir machen es dir vor der Kamera leicht.",
+  },
+  {
+    title: "Schnitt und Clips",
+    note: "Wir schneiden die Folge, reinigen den Ton und ergänzen Titel, Untertitel und dein Branding. Dazu entstehen kurze Clips, die für deine Kanäle zugeschnitten sind.",
+  },
+  {
+    title: "Veröffentlichung",
+    note: "Wir bereiten alles für YouTube, deine Website und die gängigen Podcast-Plattformen auf und helfen bei Titeln, Beschreibungen und Thumbnails. Auf Wunsch auch laufend.",
+  },
+];
+
+const ablauf = [
+  "Erstgespräch: Wir hören zu, was du vorhast und wen du erreichen willst",
+  "Formatentwicklung: Konzept, Sendeplan und ein transparentes Angebot für dich",
+  "Pilotfolge: Wir produzieren die erste Folge und justieren gemeinsam nach",
+  "Laufende Produktion: Aufnahme, Schnitt und Clips im vereinbarten Rhythmus",
+  "Auswertung: Wir schauen gemeinsam, was läuft, und steuern nach",
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Video-Podcast-Produktion?",
+    a: "Das hängt davon ab, wie dein Format aussieht: Anzahl Kameras, Aufnahmeort, Folgenlänge und wie viele Folgen pro Monat entstehen. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot, aus dem genau hervorgeht, was drin ist und was es kostet. Grobe Markt-Ranges für Filmproduktionen haben wir offen in unserem Guide zu den Imagefilm-Kosten zusammengestellt.",
+  },
+  {
+    q: "Brauchen wir ein eigenes Studio?",
+    a: "Nein. Wir bringen die Technik mit und richten die Aufnahme bei dir im Büro, im Sitzungszimmer oder an einem Ort ein, der zu deinem Thema passt. Wichtig sind vor allem ein ruhiger Raum und genügend Zeit ohne Unterbrüche. Ein echtes Studio lohnt sich erst, wenn du ein aufwendiges Set oder Livestreams planst.",
+  },
+  {
+    q: "Wie oft sollte eine Folge erscheinen?",
+    a: "So oft, wie du es dauerhaft durchhältst. Ein monatlicher Rhythmus, der zwei Jahre läuft, schlägt einen wöchentlichen, der nach drei Folgen wieder einschläft. Wir empfehlen den meisten KMU, mit einer Pilotfolge und einer überschaubaren ersten Staffel zu starten und den Rhythmus erst dann hochzufahren.",
+  },
+  {
+    q: "Macht ihr auch nur den Schnitt?",
+    a: "Ja. Wenn du selbst aufnimmst oder bereits Rohmaterial hast, übernehmen wir Schnitt, Tonbearbeitung, Untertitel, Branding und die Clips für deine Kanäle. Wir schauen uns dein Material vorab an und sagen dir ehrlich, ob Bild und Ton für ein professionelles Ergebnis reichen.",
+  },
+  {
+    q: "Für wen lohnt sich ein Video-Podcast?",
+    a: "Für Firmen und Personen mit echtem Fachwissen und erklärungsbedürftigen Themen: Beratungen, Kanzleien, Technikbetriebe, alle, die im B2B Vertrauen aufbauen müssen. Weniger geeignet ist das Format, wenn du eine einmalige Kampagne suchst. Ein Podcast lebt davon, eine Serie zu sein.",
+  },
+];
+---
+
+<Layout
+  title="Video-Podcast produzieren lassen, Uftritt"
+  description="Video-Podcast produzieren lassen: Konzept, Aufnahme, Schnitt und Veröffentlichung aus einer Hand. Persönlich geplant von der Agentur aus dem Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="Podcast-Produktion"
+    title={"Video-Podcast\nproduzieren lassen"}
+    lead="Ein Video-Podcast bringt dein Wissen und deine Gespräche vor die Kamera: als Serie für deine Website, YouTube und die sozialen Kanäle. Wir übernehmen Konzept, Aufnahme, Schnitt und Veröffentlichung und sagen dir ehrlich, welcher Rhythmus realistisch ist, damit aus der ersten Folge eine dauerhafte Serie wird."
+    lottie="/lottie/videoproduktion.json"
+    lottieLabel="Video-Podcast-Produktion"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/videoproduktion/" label="Videoproduktion" lottie="/lottie/videoproduktion.json" projects={cases} />
+
+  {/* Was + warum */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was ein Video-Podcast ist</h2>
+        <div class="lp-text">
+          <p>
+            Ein Video-Podcast ist ein Gespräch vor der Kamera: du allein, zu
+            zweit oder mit Gästen, aufgezeichnet in Folgen. Das Ergebnis läuft
+            als Film auf YouTube und deiner Website und als reine Audiofolge
+            auf den gängigen Podcast-Plattformen.
+          </p>
+          <p>
+            Der Unterschied zum klassischen Podcast ist das Bild. Dein Publikum
+            sieht Gesichter, Räume und Emotionen. Und aus jeder Aufnahme
+            entstehen kurze Clips, die auf LinkedIn, Instagram und TikTok
+            weiterleben.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Warum Firmen darauf setzen</h2>
+        <div class="lp-text">
+          <p>
+            Weil Vertrauen der härteste Wettbewerbsvorteil im B2B ist. Wer
+            regelmässig erklärt, diskutiert und Wissen teilt, wird als
+            Thought Leader wahrgenommen, lange bevor ein Erstgespräch
+            stattfindet. Gerade bei erklärungsbedürftigen Angeboten zahlt das
+            auf die Qualität deiner Anfragen ein.
+          </p>
+          <p>
+            Und weil eine Aufnahme viele Inhalte liefert: die ganze Folge,
+            einzelne Kapitel, kurze Clips für Social Media, Zitate als Grafik.
+            Ein Drehtag, Wochen an Content. Mehr dazu auf unserer Seite zur
+            <a href="/angebot/videoproduktion/">Videoproduktion</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Was wir übernehmen */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Alles aus einer Hand</span>
+        <h2>Was wir für dich übernehmen</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          uebernahme.map((u) => (
+            <article class="karte">
+              <h3>{u.title}</h3>
+              <p class="karte-note">{u.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Ablauf + ehrlicher Teil */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der ehrliche Teil dazu</h2>
+        <div class="lp-text">
+          <p>
+            Die Technik ist nicht der Knackpunkt, die Kontinuität ist es. Die
+            meisten Podcasts sterben nach wenigen Folgen, weil der laufende
+            Aufwand unterschätzt wird. Darum raten wir: lieber sechs gute
+            Folgen in einem Rhythmus, den du durchhältst, als zwanzig
+            halbherzige mit grossem Startfeuerwerk.
+          </p>
+          <p>
+            Dass laufender Videocontent trägt, sieht man bei Kunden wie der
+            Fahrschule Schweiz: Wir haben den Auftritt mit eigenem Foto- und
+            Videomaterial gebaut, das auch auf dem gut besuchten YouTube-Kanal
+            der Fahrschule zum Einsatz kommt. Was dort für Fahrschul-Themen
+            funktioniert, kann für dein Fachgebiet funktionieren. Was Filme
+            kosten, erklären wir offen im
+            <a href="/imagefilm-kosten/">Guide zu den Imagefilm-Kosten</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Video-Podcast-Produktion</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deine eigene Sendung?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, worüber du sprechen willst. Wir sagen dir ehrlich, ob sich
+        ein Video-Podcast für dich lohnt, und wie ein realistischer Start
+        aussieht.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

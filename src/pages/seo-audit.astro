@@ -1,0 +1,351 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "smart-navigator", "regan"].includes(p.slug)
+);
+
+const bausteine = [
+  {
+    title: "Technik und Ladezeiten",
+    note: "Indexierung, Statuscodes, Weiterleitungen, Core Web Vitals, mobile Darstellung und strukturierte Daten: Wir prüfen, ob Google deine Seite sauber erfassen kann und ob sie schnell genug lädt.",
+  },
+  {
+    title: "Inhalte und Struktur",
+    note: "Seitentitel, Überschriften, Texte und interne Verlinkung: Beantwortet deine Website die Fragen, die deine Kunden wirklich suchen, und findet Google die richtigen Seiten dazu?",
+  },
+  {
+    title: "Lokale Sichtbarkeit",
+    note: "Google-Unternehmensprofil, lokale Verzeichnisse, Bewertungen und der Ortsbezug deiner Website: Entscheidend, wenn deine Kunden aus der Region kommen.",
+  },
+  {
+    title: "Backlinks und Autorität",
+    note: "Wer verlinkt auf dich, und wie vertrauenswürdig sind diese Quellen? Wir zeigen, wo du stehst und welche Verlinkungen im Schweizer Markt realistisch aufbaubar sind.",
+  },
+];
+
+const ranges = [
+  {
+    name: "Automatisierte Online-Checks",
+    price: "CHF 0 bis 10",
+    note: "Tools prüfen Technik und SEO-Grundlagen automatisch, unser eigener Website-Check zum Beispiel gratis. Gut für die erste Orientierung, aber ohne Wettbewerbsvergleich und ohne Strategie.",
+  },
+  {
+    name: "Kompakt-Audit",
+    price: "CHF 1500 bis 3000",
+    note: "Für kleine Websites ohne Shop: die wichtigsten technischen Befunde, die Seitenstruktur und die lokale Sichtbarkeit, mit priorisierter To-do-Liste.",
+  },
+  {
+    name: "Vollständiges SEO-Audit",
+    price: "CHF 3000 bis 6000",
+    note: "Der Klassiker für KMU-Websites: alle vier Bausteine, ein Keyword- und Wettbewerbsvergleich im Schweizer Markt und ein Massnahmenplan in Klartext.",
+  },
+  {
+    name: "Grosses Audit",
+    price: "CHF 6000 bis 8000 und mehr",
+    note: "Für Shops, mehrsprachige Auftritte oder hunderte Seiten: mehr Daten, mehr Konkurrenz, mehr Abstimmung. Sehr grosse Projekte gehen auch darüber hinaus.",
+  },
+];
+
+const ergebnis = [
+  "Alle Befunde in Klartext: verständlich geschrieben, ohne Fachchinesisch",
+  "Ein priorisierter Massnahmenplan: was zuerst, was später, was du dir sparen kannst",
+  "Eine Aufwandschätzung je Massnahme, damit du planen kannst",
+  "Eine ehrliche Markierung: was du selbst erledigen kannst und wo sich Profi-Hilfe lohnt",
+  "Eine persönliche Besprechung, in der wir den Plan durchgehen und deine Fragen beantworten",
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: wir klären Ziele, Markt und ob ein Audit überhaupt der richtige Schritt ist",
+  "Zugang und Datenlage: Search Console und Profi-Tools zeigen uns die Sicht von Google, Matomo die echten Besucher",
+  "Analyse der vier Bausteine: Technik, Inhalte, lokale Sichtbarkeit und Backlinks",
+  "Massnahmenplan in Klartext: priorisiert, mit Aufwandschätzung und Selbst-machbar-Markierung",
+  "Besprechung und Entscheid: du entscheidest, was du selbst machst und was du beauftragst",
+];
+
+const faq = [
+  {
+    q: "Was kostet ein SEO-Audit?",
+    a: "Am Schweizer Markt liegen die Preise zwischen CHF 1500 und 8000, je nach Grösse und Komplexität deiner Website. Ein Kompakt-Audit für eine kleine Firmenwebsite startet bei rund CHF 1500, ein vollständiges Audit mit Wettbewerbsvergleich liegt meist zwischen CHF 3000 und 6000, Shops und mehrsprachige Auftritte gehen darüber. Automatisierte Online-Checks gibt es gratis, sie liefern aber Befunde ohne Einordnung. Auch wir nennen keinen Fixpreis: Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit klarem Preis. Mehr Zahlen dazu stehen in unserem Guide zu den SEO-Kosten.",
+  },
+  {
+    q: "Was ist der Unterschied zwischen SEO-Audit und SEO-Betreuung?",
+    a: "Der Audit ist einmalig: Er analysiert deine Website und liefert dir den Plan. Die Betreuung ist laufend: Da setzen wir Monat für Monat um, an Technik, Inhalten und lokaler Sichtbarkeit, und berichten dir verständlich, was es gebracht hat. Viele starten mit dem Audit und entscheiden danach, ob sie selbst umsetzen, einzelne Massnahmen beauftragen oder eine Betreuung wollen. Wie eine solche Betreuung aussieht, zeigt unsere Seite zur SEO-Betreuung.",
+  },
+  {
+    q: "Wie lange dauert ein SEO-Audit?",
+    a: "Für eine kleine Website rechne mit einigen Arbeitstagen bis rund zwei Wochen inklusive Besprechung. Grössere Auftritte mit Shop oder mehreren Sprachen brauchen zwei bis vier Wochen, weil mehr Daten, mehr Seiten und mehr Konkurrenzanalyse drinstecken. Einen verbindlichen Termin nennen wir dir im Erstgespräch, wenn wir deine Website kennen.",
+  },
+  {
+    q: "Kann ich die Massnahmen danach selbst umsetzen?",
+    a: "Ja, vieles: Texte schärfen, Seitentitel und Beschreibungen anpassen, das Google-Unternehmensprofil pflegen oder Inhalte zu den Fragen deiner Kunden schreiben. Darum markieren wir im Plan ehrlich, was du selbst kannst und wo Profi-Hilfe nötig ist, etwa bei technischen Eingriffen, strukturierten Daten oder Linkaufbau. Du kaufst bei uns Klarheit, keinen Folgeauftrag.",
+  },
+  {
+    q: "Reicht nicht ein gratis Online-Check?",
+    a: "Für den ersten Eindruck ja, darum haben wir selbst einen gebaut: Unser Website-Check prüft über 40 Kriterien automatisch und kostenlos. Was kein Tool kann: Befunde im Kontext deines Marktes gewichten, deine Konkurrenz vergleichen, die Suchabsichten deiner Kunden lesen und daraus eine Strategie mit Prioritäten bauen. Genau das ist der Audit.",
+  },
+  {
+    q: "Wann lohnt sich ein SEO-Audit?",
+    a: "Typische Auslöser: Deine Website bringt kaum Anfragen, obwohl deine Leistung gesucht wird. Ein Relaunch steht an und du willst die Basis richtig legen. Die Konkurrenz erscheint bei Google vor dir. Oder du hast schon Geld in SEO gesteckt und weisst nicht, was es gebracht hat. In all diesen Fällen liefert der Audit die Entscheidungsgrundlage, bevor du weiter investierst.",
+  },
+  {
+    q: "Brauche ich danach eine monatliche Betreuung?",
+    a: "Nicht automatisch. In einem überschaubaren regionalen Markt reicht es oft, den Plan umzusetzen und einmal jährlich nachzuschärfen. Eine laufende Betreuung lohnt sich, wenn du in einem umkämpften Feld wachsen willst: Google bewertet Kontinuität, und deine Konkurrenz arbeitet weiter. Wir sagen dir in der Besprechung ehrlich, auf welcher Seite du stehst.",
+  },
+];
+---
+
+<Layout
+  title="SEO-Audit für KMU: Analyse und klare Massnahmen, Uftritt"
+  description="SEO-Audit für KMU: Wir prüfen Technik, Inhalte, lokale Sichtbarkeit und Backlinks und liefern einen priorisierten Massnahmenplan in Klartext. Inkl. Preisranges."
+>
+  <PageHero
+    eyebrow="SEO-Analyse für KMU"
+    title={"SEO-Audit:\nKlarheit statt Rätselraten"}
+    lead="Die kurze Antwort: Ein SEO-Audit ist eine einmalige, tiefgehende Analyse deiner Website. Wir prüfen Technik, Inhalte, lokale Sichtbarkeit und Backlinks und liefern dir einen priorisierten Massnahmenplan in Klartext: was zuerst, was später, was du selbst kannst und wo sich Profi-Hilfe lohnt. Ohne Platz-1-Versprechen."
+    lottie="/lottie/marketingbegleitung.json"
+    lottieLabel="SEO-Audit"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/marketingbegleitung/" label="Marketingbegleitung" lottie="/lottie/marketingbegleitung.json" projects={cases} />
+
+  {/* Die vier Bausteine */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Die vier Bausteine</span>
+        <h2>Was ein SEO-Audit bei uns prüft</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          bausteine.map((b) => (
+            <article class="karte">
+              <h3>{b.title}</h3>
+              <p class="karte-note">{b.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Preisranges */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Was ein SEO-Audit in der Schweiz kostet</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. Jedes Audit ist individuell, darum
+        sind das Ranges und keine Ladenpreise. Die Ranges für laufende Betreuung und Content zeigen wir in
+        unserem Guide zu den <a href="/seo-kosten/">SEO-Kosten</a>.
+      </p>
+    </div>
+  </section>
+
+  {/* Ergebnis + seriöser Audit */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss in der Hand hast</h2>
+        <div class="lp-text">
+          <p>
+            Ein Audit ist bei uns kein PDF-Friedhof, sondern ein Arbeitsinstrument.
+            Du bekommst keine hundert Seiten Fachjargon, sondern eine klare
+            Entscheidungsgrundlage, mit der du sofort loslegen kannst:
+          </p>
+          <ul class="modul-liste">
+            {ergebnis.map((e, i) => <li><span class="modul-nr">{i + 1}</span>{e}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Woran du einen seriösen Audit erkennst</h2>
+        <div class="lp-text">
+          <p>
+            Vorsicht beim «gratis SEO-Audit» aus der E-Mail-Werbung: Dahinter stecken
+            meist automatisch generierte Reports, die Angst machen und danach teure
+            Pakete verkaufen. Ein echter Audit liest deine Website im Kontext: dein
+            Markt, deine Konkurrenz, deine Ziele. Das kann bis heute kein Skript.
+          </p>
+          <p>
+            Als ersten Schritt empfehlen wir ehrlich gerne unseren eigenen gratis
+            <a href="/website-check/">Website-Check</a>: Er prüft über 40 Kriterien
+            automatisch und zeigt dir sofort die wichtigsten Befunde. Der Audit geht
+            dann in die Tiefe, die kein Tool liefert: Keyword-Feld, Wettbewerb,
+            Suchabsichten und eine Strategie mit klaren Prioritäten.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + danach */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Danach selbst machen oder betreuen lassen?</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlich gesagt: Viele Massnahmen aus dem Plan kannst du selbst erledigen.
+            Texte schärfen, Seitentitel anpassen, das Google-Unternehmensprofil
+            pflegen und Bewertungen einholen kostet Zeit statt Geld. An Grenzen
+            stösst du bei technischen Eingriffen, Keyword-Recherche mit Profi-Tools
+            und Linkaufbau.
+          </p>
+          <p>
+            Ob du danach eine laufende <a href="/seo-betreuung/">SEO-Betreuung</a>
+            brauchst, hängt von deinem Markt ab: In einem überschaubaren regionalen
+            Umfeld reicht es oft, den Plan umzusetzen und jährlich nachzuschärfen.
+            In einem umkämpften Feld ist Kontinuität der Vorteil, dann ist eine
+            monatliche Betreuung die bessere Investition. Wir sagen dir nach der
+            Besprechung ehrlich, auf welcher Seite du stehst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum SEO-Audit</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Willst du wissen, wo deine Website wirklich steht?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns kurz von deinem Vorhaben. Wir schauen deine Website an und sagen
+        dir ehrlich, ob sich ein Audit lohnt, kostenlos und unverbindlich.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+  .quellen a { color: var(--color-blue); font-weight: 700; }
+  .quellen a:hover { color: var(--color-pink); }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten, .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten, .ranges { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,282 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+
+const faelle = [
+  {
+    title: "Prozesse digitalisieren",
+    note: "Rapporte, Checklisten oder Freigaben laufen in vielen Betrieben über Excel, Papier oder Mailketten. Eine Web-App bringt solche Abläufe in ein sauberes, eigenes Werkzeug.",
+  },
+  {
+    title: "Kundenbereiche und Portale",
+    note: "Deine Kundschaft meldet sich mit Login an und findet Dokumente, Bestellungen oder den Projektstand an einem Ort, rund um die Uhr und ohne Rückfragen.",
+  },
+  {
+    title: "Interne Werkzeuge",
+    note: "Aufgaben, Planung oder Auswertungen fürs Team: Ein internes Tool, das genau zu euren Abläufen passt, statt einem Standardprodukt, dem ihr euch anpassen müsst.",
+  },
+  {
+    title: "Buchungen und Anmeldungen",
+    note: "Termine, Anmeldungen oder Reservationen lassen sich als Web-App abbilden, inklusive Bestätigungen und einer Übersicht für euer Team.",
+  },
+];
+
+const faq = [
+  {
+    q: "Was kostet es, eine Web-App entwickeln zu lassen?",
+    a: "Das hängt vom Umfang ab: Ein fokussiertes internes Tool kostet weniger als ein Kundenportal mit vielen Schnittstellen. Marktübliche Preisranges legen wir transparent in unserem Guide zu den App-Entwicklungskosten offen. Für dein Projekt rechnen wir sauber durch: Nach einem kostenlosen Erstgespräch bekommst du ein Angebot mit allen Leistungen und einem klaren Preis.",
+  },
+  {
+    q: "Web-App oder native App: Was passt für uns?",
+    a: "Für die meisten KMU-Vorhaben die Web-App: eine Codebasis für alle Geräte, kein App-Store, sofort verteilbar per Link und günstiger in Bau und Wartung. Eine native App lohnt sich, wenn du intensiv auf Gerätefunktionen zugreifen musst oder die Präsenz im App-Store selbst Teil deines Angebots ist. Das klären wir im Erstgespräch ehrlich.",
+  },
+  {
+    q: "Wie lange dauert die Entwicklung?",
+    a: "Das hängt vom Umfang und den Schnittstellen ab. Sicher ist: Du wartest nicht monatelang aufs Ergebnis. Der klickbare Prototyp kommt früh im Prozess, danach entwickeln wir schrittweise und du siehst laufend Fortschritt. Eine ehrliche Zeitschätzung bekommst du mit dem Konzept, nicht erst mittendrin.",
+  },
+  {
+    q: "Müssen unsere Leute etwas installieren?",
+    a: "Nein. Die Web-App läuft im Browser und ist per Link erreichbar. Auf Wunsch legt sie sich dein Team als PWA mit Icon auf dem Homescreen ab, dann fühlt sie sich an wie eine installierte App, bleibt aber ohne App-Store und ohne manuelle Updates.",
+  },
+  {
+    q: "Wer hostet die Web-App später?",
+    a: "Wie du willst: Wir übernehmen Hosting, Wartung und Updates für dich, oder wir richten die Anwendung in deiner bestehenden Umgebung ein. Beim Datenschutz bauen wir datensparsam und beraten dich ehrlich zu den Rahmenbedingungen. Das klären wir transparent, bevor irgendetwas gebaut wird.",
+  },
+  {
+    q: "Kann die Web-App mit unserem Betrieb wachsen?",
+    a: "Ja, genau so bauen wir sie: auf einer sauberen Basis, die sich erweitern lässt. Neue Funktionen, mehr Benutzerrollen oder zusätzliche Schnittstellen kommen schrittweise dazu, ohne dass alles neu gebaut werden muss. Viele Projekte starten bewusst klein und wachsen mit dem Alltag.",
+  },
+];
+---
+
+<Layout
+  title="Webapp entwickeln lassen, Uftritt"
+  description="Webapp entwickeln lassen: Was eine Web-App von Website und nativer App unterscheidet, wann sie sich lohnt und wie wir sie bauen. Ehrlich und aus einer Hand."
+>
+  <PageHero
+    eyebrow="Web-App · Erklärt und gebaut"
+    title={"Webapp\nentwickeln lassen"}
+    lead="Eine Web-App läuft im Browser, braucht keinen App-Store und funktioniert auf jedem Gerät. Sie lohnt sich, wenn du einen Prozess digitalisieren willst: Kundenbereiche, interne Werkzeuge, Buchungen. Wir entwickeln Web-Apps vom Konzept bis zum Betrieb und nutzen selbst gebaute interne Werkzeuge im eigenen Alltag."
+    lottie="/lottie/applikationsentwicklung.json"
+    lottieLabel="Webapp entwickeln lassen"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/applikationsentwicklung/" label="App-Entwicklung" lottie="/lottie/applikationsentwicklung.json" />
+
+  {/* Einordnung */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was ist eine Web-App?</h2>
+        <div class="lp-text">
+          <p>
+            Eine Web-App ist eine Anwendung, die im Browser läuft: Du öffnest eine
+            Adresse, meldest dich an und arbeitest los. Es gibt nichts zu
+            installieren, keinen App-Store und keine Update-Runden auf einzelnen
+            Geräten.
+          </p>
+          <p>
+            Im Gegensatz zur Website steht nicht die Information im Zentrum,
+            sondern das Arbeiten: Daten erfassen, Vorgänge abwickeln, Ergebnisse
+            auswerten. Eine Web-App ist Software, die sich anfühlt wie eine App,
+            aber über das Web läuft.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Web-App, Website oder native App?</h2>
+        <div class="lp-text">
+          <p>
+            Die Website informiert: Angebot, Referenzen, Kontakt. Die Web-App ist
+            ein Werkzeug mit Login und eigenen Daten. Die native App wird im
+            App-Store installiert und kann tiefer auf Gerätefunktionen zugreifen,
+            kostet aber fast das Doppelte, weil sie für iOS und Android getrennt
+            gebaut wird.
+          </p>
+          <p>
+            Für die meisten KMU-Vorhaben ist die Web-App der pragmatische Weg:
+            eine Codebasis für alle Geräte, sofort verteilbar per Link und auf
+            Wunsch als Icon auf dem Homescreen. Was so ein Projekt kostet, zeigen
+            wir transparent im Guide zu den
+            <a href="/app-entwicklung-kosten/">App-Entwicklungskosten</a>. Und
+            wir sagen dir ehrlich, wenn dein Vorhaben doch eine native App
+            braucht.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Wann sich eine Web-App lohnt */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Die Anlässe</span>
+        <h2>Wann sich eine Web-App lohnt</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          faelle.map((f) => (
+            <article class="karte">
+              <h3>{f.title}</h3>
+              <p class="karte-note">{f.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Technik + eigene Praxis */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Schnell und auf jedem Gerät</h2>
+        <div class="lp-text">
+          <p>
+            Eine Web-App läuft überall, wo ein Browser läuft: auf dem Laptop im
+            Büro, dem Tablet in der Werkstatt, dem Handy unterwegs. Neue
+            Funktionen und Korrekturen sind sofort für alle da, ohne Umweg über
+            einen App-Store.
+          </p>
+          <p>
+            Als sogenannte PWA lässt sich eine Web-App zudem wie eine
+            installierte App mit Icon auf dem Homescreen ablegen. Genau so
+            arbeiten wir selbst: Unsere eigene Aufgaben-App ist eine selbst
+            gebaute Web-App mit Login, die wir als PWA auf all unseren Geräten
+            nutzen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Gebaut aus eigener Praxis</h2>
+        <div class="lp-text">
+          <p>
+            Wir verkaufen nichts, das wir nicht selbst einsetzen. Unsere internen
+            Werkzeuge haben wir als Web-Apps selbst gebaut und nutzen sie täglich
+            im eigenen Betrieb, vom ersten Login am Morgen bis zur letzten
+            Erledigung am Abend.
+          </p>
+          <p>
+            Diese Erfahrung fliesst in dein Projekt ein: Wir wissen, wo solche
+            Werkzeuge im Alltag haken, und bauen sie so, dass sie wirklich
+            genutzt werden statt nach zwei Wochen zu versanden.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>So entsteht deine Web-App</h2>
+        <div class="lp-text">
+          <p>
+            Zuerst hören wir zu und verstehen deine Abläufe. Daraus entsteht ein
+            Konzept mit Funktionen und Rahmen. Bevor programmiert wird, bekommst
+            du einen klickbaren Prototyp, der zeigt, wie sich die Anwendung
+            anfühlt.
+          </p>
+          <p>
+            Danach entwickeln wir schrittweise, testen gemeinsam mit dir und
+            bringen die Web-App live. Auch nach dem Launch bleiben wir dran:
+            Wartung, Updates und Weiterentwicklung kommen aus derselben Hand.
+            Alle Details zum Ablauf findest du auf unserer Seite zur
+            <a href="/angebot/applikationsentwicklung/">Applikationsentwicklung</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Web-App</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Hast du einen Prozess, den eine Web-App vereinfacht?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was bei euch heute über Excel, Papier oder Mailketten läuft.
+        Wir sagen dir ehrlich, ob sich eine Web-App lohnt, und machen ein
+        transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

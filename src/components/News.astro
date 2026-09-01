@@ -44,7 +44,7 @@ const filters = ["Alle", ...years];
     {
       items.map((n) => (
         <li class="news-item" data-year={yearOf(n.date)}>
-          <a class="news-card" href={`/aktuell/${n.slug}`}>
+          <a class="news-card" href={`/aktuell/${n.slug}/`}>
             <span class="news-media">
               <img src={n.image} alt={n.title} loading="lazy" />
             </span>
@@ -76,7 +76,7 @@ const filters = ["Alle", ...years];
     font-size: 0.95rem;
     color: var(--color-blue);
     background: transparent;
-    border: 2px solid rgba(1, 64, 128, 0.25);
+    border: 1px solid #e7ecf3; /* dünn wie die Startseiten-Chips, Revision 2 */
     padding: 0.7rem 1.2rem;
     cursor: var(--cur-hand);
     transition: background 0.4s var(--ease), color 0.4s var(--ease),

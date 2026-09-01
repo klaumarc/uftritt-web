@@ -1,0 +1,302 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+
+const zeitplan = [
+  {
+    datum: "seit 2. Februar 2025",
+    title: "Verbote + KI-Kompetenz (Art. 4)",
+    note: "Verbotene Praktiken wie Emotionserkennung am Arbeitsplatz sind untersagt. Anbieter und Betreiber von KI-Systemen müssen die KI-Kompetenz ihrer Mitarbeitenden fördern.",
+  },
+  {
+    datum: "seit 2. August 2025",
+    title: "Governance + grosse KI-Modelle",
+    note: "Regeln für generelle KI-Modelle (GPAI) und die europäische Durchsetzungsstruktur stehen. Mitgliedstaaten mussten Bussenregeln einführen.",
+  },
+  {
+    datum: "seit 2. August 2026",
+    title: "Transparenz-Pflichten (Art. 50)",
+    note: "Deepfakes und bestimmte KI-generierte Texte müssen gekennzeichnet werden, Chatbots müssen sich als solche zu erkennen geben. Verstösse können bussiert werden.",
+  },
+  {
+    datum: "ab 2. Dezember 2027",
+    title: "High-Risk-Regeln",
+    note: "Strenge Pflichten für Hochrisiko-Systeme, etwa KI in der Bewerbungsauswahl oder beim Kredit-Scoring. Der Termin wurde 2026 per «Digital Omnibus» verschoben.",
+  },
+];
+
+const faq = [
+  {
+    q: "Gilt der EU AI Act auch für Schweizer Firmen?",
+    a: "Ja, sobald euer KI-Einsatz die EU berührt: wenn ihr KI-Systeme in der EU anbietet oder der Output eurer KI-Systeme in der EU verwendet wird, etwa Inhalte für EU-Kunden. Ein rein inländisch tätiger Schweizer Betrieb, der KI nur intern nutzt, ist nicht erfasst. Für ihn ist KI-Kompetenz keine EU-Pflicht, sondern gute Praxis. Die Schweiz zieht mit eigenen, sektoralen Regeln nach, die Vernehmlassung läuft bis Ende 2026.",
+  },
+  {
+    q: "Ist eine KI-Schulung wirklich Pflicht?",
+    a: "Artikel 4 verlangt seit dem 2. Februar 2025 von Anbietern und Betreibern von KI-Systemen, die KI-Kompetenz ihrer Mitarbeitenden zu fördern. Eine Zertifikats- oder Kurspflicht kennt das Gesetz nicht: Gefragt sind sinnvolle, dokumentierbare Massnahmen. Eine Schulung mit Nachweis pro Person ist der sauberste Weg dorthin.",
+  },
+  {
+    q: "Was droht bei Verstössen?",
+    a: "Die Bussen sind gestaffelt: bis 35 Mio. Euro oder 7 % des Weltjahresumsatzes für verbotene Praktiken, bis 15 Mio. oder 3 % für die meisten Pflichtverletzungen, etwa eine fehlende Deepfake-Kennzeichnung. Für KMU gilt jeweils der tiefere Wert. Wichtig für die Einordnung: Fehlende KI-Kompetenz nach Art. 4 ist selbst nicht bussiert.",
+  },
+  {
+    q: "Wir nutzen nur ChatGPT und Co. im Büro. Betrifft uns das?",
+    a: "Rechtlich meist nein, solange alles in der Schweiz bleibt. Praktisch schon: Ohne Regeln landen vertrauliche Daten in den falschen Tools, und KI-Fehler laufen ungeprüft in eure Arbeit. Eine kurze Schulung plus eine einfache KI-Policy lösen beides, bevor es teuer wird.",
+  },
+  {
+    q: "Was zählt als KI-System im Sinne des Gesetzes?",
+    a: "Systeme, die maschinell und mit einem gewissen Grad an Autonomie aus Eingaben neue Inhalte, Vorhersagen oder Entscheidungen erzeugen: Chatbots, Bildgeneratoren, Text- und Analysetools, Empfehlungssysteme. Klassische Software mit starren Wenn-dann-Regeln und ohne Lernanteil zählt nicht dazu.",
+  },
+  {
+    q: "Wie dokumentieren wir die KI-Kompetenz unseres Teams?",
+    a: "Die Form ist frei, das Gesetz kennt keine Zertifikatspflicht. Bewährt hat sich ein einfaches Blatt: Datum der Unterweisung, die behandelten Themen, die Teilnehmenden mit Unterschrift oder Bestätigung per Mail. Wichtig ist nur, dass ihr im Ernstfall nachvollziehbar zeigen könnt, wer wann was gelernt hat.",
+  },
+  {
+    q: "Was ändert 2026 und 2027 noch?",
+    a: "Seit dem 2. August 2026 gelten die Transparenz-Pflichten: Deepfakes und bestimmte KI-Texte zu Themen von öffentlichem Interesse müssen gekennzeichnet sein, Chatbots müssen sich zu erkennen geben. Am 2. Dezember 2027 folgen die High-Risk-Regeln, etwa für KI in der Bewerbungsauswahl. Wir halten diese Seite aktuell.",
+  },
+];
+---
+
+<Layout
+  title="EU AI Act: KI-Kompetenz und Schulung für KMU - Uftritt"
+  description="Was der EU AI Act für Schweizer KMU bedeutet: KI-Kompetenz nach Art. 4, Zeitplan, Transparenz-Regeln, ehrlich eingeordnet, mit Fahrplan und Praxis-Checkliste."
+>
+  <PageHero
+    eyebrow="EU AI Act · KI-Kompetenz"
+    title={"EU AI Act:\nWas jetzt gilt"}
+    lead="Der EU AI Act ist in Kraft, und seit Februar 2025 gilt: Wer KI-Systeme anbietet oder einsetzt, muss die KI-Kompetenz seiner Leute fördern. Was das für Schweizer KMU konkret heisst, wo die Pflicht aufhört und gute Praxis anfängt, und was ihr jetzt tun solltet: hier die ehrliche Einordnung."
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/ki-schulung/" variant="text">KI-Schulung ansehen</Button>
+    </div>
+  </PageHero>
+
+  {/* Zeitplan */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Zeitplan</span>
+        <h2>Der Fahrplan in Kürze</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          zeitplan.map((z) => (
+            <article class="karte">
+              <p class="karte-datum">{z.datum}</p>
+              <h3>{z.title}</h3>
+              <p class="karte-note">{z.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Stand August 2026. Quellen: konsolidierte Fassung der KI-Verordnung (EUR-Lex,
+        Stand 27. Juli 2026, inkl. «Digital Omnibus on AI»), Europäische Kommission,
+        Medienmitteilung des Bundesrats vom 12. August 2026.
+      </p>
+    </div>
+  </section>
+
+  {/* Schweiz-Einordnung + Art. 4 */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gilt das für uns?</h2>
+        <div class="lp-text">
+          <p>
+            Der AI Act ist EU-Recht, wirkt aber über die Grenze: Erfasst bist du, wenn
+            du KI-Systeme in der EU anbietest oder wenn der Output deiner KI-Systeme in
+            der EU verwendet wird. Für eine Agentur oder einen Betrieb mit EU-Kunden
+            kann das schon der Fall sein.
+          </p>
+          <p>
+            Ein rein inländisch tätiger Schweizer Betrieb, der ChatGPT und Co. nur
+            intern nutzt, ist nicht erfasst. Trotzdem lohnt sich das Thema: Die Schweiz
+            plant sektorale KI-Regeln und die Übernahme der Europarat-Konvention, und
+            der EU-Gesetzgeber selbst nennt KI-Kompetenz eine strategische Priorität,
+            unabhängig von Sanktionen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was Art. 4 konkret verlangt</h2>
+        <div class="lp-text">
+          <p>
+            Keine Zertifikatspflicht, kein starres Kursprogramm: Gefordert sind
+            Massnahmen, mit denen eure Mitarbeitenden KI informiert einsetzen. Sie
+            sollen Chancen verstehen, Risiken erkennen und wissen, wo Schäden
+            entstehen können. Was genau nötig ist, hängt von eurem Wissen, euren
+            Rollen und eurem Nutzungskontext ab.
+          </p>
+          <p>
+            Ehrlich eingeordnet: Für fehlende KI-Kompetenz gibt es keine direkte
+            Busse. Bussiert werden unter anderem verbotene Praktiken und fehlende
+            Kennzeichnungen. Wer schult und dokumentiert, ist aber auch für Haftungs-
+            und Datenschutzfragen besser gerüstet. Das ist der eigentliche Gewinn.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* KMU-Minimalprogramm */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Das Minimalprogramm für KMU</h2>
+        <div class="lp-text">
+          <p>
+            <strong>1. KI-Inventar.</strong> Schreibt zusammen, welche KI-Tools
+            wo im Einsatz sind: Chatbots, Übersetzer, Bildtools, Texthilfen.
+            Das dauert eine halbe Stunde und ist die Basis für alles Weitere.
+          </p>
+          <p>
+            <strong>2. Drei Regeln auf ein Blatt.</strong> Welche Daten dürfen in
+            welche Tools, was muss immer von einem Menschen geprüft werden, was
+            ist tabu. Mehr braucht es für den Anfang nicht.
+          </p>
+          <p>
+            <strong>3. Team unterweisen.</strong> Eine kurze Einweisung zu
+            Chancen, Risiken und euren Regeln. Die Form ist frei: Teammeeting,
+            schriftliche Anleitung oder Kurzschulung. Entscheidend ist, dass
+            alle sie verstehen und anwenden.
+          </p>
+          <p>
+            <strong>4. Dokumentieren.</strong> Datum, Inhalt und Teilnehmende
+            der Unterweisung festhalten. Damit ist die Förderung der
+            KI-Kompetenz nach Art. 4 nachvollziehbar belegt, auch ohne
+            Zertifikat.
+          </p>
+          <p>
+            Und falls ihr die Unterweisung nicht selbst aufsetzen wollt:
+            Unsere <a href="/ki-schulung/">KI-Schulung</a> deckt genau diese
+            Punkte ab, praxisnah und auf eure Arbeitsweise zugeschnitten,
+            inklusive Bestätigung für eure Dokumentation.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Praxis-Checkliste */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was ihr sonst noch tun solltet</h2>
+        <div class="lp-text">
+          <p>
+            <strong>KI-Inventar:</strong> Schreibt zusammen, welche KI-Tools wo im
+            Einsatz sind. Ohne Überblick geht nichts.
+          </p>
+          <p>
+            <strong>KI-Policy:</strong> Ein Blatt mit Regeln reicht oft: Welche Daten
+            dürfen in welche Tools, was muss immer von einem Menschen geprüft werden.
+          </p>
+          <p>
+            <strong>Kennzeichnung prüfen:</strong> Seit August 2026 müssen Deepfakes
+            und bestimmte KI-Texte gekennzeichnet sein, Chatbots müssen sich zu
+            erkennen geben. Betrifft vor allem euch, wenn ihr KI-Inhalte publiziert.
+          </p>
+          <p>
+            <strong>High-Risk im Blick behalten:</strong> Wer KI bei Bewerbungen oder
+            Kreditentscheiden einsetzt, für den wird es ab Dezember 2027 strenger.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum EU AI Act</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Fragen zum EU AI Act?</h2>
+      <p class="lp-cta-text">
+        Ihr seid unsicher, ob das Gesetz euch betrifft, oder wollt eure KI-Nutzung
+        im Betrieb sauber regeln? Schreibt uns: Wir ordnen ehrlich ein, was nötig
+        ist und was nicht.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte-datum { font-weight: 700; font-size: 0.95rem; color: var(--color-pink); margin: 0; text-transform: uppercase; letter-spacing: 0.04em; }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

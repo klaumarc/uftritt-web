@@ -1,0 +1,336 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+
+const messen = [
+  {
+    title: "Prompt-Panels",
+    note: "Wir fragen ChatGPT, Perplexity und die Google-KI mit echten Kundenfragen ab: Taucht dein Unternehmen auf? An welcher Stelle? Mit welcher Aussage?",
+  },
+  {
+    title: "Zitationen und Markenerwähnungen",
+    note: "Wir dokumentieren, welche deiner Seiten als Quelle verlinkt werden und ob dein Markenname auch ohne Link genannt wird.",
+  },
+  {
+    title: "AI-Referrer im Analytics",
+    note: "Besucher, die über eine KI-Antwort zu dir kommen, erkennst du an Referrern wie chatgpt.com oder perplexity.ai. Wir richten das Tracking sauber ein.",
+  },
+  {
+    title: "Bing-Indexierung",
+    note: "ChatGPT und Copilot schöpfen stark aus dem Bing-Index. Wir prüfen, ob deine Seiten dort vollständig und aktuell indexiert sind.",
+  },
+];
+
+const verbessern = [
+  {
+    title: "Antwort-Blöcke",
+    note: "Kurze, klar formulierte Antworten direkt unter deinen Überschriften. Genau solche Passagen übernehmen KI-Systeme am liebsten wörtlich.",
+  },
+  {
+    title: "Quellen und Statistiken",
+    note: "Studien zeigen: Inhalte mit Quellen und Statistiken werden von KI-Antworten deutlich öfter zitiert. Wir bauen belastbare Belege in deine Texte ein.",
+  },
+  {
+    title: "Markenerwähnungen im Netz",
+    note: "Verzeichnisse, Branchenportale, Presse: Je öfter dein Name im passenden Kontext auftaucht, desto sicherer ordnen KI-Systeme dich ein.",
+  },
+  {
+    title: "Technische Basis",
+    note: "Strukturierte Daten, saubere Indexierung, klare Seitenstruktur. Damit Maschinen verstehen, wer du bist und was du anbietest.",
+  },
+];
+
+const prozess = [
+  "Bestandesaufnahme: Wo stehst du heute in KI-Antworten, wo deine Mitbewerber",
+  "Analyse: Welche deiner Inhalte werden zitiert, welche werden ignoriert und warum",
+  "Massnahmenplan: Was wir zuerst angehen, sortiert nach Wirkung und Aufwand",
+  "Umsetzung: Antwort-Blöcke, Belege, strukturierte Daten, Erwähnungen",
+  "Monitoring: Wir fragen die Panels regelmässig ab und zeigen dir die Entwicklung",
+];
+
+const faq = [
+  {
+    q: "Was ist KI-Sichtbarkeit, und was hat GEO damit zu tun?",
+    a: "KI-Sichtbarkeit heisst: Wenn jemand ChatGPT, Perplexity oder die Google-KI nach einer Leistung wie deiner fragt, taucht dein Unternehmen in der Antwort auf. GEO steht für Generative Engine Optimization, also die Optimierung deiner Inhalte für genau diese Antworten. Es ist das Kapitel nach dem klassischen SEO: Statt nur in der Trefferliste willst du in der Antwort selbst vorkommen, idealerweise als zitierte Quelle.",
+  },
+  {
+    q: "Wie messt ihr, ob KI uns zitiert?",
+    a: "Mit einem festen Set an Fragen aus deinem Geschäftsalltag fragen wir die gängigen KI-Systeme regelmässig ab und dokumentieren die Antworten. Dazu werten wir die AI-Referrer in deinem Analytics aus, also Besucher, die über ChatGPT oder Perplexity zu dir kommen, und prüfen deine Indexierung bei Bing. So siehst du schwarz auf weiss, wo du stehst und was sich verändert.",
+  },
+  {
+    q: "Lohnt sich KI-Sichtbarkeit schon für ein KMU?",
+    a: "Ehrlich gesagt: nicht als erstes. Wenn deine Website bei Google kaum rankt, ist klassisches SEO die bessere erste Investition. Steht diese Basis aber, ist jetzt der richtige Moment: Die Konkurrenz in KI-Antworten ist bei lokalen Themen noch dünn, und wer früh saubere, zitierfähige Inhalte hat, baut einen Vorsprung auf, den Nachzügler schwer aufholen. Gerade für KMU im Zürcher Oberland ist das eine echte Chance.",
+  },
+  {
+    q: "Wie schnell wirkt die Optimierung?",
+    a: "Schneller als klassisches SEO, aber nicht über Nacht. KI-Systeme aktualisieren ihre Quellen laufend; erste Veränderungen zeigen sich oft nach wenigen Wochen, belastbare Trends nach zwei bis drei Monaten. Ehrlich bleiben heisst auch: Das Feld ist jung, die Methoden entwickeln sich weiter, und niemand kann dir Platz eins in einer KI-Antwort garantieren. Wir arbeiten selbst genau so für uftritt.ch und wissen daher aus erster Hand, was funktioniert und was nicht.",
+  },
+  {
+    q: "Ersetzt KI-Optimierung das klassische SEO?",
+    a: "Nein, sie ergänzt es. Wer bei Google nicht gefunden wird, wird auch von KI-Systemen selten zitiert, denn beide schöpfen aus denselben Quellen. Starke Rankings, saubere Technik und gute Inhalte bleiben die Basis. Deshalb betreuen wir KI-Sichtbarkeit immer zusammen mit dem Klassiker: Unsere SEO-Betreuung hält deine Website in Form, die KI-Optimierung sorgt dafür, dass dich auch die Antwort-Maschinen kennen.",
+  },
+];
+---
+
+<Layout
+  title="KI-Sichtbarkeit: in ChatGPT und Co. gefunden, Uftritt"
+  description="KI-Sichtbarkeit für KMU: Wir messen, ob ChatGPT und Perplexity dich zitieren, und verbessern deine Inhalte gezielt. Ehrlich und aus dem Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="GEO für KMU"
+    title={"KI-Sichtbarkeit:\nin ChatGPT gefunden werden"}
+    lead="KI-Sichtbarkeit heisst: Fragt jemand ChatGPT, Perplexity oder die Google-KI nach deiner Leistung, taucht dein Unternehmen in der Antwort auf. Wir messen, ob und wie du heute zitiert wirst, und verbessern deine Inhalte gezielt. Ehrlich gesagt: Das Feld ist jung. Wir arbeiten selbst so für uftritt.ch."
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  {/* Was wir messen */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Zuerst messen</span>
+        <h2>Wo du heute in KI-Antworten stehst</h2>
+      </header>
+      <div class="lp-blocks">
+        <article class="lp-block" data-reveal>
+          <h2>Vier Messgrössen statt Bauchgefühl</h2>
+          <div class="lp-text">
+            <p>
+              KI-Sichtbarkeit ist kein Hexenwerk, aber man kann sie nicht aus dem
+              Ranktracking heraus ablesen. Wir messen sie mit vier klar definierten
+              Grössen und zeigen dir die Resultate in Klartext.
+            </p>
+            <p>
+              Aus dieser Bestandesaufnahme leitet sich alles Weitere ab. Sie ist auch
+              Teil unseres <a href="/seo-audit/">SEO-Audits</a>, wenn du es mit der
+              KI-Perspektive erweitert haben möchtest.
+            </p>
+          </div>
+        </article>
+      </div>
+      <div class="karten karten--4" data-reveal>
+        {
+          messen.map((m) => (
+            <article class="karte">
+              <h3>{m.title}</h3>
+              <p class="karte-note">{m.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Was wir verbessern */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Dann verbessern</span>
+        <h2>Inhalte, die KI-Systeme gerne zitieren</h2>
+      </header>
+      <div class="lp-blocks">
+        <article class="lp-block" data-reveal>
+          <h2>Vier Hebel mit Wirkung</h2>
+          <div class="lp-text">
+            <p>
+              KI-Systeme bevorzugen Inhalte, die eine Frage klar beantworten, ihre
+              Aussagen belegen und einer eindeutigen Quelle zugeordnet werden können.
+              Genau daran arbeiten wir, Seite für Seite.
+            </p>
+            <p>
+              Viele dieser Hebel kennst du vielleicht schon aus dem klassischen SEO.
+              Der Unterschied liegt im Detail: Eine KI-Antwort übernimmt Passagen
+              wörtlich, darum zählen Formulierung und Beleglage mehr denn je.
+            </p>
+          </div>
+        </article>
+      </div>
+      <div class="karten karten--4" data-reveal>
+        {
+          verbessern.map((v) => (
+            <article class="karte">
+              <h3>{v.title}</h3>
+              <p class="karte-note">{v.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Ehrliche Einordnung */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Ehrlich gesagt: ein junges Feld</h2>
+        <div class="lp-text">
+          <p>
+            Niemand weiss heute mit Sicherheit, wie ChatGPT und Co. in zwei Jahren
+            ihre Quellen wählen. Die Methoden entwickeln sich weiter, und wer dir
+            Platz eins in einer KI-Antwort garantiert, verspricht etwas, das er
+            nicht halten kann.
+          </p>
+          <p>
+            Was wir dir zusagen können: Wir arbeiten selbst genau so für uftritt.ch,
+            testen jede Methode zuerst an der eigenen Website und berichten dir
+            offen, was funktioniert und was nicht.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wann sich der Einstieg lohnt</h2>
+        <div class="lp-text">
+          <p>
+            Steht dein klassisches SEO, ist jetzt der beste Moment: Bei lokalen
+            Themen ist die Konkurrenz in KI-Antworten noch dünn. Wer früh saubere,
+            zitierfähige Inhalte hat, baut einen Vorsprung auf.
+          </p>
+          <p>
+            Fehlt diese Basis noch, starten wir mit der <a href="/seo-betreuung/">SEO-Betreuung</a>
+            und nehmen die KI-Perspektive gleich mit. Und wenn du das Thema im eigenen
+            Team verstehen willst, zeigen wir dir in unserer <a href="/ki-schulung/">KI-Schulung</a>,
+            wie du selbst Antwort-freundliche Inhalte schreibst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Prozess */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>So gehen wir vor</h2>
+        <div class="lp-text">
+          <p>
+            Kein Agentur-Theater, sondern ein klarer Ablauf mit messbaren Zwischen-
+            resultaten. Du weisst jederzeit, was wir gemessen haben, was wir ändern
+            und was es gebracht hat.
+          </p>
+          <p>
+            Nach einem kostenlosen Erstgespräch bekommst du ein transparentes
+            Angebot: welche Seiten wir bearbeiten, welche Massnahmen wir umsetzen
+            und wie wir den Erfolg messen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur KI-Sichtbarkeit</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Kennt die KI dein Unternehmen schon?</h2>
+      <p class="lp-cta-text">
+        Wir messen, wo du heute in ChatGPT, Perplexity und den Google-AI-Overviews
+        stehst, und sagen dir ehrlich, was sich verbessern lässt. Kostenloses
+        Erstgespräch, transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--3, .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--3, .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

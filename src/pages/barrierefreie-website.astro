@@ -1,0 +1,333 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = ["ripa-immobilien", "regan", "seatalytics"].map((s) => projects.find((p) => p.slug === s)!);
+
+const lagen = [
+  {
+    datum: "EU · seit 28. Juni 2025",
+    title: "EAA gilt",
+    note: "Onlineshops, Banking, E-Books, Ticketing und mehr müssen für Verbraucher barrierefrei sein. Bussen in Deutschland bis 100 000 €, in Österreich bis 80 000 €.",
+  },
+  {
+    datum: "Schweiz · heute",
+    title: "Keine Pflicht für Private",
+    note: "Verpflichtet sind Bund und öffentliche Stellen (WCAG 2.1 AA). Für private Firmen läuft die BehiG-Revision, Inhalt und Termin sind offen.",
+  },
+  {
+    datum: "CH-Shop → EU",
+    title: "Betroffen",
+    note: "Schweizer Onlineshops, die an Verbraucher in der EU verkaufen, fallen unter das BFSG beziehungsweise BaFG. Ausnahme: Kleinstunternehmen bei reinen Dienstleistungen.",
+  },
+  {
+    datum: "Praxis-Standard",
+    title: "WCAG AA",
+    note: "Wahrnehmbar, bedienbar, verständlich, robust. Wer Stufe AA erfüllt, ist in der EU wie in der Schweiz auf der sicheren Seite, heute und absehbar.",
+  },
+];
+
+const maengel = [
+  { name: "Zu geringe Textkontraste", wert: "83,9 % der Websites" },
+  { name: "Fehlende Alt-Texte bei Bildern", wert: "53,1 %" },
+  { name: "Formulare ohne Labels", wert: "51 %" },
+  { name: "Leere Links und Buttons", wert: "46,3 % / 30,6 %" },
+  { name: "Fehlende Dokumentsprache", wert: "13,5 %" },
+  { name: "Dazu aus der Praxis", wert: "Tastatur-Bedienung, Fokus-Sichtbarkeit, ungetaggte PDFs, Videos ohne Untertitel" },
+];
+
+const schritte = [
+  "Check: automatisierter Scan plus manuelle Prüfung der wichtigsten Abläufe",
+  "Quick Wins: Kontraste, Alt-Texte, Labels und Fokus zuerst, das sind 96 % aller Fehler",
+  "Umsetzung im Code und im Inhalt, nicht per Overlay-Widget",
+  "Erklärung zur Barrierefreiheit und Dokumentation, wo nötig",
+  "Monitoring: kurzer Check bei jedem grösseren Update",
+];
+
+const faq = [
+  {
+    q: "Ist meine Website gesetzlich betroffen?",
+    a: "Das hängt davon ab, wen du erreichst: Verkaufst du über einen Onlineshop an Verbraucher in der EU, gilt seit dem 28. Juni 2025 der EAA, in Deutschland das BFSG, in Österreich das BaFG. Kleinstunternehmen unter 10 Mitarbeitenden sind bei reinen Dienstleistungen ausgenommen. Bist du nur in der Schweiz aktiv, gibt es heute keine Pflicht für Private, die BehiG-Revision läuft jedoch.",
+  },
+  {
+    q: "Was gilt in der Schweiz genau?",
+    a: "Verpflichtet sind Bund und öffentliche Stellen, technisch über den Standard eCH-0059 mit WCAG 2.1 Stufe AA. Für private Firmen gibt es noch keine generelle Pflicht. Die laufende BehiG-Revision soll private Dienstleister zu angemessenen Vorkehrungen verpflichten, Inhalt und Termin sind offen. Vorsicht bei Behauptungen wie «ab 2027 Pflicht»: Das ist heute Marketing, nicht Recht.",
+  },
+  {
+    q: "Was ist WCAG AA?",
+    a: "Die Web Content Accessibility Guidelines sind der weltweite Standard für barrierefreie Websites. Stufe AA ist der praktische Referenzpunkt: ausreichende Kontraste, Alt-Texte, Bedienbarkeit per Tastatur, klare Formulare, Untertitel bei Videos. Die vier Prinzipien dahinter: wahrnehmbar, bedienbar, verständlich, robust.",
+  },
+  {
+    q: "Reicht ein Plugin oder ein Overlay-Widget?",
+    a: "Nein. Solche Tools verändern am Rand Farben und Schriften, beheben aber die strukturellen Mängel nicht. Auch ein automatischer Scan findet nur einen Teil der Fehler. Barrierefreiheit entsteht im Code und im Inhalt, nicht nachträglich per Aufsatz.",
+  },
+  {
+    q: "Was kostet die Umsetzung?",
+    a: "Weniger als oft gedacht, weil die häufigsten Fehler schnell behoben sind: 96 % aller gefundenen Mängel fallen in sechs Kategorien, etwa Kontraste, Alt-Texte und Formular-Labels. Nach einem kurzen Check deiner Website sagen wir dir ehrlich, was sich lohnt, und machen ein transparentes Angebot.",
+  },
+  {
+    q: "Gilt die Übergangsfrist bis 2030 für meine Website?",
+    a: "Nein, das ist ein weitverbreitetes Missverständnis. Die Frist betrifft eingesetzte Hardware und Altverträge, nicht Webinhalte. Wer heute Verbrauchern in der EU etwas verkauft, muss seinen Auftritt seit dem 28. Juni 2025 barrierefrei anbieten.",
+  },
+  {
+    q: "Barrierefrei oder barrierearm: Was ist der Unterschied?",
+    a: "In der Praxis meinen beide Begriffe dasselbe Ziel: eine Website, die möglichst alle Menschen nutzen können. Streng genommen ist keine Website zu hundert Prozent barrierefrei, weil sich Technik und Bedürfnisse ständig weiterentwickeln, darum sprechen Fachleute oft von barrierearm. Entscheidend ist nicht das Wort, sondern der Standard dahinter: Wer WCAG Stufe AA erfüllt, liegt richtig, egal wie du es nennst.",
+  },
+];
+---
+
+<Layout
+  title="Barrierefreie Website: Was gilt für KMU? - Uftritt"
+  description="Barrierefrei oder barrierearm: Was das für deine Website bedeutet. EAA in der EU, BehiG in der Schweiz, WCAG AA ehrlich erklärt und die häufigsten Fehler schnell behoben."
+>
+  <PageHero
+    eyebrow="Barrierefreiheit · EAA / WCAG"
+    title={"Barrierefreie Website:\nWas gilt?"}
+    lead="In der EU ist Barrierefreiheit seit Juni 2025 Pflicht, in der Schweiz gilt sie heute für Bund und öffentliche Stellen. Was das für dein KMU konkret bedeutet, welche Fehler fast jede Website hat und wie du sie schnell behebst: hier die ehrliche Einordnung, ohne Alarmismus."
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Wer ist betroffen */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Die Rechtslage</span>
+        <h2>Wer ist betroffen, wer nicht</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          lagen.map((l) => (
+            <article class="karte">
+              <p class="karte-datum">{l.datum}</p>
+              <h3>{l.title}</h3>
+              <p class="karte-note">{l.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Stand August 2026. Quellen: Richtlinie (EU) 2019/882 (EAA), BFSG § 37,
+        Bundeskanzlei (eCH-0059), Geschäft 25.020 parlament.ch, WebAIM Million 2026.
+      </p>
+    </div>
+  </section>
+
+  {/* Muss ich handeln? */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Muss ich etwas tun? Drei Fragen</h2>
+        <div class="lp-text">
+          <p>
+            <strong>1. Verkaufst du online an Verbraucher in der EU?</strong>
+            Dann gilt der EAA seit dem 28. Juni 2025 auch für dich, etwa bei
+            Onlineshops, Ticketing, Banking oder E-Books. Kleinstunternehmen
+            unter 10 Mitarbeitenden sind bei reinen Dienstleistungen ausgenommen.
+          </p>
+          <p>
+            <strong>2. Bist du Bund, Kanton oder eine öffentliche Stelle?</strong>
+            Dann bist du heute bereits verpflichtet, technisch über den Standard
+            eCH-0059 mit WCAG 2.1 Stufe AA.
+          </p>
+          <p>
+            <strong>3. Schweizer KMU ohne EU-Verkauf?</strong> Dann gibt es heute
+            keine Pflicht. Klug ist das Thema trotzdem: Die BehiG-Revision kommt,
+            und die häufigsten Mängel sind in Stunden statt Wochen behoben.
+          </p>
+          <p>
+            Unsicher, wo deine Website steht? Der <a href="/website-check/">Uftritt
+            Website-Check</a> zeigt es dir in wenigen Minuten.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Standard + häufigste Mängel */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was der Standard verlangt</h2>
+        <div class="lp-text">
+          <p>
+            Massstab ist WCAG, die Web Content Accessibility Guidelines, Stufe AA.
+            Dahinter stehen vier Prinzipien: Inhalte müssen wahrnehmbar, bedienbar,
+            verständlich und robust sein. Konkret heisst das: ausreichende Kontraste,
+            Alt-Texte bei Bildern, alles per Tastatur erreichbar, klare Formulare,
+            Untertitel bei Videos.
+          </p>
+          <p>
+            Das klingt technisch, ist aber meistens Handwerk. Und es nützt allen:
+            Menschen mit Behinderung, älteren Besuchern und deinem Google-Ranking,
+            weil sauberer Code und klare Struktur auch Suchmaschinen lieben.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Die häufigsten Mängel</h2>
+        <div class="lp-text">
+          <p>
+            Die WebAIM-Million-Auswertung 2026 fand auf 95,9 % der untersuchten
+            Websites automatisch messbare WCAG-Fehler, im Schnitt 56 pro Seite.
+            Fast alle Fehler stecken in sechs Kategorien:
+          </p>
+          <ul class="modul-liste">
+            {
+              maengel.map((m) => (
+                <li>
+                  <strong>{m.name}</strong>
+                  <span>{m.wert}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Vorgehen / Angebot */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>So gehen wir vor</h2>
+        <div class="lp-text">
+          <ul class="modul-liste modul-liste--num">
+            {schritte.map((s, i) => <li><span class="modul-nr">{i + 1}</span>{s}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ehrlich statt Angst</h2>
+        <div class="lp-text">
+          <p>
+            Manche Anbieter erzählen dir, deine Schweizer Website müsse seit Juni 2025
+            gesetzlich barrierefrei sein. Das stimmt nicht: Diese Pflicht gilt in der
+            EU, und selbst dort nur für Angebote an Verbraucher. Wir sagen dir, was
+            für dich wirklich gilt, bevor wir etwas verkaufen.
+          </p>
+          <p>
+            Und trotzdem lohnt sich das Thema jetzt: Die BehiG-Revision kommt, die
+            häufigsten Mängel sind schnell behoben, und eine barrierefreie Website
+            erreicht schlicht mehr Menschen. Bei neuen Projekten bauen wir
+            Barrierefreiheit von Anfang an ein, das kostet fast nichts extra.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur barrierefreien Website</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Wie barrierefrei ist deine Website?</h2>
+      <p class="lp-cta-text">
+        Der Uftritt Website-Check analysiert deine Seite in wenigen Minuten und
+        zeigt dir, wo du stehst, inklusive der Fehler, die fast jede Website
+        hat. Danach sagen wir dir auf Wunsch ehrlich, was sich zu beheben lohnt.
+      </p>
+      <Button href="/website-check/" variant="blue">Zum Website-Check</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte-datum { font-weight: 700; font-size: 0.95rem; color: var(--color-pink); margin: 0; text-transform: uppercase; letter-spacing: 0.04em; }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; flex-direction: column; gap: 0.15rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-liste span { opacity: 0.8; font-size: 0.95rem; }
+  .modul-liste--num li { flex-direction: row; align-items: baseline; gap: 0.9rem; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

@@ -170,7 +170,7 @@ body {
   font-size: 1.0625rem; /* ~17px */
   color: var(--color-ink);
   background: var(--color-white);
-  line-height: 1.5; /* leicht engerer Zeilenabstand – Revision Jeffrey */
+  line-height: 1.45; /* engerer Zeilenabstand – Revision 2 */
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   /* Standard = Marken-Pfeil (Spitze oben-links, Hotspot 0 0) */
@@ -268,7 +268,12 @@ h4 {
 @media (max-width: 600px) {
   :root {
     --section-y: clamp(2.75rem, 11vw, 4rem);
-    --gutter: 1.25rem; /* einheitlicher, etwas grösserer Rand auf Mobile */
+    /* Inhalte naeher an die Raender (wie es die FAQ-Sections vormachen):
+       94vw Container + 1rem Gutter statt 90vw + 1.25rem (Revision Jeffrey
+       2026-08-28). Nav-Bar, Menue-Overlay und Footer ziehen ueber die
+       gleichen Variablen automatisch mit. */
+    --gutter: 1rem;
+    --container: min(2100px, 94vw);
   }
   h1 {
     font-size: clamp(2.4rem, 10vw, 3.3rem);
@@ -385,3 +390,13 @@ p {
     transform: none !important;
   }
 }
+
+/* Mehr-dazu-Linkbloecke: interne Verlinkung auf Angebotsseiten (LP-Programm 2026-08-17) */
+.mehr-dazu { display: flex; flex-direction: column; gap: 1rem; }
+.mehr-dazu h2 { margin-bottom: 0.25rem; }
+/* LP-Links als Boexli (Chip-Optik wie die Disziplinen auf der Startseite –
+   Revision Jeffrey 2026-08-28): Rahmen 1px, ganze Flaeche klickbar, Hover blau/weiss. */
+.md-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.md-liste li { margin: 0; border: 1px solid #e7ecf3; font-weight: 600; color: var(--color-blue); transition: background 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease); }
+.md-liste li:hover { background: var(--color-blue); border-color: var(--color-blue); color: #fff; }
+.md-liste li a { display: block; color: inherit; padding: 0.7rem 1.2rem; font-size: 1.05rem; }

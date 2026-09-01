@@ -1,0 +1,285 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["sam-focus", "dt-baeretswil", "youngstars-broschuere"].includes(p.slug)
+);
+
+const leistungen = [
+  {
+    title: "Konzept und Redaktionsplan",
+    note: "Welche Themen bewegen deine Kunden? Wir entwickeln das inhaltliche Konzept, planen Rubriken und Ausgaben und sorgen für einen roten Faden durch jede Ausgabe.",
+  },
+  {
+    title: "Text und Interviews",
+    note: "Unsere Redaktion schreibt für dich: Interviews, Porträts und Reportagen aus deinem Betrieb, verständlich und mit echten Geschichten statt Werbesprache.",
+  },
+  {
+    title: "Gestaltung und Layout",
+    note: "Editorial Design im Look deiner Marke: klare Texthierarchien, durchdachte Bildsprache und ein Layout, das Lust aufs Weiterblättern macht.",
+  },
+  {
+    title: "Druck und digitale Ausgabe",
+    note: "Reinzeichnung und Druckabwicklung mit der Druckerei deiner Wahl oder unseren Druckpartnern, plus eine optimierte digitale Ausgabe zum Teilen und Archivieren.",
+  },
+];
+
+const ablauf = [
+  "Erstgespräch: Wir hören zu, wen du erreichen willst und was das Magazin leisten soll",
+  "Konzept und Redaktionsplan: Themen, Rubriken und Erscheinen klar geplant",
+  "Redaktion und Gestaltung: Wir schreiben und gestalten, du gibst jede Ausgabe frei",
+  "Korrektur und Feinschliff: Dein Feedback fliesst ein, bis Text und Layout sitzen",
+  "Druck und Auslieferung: Wir wickeln die Produktion ab und liefern die digitale Ausgabe dazu",
+];
+
+const faq = [
+  {
+    q: "Was kostet es, ein Magazin erstellen zu lassen?",
+    a: "Das hängt von Umfang, Seitenzahl, Auflage und davon ab, wie viel Redaktion wir übernehmen. Ein Magazin, bei dem du die Inhalte lieferst, kostet weniger als eines, bei dem wir recherchieren, interviewen und schreiben. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot, aus dem genau hervorgeht, was drin ist und was es kostet.",
+  },
+  {
+    q: "Wer schreibt die Texte für unser Magazin?",
+    a: "Wir, wenn du willst. Unsere Redaktion holt die Geschichten direkt aus deinem Betrieb: mit Interviews, Porträts und Reportagen über deine Projekte, deine Kunden und deine Leute. Du und dein Team müsst keine Texte liefern, sondern nur Zeit für Gespräche. Und vor jeder Ausgabe entscheidest du, was erscheint.",
+  },
+  {
+    q: "Ab wann lohnt sich ein Kundenmagazin?",
+    a: "Ein gedrucktes Magazin lohnt sich ab einer gewissen Kundenbasis und Auflage, bei der sich Konzept, Redaktion und Druck verteilen. Wenn du nur wenige Dutzend Kunden hast, ist ein gut gepflegter Newsletter oder eine persönliche Kampagne oft der bessere Weg. Das sagen wir dir im Erstgespräch ehrlich, auch wenn es heisst: noch kein Magazin.",
+  },
+  {
+    q: "Übernehmt ihr auch den Druck?",
+    a: "Ja. Wir reinzeichnen, wickeln die Druckproduktion ab und behalten Termine, Budget und Qualität im Blick. Dabei arbeiten wir mit der Druckerei deiner Wahl oder mit unseren Druckpartnern zusammen. Du bekommst das fertige Magazin geliefert, und die digitale Ausgabe stellen wir dir optimiert dazu.",
+  },
+  {
+    q: "Gedruckt oder digital: was ist besser?",
+    a: "Für Kundenbindung ist Print stark: Ein Magazin liegt auf dem Tisch, wird durchgeblättert und bleibt. Digital ist dafür einfach zu teilen und zu archivieren. Wir empfehlen darum beides: Das Magazin erscheint gedruckt, und die digitale Ausgabe gibt es optimiert dazu. So deckst du beide Seiten ab.",
+  },
+  {
+    q: "Wie oft sollte ein Kundenmagazin erscheinen?",
+    a: "Wichtiger als die Frequenz ist die Kontinuität: Ein Magazin, das zuverlässig erscheint, baut Erwartung und Bindung auf. Lieber zwei gute Ausgaben pro Jahr als vier, an denen ihr euch abmüht. Im Konzept legen wir gemeinsam einen Rhythmus fest, der zu deinen Themen und deiner Kapazität passt.",
+  },
+];
+---
+
+<Layout
+  title="Magazin erstellen und drucken lassen, Uftritt"
+  description="Magazin erstellen und drucken lassen: Konzept, Redaktion, Design und Druck aus einer Hand. Für Unternehmen in der ganzen Schweiz, aus dem Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="Kundenmagazin für Unternehmen"
+    title={"Magazin\nerstellen lassen"}
+    lead="Du willst ein Magazin erstellen lassen? Wir entwickeln dein Kundenmagazin von der ersten Idee bis zur fertigen Ausgabe: Konzept, Redaktion, Text, Gestaltung und Druckabwicklung aus einer Hand. Für Unternehmen, die ihre Kundenbindung mit einem hochwertigen Printprodukt stärken wollen, persönlich betreut aus dem Zürcher Oberland."
+    lottie="/lottie/magazinbetreuung.json"
+    lottieLabel="Magazinbetreuung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/magazinbetreuung/" label="Magazinbetreuung" lottie="/lottie/magazinbetreuung.json" projects={cases} />
+
+  {/* Warum + für wen */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Warum ein gedrucktes Magazin Kunden bindet</h2>
+        <div class="lp-text">
+          <p>
+            Ein Kundenmagazin ist kein Werbeprospekt, sondern ein Stück
+            Wertschätzung: Es liegt auf dem Tisch, wird durchgeblättert und
+            bleibt. Statt im Feed um Aufmerksamkeit zu kämpfen, erzählst du in
+            Ruhe deine Geschichten: über Projekte, Menschen und das, was dein
+            Unternehmen bewegt.
+          </p>
+          <p>
+            Gerade für KMU mit längeren Kundenbeziehungen ist das ein starkes
+            Instrument. Ein Magazin erreicht auch die Kunden, die deine
+            Newsletter nicht lesen, und zeigt: Dieser Betrieb investiert in die
+            Beziehung, nicht nur in den nächsten Verkauf.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ab wann es sich für dein Unternehmen lohnt</h2>
+        <div class="lp-text">
+          <p>
+            Ein Magazin braucht Substanz: genug Kunden, genug Geschichten,
+            genug Kontinuität. Ab einer gewissen Kundenbasis und Auflage
+            verteilen sich Konzept, Redaktion und Druck so, dass das Medium
+            trägt. Darunter ist ehrlich gesagt oft ein guter Newsletter oder
+            eine persönliche Kampagne der bessere Weg.
+          </p>
+          <p>
+            Genau das klären wir im Erstgespräch. Und falls du kein
+            Unternehmen, sondern einen Verein führst: Für Mitgliederzeitschriften
+            und Vereinszeitungen haben wir eine eigene Seite zum
+            <a href="/vereinsmagazin/">Vereinsmagazin</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Was wir übernehmen */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Alles aus einer Hand</span>
+        <h2>Was wir für dein Magazin übernehmen</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          leistungen.map((l) => (
+            <article class="karte">
+              <h3>{l.title}</h3>
+              <p class="karte-note">{l.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Ablauf + Case */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wie das in echt aussieht</h2>
+        <div class="lp-text">
+          <p>
+            Das Magazin SAM FOCUS ist ein wichtiges Kommunikationsorgan der
+            christlichen NGO SAM global. In enger Zusammenarbeit mit dem
+            Kommunikationsteam übernehmen wir die redaktionelle Arbeit und die
+            Gestaltung des Magazins, und mit einem zeitgemässen Redesign haben
+            wir Layout, Bild-Text-Verhältnis und Texthierarchien
+            weiterentwickelt.
+          </p>
+          <p>
+            Daneben stehen Editorial-Projekte wie der Saison Guide des
+            Unihockeyvereins DT Bäretswil, dessen Layout wir lesefreundlicher
+            und leichter gestaltet haben, oder die Fundraising-Broschüre für
+            die Non-Profit-Organisation Youngstars International, die wir
+            konzipiert, verfasst und gestaltet haben. Läuft dein Magazin erst
+            einmal, übernehmen wir auf Wunsch die laufende Betreuung Ausgabe
+            für Ausgabe: Mehr dazu auf der Seite
+            <a href="/angebot/magazinbetreuung/">Magazinbetreuung</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Magazin erstellen lassen</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für dein eigenes Magazin?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du vorhast. Wir sagen dir ehrlich, ob sich ein
+        Kundenmagazin für dein Unternehmen lohnt, und machen dir ein
+        transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

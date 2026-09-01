@@ -17,20 +17,20 @@ export function getStaticPaths() {
 const { item, prev, next } = Astro.props;
 ---
 
-<Layout title={`${item.title} – Uftritt`} description={item.excerpt}>
+<Layout title={`${item.title}, Uftritt`} description={item.excerpt}>
   <article class="news-detail">
     <div class="container">
       <nav class="nd-nav" data-reveal>
-        <Button href="/aktuell" variant="text">Alli News</Button>
+        <Button href="/aktuell/" variant="text">Alli News</Button>
         <span class="nd-arrows">
-          <a href={`/aktuell/${prev.slug}`} class="nd-arrow nd-arrow-prev" aria-label={`Vorheriger Beitrag: ${prev.title}`}></a>
-          <a href={`/aktuell/${next.slug}`} class="nd-arrow nd-arrow-next" aria-label={`Nächster Beitrag: ${next.title}`}></a>
+          <a href={`/aktuell/${prev.slug}/`} class="nd-arrow nd-arrow-prev" aria-label={`Vorheriger Beitrag: ${prev.title}`}></a>
+          <a href={`/aktuell/${next.slug}/`} class="nd-arrow nd-arrow-next" aria-label={`Nächster Beitrag: ${next.title}`}></a>
         </span>
       </nav>
 
       <div class="nd-grid">
         <div class="nd-media" data-reveal>
-          <img src={item.image} alt={item.title} loading="lazy" />
+          <img src={item.image} alt={item.title} loading="eager" fetchpriority="high" />
         </div>
         <div class="nd-content" data-reveal>
           <span class="nd-meta">{item.category} · {item.date}</span>
@@ -92,8 +92,7 @@ const { item, prev, next } = Astro.props;
   .nd-meta {
     display: block;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
     font-size: 0.85rem;
     color: var(--color-blue);
     margin-bottom: 0.5rem;
@@ -111,7 +110,6 @@ const { item, prev, next } = Astro.props;
     line-height: 1.7;
     margin-bottom: 1rem;
   }
-
   @media (max-width: 760px) {
     .nd-grid {
       grid-template-columns: 1fr;

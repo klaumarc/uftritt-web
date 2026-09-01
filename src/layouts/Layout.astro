@@ -4,20 +4,143 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FloatingCta from "../components/FloatingCta.astro";
 import RecallPopup from "../components/RecallPopup.astro";
+import ContactModal from "../components/ContactModal.astro";
+import GamePromo from "../components/GamePromo.astro";
 
 interface Props {
   title?: string;
   description?: string;
+  noindex?: boolean;
+  ogImage?: string;
 }
 
 const {
-  title = "Uftritt – Agentur für Kommunikation",
+  title = "Uftritt, Kommunikationsagentur im Zürcher Oberland",
   description = "Wir entwickeln Strategien und visuelle Konzepte, die deine DNA spürbar machen. Grafikdesign, Webdesign und Videoproduktion aus dem Zürcher Oberland.",
+  noindex = false,
+  ogImage = "/og-default.png",
 } = Astro.props;
 
-// Rückruf-Popup nur auf Angebot- und Projekte-Seiten (inkl. aller Unterseiten)
+const SITE = "https://www.uftritt.ch";
+const canonical = new URL(Astro.url.pathname, SITE).href;
+const ogImageAbs = new URL(ogImage, SITE).href;
+
+// Rückruf-Popup auf Angebot-/Projekte-Seiten + allen Landingpages
+// (lokale LPs + Themen-LPs aus dem SEO-Programm, Marcel 2026-08-14)
 const path = Astro.url.pathname;
-const showRecall = path.startsWith("/angebot") || path.startsWith("/projekte");
+const recallPrefixes = [
+  "/angebot",
+  "/projekte",
+  "/webdesign",
+  "/grafikdesign",
+  "/marketingagentur",
+  "/videoproduktion",
+  "/website-kosten",
+  "/eu-ai-act",
+  "/barrierefreie-website",
+  "/ki-logo",
+  "/webflow-agentur",
+  "/marketing-auslagern",
+  "/logo-erstellen-lassen",
+  "/logo-redesign",
+  "/website-relaunch",
+  "/seo-betreuung",
+  "/website-mit-ki-erstellen",
+  "/wordpress-agentur",
+  "/imagefilm-kosten",
+  "/logo-kosten",
+  "/webshop-kosten",
+  "/app-entwicklung-kosten",
+  "/app-entwickeln-lassen",
+  "/seo-kosten",
+  "/website-betreuung",
+  "/video-podcast-produktion",
+  "/vereinsmagazin",
+  "/magazin-erstellen-lassen",
+  "/google-business-profile",
+  "/rebranding",
+  "/broschuere-erstellen-lassen",
+  "/webapp-entwickeln-lassen",
+  "/website-erstellen-lassen",
+  "/startup-website",
+  "/corporate-design",
+  // Wave 6 (2026-08-29): neue LPs (webdesign-fuer-* laeuft ueber "/webdesign")
+  "/seo-audit",
+  "/ki-schulung",
+  "/social-media-betreuung",
+  "/kundenmagazin",
+  "/webshop-erstellen-lassen",
+  "/landingpage-erstellen-lassen",
+  "/imagefilm-erstellen-lassen",
+  "/immobilienvideo",
+  "/flyer-gestalten-lassen",
+  "/geschaeftsdrucksachen",
+  "/vereins-app",
+  // Wave 7 (2026-08-29)
+  "/branding-agentur",
+  "/fahrzeugbeschriftung-gestalten",
+  "/produktvideo",
+  "/local-seo",
+  "/google-ads-betreuung",
+  "/app-prototyping",
+  "/ux-ui-design",
+  "/ki-sichtbarkeit",
+];
+const showRecall = recallPrefixes.some((p) => path.startsWith(p));
+
+// Strukturierte Daten (Local SEO): LocalBusiness + WebSite, siteweit via @graph
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["LocalBusiness", "ProfessionalService"],
+      "@id": `${SITE}/#organization`,
+      name: "Uftritt GmbH, Agentur für Kommunikation",
+      alternateName: "Uftritt",
+      url: `${SITE}/`,
+      logo: `${SITE}/favicon.png`,
+      image: ogImageAbs,
+      description:
+        "Kommunikationsagentur im Zürcher Oberland: Grafikdesign, Webdesign und Entwicklung, Videoproduktion, App-Entwicklung, Magazinbetreuung und Marketingbegleitung für KMU.",
+      telephone: "+41 44 500 29 55",
+      email: "info@uftritt.ch",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Frauwisstrasse 9",
+        postalCode: "8493",
+        addressLocality: "Saland",
+        addressRegion: "ZH",
+        addressCountry: "CH",
+      },
+      geo: { "@type": "GeoCoordinates", latitude: 47.3939, longitude: 8.8544 },
+      areaServed: [
+        "Zürcher Oberland",
+        "Tösstal",
+        "Bauma",
+        "Wetzikon",
+        "Hinwil",
+        "Rüti ZH",
+        "Bäretswil",
+        "Pfäffikon ZH",
+        "Uster",
+      ],
+      sameAs: [
+        "https://www.linkedin.com/company/uftritt-gmbh/",
+        "https://www.instagram.com/uftritt/",
+        "https://www.facebook.com/profile.php?id=61551877650400",
+        "https://www.youtube.com/@UftrittGmbH",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE}/#website`,
+      url: `${SITE}/`,
+      name: "Uftritt",
+      publisher: { "@id": `${SITE}/#organization` },
+      inLanguage: "de-CH",
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -27,12 +150,47 @@ const showRecall = path.startsWith("/angebot") || path.startsWith("/projekte");
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="preload" href="/fonts/rationaltext-black-webfont.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/rationaltext-book-webfont.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="144x144" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Uftritt" />
+    <meta property="og:locale" content="de_CH" />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageAbs} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Matomo (self-hosted, cookielos + Do-Not-Track respektiert; trackt NUR auf uftritt.ch, nicht auf Staging/localhost) -->
+    <script is:inline>
+      var _paq = (window._paq = window._paq || []);
+      if (/^(www\.)?uftritt\.ch$/.test(location.hostname)) {
+        _paq.push(["disableCookies"]);
+        _paq.push(["setDoNotTrack", true]);
+        _paq.push(["trackPageView"]);
+        _paq.push(["enableLinkTracking"]);
+        (function () {
+          var u = "//analytics.mklkreativ.ch/matomo/";
+          _paq.push(["setTrackerUrl", u + "matomo.php"]);
+          _paq.push(["setSiteId", "1"]);
+          var d = document,
+            g = d.createElement("script"),
+            s = d.getElementsByTagName("script")[0];
+          g.async = true;
+          g.src = u + "matomo.js";
+          s.parentNode.insertBefore(g, s);
+        })();
+      }
+    </script>
+    <!-- End Matomo Code -->
   </head>
   <body>
     <Header />
@@ -42,9 +200,11 @@ const showRecall = path.startsWith("/angebot") || path.startsWith("/projekte");
     <Footer />
     <FloatingCta />
     {showRecall && <RecallPopup />}
+    <ContactModal />
+    <GamePromo />
 
     <script>
-      // Sanftes Einblenden beim Scrollen – respektiert reduced-motion
+      // Sanftes Einblenden beim Scrollen, respektiert reduced-motion
       const prefersReduced = window.matchMedia(
         "(prefers-reduced-motion: reduce)"
       ).matches;
@@ -65,6 +225,21 @@ const showRecall = path.startsWith("/angebot") || path.startsWith("/projekte");
         );
         els.forEach((el) => io.observe(el));
       }
+    </script>
+
+    <!-- Matomo: Telefon-/E-Mail-Klicks als Events erfassen (site-weit) -->
+    <script is:inline>
+      document.addEventListener(
+        "click",
+        function (e) {
+          var a = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="mailto:"]');
+          if (!a || !window._paq) return;
+          var href = a.getAttribute("href") || "";
+          var isTel = href.indexOf("tel:") === 0;
+          window._paq.push(["trackEvent", "Kontakt", isTel ? "Telefon-Klick" : "E-Mail-Klick", href]);
+        },
+        true
+      );
     </script>
 
   </body>

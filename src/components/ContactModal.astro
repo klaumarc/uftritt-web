@@ -1,0 +1,309 @@
+---
+// Kontakt-Modal (Lightbox) für den Hero-CTA "Kostenloses Erstgespräch" auf den
+// Landingpages: öffnet sich per Event-Delegation statt Navigation nach /kontakt/
+// (greift nur bei .hero-ctas-Links, alle anderen /kontakt/-Links bleiben normal).
+// Sendet via fetch an /kontakt.php (AJAX-Zweig), mit Inline-Danke.
+---
+
+<div class="cmodal" id="cmodal" hidden>
+  <div class="cmodal-overlay" data-cmodal-close></div>
+  <div class="cmodal-dialog" role="dialog" aria-modal="true" aria-labelledby="cmodal-title">
+    <button class="cmodal-close" type="button" aria-label="Schliessen" data-cmodal-close>
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+        <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+      </svg>
+    </button>
+
+    <div class="cmodal-body" data-cmodal-form>
+      <div class="cmodal-head">
+        <img class="cmodal-avatar" src="/team/marcel.jpg" alt="Marcel Klausberger" width="88" height="88" loading="lazy" />
+        <div class="cmodal-head-text">
+          <h2 id="cmodal-title">Kostenloses Erstgespräch</h2>
+          <span class="cmodal-person">Marcel meldet sich persönlich bei dir</span>
+        </div>
+      </div>
+      <p>Erzähl uns kurz, worum es geht, wir melden uns innert 24 Stunden.</p>
+      <form class="cmodal-form" data-cmodal-submit>
+        <p class="cmodal-hp" hidden aria-hidden="true">
+          <label>Bitte leer lassen: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
+        <label class="cmodal-label">
+          Name
+          <input class="cmodal-input" type="text" name="name" required autocomplete="name" />
+        </label>
+        <label class="cmodal-label">
+          E-Mail
+          <input class="cmodal-input" type="email" name="email" required autocomplete="email" />
+        </label>
+        <label class="cmodal-label">
+          Worum geht es?
+          <textarea class="cmodal-input" name="nachricht" rows="3" required></textarea>
+        </label>
+        <button class="cmodal-btn" type="submit">Schriib eus</button>
+      </form>
+      <a class="cmodal-call" href="tel:+41445002955">oder ruf uns an: 044 500 29 55</a>
+    </div>
+
+    <div class="cmodal-done" data-cmodal-done hidden>
+      <div class="cmodal-head">
+        <img class="cmodal-avatar" src="/team/marcel.jpg" alt="Marcel Klausberger" width="88" height="88" loading="lazy" />
+        <div class="cmodal-head-text">
+          <h2>Merci! 🎉</h2>
+          <span class="cmodal-person">- Marcel</span>
+        </div>
+      </div>
+      <p>Ich melde mich so schnell wie möglich bei dir.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const cmodal = document.getElementById("cmodal");
+  if (cmodal) {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const form = cmodal.querySelector<HTMLFormElement>("[data-cmodal-submit]");
+    const firstField = cmodal.querySelector<HTMLElement>("[data-cmodal-form] input");
+
+    const resetState = () => {
+      cmodal.querySelector<HTMLElement>("[data-cmodal-form]")!.hidden = false;
+      cmodal.querySelector<HTMLElement>("[data-cmodal-done]")!.hidden = true;
+      form?.reset();
+      const btn = form?.querySelector<HTMLButtonElement>(".cmodal-btn");
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Schriib eus";
+      }
+    };
+
+    const openModal = () => {
+      // Andere Popups (Rückruf, Spiel-Promo) schliessen + für die Session
+      // dismisssen, nie parallel zum offenen Modal.
+      const recall = document.getElementById("recall");
+      if (recall) {
+        recall.classList.remove("is-open");
+        recall.hidden = true;
+      }
+      try {
+        sessionStorage.setItem("recall-dismissed", "1");
+      } catch {}
+      const gpromo = document.getElementById("gpromo");
+      if (gpromo) {
+        gpromo.classList.remove("is-open");
+        gpromo.hidden = true;
+      }
+      try {
+        sessionStorage.setItem("gpromo-dismissed", "1");
+      } catch {}
+      cmodal.hidden = false;
+      void cmodal.offsetWidth; // Reflow, damit die Transition greift
+      cmodal.classList.add("is-open");
+      document.documentElement.style.overflow = "hidden";
+      firstField?.focus();
+    };
+
+    const closeModal = () => {
+      cmodal.classList.remove("is-open");
+      document.documentElement.style.overflow = "";
+      const done = () => {
+        cmodal.hidden = true;
+        resetState();
+        cmodal.removeEventListener("transitionend", done);
+      };
+      if (reduceMotion) done();
+      else cmodal.addEventListener("transitionend", done);
+    };
+
+    // Trigger: nur der Hero-CTA auf den LPs (Delegation, keine Änderung an
+    // Button.astro oder den LP-Dateien nötig). Bei Fehlern bleibt der Link
+    // die Garantie: Fallback auf die normale Navigation.
+    document.addEventListener("click", (e) => {
+      const link = (e.target as HTMLElement).closest?.('.hero-ctas a[href="/kontakt/"]');
+      if (!link) return;
+      e.preventDefault();
+      try {
+        openModal();
+      } catch {
+        location.href = "/kontakt/";
+      }
+    });
+
+    // Schliessen: X-Button und Overlay (Dialog-Klick trifft kein Close-Ziel)
+    cmodal.querySelectorAll("[data-cmodal-close]").forEach((el) => {
+      el.addEventListener("click", closeModal);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !cmodal.hidden) closeModal();
+    });
+
+    // Submit via AJAX an den JSON-Zweig von /kontakt.php
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector<HTMLButtonElement>(".cmodal-btn");
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Senden …";
+      }
+      try {
+        const res = await fetch("/kontakt.php", {
+          method: "POST",
+          body: new FormData(form),
+          headers: { "X-Requested-With": "XMLHttpRequest" },
+        });
+        if (!res.ok) throw new Error("fehler");
+        cmodal.querySelector<HTMLElement>("[data-cmodal-form]")!.hidden = true;
+        cmodal.querySelector<HTMLElement>("[data-cmodal-done]")!.hidden = false;
+        (window as any)._paq?.push(["trackEvent", "Lead", "Erstgespräch gesendet"]);
+        window.setTimeout(closeModal, 3500);
+      } catch {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = "Nochmals versuchen";
+        }
+      }
+    });
+  }
+</script>
+
+<style>
+  .cmodal {
+    position: fixed;
+    inset: 0;
+    z-index: 200; /* über RecallPopup (95) und Sticky-Header */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.35s var(--ease);
+  }
+  .cmodal[hidden] {
+    display: none;
+  }
+  .cmodal.is-open {
+    opacity: 1;
+  }
+  .cmodal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(1, 64, 128, 0.55);
+  }
+  .cmodal-dialog {
+    position: relative;
+    width: min(480px, calc(100vw - 2rem));
+    max-height: calc(100svh - 2rem);
+    overflow-y: auto;
+    background: #fff;
+    border: 2px solid var(--color-blue);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    transform: translateY(24px);
+    transition: transform 0.35s var(--ease);
+  }
+  .cmodal.is-open .cmodal-dialog {
+    transform: none;
+  }
+  .cmodal-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: var(--color-blue);
+    padding: 0.3rem;
+    line-height: 0;
+    z-index: 1;
+  }
+  .cmodal-close:hover {
+    color: var(--color-pink);
+  }
+  .cmodal h2 {
+    font-size: 1.35rem;
+    color: var(--color-blue);
+    margin: 0 0 0.1rem;
+  }
+  .cmodal-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.7rem;
+    padding-right: 1.5rem;
+  }
+  .cmodal-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 0; /* eckig, Markenstil */
+    object-fit: cover;
+    object-position: center top;
+    flex: none;
+  }
+  .cmodal-person {
+    display: block;
+    color: var(--color-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  .cmodal p {
+    color: var(--color-blue);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0 0 0.9rem;
+  }
+  .cmodal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .cmodal-label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-blue);
+  }
+  .cmodal-input {
+    font-family: var(--font-base);
+    font-size: 1rem;
+    padding: 0.7rem 0.85rem;
+    border: 2px solid rgba(1, 64, 128, 0.25);
+    background: #fff;
+    color: var(--color-blue);
+    resize: vertical;
+  }
+  .cmodal-input:focus {
+    outline: none;
+    border-color: var(--color-blue);
+  }
+  .cmodal-btn {
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 1rem;
+    color: #fff;
+    background: var(--color-blue);
+    border: none;
+    padding: 0.75rem 1rem;
+    transition: background 0.3s var(--ease);
+  }
+  .cmodal-btn:hover {
+    background: var(--color-blue-dark);
+  }
+  .cmodal-btn:disabled {
+    opacity: 0.7;
+  }
+  .cmodal-call {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-blue);
+  }
+  .cmodal-call:hover {
+    color: var(--color-pink);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cmodal,
+    .cmodal-dialog {
+      transition: none;
+    }
+  }
+</style>

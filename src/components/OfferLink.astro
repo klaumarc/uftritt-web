@@ -1,0 +1,234 @@
+---
+// Angebots-Teaser direkt unter dem PageHero einer Landingpage: fuehrt mit
+// Icon + Referenzbildern hoch auf die zugehoerige Angebots-Unterseite.
+// Optik wie die Dienstleistungs-Bloecke auf /angebot/ (Revision 2026-08-28,
+// zweite Fassung: ersetzt den schmalen Textlink UND den frueheren RefStrip
+// auf den Landingpages). Seiten ohne passende Referenzen (z. B. App-
+// Entwicklung, dort bewusst keine) zeigen nur Icon + Titel.
+import Lottie from "./Lottie.astro";
+import type { Project } from "../data/projects";
+import { webpSrcSet } from "../utils/img";
+
+interface Props {
+  href: string;
+  label: string;
+  lottie?: string;
+  projects?: Project[];
+}
+const { href, label, lottie, projects = [] } = Astro.props;
+const items = projects.slice(0, 3);
+// Wie auf /angebot/: 3-spaltig Desktop, <=760px horizontaler Swipe (Karte = 68vw).
+const SIZES = "(max-width: 760px) 68vw, 33vw";
+---
+
+<section class="section ot">
+  <div class="container">
+    <header class="ot-head" data-lottie-trigger data-reveal>
+      {
+        lottie && (
+          <div class="ot-icon">
+            <Lottie src={lottie} loop={true} ariaLabel={label} />
+          </div>
+        )
+      }
+      <div class="ot-intro">
+        <span class="eyebrow">Zum Angebot</span>
+        <h2><a href={href}>{label}</a></h2>
+      </div>
+    </header>
+
+    {
+      items.length > 0 && (
+        <div class="ot-refs" data-reveal>
+          {items.map((p) => {
+            const srcset = webpSrcSet(p.image);
+            return (
+              <a href={`/projekte/${p.slug}/`} class="ref-card" aria-label={p.title}>
+                <picture>
+                  {srcset && <source type="image/webp" srcset={srcset} sizes={SIZES} />}
+                  <img class="ref-img" src={p.image} alt={p.title} loading="lazy" decoding="async" />
+                </picture>
+                <span class="ref-overlay">
+                  <span class="ref-cat">{p.categories.join(" · ")}</span>
+                  <span class="ref-title">{p.title}</span>
+                </span>
+              </a>
+            );
+          })}
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  /* Kopf mit Icon + Titel-Link, wie .svc-head auf /angebot/ */
+  .ot-head {
+    display: flex;
+    align-items: center; /* Icon vertikal auf den Titel eingemittet */
+    gap: clamp(1rem, 2vw, 1.5rem);
+  }
+  .ot-icon {
+    width: clamp(88px, 9vw, 120px);
+    height: clamp(88px, 9vw, 120px);
+    flex: none;
+  }
+  .ot-intro {
+    flex: 1;
+  }
+  .ot-intro .eyebrow {
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .ot-intro h2 {
+    color: var(--color-blue);
+    margin-bottom: 0;
+  }
+  .ot-intro h2 a {
+    color: inherit;
+  }
+  .ot-intro h2 a:hover {
+    color: var(--color-pink);
+  }
+
+  .ot-refs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(0.5rem, 1.2vw, 0.9rem);
+    margin-top: clamp(1.25rem, 2.5vw, 2rem);
+  }
+
+  /* Referenz-Kacheln, Hover wie auf der Startseite /angebot/ (Bild-Zoom + blaues Overlay) */
+  .ref-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #f1f4f8;
+  }
+  /* picture-Wrapper (webp/srcset): keine eigene Box -> img bleibt layout-seitig
+     direktes Kind der Karte (Containing Block unveraendert) */
+  picture {
+    display: contents;
+  }
+  .ref-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.85s var(--ease);
+  }
+  .ref-card:hover .ref-img,
+  .ref-card:focus-visible .ref-img {
+    transform: scale(1.05);
+  }
+  .ref-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 1.5rem;
+    text-align: center;
+    background: rgba(1, 64, 128, 0.82);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.5s var(--ease);
+  }
+  .ref-card:hover .ref-overlay,
+  .ref-card:focus-visible .ref-overlay {
+    opacity: 1;
+  }
+  /* Textformatierung + gestaffelte Einblendung wie auf /angebot/ */
+  .ref-cat,
+  .ref-title {
+    transform: translateY(14px);
+    opacity: 0;
+    transition: transform 0.55s var(--ease), opacity 0.55s var(--ease);
+  }
+  .ref-card:hover .ref-cat,
+  .ref-card:focus-visible .ref-cat,
+  .ref-card:hover .ref-title,
+  .ref-card:focus-visible .ref-title {
+    transform: none;
+    opacity: 1;
+  }
+  .ref-card:hover .ref-title,
+  .ref-card:focus-visible .ref-title {
+    transition-delay: 0.08s;
+  }
+  .ref-cat {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .ref-title {
+    font-size: clamp(1.25rem, 2vw, 1.7rem);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  /* Touch: Titel/Kategorie dauerhaft als Badge unten, Bild bleibt Fokus */
+  @media (hover: none) {
+    .ref-overlay {
+      opacity: 1;
+      background: linear-gradient(
+        to top,
+        rgba(1, 32, 64, 0.82),
+        rgba(1, 32, 64, 0) 58%
+      );
+      justify-content: flex-end;
+      align-items: flex-start;
+      text-align: left;
+      padding: 0.8rem 0.9rem;
+      gap: 0.1rem;
+    }
+    /* Touch hat kein Hover: Badge dauerhaft sichtbar (Stagger zurücksetzen) */
+    .ref-cat,
+    .ref-title {
+      transform: none;
+      opacity: 1;
+      transition: none;
+    }
+    .ref-cat {
+      font-size: 0.62rem;
+    }
+    .ref-title {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .ot-head {
+      flex-wrap: wrap;
+      gap: 0.75rem 1rem;
+    }
+    .ot-icon {
+      width: 56px;
+      height: 56px;
+    }
+    .ot-intro {
+      flex: 1 1 60%;
+    }
+    /* Swipe wie RefStrip: Kachel fast volle Breite, snappet mittig,
+       erste Kachel beim Laden schon zentriert (Revision Jeffrey 2026-08-28). */
+    .ot-refs {
+      display: flex;
+      overflow-x: auto;
+      gap: 0.6rem;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      margin-inline: calc(50% - 50vw);
+      padding-inline: 7vw;
+      scroll-padding-left: 7vw;
+    }
+    .ot-refs::-webkit-scrollbar {
+      display: none;
+    }
+    .ot-refs .ref-card {
+      flex: 0 0 86vw;
+      scroll-snap-align: center;
+    }
+  }
+</style>

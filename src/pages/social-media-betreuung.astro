@@ -1,0 +1,344 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "youngstars", "emotion-hinwil"].includes(p.slug)
+);
+
+const bausteine = [
+  {
+    title: "Redaktionsplan",
+    note: "Was wann wo erscheint, geplant für Wochen im Voraus. Kein Ratespiel mehr am Sonntagabend, sondern ein ruhiger Plan, der zu deinem Betriebsalltag passt.",
+  },
+  {
+    title: "Content-Erstellung",
+    note: "Texte, Grafiken, Fotos und kurze Videos in deinem Erscheinungsbild. Aus einem Briefing werden Beiträge, die nach dir aussehen und klingen.",
+  },
+  {
+    title: "Community-Management",
+    note: "Kommentare und Nachrichten bekommen zeitnahe Antworten. Deine Kanäle wirken gepflegt statt verlassen, auch wenn du gerade auf der Baustelle oder im Laden stehst.",
+  },
+  {
+    title: "Reporting",
+    note: "Einmal im Monat in Klartext: was lief, was es brachte, was wir nächsten Monat anders machen. Ohne Fachchinesisch, mit klaren Schlüssen.",
+  },
+];
+
+const ranges = [
+  {
+    name: "Einmaliges Setup",
+    price: "CHF 1000 bis 3000",
+    note: "Strategie, sauber eingerichtete Profile, Vorlagen in deinem Erscheinungsbild, erster Redaktionsplan und eine Anleitung, damit dein Team selbst weitermachen kann.",
+  },
+  {
+    name: "Basis-Betreuung",
+    price: "CHF 500 bis 1500 pro Monat",
+    note: "Ein Kanal, wenige Beiträge pro Monat, kurze Abstimmungen. Für Betriebe, die sichtbar bleiben wollen, ohne selbst dranzubleiben.",
+  },
+  {
+    name: "Regelmässige Betreuung",
+    price: "CHF 1500 bis 3000 pro Monat",
+    note: "Mehrere Kanäle, wöchentliche Beiträge, Antworten auf Kommentare und ein monatliches Reporting. Das übliche Modell für aktive KMU.",
+  },
+  {
+    name: "Intensivbetreuung",
+    price: "ab CHF 3000 pro Monat",
+    note: "Tägliche Community-Arbeit, bezahlte Werbung, laufender Foto- und Video-Content, Kampagnen. Sinnvoll bei klaren Umsatzzielen über Social Media.",
+  },
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: deine Kanäle, deine Ziele, deine bisherigen Erfahrungen",
+  "Audit und Strategie: welche Kanäle sich für dich lohnen und in welchem Rhythmus",
+  "Setup: Profile, Erscheinungsbild, Redaktionsplan und klare Absprachen",
+  "Laufende Betreuung: Beiträge, Community und kurze Wege für Freigaben",
+  "Reporting und Anpassung: einmal im Monat in Klartext, was funktioniert",
+];
+
+const faq = [
+  {
+    q: "Was kostet Social Media Betreuung?",
+    a: "Im Schweizer Markt liegen laufende Betreuungen für KMU zwischen CHF 500 und 3000 pro Monat, je nach Anzahl Kanäle, Beitragsrhythmus und Community-Aufwand. Ein einmaliges Setup mit Strategie und Anleitung kostet CHF 1000 bis 3000. Bei uns bekommst du nach einem kostenlosen Erstgespräch ein transparentes Angebot, aus dem genau hervorgeht, was drin ist und was es kostet.",
+  },
+  {
+    q: "Welche Kanäle betreut ihr?",
+    a: "Die, auf denen deine Kundinnen und Kunden wirklich sind: meist Instagram und Facebook, für Geschäftskunden LinkedIn, für junge Zielgruppen TikTok. Unsere ehrliche Empfehlung lautet oft: lieber ein Kanal richtig gepflegt als vier, die vor sich hin dümpeln. Welcher das bei dir ist, klären wir im Erstgespräch anhand deiner Zielgruppe.",
+  },
+  {
+    q: "Wer erstellt den Content?",
+    a: "Wir: Text, Grafik, Foto und Video kommen aus unserem Team und erscheinen in deinem Erscheinungsbild. Du lieferst uns Einblick in deinen Alltag, gibst Themen vor und behältst das letzte Wort bei jeder Veröffentlichung. Je besser wir uns kennen, desto weniger Zeit kostet dich das.",
+  },
+  {
+    q: "Gibt es eine Mindestlaufzeit?",
+    a: "Das klären wir transparent im Gespräch, bevor irgendetwas läuft. Fairerweise vorweg: Social Media braucht Vorlauf, darum empfehlen wir eine Startphase von etwa drei Monaten, bis Plan, Rhythmus und Wirkung sich eingespielt haben. Konditionen und Laufzeit besprechen wir offen, du erlebst keine Überraschungen im Kleingedruckten.",
+  },
+  {
+    q: "Können wir selbst mitmachen?",
+    a: "Ja, und die Mischform ist oft die beste: Du lieferst Fotos und Geschichten aus dem Alltag, wir planen, gestalten und veröffentlichen daraus. Oder umgekehrt: Wir richten alles ein, schulen dein Team und du fährst danach selbst. Beides ist bei uns bestellbar.",
+  },
+  {
+    q: "Bringt Social Media einem KMU überhaupt Kunden?",
+    a: "Ehrlich gesagt: selten über Nacht. Social Media wirkt über Sichtbarkeit, Wiedererkennung und Vertrauen, besonders bei Angeboten mit längerer Entscheidungszeit. Für manche Betriebe sind ein gepflegtes Google Business Profile und eine gute Website zuerst wichtiger. Wenn das bei dir so ist, sagen wir es dir im Erstgespräch offen, statt dir ein Paket zu verkaufen.",
+  },
+];
+---
+
+<Layout
+  title="Social Media Betreuung für KMU: Inhalt und Kosten - Uftritt"
+  description="Social Media Betreuung für KMU: Redaktionsplan, Content, Community und Reporting aus dem Zürcher Oberland. Ehrlich zu Kosten, Kanälen und wann es sich lohnt."
+>
+  <PageHero
+    eyebrow="Auslagern oder selber machen?"
+    title={"Social Media\nBetreuung"}
+    lead="Die kurze Antwort: Eine Social Media Betreuung nimmt dir Planung, Beiträge und Community-Arbeit ab, damit deine Kanäle regelmässig leben statt einzuschlafen. Sie lohnt sich, wenn dir Zeit, Routine oder Ideen fehlen. Für manche Betriebe reicht ein einmaliges Setup mit Anleitung. Beides bekommst du bei uns, mit ehrlicher Empfehlung."
+    lottie="/lottie/marketingbegleitung.json"
+    lottieLabel="Social Media Betreuung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/marketingbegleitung/" label="Marketingbegleitung" lottie="/lottie/marketingbegleitung.json" projects={cases} />
+
+  {/* Bausteine */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Die Bausteine</span>
+        <h2>Was eine Betreuung typisch enthält</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          bausteine.map((b) => (
+            <article class="karte">
+              <h3>{b.title}</h3>
+              <p class="karte-note">{b.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Kosten-Ranges */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Was Social Media Betreuung kostet</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. Jede Betreuung ist individuell,
+        darum sind das Ranges und keine Ladenpreise. Werbung budgetierst du separat, sie fliesst direkt an die Plattform.
+      </p>
+    </div>
+  </section>
+
+  {/* Auslagern vs. selber machen */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann sich das Auslagern lohnt</h2>
+        <div class="lp-text">
+          <p>
+            Erkennst du dich hier wieder? Der letzte Beitrag ist Monate her, unter der
+            Woche bleibt keine Zeit dafür, und am Wochenende fehlen die Ideen. Genau
+            dann stirbt ein Kanal langsam, und ein schlafender Account wirkt auf
+            Kundinnen und Bewerber schlimmer als gar keiner.
+          </p>
+          <p>
+            Auslagern lohnt sich, sobald du regelmässig mehrere Stunden pro Woche
+            bräuchtest, um dranzubleiben, oder wenn deine Kanäle etwas leisten sollen:
+            Anfragen, Bewerbungen, Stammkundschaft. Dann ist ein Profi günstiger als
+            deine eigene Feierabendzeit.
+          </p>
+          <p>
+            Willst du gleich das ganze Marketing in externe Hände geben, lies weiter
+            unter <a href="/marketing-auslagern/">Marketing auslagern</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wann ein Setup mit Anleitung reicht</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlich gesagt: Nicht jeder Betrieb braucht eine laufende Betreuung. Hast
+            du jemanden im Team, der gerne fotografiert und schreibt, reicht oft ein
+            einmaliges Setup. Wir richten die Profile sauber ein, legen Strategie und
+            Redaktionsplan fest, bauen Vorlagen in deinem Erscheinungsbild und schulen
+            dein Team. Danach fahrt ihr selbst.
+          </p>
+          <p>
+            Und falls deine Kundschaft dich vor allem lokal sucht, ist der erste
+            Schritt oft gar kein Social-Media-Kanal, sondern ein gepflegtes
+            <a href="/google-business-profile/">Google Business Profile</a>. Das ist
+            gratis und bringt lokalen Betrieben meist mehr als der zehnte Beitrag im
+            Monat.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Prozess */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>So läuft die Zusammenarbeit</h2>
+        <div class="lp-text">
+          <p>
+            Kein Agentur-Theater, sondern kurze Wege und klare Absprachen. Deine
+            Kanäle gehören dabei immer dir: Du behältst jederzeit alle Zugänge, und
+            nichts wird veröffentlicht, das du nicht freigegeben hast.
+          </p>
+          <p>
+            Social Media ist bei uns Teil der
+            <a href="/angebot/marketingbegleitung/">Marketingbegleitung</a>. Das
+            heisst: Deine Beiträge entstehen im gleichen Erscheinungsbild wie deine
+            Website, deine Inserate und dein Drucksachen, und wir denken Kanäle nie
+            isoliert.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Social Media Betreuung</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Sollen deine Kanäle wieder leben?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, wo du stehst: schlafende Accounts, keine Zeit oder einfach keine
+        Ideen mehr. Wir sagen dir ehrlich, ob sich eine Betreuung für dich lohnt,
+        und machen ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--4, .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--4, .ranges { grid-template-columns: 1fr; }
+  }
+</style>

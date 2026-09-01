@@ -1,0 +1,340 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["emotion-hinwil", "dtb-redesign", "stahel-koeng", "cynterim"].includes(p.slug)
+);
+
+const pakete = [
+  {
+    name: "Logo",
+    price: "CHF 2500",
+    features: [
+      "Erstgespräch und Recherche: Wer bist du, wen sprichst du an",
+      "3 Logo-Entwürfe mit Begründung statt Zufall",
+      "Dein Favorit, sauber rein gezeichnet",
+      "Alle Dateiformate: Vektor, Varianten für hell und dunkel, Social Media",
+    ],
+  },
+  {
+    name: "Corporate Design klein",
+    price: "CHF 5500",
+    features: [
+      "Alles aus dem Logo-Paket",
+      "Farbwelt und Typografie, definiert für alle Anwendungen",
+      "Basis-Anwendungen: Visitenkarte, Briefschaft, E-Mail-Signatur",
+      "Kompaktes Manual, damit der Auftritt stimmig bleibt",
+    ],
+  },
+  {
+    name: "Corporate Design gross",
+    price: "CHF 12 500",
+    features: [
+      "Alles aus Corporate Design klein",
+      "Bildwelt und Bildstil, passend zu deiner Identität",
+      "Gestaltungselemente und Icon-Set",
+      "Vorlagen für Social Media und Präsentationen",
+      "Umfassendes CD-Manual und Begleitung beim Rollout",
+    ],
+  },
+];
+
+const ablauf = [
+  "Erstgespräch: Wir hören zu, wer du bist und was dich ausmacht",
+  "Recherche und Konzept: Identität, Zielgruppe, gewünschte Wirkung",
+  "Entwürfe mit Begründung: Richtungen, die wir dir erklären",
+  "Ausarbeitung und Reinzeichnung: System, Anwendungen, Manual",
+  "Übergabe und Rollout: alle Dateien, alle Regeln, alle Fragen beantwortet",
+];
+
+const faq = [
+  {
+    q: "Warum drei Entwürfe, und was, wenn mir keiner gefällt?",
+    a: "Drei Richtungen haben sich bewährt: genug Auswahl für eine echte Entscheidung, nicht so viele, dass sie beliebig wird. Dass dir kein Entwurf gefällt, kommt praktisch nicht vor, weil wir vorher die Recherche machen und genau verstehen, was du brauchst. Sollte es trotzdem passieren, arbeiten wir nach, bis es sitzt. Ehrlich statt stur.",
+  },
+  {
+    q: "Was ist der Unterschied zwischen klein und gross?",
+    a: "Klein ist das solide Fundament: Logo, Farben, Typografie, die wichtigsten Anwendungen und ein kompaktes Manual. Gross ist das volle System: dazu Bildwelt, Gestaltungselemente, Icon-Set, Vorlagen für deine Kanäle und ein umfassendes Manual mit Begleitung beim Rollout. Für die meisten Startups und kleinen Betriebe reicht klein. Gross lohnt sich, wenn viele Leute und Kanäle mit deiner Marke arbeiten.",
+  },
+  {
+    q: "Was kostet Corporate Design in der Schweiz?",
+    a: "Die Spanne ist riesig: Plattform-Logos ab CHF 99, Freelancer-Logos um CHF 800 bis 3000, Agentur-Logos CHF 2500 bis 8000, komplette CD-Systeme CHF 5000 bis weit über 50 000. Was dahinter steckt und woran du faire Preise erkennst, legen wir in unserem Guide zu den Corporate-Design-Kosten offen. Bei uns bekommst du Pakete zum Fixpreis: Logo ab CHF 2500, Corporate Design klein ab CHF 5500.",
+  },
+  {
+    q: "Was ist eine DESIGN.md und wozu brauche ich die?",
+    a: "Eine DESIGN.md ist dein Corporate Design als maschinenlesbare Datei: Farben, Typografie, Regeln und Tonalität in einer Form, die KI-Tools direkt verstehen. Wer mit KI Texte, Präsentationen oder Webseiten baut, bekommt damit Ergebnisse in der eigenen Identität statt Beliebigkeit. Das Modul funktioniert mit jedem bestehenden Corporate Design, egal von wem es kommt, und kostet CHF 12 250, im Bundle mit dem grossen Paket CHF 6125. Hat dein Auftritt noch keine klaren Regeln, ist der ehrliche Weg zuerst das Corporate-Design-Paket, sonst trainieren wir die KI auf Beliebigkeit.",
+  },
+  {
+    q: "Bekomme ich alle Rechte und Dateien?",
+    a: "Ja. Du erhältst sämtliche Dateien offen und in allen Formaten, die du brauchst: Vektordaten fürs Logo, Manual als PDF, Vorlagen und die DESIGN.md. Was wir für dich bauen, gehört dir.",
+  },
+  {
+    q: "Wie lange dauert ein Corporate-Design-Projekt?",
+    a: "Das Logo-Paket ist in wenigen Wochen durch, die grossen Pakete rechnen wir in Wochen bis wenigen Monaten, je nach Feedbackschlaufen und Umfang der Anwendungen. Beim Kick-off bekommst du einen verbindlichen Zeitplan.",
+  },
+];
+---
+
+<Layout
+  title="Corporate Design erstellen lassen | Zürcher Oberland - Uftritt"
+  description="Corporate Design erstellen lassen im Zürcher Oberland: Logo ab CHF 2500, Pakete zum Fixpreis bis CHF 12 500. Identität als System statt Plattform-Zufall. Kostenloses Erstgespräch."
+>
+  <PageHero
+    eyebrow="Corporate Design · Pakete mit Fixpreis"
+    title={"Corporate Design\nerstellen lassen"}
+    lead="Ein Erscheinungsbild, das aus deiner Identität gebaut ist und überall stimmig bleibt: vom Logo über Farben und Typografie bis zum Manual. Unsere drei Pakete gibt es zum Fixpreis, mit klar umrissenem Umfang, von der Agentur aus dem Zürcher Oberland."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Grafikdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Pakete */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Drei Pakete, klare Preise</span>
+        <h2>Wähl deine Grösse</h2>
+      </header>
+      <div class="pakete" data-reveal>
+        {
+          pakete.map((p) => (
+            <article class="paket">
+              <h3>{p.name}</h3>
+              <p class="paket-preis">{p.price} <span>einmalig</span></p>
+              <ul class="modul-liste">
+                {p.features.map((f) => <li><span class="modul-check">✓</span>{f}</li>)}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Alle Preise exkl. MwSt., einmalig, inklusive Konzeption, Design und
+        Reinzeichnung. Nicht enthalten: Druckkosten und Produktionskosten von
+        Anwendungen. Alles, was über den Paketumfang hinausgeht, besprechen wir
+        vorher und offerieren transparent.
+      </p>
+    </div>
+  </section>
+
+  {/* DESIGN.md Zusatz-Modul (optional) */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Optional: das DESIGN.md-Modul</h2>
+        <div class="lp-text">
+          <p>
+            Deine KI arbeitet nur so gut wie dein Briefing: Ohne maschinenlesbare
+            Identität kommt aus KI-Tools Beliebiges, falsche Farben, fremde
+            Schriften, ein Ton, der nicht deiner ist. Darum gibt es als Ergänzung
+            zu jedem Paket das DESIGN.md-Modul: dein Corporate Design als
+            maschinenlesbare Datei, dazu Training und Prompt-Bibliothek für eure
+            KI-Tools, mit euch eingerichtet und getestet. Das Wissen dazu kommt
+            aus unserem eigenen Alltag: Wir arbeiten selbst mit genau diesem
+            System.
+          </p>
+          <p>
+            Das Modul funktioniert mit jedem bestehenden Corporate Design, egal
+            von wem es kommt, und kostet CHF 12 250. Im Bundle mit unserem Paket
+            Corporate Design gross: CHF 6125. Alle Preise exkl. MwSt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Branding, das trägt</h2>
+        <div class="lp-text">
+          <p>
+            Ein gutes Erscheinungsbild ist kein Dekor, sondern Arbeitsgerät: Es
+            macht dich wiedererkennbar, spart dir bei jeder Umsetzung Zeit und
+            gibt deinem ganzen Auftritt die gleiche Handschrift, von der
+            Visitenkarte bis zur Website.
+          </p>
+          <p>
+            Du hast schon eine Marke, aber sie ist gewachsen und unübersichtlich
+            geworden? Dann ist eher ein <a href="/rebranding/">Rebranding</a> das
+            richtige Thema. Und wenn du nur ein Logo brauchst, findest du Details
+            auf unserer Seite <a href="/logo-erstellen-lassen/">Logo erstellen
+            lassen</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Plattform-Vergleich + CI-Handbuch */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Plattform-Logo für CHF 99 oder Identität als System?</h2>
+        <div class="lp-text">
+          <p>
+            Ehrliche Antwort: Für einen Hobby-Vereinsanlass kann ein Logo von
+            der Plattform reichen. Aber du bekommst dort eine Vorlage, die
+            tausendfach verkauft wird: keine Recherche, kein System, keine
+            gesicherten Rechte. Sobald du Visitenkarten druckst, Fahrzeuge
+            beschriftest oder eine Marke aufbauen willst, zahlst du den
+            scheinbar günstigen Preis zweimal.
+          </p>
+          <p>
+            Wir arbeiten KI-gestützt mit Profi-Finishing: KI beschleunigt bei
+            uns Recherche und Varianten, Menschen machen Analyse, Auswahl und
+            Reinzeichnung. Darum bekommst du bei uns Agentur-Qualität ohne
+            Grossagentur-Zeiten, zum Fixpreis, und ein Logo, das es nur einmal
+            gibt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Das CI-Handbuch: deine Marke als Regelwerk</h2>
+        <div class="lp-text">
+          <p>
+            Damit dein Auftritt auch in drei Jahren stimmig ist, bekommst du
+            bei jedem Paket ein CI-Handbuch (auch CD-Manual oder Brand
+            Guidelines genannt): die verbindlichen Regeln für Logo, Farben,
+            Typografie und Anwendungen, im kleinen Paket kompakt, im grossen
+            ausführlich mit allen Gestaltungselementen.
+          </p>
+          <p>
+            Das Handbuch ist das Werkzeug für alle, die mit deiner Marke
+            arbeiten: Druckerei, Webdesignerin, Social-Media-Team oder der
+            nächste Nachfolger im Betrieb. Es kostet keinen Rappen extra,
+            weil es bei uns zum Corporate Design dazugehört und nicht ein
+            separat verkauftes Add-on ist.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu den Corporate-Design-Paketen</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für einen Auftritt, der zu dir passt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, wer du bist und was du vorhast. Wir sagen dir ehrlich, welches
+        Paket passt, und schicken dir das schriftliche Angebot dazu.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .pakete { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); align-items: stretch; }
+  .paket {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .paket h3 { color: var(--color-blue); font-size: 1.35rem; margin: 0; }
+  .paket-preis { color: var(--color-pink); font-weight: 800; font-size: 1.6rem; margin: 0 0 0.75rem; }
+  .paket-preis span { color: var(--color-blue); font-weight: 500; font-size: 0.95rem; opacity: 0.7; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+  .modul-check {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.85rem;
+  }
+  .modul-preis { color: var(--color-blue); font-size: 1.05rem; line-height: 1.6; margin-top: 1rem; }
+  .modul-preis strong { color: var(--color-pink); font-weight: 800; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .pakete { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+</style>

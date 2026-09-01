@@ -1,0 +1,353 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+
+const stufen = [
+  {
+    title: "Klickbarer Prototyp",
+    note: "Deine App als klickbares Design: Bildschirme, Abläufe und Logik zum Durchtippen, ohne eine Zeile Programmcode. Ideal für interne Entscheide, Feedback aus dem Team und erste Investorengespräche.",
+  },
+  {
+    title: "MVP",
+    note: "Die erste echte Version mit nur den wichtigsten Funktionen: echte Daten, echte Nutzer, echtes Feedback. So erfährst du aus dem Markt statt aus dem Bauch, ob sich der Ausbau lohnt.",
+  },
+  {
+    title: "Vollprodukt",
+    note: "Was sich im MVP bewährt, wird ausgebaut: Login, Schnittstellen, Zahlungen, Rollen. Du investierst erst dann in die Breite, wenn die Nutzung zeigt, wohin.",
+  },
+];
+
+const ranges = [
+  {
+    name: "Klickbarer Prototyp",
+    price: "CHF 3000 bis 10 000",
+    note: "Konzept, Nutzerflüsse, Wireframes und ein klickbares Design ohne Backend. Umfang und Zahl der Bildschirme entscheiden, wo du in dieser Range landest.",
+  },
+  {
+    name: "MVP",
+    price: "CHF 15 000 bis 40 000",
+    note: "Eine Kernfunktion, wenige Bildschirme, als Web-App oder eine Plattform. Deckt sich mit der Range für einfache Apps in unserem Kosten-Guide.",
+  },
+  {
+    name: "Ausbau zum Vollprodukt",
+    price: "CHF 40 000 bis 100 000",
+    note: "Login, Datenbank, Schnittstellen zu bestehenden Systemen, eigenes Design. Komplexe Plattformen gehen auch darüber hinaus.",
+  },
+];
+
+const grenzen = [
+  {
+    title: "Keine echten Daten",
+    note: "Der Prototyp zeigt Beispielinhalte. Er speichert, rechnet und sucht nichts, dafür braucht es ein Backend, das es in dieser Phase bewusst noch nicht gibt.",
+  },
+  {
+    title: "Keine Programmlogik",
+    note: "Er tut so, als würde er funktionieren. Ob eine Berechnung schnell genug ist oder eine Schnittstelle liefert, was sie verspricht, prüft erst der MVP.",
+  },
+  {
+    title: "Kein echter Betrieb",
+    note: "Ein Prototyp läuft nicht im Store und nicht produktiv im Betrieb. Er ist ein Entscheidungswerkzeug, kein Werkzeug für den Arbeitsalltag.",
+  },
+  {
+    title: "Keine Markt-Antwort",
+    note: "Klicktests im Team zeigen Verständnis, nicht Nachfrage. Ob fremde Nutzer die App wirklich brauchen, erfährst du erst mit dem MVP.",
+  },
+];
+
+const etappen = [
+  "Kostenloses Erstgespräch: Wir hören zu, was die App leisten soll, und sagen ehrlich, ob ein Prototyp der richtige erste Schritt ist",
+  "Konzept: Nutzerflüsse und Funktionen, sortiert nach wichtig und später",
+  "Klickbarer Prototyp: Deine App zum Durchtippen für Entscheide und Feedback",
+  "MVP: Die wichtigsten Funktionen, echt gebaut, für die ersten Nutzer",
+  "Ausbau in Etappen: Was sich bewährt, wird erweitert, mit klarem Preis pro Etappe",
+];
+
+const faq = [
+  {
+    q: "Was ist der Unterschied zwischen Prototyp und MVP?",
+    a: "Der Prototyp ist ein klickbares Design ohne Programmcode: Er zeigt, wie sich deine App anfühlt, und hilft bei Entscheiden und Investorengesprächen. Der MVP ist die erste echte Version mit den wichtigsten Funktionen, echten Daten und echten Nutzern. Kurz: Der Prototyp validiert die Idee im Gespräch, der MVP validiert sie im Markt.",
+  },
+  {
+    q: "Was kostet ein klickbarer Prototyp in der Schweiz?",
+    a: "Je nach Umfang CHF 3000 bis 10 000: Konzept, Nutzerflüsse, Wireframes und das klickbare Design. Ein MVP kostet CHF 15 000 bis 40 000. Das sind Markt-Ranges, keine Listenpreise. Für dein Vorhaben bekommst du nach dem kostenlosen Erstgespräch ein transparentes Angebot mit einem klaren Preis pro Etappe.",
+  },
+  {
+    q: "Wie lange dauert das?",
+    a: "Ein klickbarer Prototyp ist in der Regel in wenigen Wochen fertig, je nachdem, wie schnell Feedback und Entscheide auf deiner Seite kommen. Ein MVP braucht erfahrungsgemäss einige Monate. Eine ehrliche Zeitschätzung bekommst du mit dem Konzept, nicht erst mittendrin.",
+  },
+  {
+    q: "Was passiert mit dem Prototyp, wenn es weitergeht?",
+    a: "Er wird nicht weggeworfen: Das Design und die durchdachten Abläufe sind die Vorlage für den MVP. Vieles davon landet eins zu eins im fertigen Produkt. Und wenn der Prototyp zeigt, dass sich die Idee nicht trägt, hast du mit kleinem Budget eine teure Fehlentwicklung vermieden. Auch das ist ein gutes Ergebnis.",
+  },
+  {
+    q: "Macht ihr auch nur die Konzeptphase?",
+    a: "Ja. Du kannst Konzept und Prototyp separat beauftragen, zum Beispiel für einen internen Entscheid oder ein Investorengespräch. Die Ergebnisse gehören dir: Wenn du danach mit einem anderen Team weiterbaust, ist das dein gutes Recht. Wir finden allerdings, dass wir für den Weg danach ein gutes Team sind.",
+  },
+  {
+    q: "Reicht ein Prototyp für Investoren?",
+    a: "Für ein erstes Gespräch meistens ja: Er zeigt, dass du die Idee durchdacht hast, und macht sie erlebbar statt abstrakt. Für eine Finanzierungsrunde mit harten Zahlen zur Nutzung braucht es aber echte Nutzerdaten, und die liefert erst der MVP. Wir sagen dir ehrlich, welche Stufe zu deinem Termin passt.",
+  },
+];
+---
+
+<Layout
+  title="App-Prototyp und MVP entwickeln lassen, Uftritt"
+  description="App-Prototyp und MVP entwickeln lassen: Erst mit dem klickbaren Prototyp validieren, dann mit dem MVP erste Nutzer gewinnen. In Etappen, ehrlich, für KMU."
+>
+  <PageHero
+    eyebrow="App-Prototyping für KMU"
+    title={"App-Prototyp und MVP:\nerst validieren, dann bauen"}
+    lead="Die ehrliche Antwort vorweg: Bau deine App nicht auf Verdacht. Ein klickbarer App-Prototyp zeigt, ob die Idee trägt, bevor echtes Budget fliesst. Ein MVP bringt die wichtigsten Funktionen zu echten Nutzern. Wir entwickeln beides für KMU, Etappe für Etappe, aus dem Zürcher Oberland."
+    lottie="/lottie/applikationsentwicklung.json"
+    lottieLabel="App-Prototyp und MVP"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/applikationsentwicklung/" label="App-Entwicklung" lottie="/lottie/applikationsentwicklung.json" />
+
+  {/* Die drei Stufen */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Die drei Stufen</span>
+        <h2>Vom Prototyp zum MVP zum Vollprodukt</h2>
+      </header>
+      <div class="karten karten--3" data-reveal>
+        {
+          stufen.map((s) => (
+            <article class="karte">
+              <h3>{s.title}</h3>
+              <p class="karte-note">{s.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Ranges */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Was Prototyp und MVP in der Schweiz kosten</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. MVP und Ausbau decken sich mit
+        den Ranges in unserem
+        Guide zu den <a href="/app-entwicklung-kosten/">App-Entwicklungskosten</a>.
+        Jedes Projekt ist individuell, darum sind das Ranges und keine Ladenpreise.
+      </p>
+    </div>
+  </section>
+
+  {/* Was ein Prototyp nicht kann */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Ehrlich bleiben</span>
+        <h2>Was ein Prototyp nicht kann</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          grenzen.map((g) => (
+            <article class="karte">
+              <h3>{g.title}</h3>
+              <p class="karte-note">{g.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Etappen + KMU-Realität */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Weg in fünf Etappen</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {etappen.map((e, i) => <li><span class="modul-nr">{i + 1}</span>{e}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Erst validieren, dann bauen</h2>
+        <div class="lp-text">
+          <p>
+            Die teuerste App ist die, die niemand braucht. Darum bauen wir nicht
+            auf Verdacht: Zuerst der Prototyp für deinen internen Entscheid oder
+            das Gespräch mit Investoren, dann der MVP für echte Nutzer, dann der
+            Ausbau. Jede Etappe hat einen klaren Preis, bevor sie startet, und
+            nach jeder Etappe kannst du stoppen, ohne etwas wegwerfen zu müssen.
+          </p>
+          <p>
+            So arbeiten wir selbst: Unsere eigene Aufgaben-App ist eine selbst
+            gebaute Web-App, die wir täglich nutzen. Wir empfehlen also nichts,
+            das wir nicht aus eigener Praxis kennen, und wir wissen, wo solche
+            Werkzeuge im Alltag haken.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Dedupe: was nach dem MVP kommt */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was nach dem MVP kommt</h2>
+        <div class="lp-text">
+          <p>
+            Wenn der MVP überzeugt, beginnt der eigentliche Bau: mehr Funktionen,
+            Schnittstellen, Betrieb und Weiterentwicklung. Wie wir Apps für KMU
+            vom Konzept bis zum laufenden Betrieb entwickeln, steht auf der Seite
+            <a href="/app-entwickeln-lassen/">App entwickeln lassen</a>.
+          </p>
+          <p>
+            Und die Plattform-Frage klären wir ehrlich, bevor gebaut wird: Für
+            fast jedes KMU-Vorhaben ist die Web-App die richtige Wahl, eine
+            Codebasis für alle Geräte statt doppeltem Aufwand. Was das genau
+            bedeutet, erklären wir unter
+            <a href="/webapp-entwickeln-lassen/">Webapp entwickeln lassen</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu App-Prototyp und MVP</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Hast du eine App-Idee im Kopf?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns davon. Wir sagen dir ehrlich, ob ein Prototyp oder ein MVP
+        der richtige erste Schritt ist, und machen dir ein transparentes
+        Angebot, kostenlos und unverbindlich.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .ranges { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+  .quellen a { color: var(--color-blue); font-weight: 700; }
+  .quellen a:hover { color: var(--color-pink); }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--3, .karten--4, .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--3, .karten--4, .ranges { grid-template-columns: 1fr; }
+  }
+</style>

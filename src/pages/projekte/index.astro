@@ -2,11 +2,14 @@
 import Layout from "../../layouts/Layout.astro";
 import SubHero from "../../components/SubHero.astro";
 import { projects } from "../../data/projects";
+import { webpSrcSet } from "../../utils/img";
 
 const categories = ["Alle", ...Array.from(new Set(projects.flatMap((p) => p.categories)))];
+// Grid: 3-spaltig Desktop, 2-spaltig <=860px, 1-spaltig <=520px (Container = 90vw).
+const SIZES = "(max-width: 520px) 90vw, (max-width: 860px) 45vw, 33vw";
 ---
 
-<Layout title="Projekte – Uftritt" description="Eine Auswahl unserer Projekte: Webdesign, Corporate Design, Videoproduktion und mehr aus dem Zürcher Oberland.">
+<Layout title="Projekte, Uftritt" description="Eine Auswahl unserer Projekte: Webdesign, Corporate Design, Videoproduktion und mehr aus dem Zürcher Oberland.">
   <SubHero
     eyebrow="Projekte"
     title="Schau mal hier"
@@ -35,15 +38,21 @@ const categories = ["Alle", ...Array.from(new Set(projects.flatMap((p) => p.cate
 
       <div class="project-grid" id="project-grid">
         {
-          projects.map((p) => (
-            <a href={`/projekte/${p.slug}`} class="project-card" data-cats={p.categories.join(",")} aria-label={p.title}>
-              <img class="project-img" src={p.image} alt={p.title} loading="lazy" />
-              <span class="project-overlay">
-                <span class="project-cat">{p.categories.join(" · ")}</span>
-                <span class="project-title">{p.title}</span>
-              </span>
-            </a>
-          ))
+          projects.map((p) => {
+            const srcset = webpSrcSet(p.image);
+            return (
+              <a href={`/projekte/${p.slug}/`} class="project-card" data-cats={p.categories.join(",")} aria-label={p.title}>
+                <picture>
+                  {srcset && <source type="image/webp" srcset={srcset} sizes={SIZES} />}
+                  <img class="project-img" src={p.image} alt={p.title} loading="lazy" decoding="async" />
+                </picture>
+                <span class="project-overlay">
+                  <span class="project-cat">{p.categories.join(" · ")}</span>
+                  <span class="project-title">{p.title}</span>
+                </span>
+              </a>
+            );
+          })
         }
       </div>
     </div>
@@ -63,7 +72,7 @@ const categories = ["Alle", ...Array.from(new Set(projects.flatMap((p) => p.cate
     font-size: 0.95rem;
     color: var(--color-blue);
     background: transparent;
-    border: 2px solid rgba(1, 64, 128, 0.25);
+    border: 1px solid #e7ecf3; /* dünn wie die Startseiten-Chips, Revision 2 */
     padding: 0.7rem 1.2rem;
     cursor: var(--cur-hand);
     transition: background 0.4s var(--ease), color 0.4s var(--ease),
@@ -122,6 +131,11 @@ const categories = ["Alle", ...Array.from(new Set(projects.flatMap((p) => p.cate
   .project-card.is-hidden {
     display: none;
   }
+  /* picture-Wrapper (webp/srcset): keine eigene Box -> img bleibt layout-seitig
+     direktes Kind der Karte (Containing Block unveraendert) */
+  picture {
+    display: contents;
+  }
   .project-img {
     width: 100%;
     height: 100%;
@@ -146,15 +160,32 @@ const categories = ["Alle", ...Array.from(new Set(projects.flatMap((p) => p.cate
     opacity: 0;
     transition: opacity 0.5s var(--ease);
   }
-  .project-card:hover .project-overlay {
+  .project-card:hover .project-overlay,
+  .project-card:focus-visible .project-overlay {
     opacity: 1;
   }
+  /* Textformatierung + gestaffelte Einblendung wie auf der Startseite, Revision 2 */
+  .project-cat,
+  .project-title {
+    transform: translateY(14px);
+    opacity: 0;
+    transition: transform 0.55s var(--ease), opacity 0.55s var(--ease);
+  }
+  .project-card:hover .project-cat,
+  .project-card:focus-visible .project-cat,
+  .project-card:hover .project-title,
+  .project-card:focus-visible .project-title {
+    transform: none;
+    opacity: 1;
+  }
+  .project-card:hover .project-title,
+  .project-card:focus-visible .project-title {
+    transition-delay: 0.08s;
+  }
   .project-cat {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    opacity: 0.85;
+    letter-spacing: 0.04em;
   }
   .project-title {
     font-size: clamp(1.25rem, 2vw, 1.7rem);
@@ -177,6 +208,13 @@ const categories = ["Alle", ...Array.from(new Set(projects.flatMap((p) => p.cate
       text-align: left;
       padding: 0.9rem 1rem;
       gap: 0.1rem;
+    }
+    /* Touch hat kein Hover: Badge dauerhaft sichtbar (Stagger zurücksetzen) */
+    .project-cat,
+    .project-title {
+      transform: none;
+      opacity: 1;
+      transition: none;
     }
     .project-cat {
       font-size: 0.68rem;

@@ -1,0 +1,325 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+
+const ranges = [
+  {
+    name: "Einfache App / MVP",
+    price: "CHF 15 000 bis 40 000",
+    note: "Eine Kernfunktion, wenige Bildschirme, eine Plattform oder als Web-App. Mit Baukasten oder Solo-Entwickler geht es günstiger, dann aber mit klaren Grenzen bei Funktionen, Store-Präsenz und Betrieb.",
+  },
+  {
+    name: "Mittlere App",
+    price: "CHF 40 000 bis 100 000",
+    note: "Login, Datenbank, Schnittstellen zu bestehenden Systemen, eigenes Design. Die typische Geschäfts-App für ein KMU. Funktionsumfang und Integrationen entscheiden, wo du in dieser Range landest.",
+  },
+  {
+    name: "Komplexe App / Plattform",
+    price: "ab CHF 100 000",
+    note: "Echtzeit-Funktionen, viele Integrationen, mehrere Benutzerrollen oder hohe Sicherheitsanforderungen: Hier wird sauber gerechnet statt pauschal versprochen.",
+  },
+];
+
+const laufend = [
+  { name: "Apple Developer Account", value: "ca. USD 99 pro Jahr, Pflicht für jede iOS-App" },
+  { name: "Google Play Konto", value: "einmalig ca. USD 25" },
+  { name: "Backend und Hosting", value: "ca. CHF 25 bis 800 pro Monat, je nach Aufbau und Nutzerzahl" },
+  { name: "Wartung und Updates", value: "ca. 15 bis 20 Prozent der Entwicklungskosten pro Jahr, in keiner seriösen Offerte der Erstellung inklusive" },
+];
+
+const faq = [
+  {
+    q: "Was kostet eine App in der Schweiz?",
+    a: "Eine einfache App oder ein MVP kostet bei professioneller Umsetzung CHF 15 000 bis 40 000. Eine mittlere App mit Login, Datenbank und Schnittstellen CHF 40 000 bis 100 000. Komplexe Apps und Plattformen starten bei CHF 100 000 und gehen deutlich darüber hinaus. Fünfstellig ist also die Regel. Alles darunter ist Bastellösung oder No-Code mit klaren Grenzen.",
+  },
+  {
+    q: "Web-App oder native App?",
+    a: "Für die meisten KMU-Vorhaben reicht eine Web-App oder eine Cross-Platform-App: eine Codebasis für iOS, Android und Web, deutlich günstiger im Bau und in der Wartung. Zwei getrennte native Apps für iOS und Android kosten fast das Doppelte und lohnen sich nur bei Games, Augmented Reality oder sehr hohen Sicherheitsanforderungen.",
+  },
+  {
+    q: "Was kostet eine App bei euch?",
+    a: "Das rechnen wir für dein Projekt sauber durch, statt einen Listenpreis zu versprechen, der hinten und vorne nicht stimmt. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit allen Leistungen und einem klaren Preis. Was nicht drinsteht, wird nicht extra verrechnet.",
+  },
+  {
+    q: "Was kostet die App danach pro Jahr?",
+    a: "Rechne mit 15 bis 20 Prozent der Entwicklungskosten pro Jahr für Wartung: neue iOS- und Android-Versionen, Sicherheitsupdates und kleine Anpassungen. Dazu kommen der Apple Developer Account mit ca. USD 99 pro Jahr und je nach Aufbau CHF 25 bis 800 pro Monat für Backend und Hosting.",
+  },
+  {
+    q: "Geht es auch günstiger?",
+    a: "Ja, mit No-Code-Baukästen oder Offshore-Teams. Baukästen eignen sich für einen schnellen Prototyp, stossen aber bei eigenen Funktionen schnell an Grenzen und binden dich mit Monatsabos. Bei Offshore sparst du am Stundensatz und zahlst es über Kommunikation, Qualität und Datenschutz doppelt zurück.",
+  },
+  {
+    q: "Braucht unser Betrieb überhaupt eine App?",
+    a: "Nicht automatisch. Für Öffnungszeiten, Angebot und Kontakt reicht eine gute Website völlig aus. Eine App lohnt sich, wenn sie einen echten Prozess digitalisiert: Rapporte im Aussendienst, Terminbuchungen, ein Kundenportal. Genau das klären wir im kostenlosen Erstgespräch, auch ehrlich gegen die App, wenn eine Website das Gleiche leistet.",
+  },
+];
+---
+
+<Layout
+  title="Was kostet eine App entwickeln lassen?, Uftritt"
+  description="Was kostet eine App entwickeln lassen? Preisranges für die Schweiz: MVP, mittlere App, Plattform, laufende Kosten und Preistreiber. Ehrlich statt Listenpreis."
+>
+  <PageHero
+    eyebrow="App-Kosten · Schweiz"
+    title={"Was kostet\neine App-Ent­wicklung?"}
+    lead="Die ehrliche Antwort vorweg: Eine App professionell entwickeln zu lassen ist in der Schweiz praktisch immer fünfstellig. Ein fokussierter MVP kostet CHF 15 000 bis 40 000, eine mittlere App mit Login und Schnittstellen CHF 40 000 bis 100 000, komplexe Plattformen gehen weit darüber hinaus."
+    lottie="/lottie/applikationsentwicklung.json"
+    lottieLabel="App-Kosten"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/applikationsentwicklung/" label="App-Entwicklung" lottie="/lottie/applikationsentwicklung.json" />
+
+  {/* Antwort-Block: Preisranges */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Die Preisranges im Überblick</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. Jede App ist individuell, darum
+        sind das Ranges und keine Ladenpreise.
+      </p>
+    </div>
+  </section>
+
+  {/* Preistreiber + laufende Kosten */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was den Preis wirklich treibt</h2>
+        <div class="lp-text">
+          <p>
+            Die Plattform-Frage zuerst: iOS und Android nativ getrennt zu bauen
+            verdoppelt fast den Aufwand, weil zwei Teams an zwei Codebasen arbeiten.
+            Cross-Platform oder eine Web-App halbiert ihn ungefähr, bei für
+            Geschäfts-Apps gleicher Qualität.
+          </p>
+          <p>
+            Der zweite grosse Treiber sind Backend und Schnittstellen: Login,
+            Datenbank, Anbindung an Warenwirtschaft, Buchhaltung oder Zahlungen.
+            Jede Schnittstelle kostet je nach Qualität der API CHF 3000 bis 25 000.
+            Und Vorsicht beim Satz «die App muss offline funktionieren»: Er
+            verdoppelt oft den Backend-Aufwand.
+          </p>
+          <p>
+            Design ist der dritte Posten: Ein eigenes Design-System mit Animationen
+            kostet deutlich mehr als sauber umgesetzte Standard-Oberflächen. Zum
+            Einordnen: Schweizer App-Agenturen rechnen mit Stundensätzen von ca.
+            CHF 150 bis 250.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Laufende Kosten, an die niemand denkt</h2>
+        <div class="lp-text">
+          <p>
+            Der Entwicklungspreis ist nicht die Gesamtrechnung. Diese Posten kommen
+            jedes Jahr dazu, egal wer die App gebaut hat:
+          </p>
+          <ul class="kosten-liste">
+            {
+              laufend.map((l) => (
+                <li>
+                  <strong>{l.name}</strong>
+                  <span>{l.value}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <p>
+            Apple und Google veröffentlichen jedes Jahr neue Betriebssysteme. Ohne
+            Wartung fliegt eine App früher oder später aus dem Store oder läuft auf
+            neuen Geräten nicht mehr sauber. Darum: Wartung von Anfang an
+            einbudgetieren, nicht erst beim ersten Absturz.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Web-App vs. nativ + Braucht es eine App? */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Web-App oder native App?</h2>
+        <div class="lp-text">
+          <p>
+            Eine Web-App läuft im Browser, lässt sich aber wie eine App installieren:
+            eine Codebasis für Web, iOS und Android, Updates sofort und ohne
+            Store-Review, die günstigste Wartung von allen. Die Grenzen sind
+            ehrlich benannt: kein vollständiger Bluetooth- und NFC-Zugriff auf dem
+            iPhone und eine schwächere Präsenz im App Store.
+          </p>
+          <p>
+            Zwei getrennte native Apps kosten fast das Doppelte und brauchen doppelt
+            Wartung. Sie lohnen sich nur bei Games, Augmented Reality oder sehr
+            hohen Sicherheitsanforderungen. Für die meisten KMU-Vorhaben reicht
+            Cross-Platform oder Web-App völlig. Wie wir bei der
+            <a href="/angebot/applikationsentwicklung/">Applikationsentwicklung</a>
+            vorgehen, siehst du auf unserer Angebotsseite.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Braucht es überhaupt eine App?</h2>
+        <div class="lp-text">
+          <p>
+            Ehrliche Antwort: oft nicht. Für Öffnungszeiten, Angebot und Kontakt
+            reicht eine gute Website völlig aus, und die ist um ein Vielfaches
+            günstiger. Was eine Website kostet, haben wir im Guide
+            <a href="/website-kosten/">Website-Kosten</a> offengelegt. Eine App
+            lohnt sich, wenn sie einen echten Prozess digitalisiert: Rapporte im
+            Aussendienst, Terminbuchungen, ein Kundenportal mit Login.
+          </p>
+          <p>
+            Darum arbeiten wir so: kostenloses Erstgespräch, in dem wir auch ehrlich
+            von der App abraten, wenn eine Website das Gleiche leistet. Danach ein
+            transparentes Angebot mit allen Leistungen und einem klaren Preis. Keine
+            versteckten Kosten, keine Überraschungen auf der Rechnung.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Service: Team statt nur Preise */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Du suchst ein Team, nicht nur Preise?</h2>
+        <div class="lp-text">
+          <p>
+            Wenn aus der Idee ein Projekt werden soll: Wir entwickeln Apps und
+            Web-Apps für KMU, vom kostenlosen Erstgespräch über den klickbaren
+            Prototyp bis zum laufenden Betrieb. Alles zum Ablauf, zu unserer
+            Arbeitsweise und dazu, wann wir ehrlich von einer App abraten,
+            findest du auf der Seite
+            <a href="/app-entwickeln-lassen/">App entwickeln lassen</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu App-Kosten</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Willst du wissen, was deine App kostet?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deiner Idee. Du bekommst ein ehrliches, transparentes
+        Angebot, kostenlos und unverbindlich.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .kosten-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .kosten-liste li {
+    display: flex; flex-direction: column; gap: 0.15rem;
+    padding: 0.9rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem;
+  }
+  .kosten-liste li:last-child { border-bottom: 0; }
+  .kosten-liste span { opacity: 0.85; }
+  .abo-hinweis {
+    margin-top: 1.25rem; padding: 1rem 1.25rem;
+    border-left: 4px solid var(--color-yellow);
+    background: #fff; color: var(--color-blue);
+    font-size: 1.05rem !important; line-height: 1.6;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges { grid-template-columns: 1fr; }
+  }
+</style>

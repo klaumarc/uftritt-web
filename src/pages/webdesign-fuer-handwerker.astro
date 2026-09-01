@@ -1,0 +1,313 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["heusser-holzbau", "stahel-koeng", "garage-frei"].includes(p.slug)
+);
+
+const grundbedarf = [
+  {
+    title: "Leistungen und Einsatzgebiet",
+    note: "Wer «Gipser Hinwil» oder «Holzbau Zürcher Oberland» sucht, will sofort sehen, was du machst und wo du arbeitest. Beides gehört prominent auf die Startseite.",
+  },
+  {
+    title: "Echte Referenzfotos",
+    note: "Keine Stockbilder. Fotos von deinen Baustellen und fertigen Arbeiten schaffen mehr Vertrauen als jeder Werbetext.",
+  },
+  {
+    title: "Offert-Anfrage ohne Hürden",
+    note: "Ein kurzes Formular, Telefonnummer und E-Mail gut sichtbar. Wer auf dem Handy lange suchen muss, ruft die Konkurrenz an.",
+  },
+  {
+    title: "Zusammenspiel mit Google",
+    note: "Viele finden dich über Google Maps statt über die Website. Profil, Bewertungen und Website müssen aufeinander abgestimmt sein.",
+  },
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: Was soll die Seite bringen, was hast du schon",
+  "Konzept und Struktur: Leistungen, Einsatzgebiet und Anfrage am richtigen Platz",
+  "Texte und Fotos: Wir schreiben, du lieferst Baustellenfotos, wir bereiten alles auf",
+  "Bau und Feinschliff: mobil zuerst, schnell ladend, mit deinem Feedback",
+  "Online und betreut: Für CHF 33 pro Monat bleiben wir auch nach dem Launch dran",
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Website für einen Handwerksbetrieb?",
+    a: "Das hängt vom Umfang ab: eine schlanke Seite mit Leistungen und Anfrageformular kostet weniger als ein Auftritt mit mehreren Leistungsbereichen, und ob Texte und Fotos schon vorhanden sind, spielt ebenfalls eine Rolle. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit einem klaren Preis. Grössenordnungen aus Schweizer Quellen findest du auf unserer Seite <a href=\"/website-kosten/\">Website-Kosten</a>.",
+  },
+  {
+    q: "Bekommen wir darüber wirklich Anfragen?",
+    a: "Ehrlich gesagt: Die Website allein macht keine Anfragen. Sie funktioniert im Zusammenspiel mit deinem Google-Profil, Bewertungen und sauber eingearbeiteten regionalen Suchbegriffen. Und bedenke: Wenn jemand dich empfiehlt, googelt die Person deinen Namen. Was sie dann findet, entscheidet, ob sie anfragt. Genau dafür bauen wir.",
+  },
+  {
+    q: "Wir haben keine guten Fotos. Geht das trotzdem?",
+    a: "Ja. Baustellenfotos vom Handy reichen für den Start, solange sie echte Arbeit zeigen. Wir sagen dir vorab, welche Motive wir brauchen, und bereiten alles fürs Web auf. Stockbilder, die nach nichts aussehen, verbauen wir nicht, denn deine Kundschaft merkt den Unterschied.",
+  },
+  {
+    q: "Wie lange dauert es, bis die Website online ist?",
+    a: "Das hängt vor allem vom Material ab. Sind Texte und Fotos da, reden wir über Wochen, nicht Monate. Wenn wir die Texte für dich schreiben und Fotos erst entstehen müssen, dauert es entsprechend länger. Einen konkreten Zeitplan bekommst du nach dem Erstgespräch.",
+  },
+  {
+    q: "Müssen wir die Texte selber schreiben?",
+    a: "Nein. Wir schreiben die Texte auf Basis eines Gesprächs mit dir über deine Leistungen, dein Gebiet und deine Stärken. Du schaust am Ende drüber und korrigierst Fachliches, den Rest machen wir.",
+  },
+  {
+    q: "Was passiert nach dem Launch?",
+    a: "Deine Website bleibt nicht sich selbst überlassen. Mit der Website-Betreuung für CHF 33 pro Monat kümmern wir uns um Hosting, technische Updates und deine Änderungen, etwa neue Referenzfotos oder eine zusätzliche Leistung. Du meldest dich einfach, wir erledigen es.",
+  },
+];
+---
+
+<Layout
+  title="Webdesign für Handwerker und Bau - Uftritt"
+  description="Webdesign für Handwerker und Baubetriebe: Leistungen, Referenzfotos, einfache Offert-Anfrage, mobil zuerst. Ohne Schnörkel, mit Betreuung für CHF 33 pro Monat."
+>
+  <PageHero
+    eyebrow="Für Handwerk und Bau"
+    title={"Webdesign für\nHandwerker und Bau"}
+    lead="Die kurze Antwort: Eine Handwerker-Website braucht keinen Schnickschnack, sondern klare Leistungen, dein Einsatzgebiet, echte Referenzfotos und eine Offert-Anfrage, die auf dem Handy in einer Minute erledigt ist. Genau so bauen wir sie: mobil zuerst, ohne Schnörkel, damit dich Kundinnen und Kunden auch von der Baustelle aus finden und anfragen."
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Was die Seite braucht */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Das Fundament</span>
+        <h2>Was eine Handwerker-Website wirklich braucht</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          grundbedarf.map((g) => (
+            <article class="karte">
+              <h3>{g.title}</h3>
+              <p class="karte-note">{g.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Mobil zuerst */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Dein Kunde steht auf der Baustelle</h2>
+        <div class="lp-text">
+          <p>
+            Der Bauherr sucht abends am Sofa, die Bauleiterin zwischendurch auf dem
+            Handy. Darum bauen wir mobil zuerst: kurze Ladezeiten, Schaltflächen gross
+            genug für Arbeitshandschuhe und deine Nummer mit einem Tipp erreichbar.
+          </p>
+          <p>
+            Auf dem Desktop sieht die Seite natürlich auch gut aus. Aber entschieden
+            wird meistens auf dem kleinen Bildschirm, und genau dort muss alles sitzen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ohne Schnörkel, aber mit Handwerk</h2>
+        <div class="lp-text">
+          <p>
+            Wir lassen die Agentur-Spielereien weg, die niemand braucht: keine
+            Animationen um der Animation willen, keine Effekte, die das Laden
+            ausbremsen. Übrig bleibt eine schlanke, schnelle Seite, die zeigt, was du
+            kannst, und Anfragen bringt.
+          </p>
+          <p>
+            Kurz gesagt: Eine schlichte Seite mit echten Fotos deiner Arbeit schlägt
+            jedes Design-Schmuckstück. Mehr zu unserer Arbeitsweise in der Region
+            findest du unter <a href="/webdesign-zuercher-oberland/">Webdesign im Zürcher Oberland</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Wann sichs lohnt, ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann sich eine neue Website lohnt</h2>
+        <div class="lp-text">
+          <p>
+            Wenn du Anfragen steuern willst statt nur zu reagieren: bessere Aufträge
+            statt einfach mehr Aufträge, ein neues Einsatzgebiet, Mitarbeitende, die
+            dich online finden sollen. Oder wenn dein heutiger Auftritt aus dem letzten
+            Jahrzehnt stammt und auf dem Handy kaum lesbar ist.
+          </p>
+          <p>
+            Auch bei einem Generationswechsel im Betrieb ist der richtige Moment:
+            Die Nachfolge braucht einen Auftritt, der den Betrieb in die nächsten
+            Jahre trägt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wann es auch ohne geht</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlich gesagt: Wenn du über Empfehlungen voll ausgelastet bist und das so
+            bleiben soll, brauchst du keine grosse Website. Dann reicht oft ein
+            gepflegtes Google-Unternehmensprofil mit Adresse, Leistungen und
+            Bewertungen.
+          </p>
+          <p>
+            Auch dabei helfen wir dir, zum Beispiel mit einem sauber eingerichteten
+            Profil. Mehr dazu auf unserer Seite zum
+            <a href="/google-business-profile/">Google Unternehmensprofil</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Prozess */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>So entsteht deine Website bei uns</h2>
+        <div class="lp-text">
+          <p>
+            Kein Agentur-Theater, sondern ein klarer Ablauf, bei dem du jederzeit
+            weisst, wo wir stehen. Mit Betrieben aus Bau und Handwerk kennen wir uns
+            aus: Für die <a href="/projekte/heusser-holzbau/">Heusser Holzbau</a> aus
+            Hinwil haben wir einen <a href="/imagefilm-erstellen-lassen/">Imagefilm</a>
+            produziert, für den Massivholzspezialisten <a href="/projekte/stahel-koeng/">Stahel
+            + Köng</a> das Logo zum 125-Jahr-Jubiläum gestaltet.
+          </p>
+          <p>
+            Und nach dem Launch lassen wir dich nicht allein: Mit der
+            <a href="/website-betreuung/">Website-Betreuung</a> für CHF 33 pro Monat
+            bleiben deine Inhalte aktuell und die Technik gepflegt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen von Handwerksbetrieben</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p set:html={f.a} />
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Die Baustelle läuft, die Website nicht?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns in einem kostenlosen Erstgespräch, was dein Betrieb braucht.
+        Wir sagen dir ehrlich, was eine Website bringen kann und was sie kostet.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a.replace(/<[^>]*>/g, "") },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--3, .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--3, .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

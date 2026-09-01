@@ -1,0 +1,286 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["spinnereiplatz", "aas-freight", "garage-frei"].includes(p.slug)
+);
+
+const orte = [
+  { name: "Uster", href: "/webdesign-uster/", note: "drittgrösste Stadt des Kantons" },
+  { name: "Winterthur", href: "/webdesign-winterthur/", note: "zweitgrösste Stadt des Kantons" },
+  { name: "Zürcher Oberland", href: "/webdesign-zuercher-oberland/", note: "unsere Heimregion" },
+  { name: "Wetzikon", href: "/webdesign-wetzikon/", note: "grösste Stadt im Oberland" },
+  { name: "Pfäffikon", href: "/webdesign-pfaeffikon/", note: "am Pfäffikersee, bei Uster" },
+];
+
+const weitere = ["Dübendorf", "Regensdorf", "Wallisellen", "Opfikon", "Fällanden", "Zollikon", "Küsnacht", "Schlieren"];
+
+const faq = [
+  { q: "Was kostet eine Website für einen Betrieb in Zürich?", a: "Das hängt vom Umfang ab, vom schlanken Onepager bis zur Plattform mit Shop. Nach einem kostenlosen Erstgespräch erhältst du ein transparentes Angebot mit klarem Preis. Keine versteckten Kosten, keine Überraschungen, egal, ob dein Betrieb in der Altstadt oder in Oerlikon steht." },
+  { q: "Seid ihr überhaupt in Zürich?", a: "Nein, und das sagen wir offen: Unser Büro ist in Saland im Zürcher Oberland. Die Stadt ist von uns per Zug und Auto gut erreichbar, Besprechungen machen wir gerne bei dir im Betrieb oder per Video-Call. Dafür bekommst du Agenturarbeit ohne Grossstadt-Overhead und ohne Agentur-Attitüde." },
+  { q: "Werde ich als Zürcher Betrieb überhaupt gefunden?", a: "Die Konkurrenz in der Stadt ist gross, eine Website allein reicht nicht, aber sie ist die Basis. Wir liefern jede Seite mit sauberer SEO-Grundlage aus: Struktur, Ladezeiten, Meta-Texte. Dazu gehört ein gepflegtes Google-Unternehmensprofil, damit du in deinem Kreis und deinem Quartier gefunden wirst, auch auf der Karte." },
+  { q: "Wir haben schon eine Website, lohnt sich ein Relaunch?", a: "Oft ja: Wenn die Seite älter als vier, fünf Jahre ist, auf dem Handy hakt oder bei Google abrutscht, bringt ein Neubau mehr als Flickwerk. Wir schauen uns deine Seite kostenlos an und sagen dir ehrlich, ob sich ein Relaunch lohnt, oder ob es auch ein gezieltes Update tut." },
+  { q: "Wie lange dauert ein Website-Projekt?", a: "Je nach Umfang 4 bis 12 Wochen. Du siehst früh einen klickbaren Prototypen und bleibst durchgehend im Bild." },
+  { q: "Wer kümmert sich nach dem Launch um die Website?", a: "Auf Wunsch wir: Updates, Backups, kleine Anpassungen und laufende Betreuung, damit die Seite sicher bleibt und wächst. Oder wir zeigen dir, wie du die Inhalte selbst pflegst, ganz, wie es für deinen Betrieb passt." },
+  { q: "Macht ihr auch mehr als Websites?", a: "Ja: Logo, Corporate Design, Broschüren, Fotografie und Video kommen bei uns aus demselben Haus. So entsteht dein Auftritt aus einem Guss, vom Erscheinungsbild bis zur fertigen Website. Ein Partner für alles, statt fünf Agenturen für fünf Disziplinen." },
+  { q: "Lohnt sich eine eigene Website auch für ein kleines Gewerbe?", a: "Ja, gerade in Zürich, wo Kundinnen und Kunden vor jeder Wahl zuerst googeln. Eine klare, schnelle Website mit Leistungen, Öffnungszeiten und Kontakt arbeitet rund um die Uhr für dich. Wir sagen dir ehrlich, was sich für deine Grösse lohnt, und was du dir sparen kannst." },
+];
+---
+
+<Layout
+  title="Webdesign Zürich, Uftritt"
+  description="Webdesign Zürich: Websites für KMU in der grössten Stadt der Schweiz, von der Webagentur aus Saland im Zürcher Oberland. Persönlich und ehrlich."
+>
+  <PageHero
+    eyebrow="Webdesign · Zürich"
+    title={"Webdesign\nZürich"}
+    lead="Du suchst Webdesign in Zürich? Uftritt ist die Kommunikationsagentur aus Saland im Zürcher Oberland: Wir entwickeln Websites und Erscheinungsbilder für KMU in der Stadt Zürich, persönlich, ohne Template und mit ehrlicher Beratung. Per Zug und Auto sind wir gut erreichbar, auf Wunsch läuft alles per Video-Call."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Für die grösste Stadt der Schweiz</h2>
+        <div class="lp-text">
+          <p>
+            Zürich ist mit 436 551 Einwohnerinnen und Einwohnern (Stand Ende 2024)
+            die grösste Stadt der Schweiz; in der ganzen Agglomeration leben rund
+            1,45 Millionen Menschen (Stand 2022). Die Stadt an der Limmat ist die
+            Wirtschafts- und Finanzmetropole des Landes, das wichtigste Zentrum
+            der Schweizer Medien- und Kreativbranche und mit ihrem Hauptbahnhof
+            der grösste Bahnhof der Schweiz. Gegliedert ist sie in zwölf
+            Stadtkreise, von der Altstadt über Wiedikon und Oerlikon bis
+            Schwamendingen.
+          </p>
+          <p>
+            In diesem Markt sichtbar zu sein, ist für ein KMU eine echte Aufgabe:
+            Tausende Betriebe konkurrieren um dieselbe Aufmerksamkeit, und die
+            Ansprüche des Publikums sind hoch. Gesucht wird fast alles zuerst
+            online, vom Zahnarzt in Wiedikon bis zur Treuhänderin in Oerlikon.
+            Genau dafür braucht es eine Website, die nicht von der Stange kommt
+           , und einen Auftritt, der zu deinem Betrieb passt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ehrlich gesagt: Unser Büro ist nicht in Zürich</h2>
+        <div class="lp-text">
+          <p>
+            Unser Büro steht in Saland im Zürcher Oberland, nicht an der
+            Bahnhofstrasse. Trotzdem arbeiten wir längst für Kunden in der Stadt
+            und ihrer Agglomeration: Für eine Wohnung im Zürcher Quartier Green
+            City am Spinnereiplatz haben wir eine Verkaufs-Website mit eigenen
+            Fotos und Texten gebaut. Die Autogarage Frei in Dübendorf, direkt an
+            der Stadtgrenze, fährt mit einer Website von uns, neu konzipiert und
+            komplett realisiert. Und für die Logistikfirma AAS Freight aus
+            Regensdorf läuft die laufende Marketingbetreuung über uns, von
+            Content und Video bis zu Print.
+          </p>
+          <p>
+            Gerade für ein Zürcher KMU ist das ein Vorteil: Du bekommst
+            Kommunikation aus einer Hand, von der Website über das Logo bis zu
+            Print und Video, ohne den Overhead und die Preise einer Grossagentur
+            an der Bahnhofstrasse. Und wir sagen dir ehrlich, was sich für deinen
+            Betrieb lohnt und was nicht.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Webseite erstellen lassen, im härtesten Markt des Landes</h2>
+        <div class="lp-text">
+          <p>
+            Was muss eine Website für einen Zürcher Betrieb leisten? Zuerst das
+            Einfachste: Wer nach dir sucht, findet dich, mit Leistungen,
+            Öffnungszeiten und Kontakt auf einen Blick, auf dem Handy genauso wie
+            am Computer. Dann das Schwierigere: Wer noch nicht nach dir sucht,
+            soll dich über Google entdecken können. Darum bekommt jede Website
+            bei uns die SEO-Basis gleich mitgeliefert, und auf Wunsch richten
+            wir dein <a href="/google-business-profile/">Google-Unternehmensprofil</a>
+            so ein, dass du in deinem Kreis sichtbar wirst, auch auf der Karte.
+          </p>
+          <p>
+            Egal, ob du eine neue Homepage brauchst oder eine komplette Webseite
+            erstellen lassen willst: Uftritt ist mehr als eine Webagentur. Als
+            Werbeagentur liefern wir auch, was um die Website herum entsteht -
+            Logo und Erscheinungsbild, Printwerbung, Fotografie und Video. Ein
+            Partner für alles, statt fünf Ansprechpersonen in fünf Büros.
+          </p>
+          <p>
+            Und wir sagen es auch, wenn weniger genügt: Nicht jeder Zürcher
+            Betrieb braucht das Grossprojekt, manchmal ist ein gut gemachter
+            Onepager die ehrlichste Lösung.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In vier Schritten zur neuen Website</h2>
+        <div class="lp-text">
+          <p>
+            <strong>1. Erstgespräch bei dir.</strong> Kostenlos und unverbindlich
+           , am liebsten bei dir im Betrieb, egal ob im Kreis 4, in Oerlikon
+            oder am Zürichberg. Auf Wunsch bei uns in Saland oder per Video-Call.
+            Wir hören zu, fragen nach und beraten ehrlich.
+          </p>
+          <p>
+            <strong>2. Konzept und Prototyp.</strong> Du bekommst früh einen
+            klickbaren Entwurf zu sehen, nicht erst kurz vor dem Launch. So gibt
+            es keine Überraschungen.
+          </p>
+          <p>
+            <strong>3. Umsetzung.</strong> Wir bauen die Seite, schreiben auf
+            Wunsch die Texte und organisieren Fotografie, alles aus einer Hand,
+            mit klaren Zuständigkeiten.
+          </p>
+          <p>
+            <strong>4. Launch und Betreuung.</strong> Nach dem Go-Live lassen wir
+            dich nicht im Stich: <a href="/website-betreuung/">Betreuung und
+            Wartung</a>, <a href="/seo-betreuung/">SEO-Begleitung</a> oder eine
+            Schulung, damit du die Seite selbst pflegen kannst. Du hast schon
+            eine ältere Website? Dann ist ein
+            <a href="/website-relaunch/">Relaunch</a> der richtige Einstieg.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet das?</h2>
+        <div class="lp-text">
+          <p>
+            Die ehrliche Antwort: Es kommt darauf an, was du brauchst. Ein
+            Onepager kostet weniger als eine Plattform mit Shop, Pauschalpreise
+            von der Stange wären unseriös. Was wir stattdessen anbieten: Nach dem
+            kostenlosen Erstgespräch erhältst du ein transparentes Angebot mit
+            allen Leistungen und einem klaren Preis.
+          </p>
+          <p>
+            Gerade in Zürich, wo die Preise zwischen Agenturen weit
+            auseinandergehen, lohnt sich der Vergleich: In unserem
+            <a href="/website-kosten/">Guide zu Website-Kosten</a> zeigen wir
+            echte Marktpreise in der Schweiz, damit du weisst, was eine Website
+            kosten darf, bevor du mit uns oder einer anderen Agentur sprichst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Rund um die Stadt</span>
+        <h2>Webdesign in deiner Region</h2>
+      </header>
+      <div class="orte" data-reveal>
+        {
+          orte.map((o) => (
+            <a class="ort-card" href={o.href}>
+              <span class="ort-name">{o.name}</span>
+              <span class="ort-note">{o.note}</span>
+            </a>
+          ))
+        }
+      </div>
+      <p class="orte-note" data-reveal>
+        Und natürlich auch in: {weitere.join(", ")}, kurzum: in der ganzen
+        Agglomeration Zürich und im Zürcher Oberland.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deinen neuen Webauftritt in Zürich?</h2>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); text-decoration: underline; text-underline-offset: 0.15em; }
+
+  .orte { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .ort-card {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .ort-card:hover { border-color: var(--color-blue); transform: translateY(-2px); }
+  .ort-name { font-weight: 700; font-size: 1.25rem; color: var(--color-blue); }
+  .ort-note { color: var(--color-blue); opacity: 0.8; font-size: 0.95rem; }
+  .orte-note { margin-top: 1.5rem; color: var(--color-blue); line-height: 1.7; max-width: 75ch; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+
+  @media (max-width: 900px) {
+    .orte { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .orte { grid-template-columns: 1fr; }
+  }
+</style>

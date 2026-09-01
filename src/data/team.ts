@@ -4,6 +4,8 @@ export interface TeamMember {
   photo: string;
   email: string;
   bio: string;
+  // true = externer Partner (Christian, Tamara, Sam) -> "Partner"-Badge im Grid + Lightbox
+  partner?: boolean;
 }
 
 // Inhalte an der bestehenden Website orientiert, leicht überarbeitet.
@@ -14,24 +16,26 @@ export const team: TeamMember[] = [
     role: "Webentwickler",
     photo: "/team/marcel.jpg",
     email: "mk@uftritt.ch",
-    bio: "Marcel sammelte während sechs Jahren als selbstständiger Webentwickler umfangreiche Erfahrung und hat Projekte aus den unterschiedlichsten Branchen umgesetzt. Er schätzt die Vielfalt der Menschen, mit denen er zusammenarbeitet. Seine Freizeit verbringt er am liebsten mit seiner Familie oder bei der Bibellesung.",
+    bio: "Marcel sammelte während vielen Jahren als selbstständiger Webentwickler umfangreiche Erfahrung und hat Projekte aus den unterschiedlichsten Branchen umgesetzt. Er schätzt die Vielfalt der Menschen, mit denen er zusammenarbeitet. Seine Freizeit verbringt er am liebsten mit seiner Familie.",
   },
   {
     name: "Jeffrey Meier",
-    role: "Visueller Gestalter",
+    role: "Grafikdesigner",
     photo: "/team/jeffrey.jpg",
     email: "jm@uftritt.ch",
-    bio: "Die Ausbildung und Tätigkeit als Polygraf legte für Jeffrey ein solides Fundament für sein späteres HF-Studium der Visuellen Gestaltung. Mit seiner Leidenschaft für passgenaue Gestaltung kreiert er wirkungsvolle und zielgerichtete Kommunikationskonzepte. Sein Sinn fürs Detail verleiht jedem Projekt den nötigen Charakter. Daneben begleitet ihn das Musikmachen bereits seit jungen Jahren und bei den unterschiedlichsten sportlichen Aktivitäten findet er seinen Ausgleich.",
+    bio: "Die Ausbildung und Tätigkeit als Polygraf legten für Jeffrey ein solides Fundament für sein späteres HF-Studium der Visuellen Gestaltung. Mit seiner Leidenschaft für durchdachtes Design kreiert er wirkungsvolle und zielgerichtete Gestaltungskonzepte. Daneben begleitet ihn das Musikmachen bereits seit jungen Jahren und bei unterschiedlichsten sportlichen Aktivitäten findet er seinen Ausgleich.",
   },
   {
     name: "Christian Angst",
+    partner: true,
     role: "Videograf",
     photo: "/team/christian.jpg",
     email: "info@uftritt.ch",
-    bio: "Christian hat seine Kamerafähigkeiten durch eine Fachausbildung und mehrere Praktika professionalisiert. Unkompliziert und mit Gespür setzt er Imagefilme, Produktfilme und Social-Media-Videos um. In seiner Freizeit verbringt er Zeit mit seiner Familie und der Musik.",
+    bio: "Christian hat seine Kamerafähigkeiten durch eine Fachausbildung und mehrere Praktika professionalisiert. Unkompliziert und mit gutem Gespür setzt er Imagefilme, Produktfilme und Social-Media-Videos um. Seine freie Zeit verbringt er mit seiner Familie und der Musik.",
   },
   {
     name: "Tamara Schmutz",
+    partner: true,
     role: "Texterstellung und Social Media",
     photo: "/team/tamara.jpg",
     email: "info@uftritt.ch",
@@ -39,6 +43,7 @@ export const team: TeamMember[] = [
   },
   {
     name: "Sam Urech",
+    partner: true,
     role: "Kommunikationsberater",
     photo: "/team/sam.jpg",
     email: "info@uftritt.ch",

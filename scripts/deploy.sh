@@ -15,13 +15,24 @@
 #   FTP_PW='dasPasswort' bash scripts/deploy.sh --seed     # nur Manifest setzen, NICHT hochladen
 #                                                           # (wenn Server bereits == aktueller Build)
 #
+# Ziel-Verzeichnis (FTP-Root = Subscription-Ebene, seit 2026-08-14):
+#   FTP_DIR=uftritt.mklkreativ.ch   # Staging (Default)
+#   FTP_DIR=uftritt.ch-neu          # Produktion (Docroot-Wechsel via Plesk)
+# Pro Ziel gibt es ein eigenes Manifest (.deploy-manifest[-<ziel>].txt).
+#
 set -euo pipefail
 
 HOST="${FTP_HOST:-janus.kreativmedia.ch}"
 USER="${FTP_USER:-uftritt_1988}"
 PW="${FTP_PW:?Bitte Passwort setzen:  FTP_PW='...' bash scripts/deploy.sh}"
 DIST="dist"
-MANIFEST=".deploy-manifest.txt"   # lokal, in .gitignore
+FTP_DIR="${FTP_DIR:-uftritt.mklkreativ.ch}"
+
+if [ "$FTP_DIR" = "uftritt.mklkreativ.ch" ]; then
+  MANIFEST=".deploy-manifest.txt"   # lokal, in .gitignore
+else
+  MANIFEST=".deploy-manifest-$(echo "$FTP_DIR" | tr '/.' '__').txt"
+fi
 
 cd "$(dirname "$0")/.."
 
@@ -30,7 +41,7 @@ MODE="${1:-}"
 echo "==> Build (astro)"
 npm run build >/dev/null
 
-echo "==> Pruefsummen berechnen"
+echo "==> Pruefsummen berechnen (Ziel: $FTP_DIR)"
 NEW="$(mktemp)"; UPLOAD="$(mktemp)"; DELS="$(mktemp)"
 trap 'rm -f "$NEW" "$UPLOAD" "$DELS"' EXIT
 ( cd "$DIST" && find . -type f -exec sha256sum {} \; | sort ) > "$NEW"
@@ -62,7 +73,7 @@ while IFS= read -r f; do
   n=$((n+1))
   printf "  [%d/%d] %s\n" "$n" "$UP_N" "$rel"
   curl -s -S --ftp-create-dirs --connect-timeout 25 --max-time 300 \
-       --user "$USER:$PW" -T "$DIST/$rel" "ftp://$HOST/$rel" \
+       --user "$USER:$PW" -T "$DIST/$rel" "ftp://$HOST/$FTP_DIR/$rel" \
     || { echo "FEHLER beim Upload: $rel"; exit 1; }
 done < "$UPLOAD"
 
@@ -71,8 +82,8 @@ while IFS= read -r f; do
   rel="${f#./}"; [ -z "$rel" ] && continue
   echo "  loesche: $rel"
   curl -s -S --connect-timeout 25 --max-time 60 \
-       --user "$USER:$PW" -Q "DELE /$rel" "ftp://$HOST/" >/dev/null 2>&1 || true
+       --user "$USER:$PW" -Q "DELE /$FTP_DIR/$rel" "ftp://$HOST/" >/dev/null 2>&1 || true
 done < "$DELS"
 
 cp "$NEW" "$MANIFEST"
-echo "==> Fertig. Live: https://uftritt.mklkreativ.ch/"
+echo "==> Fertig. Ziel: ftp://$HOST/$FTP_DIR/"

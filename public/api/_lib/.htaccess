@@ -1,0 +1,2 @@
+# _lib enthält nur Includes – nie direkt ausliefern (Apache 2.4, defense in depth)
+Require all denied

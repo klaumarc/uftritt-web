@@ -1,0 +1,1121 @@
+---
+interface Props {
+  /** Ziel des «Durchstarten»-Buttons im Game-over-Screen. Auf /agentur/ → /durchstarten/, auf der Durchstarten-Seite selbst → /kontakt/. */
+  ctaHref?: string;
+  /** «Durchstarten»-Button im Game-over-Screen zeigen? Auf /durchstarten/ aus, dort folgt unten der Seiten-CTA. */
+  showCta?: boolean;
+}
+const { ctaHref = "/durchstarten/", showCta = true } = Astro.props;
+---
+
+{/* ---------- DAS UFTRITT-SPIEL («Abheben») ----------
+    Self-contained: Canvas-Game + eigene Styles/Logik.
+    Assets kommen aus /img/icons/ (Rakete = rakete-game-icon.svg, seit 2026-08-26).
+    Ohne Sound (Entscheid Marcel 2026-08-18). Vollbild-Button mit
+    Fixed-Fallback für iOS (dort keine Fullscreen-API für Elemente).
+    Auf Touch-Geräten startet das Spiel nur im Vollbild (automatisch beim
+    Tap auf «Los geht's») und der Boost läuft über einen eigenen Button -
+    Doppeltippen löste beim schnellen Steuern versehentlich aus (2026-08-24).
+    Tracking-Events wie beim Shimeji (Matomo _paq). */}
+<section class="section spiel-section">
+  <div>
+    <div class="spiel-frame" data-reveal>
+      <div class="sp-stage" id="spStage">
+        <canvas id="spCanvas"></canvas>
+        <div class="sp-hud" id="spHud"><span id="spHudNum">0</span><small>Höhe</small><small class="sp-lvl" id="spHudLevel">Level 1</small><small class="sp-boost" id="spBoost"><span class="sp-boost-fill" id="spBoostFill"></span><span class="sp-boost-txt" id="spBoostTxt">Boost bereit</span></small></div>
+        <div class="sp-banner" id="spBanner"><strong id="spBannerTitle"></strong><span id="spBannerPerk"></span></div>
+        <button class="sp-fs" id="spFs" title="Vollbild spielen">⛶</button>
+        <button class="sp-boostbtn" id="spBoostBtn" aria-label="Boost mit Salto auslösen"><span class="sp-boost-fill" id="spBoostBtnFill"></span><span class="sp-boost-txt">Boost</span></button>
+
+        <div class="sp-screen" id="spStart">
+          <span class="sp-eyebrow">Uftritt · Das Spiel</span>
+          <p class="sp-title">Abheben!</p>
+          <p class="sp-sub">Die Rakete hüpft von selbst, du steuerst links und rechts. Nicht runterfallen!</p>
+          <button class="sp-btn" id="spStartBtn">Los geht's</button>
+          <span class="sp-hint">Steuern: ◀ ▶ / A · D oder linke / rechte Bildhälfte halten<br />Boost mit Salto: Leertaste, Doppelklick, am Handy der Boost-Button<br />Am Handy startet das Spiel automatisch im Vollbild</span>
+          <span class="sp-hint sp-hint-prize">Ab 10 000 Punkten wartet ein echter Preis: Uftritt-Tasse oder -Stift.</span>
+        </div>
+
+        <div class="sp-screen sp-hidden" id="spOver">
+          <span class="sp-score-label">Erreichte Höhe</span>
+          <div class="sp-score-big" id="spFinal">0</div>
+          <div class="sp-hi" id="spHi">Rekord: 0</div>
+          <div class="sp-new-record" id="spRecord" style="display:none">Neuer Rekord!</div>
+
+          <p class="sp-teaser" id="spTeaser"></p>
+
+          <div class="sp-prize sp-hidden" id="spPrize">
+            <p class="sp-prize-title">🎉 Gewonnen!</p>
+            <p class="sp-prize-sub">Du hast die 10 000 geknackt. Wähle deinen Preis, Abholung in Saland, bei einem Kaffee oder beim nächsten Besuch.</p>
+            <form id="spPrizeForm" novalidate>
+              <div class="sp-prize-choice">
+                <label><input type="radio" name="preis" value="tasse" checked /><span>☕ Tasse</span></label>
+                <label><input type="radio" name="preis" value="stift" /><span>🖊️ Stift</span></label>
+              </div>
+              <input type="text" name="name" placeholder="Dein Name" required maxlength="100" autocomplete="name" />
+              <input type="email" name="email" placeholder="deine@email.ch" required autocomplete="email" />
+              <input type="text" name="bot-field" class="sp-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+              <button type="submit" class="sp-btn" id="spPrizeBtn">Preis sichern</button>
+              <p class="sp-prize-legal">Ein Preis pro Person. Deine Angaben verwenden wir nur für die Preis-Abwicklung (<a href="/datenschutz/">Datenschutz</a>).</p>
+              <p class="sp-prize-msg" id="spPrizeMsg" role="status"></p>
+            </form>
+          </div>
+
+          {showCta && <a class="sp-btn" id="spCta" href={ctaHref}>Jetzt wirklich durchstarten →</a>}
+          <button class="sp-btn sp-btn-ghost" id="spAgainBtn">Nochmal abheben</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Spielfläche über die ganze Fensterbreite, ohne Sektions-Padding -
+     der Farbblock schliesst direkt an die Nachbar-Sektionen an (2026-08-26) */
+  .spiel-section {
+    padding-block: 0;
+  }
+
+  /* Bühne: mobil hochkant, am Desktop breit */
+  .sp-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    max-height: 78vh;
+    margin-inline: auto;
+    background: #ffd23c;
+    overflow: hidden;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (min-width: 900px) {
+    .sp-stage {
+      aspect-ratio: 16 / 10;
+      max-height: 82vh;
+    }
+  }
+  /* Vollbild: echte Fullscreen-API oder Fixed-Fallback (iOS) */
+  .sp-stage:fullscreen {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    aspect-ratio: auto;
+  }
+  .sp-stage.sp-fakefs {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    aspect-ratio: auto;
+    margin: 0;
+  }
+  .sp-stage canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .sp-screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: safe center; /* «safe»: bei Überlauf (Gewinn-Formular) oben nichts abschneiden */
+    text-align: center;
+    padding: 8% 8%;
+    gap: 1.05rem;
+    background: rgba(1, 64, 128, 0.9);
+    color: #fff;
+    overflow-y: auto;
+    transition: opacity 0.35s var(--ease);
+  }
+  .sp-screen.sp-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .sp-eyebrow {
+    letter-spacing: 0.06em;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #ffd23c;
+  }
+  .sp-title {
+    font-size: clamp(2.2rem, 9vmin, 3.6rem);
+    line-height: 0.98;
+    font-weight: 700; /* wie die übrigen Titel der Website */
+    letter-spacing: -0.02em;
+  }
+  .sp-sub {
+    font-size: 1rem;
+    opacity: 0.92;
+    max-width: 30ch;
+    line-height: 1.4;
+  }
+  .sp-btn {
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: #fff;
+    background: #da2c67;
+    padding: 0.85rem 1.9rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s var(--ease), transform 0.15s var(--ease);
+  }
+  .sp-btn:hover {
+    background: #bd1f53;
+  }
+  .sp-btn:active {
+    transform: scale(0.96);
+  }
+  .sp-btn-ghost {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.85);
+  }
+  .sp-btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .sp-score-big {
+    font-size: clamp(3rem, 15vmin, 5.5rem);
+    font-weight: 700;
+    line-height: 1;
+    color: #ffd23c;
+  }
+  .sp-score-label {
+    letter-spacing: 0.06em;
+    font-size: 0.78rem;
+    font-weight: 800;
+    opacity: 0.85;
+  }
+  .sp-hi {
+    font-size: 1rem;
+    font-weight: 700;
+    opacity: 0.92;
+  }
+  .sp-new-record {
+    color: #ffd23c;
+    font-weight: 900;
+    letter-spacing: 0.03em;
+  }
+  .sp-hint {
+    font-size: 0.82rem;
+    opacity: 0.72;
+    line-height: 1.5;
+  }
+
+  .sp-hud {
+    position: absolute;
+    top: 14px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-weight: 700;
+    font-size: clamp(1.7rem, 6vmin, 2.7rem);
+    color: #014080;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease);
+    text-shadow: 0 0 6px rgba(255, 210, 60, 0.95), 0 0 14px rgba(255, 210, 60, 0.7);
+  }
+  .sp-hud.on {
+    opacity: 1;
+  }
+  .sp-hud small {
+    display: block;
+    font-size: 0.3em;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  .sp-hud small.sp-lvl {
+    font-size: 0.3em;
+    opacity: 0.85;
+  }
+  /* Boost-Status (Desktop): weiss auf Pink, pinker Ladebalken füllt von links */
+  .sp-hud small.sp-boost {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    font-size: 0.26em;
+    letter-spacing: 0.14em;
+    color: #fff;
+    background: #bd1f53;
+    border-radius: 999px;
+    padding: 0.35em 0.9em;
+    text-shadow: none;
+    opacity: 0.95;
+  }
+  .sp-boost-fill {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background: #da2c67;
+  }
+  .sp-boost-txt {
+    position: relative;
+  }
+
+  .sp-banner {
+    position: absolute;
+    left: 50%;
+    top: 26%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: rgba(1, 64, 128, 0.9);
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .sp-banner strong {
+    display: block;
+    font-size: clamp(1.4rem, 5.5vmin, 2.3rem);
+    font-weight: 700;
+    color: #ffd23c;
+    letter-spacing: -0.01em;
+  }
+  .sp-banner span {
+    font-size: 0.85rem;
+    opacity: 0.85;
+  }
+  .sp-banner.show {
+    animation: spBannerPop 2.3s var(--ease) forwards;
+  }
+  @keyframes spBannerPop {
+    0% { opacity: 0; transform: translateX(-50%) translateY(16px) scale(0.94); }
+    12% { opacity: 1; transform: translateX(-50%); }
+    78% { opacity: 1; }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-12px); }
+  }
+
+  .sp-fs {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 6;
+    background: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(1, 64, 128, 0.25);
+    cursor: pointer;
+    font-size: 1.05rem;
+    line-height: 1;
+    padding: 8px 10px;
+    color: #014080;
+    opacity: 0.9;
+  }
+  .sp-fs:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  /* Boost-Button: nur auf Touch-Geräten während des Spiels sichtbar
+     (ersetzt Doppeltippen, das löste beim schnellen Steuern aus Versehen aus) */
+  .sp-boostbtn {
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+    z-index: 6;
+    display: none;
+    overflow: hidden;
+    font: inherit;
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #bd1f53;
+    border: none;
+    border-radius: 999px;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .sp-boostbtn.on {
+    display: block;
+  }
+
+  .sp-hint-prize {
+    color: #ffd23c;
+    font-weight: 700;
+    opacity: 0.95;
+  }
+
+  /* Gewinn-Block im Game-over-Screen */
+  .sp-teaser {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffd23c;
+    min-height: 0;
+  }
+  .sp-teaser:empty {
+    display: none;
+  }
+  .sp-prize {
+    border: 2px solid #ffd23c;
+    padding: 1rem 1.1rem;
+    width: 100%;
+    max-width: 350px;
+  }
+  .sp-prize.sp-hidden {
+    display: none;
+  }
+  .sp-prize-title {
+    font-weight: 900;
+    font-size: 1.35rem;
+    color: #ffd23c;
+  }
+  .sp-prize-sub {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    line-height: 1.4;
+    margin-top: 0.3rem;
+  }
+  .sp-prize form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-top: 0.7rem;
+  }
+  .sp-prize-choice {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .sp-prize-choice label {
+    flex: 1;
+    cursor: pointer;
+  }
+  .sp-prize-choice input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .sp-prize-choice span {
+    display: block;
+    padding: 0.55rem 0.4rem;
+    font-weight: 800;
+    font-size: 0.9rem;
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    color: #fff;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .sp-prize-choice input:checked + span {
+    background: #ffd23c;
+    border-color: #ffd23c;
+    color: #014080;
+  }
+  .sp-prize-choice input:focus-visible + span {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+  .sp-prize input[type="text"],
+  .sp-prize input[type="email"] {
+    font: inherit;
+    font-size: 0.95rem;
+    padding: 0.6rem 0.75rem;
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    background: #fff;
+    color: #014080;
+    width: 100%;
+  }
+  .sp-prize input[type="text"]:focus-visible,
+  .sp-prize input[type="email"]:focus-visible {
+    outline: 2px solid #ffd23c;
+    outline-offset: 1px;
+  }
+  .sp-hp {
+    position: absolute;
+    left: -5000px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    overflow: hidden;
+  }
+  .sp-prize-legal {
+    font-size: 0.68rem;
+    opacity: 0.7;
+    line-height: 1.4;
+  }
+  .sp-prize-legal a {
+    color: #ffd23c;
+  }
+  .sp-prize-msg {
+    font-size: 0.85rem;
+    font-weight: 700;
+    min-height: 1em;
+  }
+  .sp-prize-ok {
+    font-weight: 800;
+    color: #ffd23c;
+    padding: 0.6rem 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sp-banner.show {
+      animation: none;
+      opacity: 0;
+    }
+    .sp-screen,
+    .sp-btn,
+    .sp-hud {
+      transition: none;
+    }
+  }
+</style>
+
+<script is:inline>
+(() => {
+  const root = document.getElementById('spStage');
+  if (!root) return;
+
+  const ICONS = '/img/icons/';
+
+  const stage = root;
+  const canvas = document.getElementById('spCanvas');
+  const ctx = canvas.getContext('2d');
+  const hud = document.getElementById('spHud');
+  const hudNum = document.getElementById('spHudNum');
+  const hudLevel = document.getElementById('spHudLevel');
+  const boostFill = document.getElementById('spBoostFill');
+  const boostTxt = document.getElementById('spBoostTxt');
+  const boostBtn = document.getElementById('spBoostBtn');
+  const boostBtnFill = document.getElementById('spBoostBtnFill');
+  const levelBanner = document.getElementById('spBanner');
+  const lbTitle = document.getElementById('spBannerTitle');
+  const lbPerk = document.getElementById('spBannerPerk');
+  const fsBtn = document.getElementById('spFs');
+  const startScreen = document.getElementById('spStart');
+  const overScreen = document.getElementById('spOver');
+  const startBtn = document.getElementById('spStartBtn');
+  const againBtn = document.getElementById('spAgainBtn');
+  const finalScore = document.getElementById('spFinal');
+  const hiScoreEl = document.getElementById('spHi');
+  const recordEl = document.getElementById('spRecord');
+  const teaserEl = document.getElementById('spTeaser');
+  const prizeBox = document.getElementById('spPrize');
+  const prizeForm = document.getElementById('spPrizeForm');
+  const prizeBtn = document.getElementById('spPrizeBtn');
+  const prizeMsg = document.getElementById('spPrizeMsg');
+
+  const COL = { blue:'#014080', blueDark:'#013366', blueLite:'#3f7cbf', yellow:'#ffd23c', pink:'#da2c67', pinkDark:'#bd1f53', white:'#ffffff' };
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Touch-Gerät? (steuert: Boost-Button statt Doppeltippen, Auto-Vollbild, ruhigere Steuerung)
+  const IS_TOUCH = matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window;
+  // Mobile: Boost-Pille unter der Punktzahl ausblenden, dort gibt es den eigenen Boost-Button (2026-08-26)
+  if (IS_TOUCH) document.getElementById('spBoost').style.display = 'none';
+
+  // ---- Assets ----
+  const rocketImg = new Image();
+  rocketImg.src = ICONS + 'rakete-game-icon.svg';
+  const ROCKET_AR = 139.96 / 172.99; // viewBox des neuen Icons (2026-08-26)
+
+  // Kompetenz-Icons = nur die drei Angebots-Icons (der Rest sind Prozess-Schritte,
+  // keine Kompetenzen, Marcel 2026-08-26): blaue SVGs → weisse Sprites (auf pinkem Badge)
+  const ICON_NAMES = ['grafikdesign','webdesign','video'];
+  const iconSprites = new Array(ICON_NAMES.length).fill(null);
+  ICON_NAMES.forEach((n, i) => {
+    const img = new Image();
+    img.onload = () => {
+      const c = document.createElement('canvas'); c.width = c.height = 128;
+      const g = c.getContext('2d');
+      // Seitenverhältnis bewahren (die SVGs sind nicht quadratisch), sonst verzogen
+      const s = Math.min(128 / img.naturalWidth, 128 / img.naturalHeight);
+      const w = img.naturalWidth * s, h = img.naturalHeight * s;
+      g.drawImage(img, (128 - w) / 2, (128 - h) / 2, w, h);
+      // Auf die tatsächliche Pixel-Mitte zentrieren: manche SVGs haben asymmetrischen
+      // Weissraum in der viewBox und hingen sonst schief im Badge (2026-08-26)
+      const px = g.getImageData(0, 0, 128, 128).data;
+      let x0 = 128, x1 = -1, y0 = 128, y1 = -1;
+      for (let yy = 0; yy < 128; yy++) for (let xx = 0; xx < 128; xx++){
+        if (px[(yy * 128 + xx) * 4 + 3] > 8){
+          if (xx < x0) x0 = xx; if (xx > x1) x1 = xx;
+          if (yy < y0) y0 = yy; if (yy > y1) y1 = yy;
+        }
+      }
+      const c2 = document.createElement('canvas'); c2.width = c2.height = 128;
+      const g2 = c2.getContext('2d');
+      if (x1 >= 0) g2.drawImage(c, 64 - (x0 + x1) / 2, 64 - (y0 + y1) / 2);
+      else g2.drawImage(c, 0, 0);
+      g2.globalCompositeOperation = 'source-in';
+      g2.fillStyle = '#fff'; g2.fillRect(0, 0, 128, 128);
+      iconSprites[i] = c2;
+    };
+    img.src = ICONS + n + '-icon.svg';
+  });
+
+  // ---- Level & Schwierigkeit ----
+  const LEVELS = [
+    { name:'Startklar',    perk:'' },
+    { name:'Auftrieb',     perk:'Die Stufen kommen in Bewegung' },
+    { name:'Turbulenzen',  perk:'Schmaler, schneller, höher' },
+    { name:'Stratosphäre', perk:'Vorsicht, pinke Stufen brechen weg!' },
+    { name:'Orbit',        perk:'Fast schwerelos' },
+    { name:'Hyperdrive',   perk:'Volle Power voraus' },
+  ];
+  const lvl = () => Math.min(12, 1 + Math.floor(score / 1400));
+  const lvlInfo = () => LEVELS[Math.min(lvl(), LEVELS.length) - 1];
+  function diff(){
+    const l = lvl();
+    // Flachere Rampe (Feedback 2026-08-24: viele schafften nur ~4000): kleinere Lücken,
+    // weniger/spätere bewegte + brechende Stufen, langsamere Stufen, breitere Balken.
+    // Max. Lücke 0.24H bleibt deutlich unter der Sprunghöhe (~0.31H).
+    return {
+      gap:         H * (0.135 + Math.min(0.04, (l - 1) * 0.0045)) + Math.random() * H * 0.065,
+      moveChance:  Math.min(0.05 + l * 0.05, 0.4),
+      breakChance: l >= 4 ? Math.min(0.04 + (l - 3) * 0.03, 0.18) : 0,
+      speed:       W * (0.0022 + l * 0.00035),
+      pw:          Math.max(W * 0.17, Math.min(W * (0.28 - (l - 1) * 0.007), H * 0.4)),
+    };
+  }
+
+  // ---- Himmel: von Markengelb bis ins All ----
+  const SKY = [
+    [0,     [255,210, 60]],
+    [3500,  [255,226,138]],
+    [8000,  [244,246,248]],
+    [14000, [186,212,236]],
+    [22000, [  4, 54,104]],
+    [32000, [  1, 32, 66]],
+  ];
+  function skyRGB(s){
+    s = Math.max(0, s);
+    for (let i = SKY.length - 1; i >= 0; i--){
+      if (s >= SKY[i][0]){
+        if (i === SKY.length - 1) return SKY[i][1];
+        const a = SKY[i], b = SKY[i + 1], t = (s - a[0]) / (b[0] - a[0]);
+        return [0, 1, 2].map(k => Math.round(a[1][k] + (b[1][k] - a[1][k]) * t));
+      }
+    }
+    return SKY[0][1];
+  }
+  const darkF = s => Math.min(1, Math.max(0, (s - 12000) / 9000)); // 0 = Tag, 1 = All
+  const stars = Array.from({ length: 70 }, () => ({ x: Math.random(), y: Math.random(), r: Math.random() * 1.5 + 0.5, tw: Math.random() * 3 + 1, ph: Math.random() * 6.28 }));
+
+  // ---- Zustand ----
+  let W = 0, H = 0, DPR = 1;
+  function resize(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = stage.clientWidth; H = stage.clientHeight;
+    canvas.width = W * DPR; canvas.height = H * DPR;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  let state = 'start';
+  let hi = +(localStorage.getItem('uftritt_hoch_hi') || 0);
+  let player, plats, collectibles, particles, texts, clouds, score, dir, GRAV, JUMP, PH;
+  let curLvl = 1, lastBoost = -1e9, boostUI = '';
+  const BOOST_CD = 3000; // lädt bewusst gemächlicher (2026-08-26)
+  const PRIZE_AT = 10000; // Gewinn-Schwelle (muss zu GEWINN_MIN_SCORE in /api/gewinn.php passen)
+
+  // Bühne nur zeichnen, wenn sie sichtbar ist (Ressourcen sparen)
+  let onScreen = true;
+  if ('IntersectionObserver' in window){
+    new IntersectionObserver(es => { onScreen = es[0].isIntersecting; }, { threshold: 0.02 }).observe(stage);
+  }
+
+  // ---- Vollbild (echte API; Fixed-Fallback für iOS, dort kein Element-Fullscreen) ----
+  let fakeFs = false, fsPlaceholder = null;
+  const inFs = () => !!document.fullscreenElement || fakeFs;
+  function updateFsBtn(){
+    fsBtn.textContent = inFs() ? '✕' : '⛶';
+    fsBtn.title = inFs() ? 'Vollbild verlassen' : 'Vollbild spielen';
+  }
+  function setFakeFs(on){
+    fakeFs = on;
+    if (on){
+      // Bühne an <body> umhängen: data-reveal-Vorfahren haben will-change:transform,
+      // das bindet position:fixed an den Vorfahren statt an den Viewport
+      fsPlaceholder = document.createComment('sp-stage');
+      stage.parentNode.insertBefore(fsPlaceholder, stage);
+      document.body.appendChild(stage);
+      stage.classList.add('sp-fakefs');
+      document.body.style.overflow = 'hidden';
+    } else {
+      stage.classList.remove('sp-fakefs');
+      if (fsPlaceholder && fsPlaceholder.parentNode){
+        fsPlaceholder.parentNode.insertBefore(stage, fsPlaceholder);
+        fsPlaceholder.parentNode.removeChild(fsPlaceholder);
+      }
+      fsPlaceholder = null;
+      document.body.style.overflow = '';
+    }
+    updateFsBtn();
+    setTimeout(resize, 60);
+    fsExitGuard();
+  }
+  async function enterFs(){
+    if (inFs()) return;
+    const req = stage.requestFullscreen || stage.webkitRequestFullscreen;
+    if (req){
+      try { await req.call(stage); return; } catch(e){ /* abgelehnt/unsupported → Fallback */ }
+    }
+    setFakeFs(true);
+  }
+  // Auf Touch-Geräten läuft das Spiel nur im Vollbild: wird das Vollbild
+  // mitten im Run verlassen, zurück zum Startscreen (Run ist damit vorbei).
+  function fsExitGuard(){
+    if (IS_TOUCH && state === 'play' && !inFs()){
+      state = 'start';
+      hud.classList.remove('on');
+      boostBtn.classList.remove('on');
+      overScreen.classList.add('sp-hidden');
+      startScreen.classList.remove('sp-hidden');
+    }
+  }
+  fsBtn.addEventListener('click', async () => {
+    if (document.fullscreenElement){ try { await document.exitFullscreen(); } catch(e){} return; }
+    if (fakeFs){ setFakeFs(false); return; }
+    enterFs();
+  });
+  document.addEventListener('fullscreenchange', () => { updateFsBtn(); setTimeout(resize, 60); fsExitGuard(); });
+
+  function makePlatform(y, w){
+    w = w || Math.min(Math.max(64, W * 0.26), H * 0.4);
+    return { x: Math.random() * (W - w), y, w, type:'normal', vx:0, alpha:1, breaking:false };
+  }
+  function assignType(p){
+    const d = diff();
+    p.w = d.pw; p.x = Math.random() * (W - p.w);
+    p.breaking = false; p.alpha = 1;
+    const roll = Math.random();
+    if (roll < d.breakChance){ p.type = 'break'; p.vx = 0; }
+    else if (roll < d.breakChance + d.moveChance){
+      p.type = 'move';
+      p.vx = (Math.random() < 0.5 ? -1 : 1) * d.speed * (0.7 + Math.random() * 0.6);
+    } else { p.type = 'normal'; p.vx = 0; }
+  }
+  function spawnCollectible(p){
+    collectibles.push({
+      x: p.x + p.w * (0.3 + Math.random() * 0.4),
+      y: p.y - PH - Math.max(20, H * 0.055),
+      r: Math.min(Math.max(13, W * 0.038), H * 0.045),
+      idx: Math.floor(Math.random() * ICON_NAMES.length),
+      got: false, bob: Math.random() * 6, spin: Math.random() * 6.28,
+    });
+  }
+
+  function reset(){
+    GRAV = H * 0.0009; JUMP = H * 0.0235;
+    PH = Math.max(16, H * 0.028);
+    plats = []; collectibles = []; particles = []; texts = []; clouds = [];
+    for (let i = 0; i < 6; i++) clouds.push({ x: Math.random() * W, y: Math.random() * H, s: Math.random() * 0.6 + 0.5, z: Math.random() * 0.5 + 0.3 });
+
+    // Startplattform mittig unten + aufsteigende Stufen
+    const base = makePlatform(H * 0.82); base.x = W * 0.5 - base.w / 2; plats.push(base);
+    let y = base.y;
+    while (y > -H){
+      y -= (H * 0.135 + Math.random() * H * 0.065);
+      const p = makePlatform(y); plats.push(p);
+      if (Math.random() < 0.28) spawnCollectible(p);
+    }
+    const r = Math.max(15, Math.min(W * 0.05, H * 0.055));
+    player = { x: W * 0.5, y: base.y - r, r, vy: -JUMP, vx: 0, spin: 0, squash: 0 };
+    score = 0; dir = 0; curLvl = 1; lastBoost = -1e9; boostUI = '';
+    hudNum.textContent = '0';
+    hudLevel.textContent = 'Level 1';
+  }
+
+  function startGame(){
+    reset(); state = 'play';
+    startScreen.classList.add('sp-hidden'); overScreen.classList.add('sp-hidden'); hud.classList.add('on');
+    boostBtn.classList.toggle('on', IS_TOUCH);
+    if (window._paq) window._paq.push(['trackEvent', 'Engagement', 'Spiel gestartet']);
+  }
+
+  function gameOver(){
+    state = 'over'; hud.classList.remove('on');
+    boostBtn.classList.remove('on');
+    finalScore.textContent = score;
+    const rec = score > hi;
+    if (rec){ hi = score; localStorage.setItem('uftritt_hoch_hi', hi); }
+    hiScoreEl.textContent = 'Rekord: ' + hi;
+    recordEl.style.display = rec && score > 0 ? 'block' : 'none';
+    // Gewinn-Logik: Formular / «bereits gesichert» / Teaser mit Restpunkten
+    const claimed = localStorage.getItem('uftritt_prize_claimed') === '1';
+    prizeBox.classList.add('sp-hidden');
+    teaserEl.textContent = '';
+    if (score >= PRIZE_AT && !claimed){
+      prizeBox.classList.remove('sp-hidden');
+      prizeMsg.textContent = '';
+      if (window._paq) window._paq.push(['trackEvent', 'Engagement', 'Gewinn-Schwelle erreicht']);
+    } else if (score >= PRIZE_AT && claimed){
+      teaserEl.textContent = 'Du hast deinen Preis bereits gesichert 🎉';
+    } else {
+      teaserEl.textContent = 'Nur noch ' + (PRIZE_AT - score) + ' Punkte bis zum Preis (Tasse oder Stift).';
+    }
+    overScreen.classList.remove('sp-hidden');
+    if (window._paq) window._paq.push(['trackEvent', 'Engagement', 'Spiel beendet', 'Score', score]);
+  }
+
+  function checkLevel(){
+    if (lvl() !== curLvl){
+      curLvl = lvl();
+      hudLevel.textContent = 'Level ' + curLvl;
+      lbTitle.textContent = 'Level ' + curLvl + ' · ' + lvlInfo().name;
+      lbPerk.textContent = lvlInfo().perk;
+      levelBanner.classList.remove('show');
+      void levelBanner.offsetWidth; // Animation neu starten
+      levelBanner.classList.add('show');
+    }
+  }
+
+  function tryBoost(){
+    if (state !== 'play') return;
+    const now = performance.now();
+    if (now - lastBoost < BOOST_CD) return;
+    lastBoost = now;
+    player.vy = -JUMP * 1.45;
+    if (!RM) player.spin = 0.0001; // Salto
+    for (let i = 0; i < 14; i++) particles.push({ x: player.x, y: player.y + player.r, vx:(Math.random() - 0.5) * 4, vy: Math.random() * 3 + 2, life: 1, col: Math.random() < 0.5 ? COL.pink : COL.yellow, size: Math.random() * 3.5 + 2 });
+  }
+
+  function tick(){
+    requestAnimationFrame(tick);
+    if (!onScreen) return; // ausserhalb des Viewports: pausieren
+    const time = performance.now() / 1000;
+    const dark = darkF(score);
+    const bg = skyRGB(score);
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = 'rgb(' + bg[0] + ',' + bg[1] + ',' + bg[2] + ')';
+    ctx.fillRect(0, 0, W, H);
+
+    // Sterne (erst weit oben sichtbar)
+    if (dark > 0){
+      ctx.fillStyle = COL.white;
+      for (const st of stars){
+        ctx.globalAlpha = dark * (0.25 + 0.75 * Math.abs(Math.sin(time * st.tw + st.ph)));
+        ctx.beginPath(); ctx.arc(st.x * W, st.y * H, st.r, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    // Wolken (Parallaxe)
+    for (const cl of clouds){
+      ctx.globalAlpha = 0.10; ctx.fillStyle = COL.white;
+      const cw = W * 0.28 * cl.s;
+      ctx.beginPath(); ctx.ellipse(cl.x, cl.y, cw, cw * 0.5, 0, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    // HUD-Farbe an Hintergrund anpassen
+    hud.style.color = dark > 0.45 ? COL.yellow : COL.blue;
+
+    if (state === 'play'){
+      // horizontale Steuerung (auf Touch etwas ruhiger, damit es weniger hektisch wirkt)
+      const target = dir * W * (IS_TOUCH ? 0.011 : 0.014);
+      player.vx += (target - player.vx) * (IS_TOUCH ? 0.22 : 0.3);
+      player.x += player.vx;
+      // Rand-Wrap (wie Doodle Jump)
+      if (player.x < -player.r) player.x = W + player.r;
+      if (player.x > W + player.r) player.x = -player.r;
+
+      // Schwerkraft
+      const prevFeet = player.y + player.r * 0.85;
+      player.vy += GRAV; player.y += player.vy;
+      const feet = player.y + player.r * 0.85;
+
+      // Plattformen bewegen / brechen
+      for (const p of plats){
+        if (p.type === 'move'){ p.x += p.vx; if (p.x < 0 || p.x + p.w > W) p.vx *= -1; }
+        if (p.breaking){ p.y += H * 0.006; p.alpha -= 0.035; }
+      }
+
+      // Landen → abspringen (nur beim Fallen)
+      if (player.vy > 0){
+        for (const p of plats){
+          if (p.alpha <= 0) continue;
+          if (prevFeet <= p.y && feet >= p.y &&
+              player.x + player.r * 0.45 > p.x && player.x - player.r * 0.45 < p.x + p.w){
+            player.vy = -JUMP; player.y = p.y - player.r * 0.85;
+            player.squash = 1;
+            if (p.type === 'break') p.breaking = true;
+            for (let i = 0; i < 7; i++) particles.push({ x: player.x, y: p.y, vx:(Math.random() - 0.5) * 3, vy: Math.random() * 2 + 1,
+              life: 1, col: Math.random() < 0.5 ? COL.yellow : COL.pink, size: Math.random() * 3 + 2 });
+            break;
+          }
+        }
+      }
+
+      // Kamera: Spieler oben halten, Welt nach unten schieben
+      const camLine = H * 0.42;
+      if (player.y < camLine){
+        const dy = camLine - player.y;
+        player.y = camLine;
+        score += Math.round(dy);
+        hudNum.textContent = score;
+        for (const p of plats) p.y += dy;
+        for (const co of collectibles) co.y += dy;
+        for (const pt of particles) pt.y += dy;
+        for (const tx of texts) tx.y += dy;
+        for (const cl of clouds){ cl.y += dy * cl.z * 0.5; if (cl.y > H * 1.1){ cl.y = -H * 0.1; cl.x = Math.random() * W; } }
+        checkLevel();
+      }
+
+      // Plattformen recyceln (unten raus → oben neu, mit Level-Schwierigkeit)
+      let topY = Math.min(...plats.map(p => p.y));
+      for (const p of plats){
+        if (p.y > H + PH || p.alpha <= 0){
+          topY -= diff().gap;
+          p.y = topY;
+          assignType(p);
+          if (Math.random() < 0.25) spawnCollectible(p);
+        }
+      }
+      collectibles = collectibles.filter(c => !c.got && c.y < H + 80);
+
+      // Boost-Indikator: pinker Ladebalken (HUD-Pille + Touch-Button) füllt von links
+      const bprog = Math.min(1, (performance.now() - lastBoost) / BOOST_CD);
+      boostFill.style.width = (bprog * 100) + '%';
+      boostBtnFill.style.width = (bprog * 100) + '%';
+      const bUI = bprog >= 1 ? '1' : '0';
+      if (bUI !== boostUI){
+        boostUI = bUI;
+        boostTxt.textContent = bprog >= 1 ? 'Boost bereit' : 'Boost lädt …';
+      }
+
+      // Runtergefallen?
+      if (player.y - player.r > H) gameOver();
+    }
+
+    // Plattformen zeichnen (eckige Balken im CD)
+    for (const p of plats) drawPlatform(p, dark, time);
+
+    // Sammelobjekte
+    for (const co of collectibles){
+      if (co.got) continue;
+      co.bob += 0.06;
+      const cy = co.y + Math.sin(co.bob) * 4;
+      drawCollectible(co, cy, time);
+      // gelegentliche Glitzerpartikel am Ring
+      if (!RM && Math.random() < 0.010){
+        const a = Math.random() * Math.PI * 2;
+        particles.push({ x: co.x + Math.cos(a) * co.r * 1.4, y: cy + Math.sin(a) * co.r * 1.4, vx: 0, vy: -0.4, life: 0.8, col: COL.yellow, size: Math.random() * 2 + 1 });
+      }
+      if (state === 'play' && Math.hypot(co.x - player.x, cy - player.y) < co.r + player.r * 0.7){
+        co.got = true; score += 150; hudNum.textContent = score;
+        texts.push({ x: co.x, y: cy - co.r, txt: '+150', life: 1 });
+        for (let i = 0; i < 12; i++){ const a = Math.random() * Math.PI * 2, sp = Math.random() * 3 + 1;
+          particles.push({ x: co.x, y: cy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life: 1, col: Math.random() < 0.5 ? COL.pink : COL.yellow, size: Math.random() * 3 + 2 }); }
+        checkLevel();
+      }
+    }
+
+    // Partikel
+    for (const pt of particles){
+      pt.x += pt.vx; pt.y += pt.vy; pt.vy += 0.05; pt.life -= 0.02;
+      ctx.globalAlpha = Math.max(0, pt.life); ctx.fillStyle = pt.col;
+      ctx.beginPath(); ctx.arc(pt.x, pt.y, pt.size, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    particles = particles.filter(p => p.life > 0);
+
+    // schwebende Punkte-Texte
+    for (const tx of texts){
+      tx.y -= 0.7; tx.life -= 0.02;
+      ctx.globalAlpha = Math.max(0, tx.life);
+      ctx.font = '900 ' + Math.max(16, W * 0.032) + 'px Rational, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = dark > 0.45 ? COL.yellow : COL.pink;
+      ctx.fillText(tx.txt, tx.x, tx.y);
+    }
+    ctx.globalAlpha = 1;
+    texts = texts.filter(t => t.life > 0);
+
+    drawRocket();
+  }
+
+  // Plattform = eckiger Balken, farbcodiert nach Typ
+  function drawPlatform(p, dark, time){
+    if (p.alpha <= 0) return;
+    ctx.save();
+    ctx.globalAlpha = Math.max(0, Math.min(1, p.alpha));
+    const h = PH, top = Math.max(3, h * 0.30);
+    let body, edge;
+    if (p.type === 'break'){ body = COL.pink; edge = COL.pinkDark; }
+    else if (p.type === 'move'){ body = COL.blueLite; edge = COL.blue; }
+    else { body = dark > 0.5 ? '#2f6bb0' : COL.blue; edge = dark > 0.5 ? '#8fb4e0' : COL.blueLite; }
+
+    ctx.fillStyle = body; ctx.fillRect(p.x, p.y, p.w, h);
+    ctx.fillStyle = edge; ctx.fillRect(p.x, p.y, p.w, top);
+
+    if (p.type === 'move'){
+      // pulsierende Richtungspfeile
+      const sgn = p.vx >= 0 ? 1 : -1;
+      ctx.fillStyle = 'rgba(255,255,255,' + (0.45 + 0.4 * Math.abs(Math.sin(time * 4))) + ')';
+      const cx = p.x + p.w / 2, cy = p.y + h / 2, s = h * 0.26;
+      for (const off of [-s * 1.2, 0]){
+        ctx.beginPath();
+        ctx.moveTo(cx + off + sgn * s, cy);
+        ctx.lineTo(cx + off - sgn * s * 0.2, cy - s);
+        ctx.lineTo(cx + off - sgn * s * 0.2, cy + s);
+        ctx.closePath(); ctx.fill();
+      }
+    }
+    if (p.type === 'break'){
+      // Risslinie
+      ctx.strokeStyle = 'rgba(255,255,255,.75)'; ctx.lineWidth = 2;
+      ctx.setLineDash([6, 5]);
+      ctx.beginPath(); ctx.moveTo(p.x + 6, p.y + h / 2); ctx.lineTo(p.x + p.w - 6, p.y + h / 2); ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    ctx.restore();
+  }
+
+  // Sammelobjekt = pinkes Badge mit weissem Kompetenz-Icon und rotierendem Ring
+  function drawCollectible(co, cy, time){
+    const spr = iconSprites[co.idx];
+    const r = co.r * (1 + Math.sin(co.bob * 1.6) * 0.06);
+    ctx.save();
+    ctx.translate(co.x, cy);
+    // rotierender gelber Ring
+    ctx.save();
+    ctx.rotate(RM ? 0 : time * 0.9 + co.spin);
+    ctx.setLineDash([r * 0.45, r * 0.32]);
+    ctx.lineWidth = Math.max(2.5, r * 0.16);
+    ctx.strokeStyle = COL.yellow;
+    ctx.beginPath(); ctx.arc(0, 0, r * 1.38, 0, Math.PI * 2); ctx.stroke();
+    ctx.restore();
+    // pinker Kern
+    if (!RM){ ctx.shadowColor = COL.pink; ctx.shadowBlur = 14; }
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fillStyle = COL.pink; ctx.fill();
+    ctx.shadowBlur = 0;
+    // Ring in leicht hellerem Pink und dünner statt weiss (2026-08-26)
+    ctx.lineWidth = Math.max(1.5, r * 0.07); ctx.strokeStyle = '#e7769c'; ctx.stroke();
+    // weisses Kompetenz-Icon
+    if (spr){ const s = r * 1.3; ctx.drawImage(spr, -s / 2, -s / 2, s, s); }
+    ctx.restore();
+  }
+
+  function drawRocket(){
+    if (state === 'start') return;
+    const { x, y, r } = player;
+    let rot = Math.max(-0.3, Math.min(0.3, player.vx * 0.03));
+    let sx = 1, sy = 1;
+    player.squash *= 0.88;
+    if (player.spin > 0){
+      // Salto (volle Drehung)
+      player.spin += 0.034;
+      if (player.spin >= 1) player.spin = 0;
+      else rot += player.spin * Math.PI * 2;
+    } else if (player.vy < 0){
+      // Strecken beim Aufstieg
+      const st = Math.min(0.16, -player.vy / JUMP * 0.16);
+      sy = 1 + st; sx = 1 - st * 0.7;
+    }
+    if (player.squash > 0.02){ sy *= 1 - 0.22 * player.squash; sx *= 1 + 0.2 * player.squash; }
+
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(rot);
+    ctx.scale(sx, sy);
+    if (state === 'play' && (player.vy < 0 || player.spin > 0)){
+      // Flamme startet UNTER der Rakete (Nozzle bei ~1.35r), nicht im Rumpf (2026-08-26)
+      const fy = r * 1.32;
+      const fl = r * (0.9 + Math.random() * 0.5);
+      ctx.beginPath(); ctx.moveTo(-r * 0.4, fy); ctx.lineTo(0, fy + fl); ctx.lineTo(r * 0.4, fy); ctx.closePath();
+      ctx.fillStyle = COL.pink; ctx.fill();
+      ctx.beginPath(); ctx.moveTo(-r * 0.22, fy); ctx.lineTo(0, fy + fl * 0.6); ctx.lineTo(r * 0.22, fy); ctx.closePath();
+      ctx.fillStyle = COL.yellow; ctx.fill();
+    }
+    // im All (dunkler Himmel) leuchtender Hof hinter der Rakete
+    const dk = darkF(score);
+    if (dk > 0.35){
+      const g = ctx.createRadialGradient(0, 0, r * 0.3, 0, 0, r * 2.1);
+      g.addColorStop(0, 'rgba(255,210,60,' + (0.30 * dk) + ')');
+      g.addColorStop(1, 'rgba(255,210,60,0)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(0, 0, r * 2.1, 0, Math.PI * 2); ctx.fill();
+    }
+    if (rocketImg.complete && rocketImg.naturalWidth){
+      const h = r * 2.7, w = h * ROCKET_AR;
+      ctx.drawImage(rocketImg, -w / 2, -h / 2, w, h);
+    } else {
+      ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fillStyle = COL.blue; ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  // ---- Input ----
+  // Tastatur nur während des Spiels abfangen, sonst scrollt die Seite normal weiter.
+  const keys = {};
+  window.addEventListener('keydown', e => {
+    if (state !== 'play') return;
+    if (e.target.closest && e.target.closest('input, textarea, select, [contenteditable]')) return;
+    if (['ArrowLeft','ArrowRight','KeyA','KeyD'].includes(e.code)){ e.preventDefault(); keys[e.code] = true; updateDir(); }
+    if (e.code === 'Space'){ e.preventDefault(); if (!e.repeat) tryBoost(); }
+  });
+  window.addEventListener('keyup', e => { keys[e.code] = false; updateDir(); });
+  function updateDir(){
+    let d = 0; if (keys.ArrowLeft || keys.KeyA) d -= 1; if (keys.ArrowRight || keys.KeyD) d += 1; dir = d;
+  }
+
+  // Touch / Maus: linke / rechte Hälfte gedrückt halten.
+  // Boost per Doppeltippen NUR mit Maus, auf Touch löste das beim schnellen
+  // Hin- und Hersteuern aus Versehen aus (Feedback 2026-08-24); dort gibt es den Boost-Button.
+  let lastTap = -1e9;
+  function steer(e){
+    const rect = stage.getBoundingClientRect();
+    dir = (e.clientX - rect.left) < rect.width / 2 ? -1 : 1;
+  }
+  stage.addEventListener('pointerdown', e => {
+    if (e.target.closest('.sp-btn, a, button, input, label, form')) return;
+    if (!IS_TOUCH){
+      const now = performance.now();
+      if (now - lastTap < 300){ tryBoost(); lastTap = -1e9; } else { lastTap = now; }
+    }
+    steer(e);
+  });
+  boostBtn.addEventListener('pointerdown', e => {
+    e.preventDefault(); e.stopPropagation(); tryBoost();
+  });
+  stage.addEventListener('pointermove', e => { if (e.buttons) steer(e); });
+  window.addEventListener('pointerup', () => { dir = 0; });
+  window.addEventListener('pointercancel', () => { dir = 0; });
+
+  // Auf Touch-Geräten startet das Spiel nur im Vollbild (User-Geste = Klick,
+  // darum darf enterFs() direkt hier aufgerufen werden).
+  async function startTouchAware(){
+    if (IS_TOUCH && !inFs()) await enterFs();
+    startGame();
+  }
+  startBtn.addEventListener('click', startTouchAware);
+  againBtn.addEventListener('click', startTouchAware);
+  hiScoreEl.textContent = 'Rekord: ' + hi;
+
+  // Gewinn-Formular absenden (Fetch an /api/gewinn.php)
+  prizeForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    prizeBtn.disabled = true;
+    prizeMsg.textContent = 'Wird gesendet …';
+    const fd = new FormData(prizeForm);
+    fd.set('score', String(score));
+    try {
+      const res = await fetch('/api/gewinn.php', { method: 'POST', body: fd });
+      const data = await res.json().catch(() => null);
+      if (res.ok && data && data.ok){
+        localStorage.setItem('uftritt_prize_claimed', '1');
+        prizeForm.innerHTML = '<p class="sp-prize-ok">🎉 Preis reserviert! Wir melden uns per E-Mail bei dir.</p>';
+        if (window._paq) window._paq.push(['trackEvent', 'Engagement', 'Gewinn eingelöst', String(fd.get('preis'))]);
+      } else {
+        prizeMsg.textContent = (data && data.message) ? data.message : 'Das hat nicht geklappt, bitte nochmal versuchen.';
+        prizeBtn.disabled = false;
+      }
+    } catch (err){
+      prizeMsg.textContent = 'Verbindungsproblem, bitte später nochmal versuchen.';
+      prizeBtn.disabled = false;
+    }
+  });
+
+  reset();
+  tick();
+})();
+</script>

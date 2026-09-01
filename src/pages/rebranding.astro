@@ -1,0 +1,319 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["emotion-hinwil", "dtb-redesign", "cynterim"].includes(p.slug)
+);
+
+const bausteine = [
+  {
+    title: "Analyse und Positionierung",
+    note: "Wo stehst du heute, wen willst du erreichen, wofür soll deine Marke stehen? Ohne dieses Fundament wird jedes Redesign ein Zufallsprodukt.",
+  },
+  {
+    title: "Logo und Bildwelt",
+    note: "Logo, Farben, Schriften, Gestaltungselemente und Bildsprache: der sichtbare Kern deiner Marke, entwickelt aus der Positionierung heraus.",
+  },
+  {
+    title: "Anwendungen auf allen Kanälen",
+    note: "Website, Visitenkarten, Briefschaft, Social Media, Schilder, Kleider: Wir setzen den neuen Auftritt überall dort um, wo deine Marke auftritt.",
+  },
+  {
+    title: "Richtlinien und Rollout",
+    note: "Klare Design-Richtlinien sorgen dafür, dass deine Marke konsistent bleibt, auch wenn später jemand anderes damit arbeitet. Wir begleiten den gesamten Rollout.",
+  },
+];
+
+const ablauf = [
+  "Kostenloses Erstgespräch: was stört am heutigen Auftritt, was soll bleiben, wohin soll es gehen",
+  "Analyse und Identität: Bestandsaufnahme der Marke, der Zielgruppen und der Positionierung",
+  "Design: Logo, Farben, Schriften und Bildwelt, mit klaren Varianten zur Entscheidung",
+  "Anwendungen: Website, Drucksachen, Social Media und alles, was deine Marke trägt",
+  "Rollout: Übergabe mit Design-Richtlinien, damit der Auftritt überall konsistent bleibt",
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Rebranding?",
+    a: "Das hängt stark davon ab, wie tief wir gehen: Ein behutsamer Logo-Refresh ist deutlich weniger aufwendig als ein komplettes Rebranding mit Positionierung, neuem Erscheinungsbild und Rollout auf alle Kanäle. Darum gibt es bei uns keinen Pauschalpreis. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot, aus dem genau hervorgeht, was drin ist und was es kostet.",
+  },
+  {
+    q: "Wie lange dauert ein Rebranding?",
+    a: "Das hängt vom Umfang ab. Ein Refresh mit klarer Vorlage ist deutlich schneller umgesetzt als eine komplette Neupositionierung mit Rollout auf Website, Drucksachen und Social Media. Was den grössten Einfluss hat, ist die Entscheidungsgeschwindigkeit auf deiner Seite. Nach dem Erstgespräch planen wir gemeinsam einen realistischen Fahrplan mit klaren Etappen.",
+  },
+  {
+    q: "Verlieren wir unsere Wiedererkennung?",
+    a: "Nein. Wenn wir es richtig machen, ist genau das der Punkt: Wiedererkennung ist Kapital, das wir nicht leichtfertig verschenken. Beim Refresh behalten wir, was trägt: die Grundidee des Logos, eine prägende Farbe, den Namen. Beim Unihockeyverein emotion Hinwil etwa blieb die identitätsstiftende Farbe Pink, nur der Farbton wurde frischer und moderner.",
+  },
+  {
+    q: "Was gehört alles zu einem Rebranding?",
+    a: "Im Kern: Analyse und Positionierung, dann Logo, Farben, Schriften und Bildwelt, dann die Anwendungen auf alles, wo deine Marke auftritt, von der Website über Visitenkarten und Briefschaft bis zu Social Media, Schildern oder Kleidern. Dazu gehören Design-Richtlinien, damit der neue Auftritt überall konsistent bleibt, auch wenn später jemand anderes damit arbeitet.",
+  },
+  {
+    q: "Macht ihr auch nur ein Logo-Refresh?",
+    a: "Ja, sehr gerne. Oft ist das die ehrlichste Lösung: Das Logo wirkt angestaubt, aber die Marke an sich passt noch. Dann modernisieren wir Formen, Farben und Typografie behutsam, statt alles über den Haufen zu werfen. Beim Unihockeyverein DT Bäretswil haben wir genau das gemacht und im gleichen Zug Tenues und Merchandise-Artikel neu gestaltet.",
+  },
+  {
+    q: "Für wen lohnt sich ein Rebranding?",
+    a: "Für Unternehmen, Vereine und Organisationen, deren Auftritt nicht mehr zu ihrer Realität passt. Typische Auslöser: Der Betrieb ist gewachsen, neue Zielgruppen kommen dazu, zwei Organisationen schliessen sich zusammen, oder der Auftritt ist über die Jahre zusammengestückelt worden. Wenn du bei deinem eigenen Auftritt innerlich zuckst, ist das meist ein gutes Zeichen, dass es Zeit wird.",
+  },
+];
+---
+
+<Layout
+  title="Rebranding für KMU | Zürcher Oberland, Uftritt"
+  description="Rebranding für KMU im Zürcher Oberland: vom behutsamen Logo-Refresh bis zur Neupositionierung, etwa bei Firmenübergabe. Ehrliche Analyse, gratis Erstgespräch."
+>
+  <PageHero
+    eyebrow="Rebranding für KMU · Zürcher Oberland"
+    title={"Rebranding\nfür KMU"}
+    lead="Deine Marke wirkt in die Jahre gekommen, passt nicht mehr zu dem, was du heute bist? Wir positionieren sie neu: mit ehrlicher Analyse, klarer Identität und einem Design, das auf allen Kanälen trägt. Vom behutsamen Logo-Refresh bis zum kompletten Rebranding bei Wachstum oder Firmenübergabe, aus dem Zürcher Oberland, mit ehrlicher Einschätzung, was deine Marke wirklich braucht."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Rebranding"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Wann + Refresh vs. komplett */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Woran du merkst, dass es Zeit wird</h2>
+        <div class="lp-text">
+          <p>
+            Manchmal wächst eine Marke schneller als ihr Auftritt. Das Logo stammt
+            aus den Anfangsjahren, die Farben hat mal jemand gewählt, weil sie
+            gefielen, und irgendwo zwischen Visitenkarte, Website und Social Media
+            ist der rote Faden verloren gegangen. Der Auftritt wirkt
+            zusammengestückelt, obwohl der Betrieb längst weiter ist.
+          </p>
+          <p>
+            Typische Auslöser für ein Rebranding: Der Betrieb ist gewachsen, und
+            der Auftritt passt nicht mehr zur heutigen Grösse. Neue Zielgruppen
+            kommen dazu, die du mit dem alten Auftritt nicht erreichst. Oder zwei
+            Organisationen schliessen sich zusammen und brauchen eine gemeinsame
+            Identität. Wenn du innerlich zuckst, bevor du jemandem deine eigene
+            Website zeigst, dann ist es Zeit.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Refresh oder komplettes Rebranding?</h2>
+        <div class="lp-text">
+          <p>
+            Unsere ehrliche Antwort überrascht viele: Oft reicht ein Refresh.
+            Wiedererkennung ist Kapital. Wenn Kundinnen und Kunden deine Marke
+            seit Jahren kennen, wirfst du mit einem kompletten Neuanfang auch
+            Vertrauen weg. Beim Refresh behalten wir, was trägt: die Grundidee
+            des Logos, eine prägende Farbe, den Namen. Modernisiert werden
+            Formen, Farbtöne und Typografie.
+          </p>
+          <p>
+            Ein komplettes Rebranding braucht es, wenn sich die Richtung ändert:
+            neues Angebot, neue Zielgruppen, ein Zusammenschluss oder ein Name,
+            der nicht mehr passt. Was für deine Situation stimmt, sagen wir dir
+            im Erstgespräch, auch dann, wenn die ehrliche Antwort lautet:
+            «Lasst das Logo, wie es ist.» Was ein Refresh konkret umfasst,
+            zeigen wir auf der Seite <a href="/logo-redesign/">Logo modernisieren
+            lassen</a>, und Details zum neuen Zeichen auf der Seite
+            <a href="/logo-erstellen-lassen/">Logo erstellen lassen</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Nachfolge-Winkel */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Klassiker bei uns: die Firmenübergabe</h2>
+        <div class="lp-text">
+          <p>
+            Im Zürcher Oberland wechseln gerade viele Betriebe die Generation:
+            Die Nachfolge übernimmt einen gut laufenden Betrieb und erbt mit
+            ihm einen Auftritt aus den Gründerjahren. Die Marke ist bei der
+            Stammkundschaft wertvoll, das Erscheinungsbild aber nicht mehr
+            zeitgemäss. Genau dazwischen arbeiten wir: neue Handschrift, ohne
+            Vertrauen zu verspielen.
+          </p>
+          <p>
+            Und weil wir KI-gestützt arbeiten, mit Profi-Finishing durch
+            Menschen bei Analyse, Auswahl und Reinzeichnung, bekommst du
+            Agentur-Qualität ohne Grossagentur-Zeiten. Geht es dir nur ums
+            Zeichen selbst, ist ein <a href="/logo-redesign/">Logo-Redesign</a>
+            der kleinere, oft richtige Einstieg.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Bausteine */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Alles aus einer Hand</span>
+        <h2>Was zu einem Rebranding dazugehört</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          bausteine.map((b) => (
+            <article class="karte">
+              <h3>{b.title}</h3>
+              <p class="karte-note">{b.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Ablauf + echte Cases */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wie das in echt aussieht</h2>
+        <div class="lp-text">
+          <p>
+            Der Unihockeyverein emotion Hinwil spielt seit 2011 erfolgreich in
+            den Ligen von swiss unihockey, das Herren-1-Team sogar in der
+            höchsten Kleinfeld-Liga der Schweiz. Das Erscheinungsbild war in die
+            Jahre gekommen. In enger Zusammenarbeit mit dem Verein haben wir
+            Logo, Gestaltungselemente und Design-Richtlinien neu entwickelt, für
+            Social Media, Printmedien und Kleidung. Die identitätsstiftende
+            Farbe Pink blieb, der Farbton wurde frischer und moderner.
+          </p>
+          <p>
+            Beim Unihockeyverein DT Bäretswil reichte ein Refresh: Wir haben das
+            in die Jahre gekommene Logo zeitgemäss überarbeitet und im gleichen
+            Zug neue Match-Tenues und Merchandise-Artikel gestaltet. Ganz anders
+            die Cynterim GmbH aus Hinwil: Das Salesforce-Partnerunternehmen
+            haben wir bei der Gründung von Grund auf aufgebaut, mit Logo,
+            Branding und Website für den Markteinstieg. Mehr zu unserer
+            gestalterischen Arbeit findest du im
+            <a href="/angebot/grafikdesign/">Grafikdesign-Angebot</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Rebranding</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Sollen wir deine Marke neu positionieren?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, wo deine Marke steht und was dich am heutigen Auftritt
+        stört. Wir sagen dir ehrlich, ob es einen Refresh oder ein komplettes
+        Rebranding braucht, und machen ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

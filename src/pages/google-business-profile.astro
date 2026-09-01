@@ -1,0 +1,282 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["garage-frei", "physio-rothe", "regan"].includes(p.slug)
+);
+
+const hebel = [
+  {
+    title: "Kategorien",
+    note: "Die Hauptkategorie ist der stärkste Hebel überhaupt: Sie bestimmt, bei welchen Suchanfragen du überhaupt auftauchst. Dazu passende Nebenkategorien, die dein Angebot vollständig abbilden.",
+  },
+  {
+    title: "Fotos",
+    note: "Echte Bilder von deinem Betrieb, deinem Team und deiner Arbeit schaffen Vertrauen, bevor jemand anruft. Profile ohne Fotos wirken verwaist, auch wenn der Betrieb top ist.",
+  },
+  {
+    title: "Beiträge",
+    note: "Aktuelle Beiträge zu Angeboten, News oder Saisonalem zeigen Google und Kunden: Hier ist Leben drin. Kurz und regelmässig schlägt aufwendig und einmalig.",
+  },
+  {
+    title: "Fragen und Antworten",
+    note: "Im Profil können Nutzer Fragen stellen. Wer sie selbst beantwortet und die häufigsten Fragen vorab selbst einträgt, steuert die Infos statt sie dem Zufall zu überlassen.",
+  },
+  {
+    title: "Bewertungen beantworten",
+    note: "Jede Bewertung verdient eine Antwort, die guten wie die kritischen. Das signalisiert Kunden und Google, dass dir deine Gäste, Patienten oder Auftraggeber nicht egal sind.",
+  },
+];
+
+const fehler = [
+  "Falsche oder zu allgemeine Hauptkategorie: Der Eintrag taucht bei den falschen Suchanfragen auf oder gar nicht",
+  "NAP-Inkonsistenz: Name, Adresse und Telefonnummer sind auf Website, Profil und Verzeichnissen unterschiedlich geschrieben",
+  "Keine oder veraltete Fotos: Das Profil wirkt ungepflegt, selbst wenn der Betrieb es nicht ist",
+  "Bewertungen bleiben unbeantwortet, vor allem die kritischen",
+  "Einmal eingerichtet und nie mehr angefasst: alte Öffnungszeiten, veraltete Infos, keine Beiträge",
+];
+
+const faq = [
+  {
+    q: "Ist das Google Business Profile wirklich kostenlos?",
+    a: "Ja. Der Eintrag bei Google ist komplett kostenlos: das Profil, der Eintrag in Google Maps, die Bewertungen, alles. Was etwas kostet, ist die Zeit für eine saubere Einrichtung und die laufende Pflege. Genau da kannst du dich entscheiden: selbst machen mit unserer Anleitung hier auf der Seite, oder wir übernehmen es für dich.",
+  },
+  {
+    q: "Wie komme ich an Google-Bewertungen?",
+    a: "Indem du echte Kunden fragst. Der ehrlichste Weg ist auch der wirksamste: Zufriedene Kunden persönlich ansprechen und ihnen den direkten Bewertungslink aus deinem Profil schicken, etwa nach einem gelungenen Auftrag. Kaufe nie Bewertungen und lasse keine erfinden: Solche Bewertungen verstossen gegen die Google-Richtlinien, können entfernt werden und zerstören das Vertrauen, das du gerade aufbauen willst.",
+  },
+  {
+    q: "Was bringt mir ein gepflegtes Profil konkret?",
+    a: "Sichtbarkeit genau dort, wo Kaufentscheide fallen: im Local Pack und in Google Maps, wenn jemand in deiner Nähe nach deinem Angebot sucht. Ein vollständiges Profil mit passenden Kategorien, echten Fotos und beantworteten Bewertungen führt zu mehr Anrufen, mehr Routenanfragen und mehr Website-Besuchen. Für lokale KMU ist das oft der schnellste Weg zu mehr Anfragen, ganz ohne Werbebudget.",
+  },
+  {
+    q: "Richtet ihr das Profil für uns ein?",
+    a: "Ja, gerne. Wir richten dein Profil neu ein oder übernehmen und optimieren einen bestehenden Eintrag: Kategorien, Beschreibung, Fotos, Öffnungszeiten und die häufigsten Fragen. Auf Wunsch pflegen wir es laufend weiter, etwa im Rahmen unserer Marketingbegleitung. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot, aus dem genau hervorgeht, was drin ist.",
+  },
+  {
+    q: "Wie oft muss ein Profil gepflegt werden?",
+    a: "Bewertungen solltest du laufend beantworten, idealerweise innert weniger Tage. Öffnungszeiten und Kontaktdaten passt du sofort an, sobald sich etwas ändert, etwa vor Feiertagen. Fotos und Beiträge ergänzt du regelmässig, das kann ruhig bescheiden sein: Ein ehrlicher Beitrag pro Monat ist mehr wert als fünf auf einmal und dann ein Jahr Funkstille.",
+  },
+  {
+    q: "Was kostet die Einrichtung und Pflege durch euch?",
+    a: "Das hängt vom Umfang ab: eine einmalige Einrichtung oder Optimierung ist fix umrissen, eine laufende Pflege besprechen wir als klaren monatlichen Rahmen. Im kostenlosen Erstgespräch schauen wir dein aktuelles Profil an, sagen dir ehrlich, was es braucht, und machen dir ein transparentes Angebot. Ohne versteckte Kosten und ohne Druck.",
+  },
+];
+---
+
+<Layout
+  title="Google Business Profile: Anleitung für KMU, Uftritt"
+  description="Google Business Profile einrichten und optimieren: die wichtigste Gratis-Sichtbarkeit für lokale KMU. Anleitung, Fehler und Hilfe aus dem Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="Lokale Sichtbarkeit"
+    title={"Google\nBusiness Profile"}
+    lead="Das Google Business Profile ist dein kostenloser Firmeneintrag bei Google: Er entscheidet, ob du in Google Maps und im Local Pack erscheinst, wenn jemand in deiner Nähe nach deinem Angebot sucht. Für lokale KMU ist es die wichtigste Gratis-Sichtbarkeit überhaupt. Wir zeigen dir, wie du es richtig einrichtest und pflegst, oder übernehmen das für dich."
+    lottie="/lottie/marketingbegleitung.json"
+    lottieLabel="Google Business Profile"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/marketingbegleitung/" label="Marketingbegleitung" lottie="/lottie/marketingbegleitung.json" projects={cases} />
+
+  {/* Was es ist + warum wichtig */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was das Google Business Profile ist</h2>
+        <div class="lp-text">
+          <p>
+            Das Google Business Profile ist der Eintrag deines Betriebs bei Google:
+            mit Adresse, Öffnungszeiten, Telefonnummer, Fotos, Beiträgen und
+            Bewertungen. Aus diesem Eintrag speisen sich die Treffer in Google Maps
+            und das Local Pack, die Karte mit den drei lokalen Treffern ganz oben
+            in den Suchergebnissen.
+          </p>
+          <p>
+            Sucht jemand nach «Garage in meiner Nähe» oder «Physio Wetzikon»,
+            entscheidet dieses Profil, ob du in dieser Auswahl erscheinst oder
+            unsichtbar bleibst. Die Website allein reicht dafür oft nicht.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Warum es für KMU so wichtig ist</h2>
+        <div class="lp-text">
+          <p>
+            Weil es kostenlos ist und genau die Leute erreicht, die gerade jetzt in
+            deiner Nähe nach deinem Angebot suchen. Kein anderes Gratis-Instrument
+            bringt lokale KMU so direkt vor Augen derer, die bereit sind anzurufen
+            oder vorbeizukommen.
+          </p>
+          <p>
+            Das Profil ist dabei kein Ersatz für gute <a href="/seo-betreuung/">SEO-Betreuung</a>,
+            sondern deren schnellster Baustein: Während klassische Suchmaschinenoptimierung
+            Monate braucht, kann ein sauber eingerichtetes Profil innert Wochen
+            Wirkung zeigen.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Hebel */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Die Anleitung</span>
+        <h2>Die fünf wichtigsten Hebel</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          hebel.map((h) => (
+            <article class="karte">
+              <h3>{h.title}</h3>
+              <p class="karte-note">{h.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Fehler + Angebot */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Typische Fehler, die wir oft sehen</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {fehler.map((f, i) => <li><span class="modul-nr">{i + 1}</span>{f}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was wir für dich übernehmen</h2>
+        <div class="lp-text">
+          <p>
+            Wenn du willst, richten wir dein Profil komplett ein oder optimieren
+            deinen bestehenden Eintrag: die passenden Kategorien, eine Beschreibung
+            in deiner Sprache, echte Fotos, saubere Öffnungszeiten und die wichtigsten
+            Fragen vorab beantwortet. Auf Wunsch pflegen wir das Profil laufend
+            weiter, damit es nicht wieder einschläft.
+          </p>
+          <p>
+            Und weil der Google-Eintrag nur so stark ist wie der Rest deines
+            Auftritts, denken wir ihn gleich mit: Als Agentur aus dem Zürcher
+            Oberland betreuen wir <a href="/webdesign-zuercher-oberland/">KMU-Websites
+            aus der ganzen Region</a> und stimmen Profil, Website und Auffindbarkeit
+            aufeinander ab.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Google Business Profile</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Wird dein Betrieb bei Google gefunden?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, wo du stehst. Wir schauen dein Profil an, sagen dir ehrlich,
+        was es braucht, und machen dir ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

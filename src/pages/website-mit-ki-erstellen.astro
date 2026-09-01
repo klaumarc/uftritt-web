@@ -1,0 +1,322 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["ripa-immobilien", "physio-rothe", "garage-frei"].includes(p.slug)
+);
+
+const staerken = [
+  {
+    title: "Tempo, das beeindruckt",
+    note: "In Minuten statt Wochen steht ein erster Entwurf: Layout, Texte, Bilder. Zum Ausprobieren von Richtungen und als Stimmungsbild ist das unschlagbar.",
+  },
+  {
+    title: "Fast kein Budget nötig",
+    note: "Die gängigen KI-Builder kosten im Einstieg wenig bis nichts. Für ein Hobbyprojekt, einen Vereinsanlass oder einen schnellen Platzhalter kann das reichen.",
+  },
+  {
+    title: "Ideen und Texte auf Knopfdruck",
+    note: "KI liefert Strukturen, Formulierungen und Designideen in Sekunden. Als Rohmaterial und als Briefing für eine professionelle Website ist das Gold wert.",
+  },
+];
+
+const grenzen = [
+  {
+    title: "Template-Look",
+    note: "KI mischt bewährte Muster neu. Dass deine Seite der Website eines Mitbewerbers zum Verwechseln ähnlich sieht, ist die Regel statt die Ausnahme. Unverwechselbar wirst du so nicht.",
+  },
+  {
+    title: "Auffindbarkeit bei Google",
+    note: "Ein hübsches Gerüst ist noch keine Suchmaschinenoptimierung. Saubere Technik, Ladezeiten, lokale Suchbegriffe und Inhalte mit Substanz entscheiden, ob dich Kundinnen und Kunden überhaupt finden.",
+  },
+  {
+    title: "Individuelle Funktionen",
+    note: "Terminbuchung nach deinen Regeln, Anbindung an deine Warenwirtschaft, ein Bereich, den es so noch nicht gibt: Sobald es spezifisch wird, stösst der Baukasten an seine Grenzen.",
+  },
+  {
+    title: "Wartung und Verantwortung",
+    note: "Updates, Sicherheit, Backups, ein Formular, das plötzlich nicht mehr sendet: Beim KI-Builder bleibt das alles an dir hängen. Es gibt niemanden, der deine Seite kennt und sie für dich am Laufen hält.",
+  },
+  {
+    title: "Datenschutz",
+    note: "Viele KI-Builder sitzen in den USA und verarbeiten deine Inhalte und Kundendaten dort. Für Schweizer Firmen ist das heikel: Das Schweizer Datenschutzgesetz stellt klare Anforderungen, sobald Personendaten ins Ausland gehen. Wir hosten deine Website in der Schweiz und richten Datenschutz und Impressum von Anfang an korrekt ein.",
+  },
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: Wir hören zu, was deine Website leisten soll",
+  "Dein Mockup als Briefing: Wir analysieren, was dir gefällt und was noch fehlt",
+  "Konzept und Design: Struktur, Inhalte und ein Look, der nur dir gehört",
+  "Umsetzung: sauber programmiert, schnell ladend und für Suchmaschinen gebaut",
+  "Start und danach: Wir bleiben dran und betreuen deine Website auf Wunsch",
+];
+
+const faq = [
+  {
+    q: "Ist eine KI-Website rechtlich und datenschutztechnisch ok?",
+    a: "Das Tool prüft das nicht für dich, die Verantwortung bleibt bei dir. Drei Punkte solltest du kennen: In der Schweiz braucht eine geschäftliche Website ein Impressum. Viele KI-Builder hosten in den USA, was beim Schweizer Datenschutzgesetz Fragen aufwirft, sobald du Kundendaten verarbeitest. Und von der KI übernommene Texte oder Bilder können fremde Rechte berühren. Wir bauen Websites so, dass Impressum, Datenschutzerklärung und Hosting von Anfang an passen.",
+  },
+  {
+    q: "Was kostet eine Website bei euch?",
+    a: "Das hängt davon ab, was sie leisten soll: eine schlanke Firmenseite oder ein Auftritt mit Buchungstool, mehrsprachig, mit laufender Betreuung. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit allen Leistungen und einem klaren Preis, ohne versteckte Kosten. Richtwerte aus der Branche haben wir auf unserer Seite Website-Kosten zusammengestellt.",
+  },
+  {
+    q: "Kann ich mit meinem KI-Entwurf zu euch kommen?",
+    a: "Sehr gerne, das passiert immer öfter. Dein Mockup zeigt uns auf den Punkt, welche Richtung du willst: Aufbau, Bildwelt, Tonalität. Wir prüfen es auf Auffindbarkeit, Funktionen und Datenschutz, übernehmen, was trägt, und entwickeln daraus eine professionelle Website. Am Ende hast du einen Auftritt, den es nur einmal gibt und der technisch auf sicherem Boden steht.",
+  },
+  {
+    q: "Werde ich mit einer KI-Website bei Google gefunden?",
+    a: "Nicht automatisch. Die Builder erzeugen ein hübsches Gerüst, aber Auffindbarkeit entsteht durch saubere Technik, schnelle Ladezeiten, klare Struktur und Inhalte, die echte Fragen deiner Kundschaft beantworten. Gerade lokale Suchbegriffe, etwa dein Handwerk plus deine Region, verpassen die Tools regelmässig. Genau da setzen wir an, damit du gefunden wirst.",
+  },
+  {
+    q: "Reicht ein KI-Builder nicht einfach für den Anfang?",
+    a: "Für manche Vorhaben ja, etwa ein Hobbyprojekt oder ein interner Anlass. Bedenke aber: Sobald du mit der Seite Kundinnen und Kunden gewinnen willst, hängt an jedem späteren Wechsel Aufwand. Inhalte ziehen um, Adressen verlieren ihre Suchmaschinen-Historie, das Design wird neu gebaut. Gleich richtig zu starten kostet am Ende meist weniger Nerven und Geld.",
+  },
+  {
+    q: "Nutzt ihr selbst KI im Webdesign?",
+    a: "Ja, und zwar täglich: für Ideen, Text-Rohentwürfe und Code-Bausteine. Die eigentliche Arbeit bleibt menschlich: Konzept, Design, Feinschliff und die Verantwortung für Technik und Datenschutz. Genau diese Mischung macht unsere Websites schnell und trotzdem unverwechselbar.",
+  },
+];
+---
+
+<Layout
+  title="Website mit KI erstellen? Die ehrliche Einordnung - Uftritt"
+  description="Website mit KI oder von der Agentur? Wir arbeiten selbst mit KI und sagen ehrlich, was sie kann und wo sie an Grenzen stösst: SEO, Individualität, Datenschutz."
+>
+  <PageHero
+    eyebrow="KI-Website oder Agentur?"
+    title={"Website mit KI\nerstellen?"}
+    lead="Die kurze Antwort: Für Tempo, erste Entwürfe und kleine Budgets sind KI-Website-Builder stark. Für eine Website, die Kundinnen und Kunden gewinnen soll, fehlen ihnen Unverwechselbarkeit, durchdachte Suchmaschinenoptimierung, individuelle Funktionen und jemand, der Verantwortung übernimmt. Wir nutzen KI selbst täglich und sagen dir hier ehrlich, wo sie reicht, wo nicht und wie du beides klug kombinierst."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Stärken der KI */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Fair bleiben</span>
+        <h2>Was KI-Builder wirklich können</h2>
+      </header>
+      <div class="karten karten--3" data-reveal>
+        {
+          staerken.map((s) => (
+            <article class="karte">
+              <h3>{s.title}</h3>
+              <p class="karte-note">{s.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Grenzen der KI */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Ehrlich bleiben</span>
+        <h2>Wo der KI-Builder an Grenzen stösst</h2>
+      </header>
+      <div class="karten karten--3" data-reveal>
+        {
+          grenzen.map((g) => (
+            <article class="karte">
+              <h3>{g.title}</h3>
+              <p class="karte-note">{g.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Wann was */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann der KI-Builder reicht</h2>
+        <div class="lp-text">
+          <p>
+            Für ein Hobbyprojekt, das Vereinsfest oder eine schnelle
+            Platzhalter-Homepage spricht nichts gegen den KI-Builder. Auch als
+            Ideensammlung ist er ideal: Erstelle ein Mockup, spür nach, welche
+            Struktur und welche Bildwelt dir gefällt.
+          </p>
+          <p>
+            Und wenn du mit diesem Entwurf zu uns kommst, wird er zur
+            bestmöglichen Gesprächsgrundlage. Das Gleiche gilt übrigens fürs
+            Firmenzeichen: Auch dort nehmen wir dein
+            <a href="/ki-logo/">KI-Logo</a> als Briefing ernst.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wann sich die Agentur lohnt</h2>
+        <div class="lp-text">
+          <p>
+            Sobald deine Website geschäftlich trägt: Du willst bei Google
+            gefunden werden, Anfragen und Aufträge gewinnen, brauchst
+            Funktionen nach deinen Regeln und jemanden, der für Technik und
+            Datenschutz Verantwortung übernimmt.
+          </p>
+          <p>
+            Genau dafür arbeiten wir: eine Website, die nur dir gehört, von
+            Menschen durchdacht und so gebaut, dass sie mit deinem Geschäft
+            wachsen kann.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Prozess */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Vom KI-Mockup zur professionellen Website</h2>
+        <div class="lp-text">
+          <p>
+            Dein KI-Entwurf landet bei uns nicht im Abfall, sondern auf dem
+            Tisch: Er ist das Briefing. Wir übernehmen, was dir gefällt, und
+            ergänzen, was fehlt: eine Struktur, die Besucherinnen und Besucher
+            zum Ziel führt, Texte mit deiner Stimme, saubere Technik und ein
+            Design, das es nur einmal gibt.
+          </p>
+          <p>
+            Übrigens auch ohne Mockup: Wer seine Website einfach professionell
+            erstellen lassen will, ist bei uns genauso richtig. Mehr zum
+            Ablauf findest du auf unserer Seite
+            <a href="/angebot/webdesign/">Webdesign</a>, Richtwerte zu den
+            Kosten auf der Seite
+            <a href="/website-kosten/">Website-Kosten</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur KI-Website</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>KI-Entwurf in der Tasche oder noch ganz am Anfang?</h2>
+      <p class="lp-cta-text">
+        Zeig uns dein Mockup oder erzähl uns, was deine Website leisten soll.
+        Wir sagen dir ehrlich, was es braucht, und machen dir ein
+        transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--3, .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--3, .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

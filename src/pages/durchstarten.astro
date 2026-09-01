@@ -1,0 +1,79 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+import Spiel from "../components/Spiel.astro";
+import RefStrip from "../components/RefStrip.astro";
+import { projects, type Project } from "../data/projects";
+
+// Drei starke Referenzen für den Portfolio-Hinweis (Reihenfolge = Ausgabe)
+const picks = ["aweso", "ripa-immobilien", "youngstars"]
+  .map((slug) => projects.find((p) => p.slug === slug))
+  .filter((p): p is Project => p !== undefined);
+---
+
+<Layout
+  title="Durchstarten, Uftritt"
+  description="Bereit zum Abheben? Noch eine Runde im Uftritt-Spiel, ein Blick auf unsere Projekte, und dann starten wir zusammen durch."
+>
+  {/* ---------- HERO ---------- */}
+  <section class="ds-hero section--yellow">
+    <div class="container">
+      <span class="eyebrow" data-reveal>Durchstarten</span>
+      <h1 data-reveal>Bereit zum Abheben?</h1>
+      <p class="ds-lead" data-reveal>
+        Schön bist du da. Spiele gleich noch eine Runde, oder wirf unten einen
+        Blick auf das, was wir für andere schon in die Luft gebracht haben, und
+        starte danach mit uns richtig durch.
+      </p>
+    </div>
+  </section>
+
+  {/* ---------- SPIEL (ohne Durchstarten-Button im Game-over, unten folgt der Seiten-CTA) ---------- */}
+  <Spiel showCta={false} />
+
+  {/* ---------- PORTFOLIO-HINWEIS ---------- */}
+  <RefStrip title="Was wir bereits in die Luft gebracht haben" ctaText="Alli Projekt aluege" projects={picks} />
+
+  {/* ---------- ABSCHLUSS-CTA ---------- */}
+  <section class="section">
+    <div class="container ds-final" data-reveal>
+      <span class="eyebrow">Der nächste Schritt</span>
+      <h2>Lass uns jetzt durchstarten</h2>
+      <p>
+        Erzähl uns kurz von deinem Projekt, wir melden uns mit Ideen,
+        nicht mit Floskeln.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .ds-hero {
+    padding-block: clamp(3rem, 7vw, 6rem);
+  }
+  .ds-hero .eyebrow {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .ds-lead {
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--color-blue);
+    max-width: 46ch;
+    margin-top: 1.5rem;
+  }
+  .ds-final {
+    max-width: 720px;
+  }
+  .ds-final .eyebrow {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .ds-final p {
+    margin-block: 1rem 1.75rem;
+    font-size: 1.1rem;
+    color: var(--color-blue);
+  }
+</style>

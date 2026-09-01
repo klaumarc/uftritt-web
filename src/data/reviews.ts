@@ -1,16 +1,16 @@
 export interface Review {
   author: string;
   role?: string;
-  rating: number; // 1–5
+  rating: number; // 1-5
   text: string;
 }
 
 // Echte Google-Bewertungen (Uftritt GmbH). Alle 5 Sterne, Schnitt 5.0.
-// Hier eine kuratierte Auswahl für die Startseite – weitere können auf einer
+// Hier eine kuratierte Auswahl für die Startseite, weitere können auf einer
 // eigenen Seite oder später via Google Places API automatisch ergänzt werden.
 export const reviewsMeta = {
   average: 5.0,
-  count: 13,
+  count: 14,
   source: "Google",
   placeholder: false,
 };
@@ -42,8 +42,8 @@ export const reviews: Review[] = [
   },
   {
     author: "Raphael Schmid",
-    role: "Emotions Hinwil",
+    role: "emotion Hinwil",
     rating: 5,
-    text: "Nachdem wir uns entschieden hatten, unser Erscheinungsbild zu überarbeiten, konnten wir mit Uftritt den perfekten Partner ins Boot holen. Die Zusammenarbeit war sehr unkompliziert. Besonders positiv überrascht hat uns die Art, auf Wünsche einzugehen und diese in einen bestehenden Entwurf einzuarbeiten. So ist ein hervorragendes Logo entstanden, das perfekt auf uns abgestimmt ist und unsere Identität bildlich widerspiegelt. Wir können diesen Service mit bestem Gewissen weiterempfehlen, denn uns ist bewusst, wie wichtig eine natürliche Zusammenarbeit und die Entwicklung einer neuen visuellen Identität für ein nicht nur schönes, sondern auch passendes Logo ist.",
+    text: "Nachdem wir uns entschieden hatten, unser Erscheinungsbild zu überarbeiten, konnten wir mit Uftritt den perfekten Partner ins Boot holen. Die Zusammenarbeit war sehr unkompliziert. Besonders positiv überrascht hat uns die Art, auf Wünsche einzugehen und diese in einen bestehenden Entwurf einzuarbeiten. So ist ein hervorragendes Logo entstanden, das perfekt auf uns abgestimmt ist und unsere Identität bildlich widerspiegelt. Wir können diesen Service mit bestem Gewissen weiterempfehlen, denn uns ist bewusst, wie wichtig eine natürliche Zusammenarbeit und die Entwicklung einer neuen visuellen Identität für ein nicht nur schönes, sondern auch passendes Logo sind.",
   },
 ];

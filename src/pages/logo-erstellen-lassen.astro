@@ -1,0 +1,238 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["dtb-redesign", "emotion-hinwil", "stahel-koeng"].includes(p.slug)
+);
+
+const leistung = [
+  {
+    title: "Ein Zeichen, das nur dir gehört",
+    note: "Kein Symbol von der Stange, sondern ein Logo, das aus deiner Geschichte, deinen Werten und deiner Zielgruppe entsteht. Unverwechselbar und wiedererkennbar.",
+  },
+  {
+    title: "Funktioniert überall",
+    note: "Vom Favicon bis zur Fassadenbeschriftung: Dein Logo wird als saubere Vektordatei rein gezeichnet, mit Varianten für helle und dunkle Hintergründe und für jede Anwendung.",
+  },
+  {
+    title: "Rechtlich auf sicherem Boden",
+    note: "Wir achten auf Einzigartigkeit, damit dein Zeichen keiner bestehenden Marke in die Quere kommt. Das erspart dir teure Überraschungen.",
+  },
+  {
+    title: "Mehr als nur ein Logo",
+    note: "Auf Wunsch liefern wir gleich das System dazu: Farbwelt, Typografie und Regeln, mit denen dein ganzer Auftritt stimmig bleibt.",
+  },
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: Was soll dein Zeichen leisten, wen soll es ansprechen",
+  "Recherche und Konzept: Branche, Mitbewerber und gewünschte Wirkung",
+  "Entwürfe mit Begründung: Gestaltungsrichtungen, die wir dir erklären",
+  "Reinzeichnung: saubere Vektordaten und Varianten für jede Anwendung",
+  "Übergabe: alle Dateien und Farben, auf Wunsch mit Regeln fürs Erscheinungsbild",
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Logo erstellen lassen?",
+    a: "Das hängt vom Umfang ab: ein einzelnes Logo, ein Logo mit Varianten und Regeln oder gleich ein ganzes Erscheinungsbild. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit allen Leistungen und einem klaren Preis. Ohne versteckte Kosten und ohne Überraschungen auf der Rechnung.",
+  },
+  {
+    q: "Wie lange dauert es, bis mein Logo fertig ist?",
+    a: "Je nach Umfang und Feedbackschlaufen wenige Wochen. Du siehst früh erste Gestaltungsrichtungen und weisst immer, wo wir stehen. Wenn es bei dir eilt, etwa wegen eines Lancierungsdatums, sag es uns gleich zu Beginn.",
+  },
+  {
+    q: "Was bekomme ich am Schluss genau?",
+    a: "Dein Logo als saubere Vektordatei, damit es in jeder Grösse scharf bleibt. Dazu Varianten für helle und dunkle Hintergründe, die definierten Farben und gängige Dateiformate für Druck, Web und Social Media. Auf Wunsch Regeln für Typografie und Anwendungen.",
+  },
+  {
+    q: "Überarbeitet ihr auch bestehende Logos?",
+    a: "Ja, das machen wir oft. Wenn dein Zeichen in die Jahre gekommen ist, frischen wir es auf, ohne die Wiedererkennung zu verlieren. So haben wir es etwa für den Unihockeyverein emotion Hinwil gemacht: neues Logo, neue Gestaltungselemente, aber die identitätsstiftende Farbe blieb.",
+  },
+  {
+    q: "Was unterscheidet euch vom Online-Logo-Generator oder der KI?",
+    a: "Kurz gesagt: Beratung, Einzigartigkeit und saubere Reinzeichnung. Generatoren und KI liefern schnelle Bilder, aber keine Auseinandersetzung mit deiner Marke und keine Garantie, dass das Zeichen nicht woanders fast gleich auftaucht. Mehr dazu auf unserer Seite zum Thema Logo mit KI erstellen.",
+  },
+  {
+    q: "Brauche ich gleich ein ganzes Corporate Design?",
+    a: "Nicht zwingend. Viele starten mit dem Logo und bauen den Rest später aus. Sinnvoll ist das Gesamtpaket, wenn du von Anfang an viele Anwendungen hast: Website, Drucksachen, Fahrzeuge, Social Media. Wir beraten dich ehrlich, was für deine Situation reicht.",
+  },
+];
+---
+
+<Layout
+  title="Logo erstellen lassen in der Schweiz, Uftritt"
+  description="Logo erstellen lassen bei der Agentur aus dem Zürcher Oberland: unverwechselbar, sauber rein gezeichnet, mit Beratung statt Zufall. Für KMU in der ganzen Schweiz."
+>
+  <PageHero
+    eyebrow="Logo Design · Zürcher Oberland"
+    title={"Logo erstellen\nlassen"}
+    lead="Dein Logo fasst die Identität deines Unternehmens auf kleinstem Raum zusammen und trägt sie in die Welt. Bei uns entsteht es nicht per Zufall, sondern aus Recherche, Konzept und sauberer Reinzeichnung: ein unverwechselbares Zeichen, das auf der Visitenkarte genauso funktioniert wie auf der Fassade. Aus dem Zürcher Oberland, für KMU in der ganzen Schweiz."
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Was du bekommst */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Das steckt drin</span>
+        <h2>Was du bei uns bekommst</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          leistung.map((l) => (
+            <article class="karte">
+              <h3>{l.title}</h3>
+              <p class="karte-note">{l.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Prozess + Einordnung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>So entsteht dein Logo</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Warum Beratung den Unterschied macht</h2>
+        <div class="lp-text">
+          <p>
+            Ein Logo ist kein hübsches Bild, sondern eine Entscheidung: Wer bist du,
+            wen willst du ansprechen, was soll bei den Leuten hängen bleiben? Diese
+            Fragen klären wir zuerst. Erst dann wird gezeichnet.
+          </p>
+          <p>
+            Darum sieht man unseren Logos an, dass sie zu ihrem Träger gehören: dem
+            Traditionsbetrieb, der 125 Jahre feiert, genauso wie dem Sportverein,
+            der frischer auftreten will.
+          </p>
+          <p>
+            Überlegst du, dein Logo mit KI zu machen? Wir haben das Thema ehrlich
+            eingeordnet: <a href="/ki-logo/">Logo mit KI erstellen: was geht, was nicht</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Logo erstellen lassen</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für dein neues Zeichen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, wer du bist und was dein Logo leisten soll. Wir melden uns mit
+        ersten Gedanken und einem transparenten Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,418 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "smart-navigator", "regan"].includes(p.slug)
+);
+
+const leistungen = [
+  {
+    title: "Sauberes Setup",
+    note: "Kampagnenstruktur nach deinen Leistungen, passende Suchbegriffe, regionale Aussteuerung und vor allem ein Conversion-Tracking, das Anfragen und Anrufe wirklich misst, statt nur Klicks zu zählen.",
+  },
+  {
+    title: "Laufende Optimierung",
+    note: "Wir werten aus, wonach tatsächlich gesucht wurde, stopfen Streuverluste über Ausschluss-Keywords, testen Anzeigentexte und justieren Gebote nach. Monat für Monat.",
+  },
+  {
+    title: "Reporting in Klartext",
+    note: "Du bekommst monatlich verständlich berichtet: was es gekostet hat, was es gebracht hat und was wir als Nächstes ändern. Keine Dashboards, die niemand versteht.",
+  },
+  {
+    title: "Blick auf die Zielseite",
+    note: "Die beste Anzeige verpufft auf einer schwachen Seite. Weil wir Websites und Landingpages selbst bauen, schauen wir Anzeige und Zielseite immer zusammen an.",
+  },
+];
+
+const ranges = [
+  {
+    name: "Einmaliges Setup",
+    price: "CHF 900 bis 2500",
+    note: "Kontostruktur, Kampagnenaufbau, Conversion-Tracking, erste Anzeigen und regionale Aussteuerung. Der Aufwand hängt davon ab, wie viele Leistungen du bewerben willst.",
+  },
+  {
+    name: "Betreuungspauschale",
+    price: "CHF 300 bis 1500 pro Monat",
+    note: "Je nach Zahl der Kampagnen und Optimierungsrhythmus.",
+  },
+  {
+    name: "Media-Budget",
+    price: "CHF 500 bis 3000 pro Monat",
+    note: "Geht zu hundert Prozent an Google, nicht an die Agentur. Unter CHF 500 pro Monat wird die Datenbasis dünn, dann dauert die Optimierung entsprechend lange.",
+  },
+];
+
+const ablauf = [
+  "Kostenloses Erstgespräch: Ziele, Markt und Budget, wir sagen ehrlich, ob Ads sich lohnen",
+  "Setup: Konto, Kampagnenstruktur, Conversion-Tracking und regionale Aussteuerung",
+  "Start der Kampagne: Anzeigen gehen live, die ersten Daten kommen rein",
+  "Laufende Optimierung: Suchbegriffe, Gebote und Anzeigentexte werden nachjustiert",
+  "Monatliches Reporting in Klartext: Kosten, Resultate, nächste Schritte",
+];
+
+const faq = [
+  {
+    q: "Was kostet Google Ads für ein KMU?",
+    a: "Die Kosten haben zwei Blöcke: das Media-Budget, das du direkt an Google zahlst, und die Betreuung. Typisch für lokale KMU in der Schweiz sind CHF 500 bis 3000 Media-Budget pro Monat, dazu eine Betreuungspauschale von CHF 300 bis 1500 und einmalig CHF 900 bis 2500 für das Setup. Das sind Markt-Richtwerte, keine Ladenpreise: Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot, aus dem genau hervorgeht, was drin ist und was es kostet.",
+  },
+  {
+    q: "Ab welchem Budget lohnt sich Google Ads?",
+    a: "Als grobe Marke: ab etwa CHF 500 Media-Budget pro Monat, wenn in deinem Markt aktiv nach deiner Leistung gesucht wird. Darunter sammelt Google zu wenig Daten, und die Optimierung dauert lange. Entscheidend sind die Klickpreise in deinem Markt: Lokale Dienstleistungen liegen oft im einstelligen Frankenbereich pro Klick, damit kommen auch kleinere Budgets zu Anfragen. In hart umkämpften Märkten kosten Klicks zweistellig, da braucht es mehr. Wir sagen dir im Erstgespräch ehrlich, ob dein Budget und dein Markt zusammenpassen.",
+  },
+  {
+    q: "Google Ads oder SEO, was zuerst?",
+    a: "Das hängt von deiner Situation ab. Ads machen dich ab dem ersten Tag sichtbar, kosten aber laufend, und die Sichtbarkeit endet, sobald du das Budget stoppst. SEO braucht Monate, baut dafür Sichtbarkeit auf, die bleibt. In regionalen Märkten mit überschaubarer Konkurrenz ist eine SEO-Betreuung oft die bessere erste Investition, während Ads für schnellen Bedarf, Saisonaktionen oder neue Angebote ideal sind. Wir betreiben beides selbst und sagen dir ehrlich, welcher Franken bei dir zuerst mehr bringt.",
+  },
+  {
+    q: "Was passiert im ersten Monat der Betreuung?",
+    a: "Die ersten ein bis zwei Wochen gehen ins Setup: Kontostruktur, Kampagnen, Conversion-Tracking und Anzeigentexte. Danach geht die Kampagne live und Google beginnt, die Ausspielung zu testen. Wir werten die echten Suchbegriffe aus und schliessen Streuverluste aus. Ehrlich gesagt: Der erste Monat liefert vor allem Daten und erste Anfragen. Die echten Verbesserungen entstehen durch die Optimierung ab dem zweiten Monat, wenn klar wird, welche Begriffe und Anzeigen Anfragen bringen.",
+  },
+  {
+    q: "Kann ich Google Ads auch selbst schalten?",
+    a: "Ja, und für sehr kleine Budgets ist das ein legitimer Start. Google macht den Einstieg bewusst einfach, aber die Voreinstellungen sind auf Googles Umsatz optimiert: weit gefasste Suchbegriffe, automatische Ausweitung aufs ganze Land, kaum Schutz vor Streuverlust. Die häufigsten Stolpersteine sind ein fehlendes Conversion-Tracking, sodass du nicht weisst, was ein Klick bringt, und zu breite Keywords. Wenn du es selbst machst: miss zuerst sauber, starte eng und prüfe die Suchbegriffe wöchentlich.",
+  },
+  {
+    q: "Wie lange bin ich an euch gebunden?",
+    a: "Dein Google-Konto gehört dir und bleibt es auch. Das Media-Budget zahlst du direkt an Google, und Kampagnen kannst du jederzeit pausieren. Von unserer Seite setzen wir auf Leistung statt auf lange Vertragslaufzeiten: Wenn die Betreuung für dich keinen Wert mehr hat, soll sie dir nichts mehr kosten. Wie die Zusammenarbeit im Detail aussieht, legen wir transparent im Angebot fest, bevor irgendetwas startet.",
+  },
+];
+---
+
+<Layout
+  title="Google Ads Betreuung für KMU - Uftritt"
+  description="Google Ads Betreuung für KMU: sauberes Setup, laufende Optimierung, Reporting in Klartext. Ehrlich zu Budget, Mindestgrösse und wann SEO besser passt."
+>
+  <PageHero
+    eyebrow="Suchmaschinenwerbung"
+    title={"Google Ads Betreuung\nfür KMU"}
+    lead="Die ehrliche Antwort vorweg: Google Ads lohnen sich für KMU, wenn das Setup sauber ist, das Budget passt und die Landingpage stimmt. Wir richten deine Kampagnen ein, optimieren sie laufend und berichten monatlich in Klartext. Und wir sagen dir auch ehrlich, wann SEO die bessere erste Investition ist."
+    lottie="/lottie/marketingbegleitung.json"
+    lottieLabel="Google Ads Betreuung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/marketingbegleitung/" label="Marketingbegleitung" lottie="/lottie/marketingbegleitung.json" projects={cases} />
+
+  {/* Was in der Betreuung steckt */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Vier Bausteine</span>
+        <h2>Was in der Google Ads Betreuung steckt</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          leistungen.map((l) => (
+            <article class="karte">
+              <h3>{l.title}</h3>
+              <p class="karte-note">{l.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Kosten-Ranges */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Was Google Ads in der Schweiz kostet</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Praxiserfahrung. Was es für dich konkret braucht,
+        hängt
+        von Markt, Konkurrenz und Zielen ab, darum gibt es bei uns keinen
+        Listenpreis, sondern ein transparentes Angebot nach dem Erstgespräch.
+      </p>
+    </div>
+  </section>
+
+  {/* Kostenstruktur ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Zwei Kostenblöcke, klar getrennt</h2>
+        <div class="lp-text">
+          <p>
+            Das Media-Budget zahlst du direkt an Google, über dein eigenes Konto,
+            das dir gehört. Du siehst jederzeit, wohin jeder Franken fliesst, und
+            du kannst die Kampagne jederzeit pausieren.
+          </p>
+          <p>
+            Die Betreuungspauschale ist der zweite Block: Sie deckt Setup,
+            laufende Optimierung und Reporting. Vorsicht ist bei Angeboten mit
+            «Gratis-Verwaltung» geboten: Da versteckt sich die Marge oft
+            intransparent im Budget, und am Ende weisst du nicht mehr, was
+            Werbung kostet und was Betreuung.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ab welchem Budget sich Ads lohnen</h2>
+        <div class="lp-text">
+          <p>
+            Als grobe Marke gilt: ab etwa CHF 500 Media-Budget pro Monat, wenn
+            in deinem Markt aktiv gesucht wird. Darunter sammelt Google zu
+            wenig Daten, und jede Optimierung dauert entsprechend lange.
+          </p>
+          <p>
+            Ob dein Budget trägt, hängt von den Klickpreisen ab: Bei lokalen
+            Dienstleistungen liegt ein Klick oft im einstelligen Frankenbereich,
+            da reichen auch kleinere Budgets für erste Anfragen. In umkämpften
+            Märkten wie Versicherungen oder Finanzierungen kosten Klicks
+            zweistellig, dann ist SEO meist die bessere erste Investition.
+            Genau das rechnen wir dir im Erstgespräch ehrlich vor.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Landingpage-Pflicht */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ohne passende Zielseite keine Kampagne</h2>
+        <div class="lp-text">
+          <p>
+            Eine Anzeige gibt ein Versprechen, die Zielseite muss es halten.
+            Wer Besucher einfach auf die Startseite schickt, zahlt für Klicks,
+            aus denen keine Anfrage wird: Die Leute finden nicht sofort das,
+            was die Anzeige versprochen hat, und sind wieder weg.
+          </p>
+          <p>
+            Darum prüfen wir vor dem Start, ob deine Zielseite die Kampagne
+            trägt. Wo sie das nicht tut, empfehlen wir eine eigene Seite pro
+            Angebot. Wie so eine Seite aufgebaut ist und was sie leisten muss,
+            zeigen wir auf unserer Seite
+            <a href="/landingpage-erstellen-lassen/">Landingpage erstellen lassen</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ads oder SEO */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann Ads das richtige Werkzeug sind</h2>
+        <div class="lp-text">
+          <p>
+            Du brauchst ab sofort Anfragen, hast ein Angebot mit klarer Marge
+            und eine Seite, die Besucher überzeugt. Ads wirken ab dem ersten
+            Tag und sind exakt steuerbar: Region, Budget und Suchbegriffe
+            legst du fest, nicht ein Algorithmus allein.
+          </p>
+          <p>
+            Ideal sind Ads auch für saisonale Aktionen, neue Leistungen oder
+            Märkte, in denen du organisch noch nirgends stehst. Sobald du das
+            Budget stoppst, ist die Sichtbarkeit allerdings sofort wieder weg.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wann SEO die bessere erste Investition ist</h2>
+        <div class="lp-text">
+          <p>
+            Wenn dein Budget knapp ist und du längerfristig denkst:
+            Suchmaschinenoptimierung und lokale Sichtbarkeit bauen ein Fundament,
+            das bleibt, auch wenn du einen Monat nichts investierst. In regionalen
+            Märkten mit überschaubarer Konkurrenz ist das oft der bessere erste
+            Franken.
+          </p>
+          <p>
+            Wir machen beides und haben darum keinen Grund, dir das Falsche
+            anzudrehen: Wie eine laufende
+            <a href="/seo-betreuung/">SEO-Betreuung</a> bei uns aussieht und
+            für wen sie sich lohnt, liest du auf der Schwesterseite. Viele
+            Betriebe kombinieren am Ende beides: Ads für den schnellen Bedarf,
+            SEO für das Fundament.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* DIY ehrlich + keine Versprechen */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Selbst schalten oder betreuen lassen?</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlich: Google Ads kannst du selbst schalten, die Einstiegshürde
+            ist bewusst niedrig. Für ein sehr kleines Budget und eine klar
+            umrissene Leistung kann das reichen. Die Voreinstellungen sind aber
+            auf Googles Umsatz optimiert, nicht auf deinen: weit gefasste
+            Suchbegriffe, automatische Ausweitung, kein Schutz vor Streuverlust.
+          </p>
+          <p>
+            Wenn dir die laufende Pflege zu viel wird oder dein Budget zu
+            schade für Lehrgeld ist, lagern wir es für dich ein. Wie das
+            grundsätzlich funktioniert, zeigen wir unter
+            <a href="/marketing-auslagern/">Marketing auslagern</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was wir dir nicht versprechen</h2>
+        <div class="lp-text">
+          <p>
+            Keine garantierte Anfragenzahl und keinen garantierten Anzeigenrang:
+            Position und Klickpreise hängen von deinem Markt, deiner Konkurrenz
+            und der Qualität von Anzeige und Zielseite ab. Wer dir feste
+            Resultate garantiert, erzählt dir ein Märchen.
+          </p>
+          <p>
+            Was wir versprechen: ein sauberes Setup, laufende Optimierung auf
+            echten Daten und ein Reporting, das du verstehst. Und die ehrliche
+            Absage, wenn dein Budget oder dein Markt nicht zu Ads passt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Google Ads Betreuung</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Sollen deine Anzeigen ab sofort Anfragen bringen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du verkaufen willst und in welcher Region. Wir sagen
+        dir ehrlich, ob sich Google Ads für dich lohnt, und machen ein
+        transparentes Angebot, kostenlos und unverbindlich.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .ranges { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten, .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten, .ranges { grid-template-columns: 1fr; }
+  }
+</style>

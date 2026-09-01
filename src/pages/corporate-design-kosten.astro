@@ -1,0 +1,257 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["emotion-hinwil", "dtb-redesign", "stahel-koeng", "cynterim"].includes(p.slug)
+);
+
+const ranges = [
+  {
+    name: "Plattform und Logo-Generator",
+    price: "CHF 99 bis 950",
+    note: "Canva, Looka und Marktplätze: schnell und günstig, aber eine Vorlage, die tausendfach verkauft wird. Keine Recherche, kein System, keine gesicherten Rechte. Für Hobbyprojekte okay, für Firmen riskant.",
+  },
+  {
+    name: "Freelancer-Logo",
+    price: "ca. CHF 800 bis 3000",
+    note: "Solide Handwerksleistung für das Zeichen allein. Qualität schwankt stark, und meist fehlt das System dahinter: Farbwelt, Typografie, Regeln für die Anwendungen.",
+  },
+  {
+    name: "Agentur-Logo",
+    price: "CHF 2500 bis 8000",
+    note: "Mit Recherche, mehreren begründeten Entwürfen und sauberer Reinzeichnung in Vektor. Genau dafür gibt es bei uns das Logo-Paket zum Fixpreis ab CHF 2500.",
+  },
+  {
+    name: "Corporate-Design-System",
+    price: "CHF 5000 bis 50 000+",
+    note: "Logo plus Farbwelt, Typografie, Bildwelt, Anwendungen und Manual. Die Spanne erklärt sich über Anwendungsumfang, Manual-Tiefe und Rollout-Begleitung.",
+  },
+];
+
+const treiber = [
+  "Recherche und Strategie: Wer nur zeichnet, ist günstiger als wer zuerst versteht",
+  "Anzahl Entwürfe und Korrekturrunden: begründete Richtungen statt Zufallsvarianten",
+  "Anwendungen: Visitenkarte und Briefschaft oder auch Fahrzeug, Fassade und Social Media",
+  "Manual-Tiefe: kompaktes Regelwerk oder umfassendes CI-Handbuch mit Vorlagen",
+  "Stundensätze: Schweizer Design-Agenturen rechnen mit ca. CHF 120 bis 250 pro Stunde",
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Logo in der Schweiz?",
+    a: "Von CHF 99 auf der Plattform bis CHF 8000 bei der Agentur ist alles drin. Der ehrliche Mittelwert für ein professionelles Logo mit Recherche, Entwürfen und sauberer Reinzeichnung liegt bei CHF 2500 bis 4000. Alles deutlich darunter ist Vorlagenarbeit ohne System, alles deutlich darüber braucht eine Begründung im Umfang.",
+  },
+  {
+    q: "Was kostet Corporate Design bei euch?",
+    a: "Bei uns gibt es Fixpreise statt Stundenschätzungen: Das Logo-Paket kostet CHF 2500, Corporate Design klein CHF 5500, Corporate Design gross CHF 12 500, alles inklusive Konzeption, Design und Reinzeichnung. Alle Details stehen auf unserer Corporate-Design-Seite. Was nicht drinsteht, wird nicht extra verrechnet.",
+  },
+  {
+    q: "Warum nicht einfach das CHF-99-Logo nehmen?",
+    a: "Für einen internen Anlass spricht nichts dagegen. Aber sobald das Zeichen geschäftlich trägt, wird es teuer: Die Vorlage gibt es tausendfach, eine Markenanmeldung wird wackelig, und für Druck, Fahrzeug oder Fassade fehlen saubere Vektordaten. Dann heisst es neu starten, und der scheinbar günstige Preis wird doppelt bezahlt.",
+  },
+  {
+    q: "Was ist im Preis alles enthalten?",
+    a: "Das steht in jeder seriösen Offerte und gehört bei uns zum Paket: Erstgespräch und Recherche, mehrere begründete Entwürfe, Korrekturrunden, Reinzeichnung als saubere Vektordatei, Varianten für helle und dunkle Hintergründe und die Übergabe aller Rechte und Dateien. Nicht enthalten sind üblicherweise Druckkosten und Produktionskosten von Anwendungen.",
+  },
+  {
+    q: "Ist ein Redesign günstiger als ein neues Logo?",
+    a: "Nicht automatisch. Ein behutsamer Refresh spart Recherche, weil die Marke schon steht. Dafür kommt Sorgfalt dazu: Was bleibt, was geht, und wie bleibt die Wiedererkennung erhalten. Bei uns läuft ein Redesign über das gleiche Logo-Paket, weil der Aufwand derselbe ist. Details stehen auf unserer Seite Logo modernisieren lassen.",
+  },
+  {
+    q: "Gibt es laufende Kosten?",
+    a: "Beim Design selbst nicht: Du zahlst einmalig und bekommst alle Dateien und Rechte. Laufende Kosten entstehen nur dort, wo du Anwendungen produzierst oder betreibst, etwa Drucksachen, Website oder Werbung. Vorsicht bei Abo-Modellen mancher Plattformen: Da mietest du dein eigenes Logo.",
+  },
+];
+---
+
+<Layout
+  title="Was kostet Corporate Design?, Uftritt"
+  description="Was kostet Corporate Design in der Schweiz? Echte Preisranges: Logo CHF 99 bis 8000, CD-System CHF 5000 bis 50 000+. Ehrlich eingeordnet, mit Fixpreis-Paketen."
+>
+  <PageHero
+    eyebrow="CD-Kosten · Schweiz"
+    title={"Was kostet\nCorporate Design?"}
+    lead="Die ehrliche Antwort vorweg: Ein professionelles Logo kostet in der Schweiz CHF 2500 bis 4000, ein komplettes Corporate-Design-System CHF 5000 bis weit über 50 000. Plattformen locken mit CHF 99. Was hinter diesen Preisen steckt und woran du faire Angebote erkennst: hier die Einordnung."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="CD-Kosten"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Antwort-Block: Preisranges */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Die Preisranges im Überblick</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. Jedes Corporate Design ist
+        individuell, darum sind das Ranges und keine Ladenpreise.
+      </p>
+    </div>
+  </section>
+
+  {/* Preistreiber + bei uns */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was den Preis wirklich treibt</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {treiber.map((t) => <li><span class="modul-check">✓</span>{t}</li>)}
+          </ul>
+          <p>
+            Der grösste Hebel ist die Frage System oder Zeichen: Wer nur ein
+            Logo braucht, zahlt einen Bruchteil dessen, was ein komplettes
+            Erscheinungsbild mit Manual kostet. Ehrlich gefragt, reicht vielen
+            Betrieben am Anfang das Fundament.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was es bei uns kostet</h2>
+        <div class="lp-text">
+          <p>
+            Wir arbeiten mit Fixpreisen statt mit Stundenschätzungen im
+            Ungewissen: Das Logo-Paket kostet CHF 2500, Corporate Design klein
+            CHF 5500, Corporate Design gross CHF 12 500. Darin stecken
+            Recherche, begründete Entwürfe und die saubere Reinzeichnung, keine
+            versteckten Posten.
+          </p>
+          <p>
+            Alle Paketinhalte stehen transparent auf unserer Seite
+            <a href="/corporate-design/">Corporate Design erstellen lassen</a>.
+            Und wenn du nur wissen willst, was ein Logo kostet, hilft unser
+            Guide zu den <a href="/logo-kosten/">Logo-Kosten</a> weiter.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu Corporate-Design-Kosten</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Willst du wissen, was dein Corporate Design kostet?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du vorhast. Wir sagen dir ehrlich, welches Paket passt,
+        und schicken dir das schriftliche Angebot dazu, kostenlos und
+        unverbindlich.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-check {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.85rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges { grid-template-columns: 1fr; }
+  }
+</style>

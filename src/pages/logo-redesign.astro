@@ -1,0 +1,301 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["dtb-redesign", "stahel-koeng", "emotion-hinwil"].includes(p.slug)
+);
+
+const bausteine = [
+  {
+    title: "Formen und Proportionen",
+    note: "Das Grundgerüst des Zeichens wird aufgeräumt: klare Linien, stimmige Proportionen, saubere Formen, die auf dem Handy genauso funktionieren wie auf dem Schild.",
+  },
+  {
+    title: "Farbwelt",
+    note: "Prägende Farben bleiben, wo sie tragen. Angestaubte Töne werden frischer, und die Farbwelt bekommt Regeln, damit sie überall konsistent bleibt.",
+  },
+  {
+    title: "Typografie",
+    note: "Schriften altern schneller als Symbole. Wir modernisieren die Wortmarke und legen Schriften fest, die zu deiner Identität passen und in jeder Anwendung funktionieren.",
+  },
+  {
+    title: "Dateien und Anwendungen",
+    note: "Aus dem alten JPG wird ein sauberes Vektor-Zeichen mit Varianten für hell und dunkel, Print und Screen, Visitenkarte bis Fassade. Inklusive Übergabe aller Rechte.",
+  },
+];
+
+const ablauf = [
+  "Analyse: Was trägt am heutigen Logo, was ist Altlast, was darf auf keinen Fall verloren gehen",
+  "Richtungen mit Begründung: behutsame Modernisierung in klaren Varianten zur Entscheidung",
+  "Reinzeichnung: saubere Vektordaten, Varianten für jede Anwendung",
+  "Rollout-Liste: Wo hängt dein Logo überall, und in welcher Reihenfolge lohnt sich das Umstellen",
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Logo-Redesign?",
+    a: "Bei uns läuft ein Redesign über das Logo-Paket ab CHF 2500, weil die Arbeit dieselbe ist: Recherche, begründete Entwürfe, saubere Reinzeichnung. Ein Refresh spart Strategie-Arbeit, bringt aber Sorgfalt dazu: Was bleibt, was geht, und wie bleibt die Wiedererkennung erhalten. Nach dem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit klarem Preis.",
+  },
+  {
+    q: "Wie lange dauert ein Logo-Redesign?",
+    a: "In der Regel wenige Wochen. Was am meisten Einfluss hat, ist die Entscheidungsgeschwindigkeit auf deiner Seite. Beim Kick-off bekommst du einen verbindlichen Zeitplan mit klaren Etappen.",
+  },
+  {
+    q: "Bleibt unsere Wiedererkennung erhalten?",
+    a: "Ja, das ist der Sinn eines Redesigns. Wiedererkennung ist Kapital, das wir nicht verschenken: Die Grundidee des Zeichens, eine prägende Farbe oder die Formensprache bleibt erkennbar. Beim Unihockeyverein emotion Hinwil etwa blieb Pink die identitätsstiftende Farbe, nur der Farbton wurde frischer.",
+  },
+  {
+    q: "Unser Logo existiert nur noch als JPG. Könnt ihr es nachbauen?",
+    a: "Ja, das ist Alltag bei uns: Wir zeichnen das Zeichen sauber als Vektor nach und modernisieren es im gleichen Zug. Du bekommst danach alle Dateiformate, die du brauchst, von der Visitenkarte bis zur Fassadenbeschriftung.",
+  },
+  {
+    q: "Müssen wir unsere Marke neu anmelden?",
+    a: "Das hängt davon ab, wie stark das Zeichen verändert wird und ob eine Marke eingetragen ist. Ein behutsamer Refresh gefährdet den Schutz in der Regel nicht. Wir prüfen dein Zeichen auf Einzigartigkeit und sagen dir ehrlich, wann sich eine Markenrecherche lohnt.",
+  },
+  {
+    q: "Können wir schrittweise umstellen?",
+    a: "Ja, das empfehlen wir sogar oft: Zuerst die sichtbaren Stellen wie Website und Social Media, dann Drucksachen beim nächsten natürlichen Auftrag. So bleibt der Umstieg planbar und du wirfst keine Lagerbestände weg.",
+  },
+];
+---
+
+<Layout
+  title="Logo modernisieren lassen, Uftritt"
+  description="Logo modernisieren lassen: behutsamer Refresh statt teurer Revolution. Was es kostet, wie wir vorgehen und echte Redesign-Cases aus dem Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="Logo-Redesign · Refresh statt Revolution"
+    title={"Logo\nmo­der­ni­sie­ren lassen"}
+    lead="Dein Logo stammt aus den Anfangsjahren und wirkt es auch? Wir modernisieren es behutsam: Was trägt, bleibt, was angestaubt ist, wird frisch. Für KMU, Vereine und Betriebe in der Nachfolge, vom ersten Blick aufs Bestandeslogo bis zum sauberen Rollout, von der Agentur aus dem Zürcher Oberland."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Logo modernisieren"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Wann + Evolution */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann ein Redesign lohnt</h2>
+        <div class="lp-text">
+          <p>
+            Typische Auslöser: Das Logo stammt aus den Gründerjahren und wirkt
+            neben moderneren Mitbewerbern alt. Der Betrieb wird übergeben, und
+            die neue Generation will einen Auftritt, der zu ihr passt, ohne die
+            Stammkundschaft zu verlieren. Oder das Zeichen funktioniert technisch
+            nicht mehr: kein Vektor, keine Varianten, auf dem Handy unleserlich.
+          </p>
+          <p>
+            Gerade die Firmenübergabe ist der Klassiker in unserer Region:
+            Die Marke ist bei der Stammkundschaft wertvoll, der Auftritt aber
+            in die Jahre gekommen. Genau dafür ist das Redesign gemacht.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Evolution statt Revolution</h2>
+        <div class="lp-text">
+          <p>
+            Unsere ehrliche Grundeinstellung: Wiedererkennung ist Kapital. Wer
+            Jahrzehnte in eine Marke investiert hat, sollte sie nicht
+            leichtfertig wegwerfen. Beim Redesign behalten wir, was trägt:
+            die Grundidee, eine prägende Farbe, die Formensprache. Modernisiert
+            werden Formen, Farbtöne und Typografie.
+          </p>
+          <p>
+            Und wenn die ehrliche Analyse ergibt, dass die Richtung selbst nicht
+            mehr passt, dann ist das Thema kein Redesign mehr, sondern ein
+            <a href="/rebranding/">Rebranding</a>. Auch das sagen wir dir offen,
+            bevor wir etwas verkaufen.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Bausteine */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Was modernisiert wird</span>
+        <h2>Die vier Bausteine des Refresh</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          bausteine.map((b) => (
+            <article class="karte">
+              <h3>{b.title}</h3>
+              <p class="karte-note">{b.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Ablauf + Kosten */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in vier Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet ein Logo-Redesign?</h2>
+        <div class="lp-text">
+          <p>
+            Die ehrliche Antwort: Bei uns läuft ein Redesign über das Logo-Paket
+            ab CHF 2500, weil der Aufwand derselbe ist wie bei einem neuen
+            Logo: Recherche, begründete Entwürfe, saubere Reinzeichnung. Der
+            Refresh spart Strategie-Arbeit, bringt aber Sorgfalt bei der
+            Balance aus Alt und Neu dazu.
+          </p>
+          <p>
+            Was ein Logo in der Schweiz generell kostet, von der CHF-99-Plattform
+            bis zur Grossagentur, legen wir in unserem Guide zu den
+            <a href="/logo-kosten/">Logo-Kosten</a> und den
+            <a href="/corporate-design-kosten/">Corporate-Design-Kosten</a> offen.
+            Alle Paketinhalte findest du auf der Seite
+            <a href="/corporate-design/">Corporate Design</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wie das in echt aussieht</h2>
+        <div class="lp-text">
+          <p>
+            Beim Unihockeyverein DT Bäretswil haben wir das in die Jahre
+            gekommene Logo zeitgemäss überarbeitet und im gleichen Zug neue
+            Match-Tenues und Merchandise-Artikel gestaltet. Und für die
+            Schreinerei Stahel &amp; Köng durften wir das Jubiläumslogo zum
+            125-jährigen Bestehen gestalten: ein Zeichen, das Tradition und
+            Gegenwart verbindet.
+          </p>
+          <p>
+            Beim Unihockeyverein emotion Hinwil war die Ausgangslage eine
+            komplette Erneuerung des Erscheinungsbildes: Die identitätsstiftende
+            Farbe Pink blieb, der Farbton wurde frischer und moderner, dazu
+            neue Gestaltungselemente und Richtlinien für alle Kanäle.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Logo-Redesign</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Ist dein Logo in die Jahre gekommen?</h2>
+      <p class="lp-cta-text">
+        Zeig es uns. Wir sagen dir ehrlich, ob ein Refresh reicht oder ob mehr
+        nötig ist, und machen ein transparentes Angebot, kostenlos und
+        unverbindlich.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

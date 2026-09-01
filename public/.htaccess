@@ -1,0 +1,188 @@
+# ============================================================
+#  Uftritt – Weiterleitungen & kanonische Domain
+# ------------------------------------------------------------
+#  1) Alt-URLs (Webflow-Stand bis 2026-08) -> neue Struktur
+#  2) Kanonisch: https://www.uftritt.ch (nur auf Live-Domain aktiv;
+#     Staging uftritt.mklkreativ.ch bleibt davon unberuehrt)
+#  WICHTIG: In Plesk „Bevorzugte Domain" = www.uftritt.ch (oder
+#  „keine") – NIEMALS die Bare-Variante, sonst Redirect-Loop mit
+#  Regel (2).
+# ============================================================
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # --- Let's Encrypt HTTP-01: Challenge-Pfad nie weiterleiten/umschreiben ---
+  RewriteRule ^\.well-known/acme-challenge/ - [L]
+
+  # --- (2) Kanonische Domain: http->https + bare->www (nur uftritt.ch) ---
+  RewriteCond %{HTTP_HOST} ^(www\.)?uftritt\.ch$ [NC]
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} ^uftritt\.ch$ [NC]
+  RewriteRule ^(.*)$ https://www.uftritt.ch/$1 [R=301,L]
+
+  # --- (1) Alt-URLs: Top-Level ---
+  RewriteRule ^agbs/?$ /agb/ [R=301,L]
+  RewriteRule ^news/?$ /aktuell/ [R=301,L]
+  RewriteRule ^webentwicklung/?$ /angebot/webdesign/ [R=301,L]
+  # 2026-08-17: /corporate-design/ ist jetzt eine eigene LP (Pakete) – Alt-Regel entfernt,
+  # die Alt-URL-Equity landet damit auf der neuen CD-Seite statt auf /angebot/grafikdesign/.
+  RewriteRule ^partner-sponsoring-netzwerke/?$ /partner/ [R=301,L]
+  # 2026-08-29: Alt-URLs auf die regionalen LPs umpointiert (Alt-Titel trugen
+  # "im Zuercher Oberland" - passendstes Ziel ist die Regional-LP, nicht der Hub;
+  # GSC 2026-08-29: 394 bzw. 420 Impressionen/3 Mt auf den Alt-URLs).
+  RewriteRule ^grafikdesign-und-branding-im-zurcher-oberland---uftritt-gmbh/?$ /grafikdesign-zuercher-oberland/ [R=301,L]
+  RewriteRule ^videoproduktion-und-imagefilm-im-zurcher-oberland---uftritt-gmbh/?$ /videoproduktion-zuercher-oberland/ [R=301,L]
+  # 2026-08-18: Orts-Alt-URLs auf die passenden Orts-LPs (statt Hub), sonst geht
+  # Query-Relevanz/Link-Equity verloren (Befund Konkurrenz-Analyse: Bauma-Alt-URL rankte
+  # fuer "Webdesign Bauma" auf #6, landete aber auf der generischen Angebotsseite).
+  RewriteRule ^bauma---webdesign-und-kommunikation/?$ /webdesign-bauma/ [R=301,L]
+  RewriteRule ^turbenthal---webdesign-und-kommunikation-copy/?$ /webdesign-toesstal/ [R=301,L]
+
+  # 2026-08-29: /social-media-betreuung/ und /ki-schulung/ sind wieder eigene LPs
+  # (Wave 6, GSC-Nachfrage belegt) - die 301er vom 2026-08-28 sind entfernt.
+
+  # --- Konvention: /sitemap.xml auf den echten Astro-Sitemap-Index umleiten
+  #     (Bots raten den Standard-Pfad; GSC/robots.txt nutzen sitemap-index.xml) ---
+  RewriteRule ^sitemap\.xml$ /sitemap-index.xml [R=301,L]
+
+  # --- (1) Alt-URLs: /project/... -> /projekte/... ---
+  RewriteRule ^project/100pro-openair-2024/?$ /projekte/100pro-openair-2024/ [R=301,L]
+  RewriteRule ^project/125-jahre-jubilaumslogo-fur-schreinerei-in-hinwil/?$ /projekte/stahel-koeng/ [R=301,L]
+  RewriteRule ^project/architekturmacher/?$ /projekte/architekturmacher/ [R=301,L]
+  RewriteRule ^project/arte-bellezza/?$ /projekte/arte-bellezza/ [R=301,L]
+  RewriteRule ^project/branding-textildesign-und-logo-fur-unihockeyverein-baretswil/?$ /projekte/dtb-redesign/ [R=301,L]
+  RewriteRule ^project/corporate-design-fur-sportverein-aus-hinwil/?$ /projekte/emotion-hinwil/ [R=301,L]
+  RewriteRule ^project/corporate-design-fur-unternehmensberater/?$ /projekte/beat-brugger/ [R=301,L]
+  RewriteRule ^project/corporate-design-und-webseite-fur-it-unternehmen-in-saland/?$ /projekte/it-stall/ [R=301,L]
+  RewriteRule ^project/fotografie-und-neue-webseite-fur-die-physiotherapie-in-bauma/?$ /projekte/physio-rothe/ [R=301,L]
+  RewriteRule ^project/fundraising-fur-die-non-profit-youngstars-international/?$ /projekte/youngstars/ [R=301,L]
+  RewriteRule ^project/ideenentwicklung-und-grafikdesign-fur-die-weihnachtskarten-der-immobilienverwaltung-aus-pfaffikon-zh/?$ /projekte/ripa-weihnachtskarte/ [R=301,L]
+  RewriteRule ^project/kommunikation-landingpages-und-grafikdesign-fur-internationales-logistikunternehmen-aus-regensdorf/?$ /projekte/aas-freight/ [R=301,L]
+  RewriteRule ^project/kommunikationsbegleitung-eines-non-profit-in-der-jugendarbeit/?$ /projekte/youngstars/ [R=301,L]
+  RewriteRule ^project/magazingestaltung-fur-den-unihockeyverein-baretswil/?$ /projekte/dt-baeretswil/ [R=301,L]
+  RewriteRule ^project/marketingstrategie-mit-kommunikation-des-logistikexperten-aus-regensdorf/?$ /projekte/cva/ [R=301,L]
+  RewriteRule ^project/moderne-webseite-fur-das-ferienhaus-in-obersaxen/?$ /projekte/regan/ [R=301,L]
+  RewriteRule ^project/namensentwicklung-branding-logo-webseite-fur-den-unternehmensberater-aus-gruningen/?$ /projekte/sam-focus/ [R=301,L]
+  RewriteRule ^project/neue-webseite-fur-die-physiotherapie/?$ /projekte/physio-rothe/ [R=301,L]
+  RewriteRule ^project/neuer-internetauftritt-fur-die-autogarage-frei/?$ /projekte/garage-frei/ [R=301,L]
+  RewriteRule ^project/produktfilm-videoproduktion-fur-ein-sportgetrank-bei-crossfit-zug/?$ /projekte/empower/ [R=301,L]
+  RewriteRule ^project/projektvideo-imagefilm-fur-die-holzbaufirma-aus-wetzikon-zh/?$ /projekte/heusser-holzbau/ [R=301,L]
+  RewriteRule ^project/ripa-immobilien/?$ /projekte/ripa-immobilien/ [R=301,L]
+  RewriteRule ^project/video-fotoshooting-webseite-logo-fur-die-fahrschule-schweiz/?$ /projekte/fahrschule-schweiz/ [R=301,L]
+  RewriteRule ^project/von-corporate-design-uber-logo-bis-zur-webseite-fur-jungunternehmer/?$ /projekte/cynterim/ [R=301,L]
+  RewriteRule ^project/webseite-und-fotoshooting-fur-den-immobilienverkauf-in-zurich/?$ /projekte/spinnereiplatz/ [R=301,L]
+
+  # --- (1) Alt-URLs: /post/... -> /aktuell/... ---
+  RewriteRule ^post/baumerziitig/?$ /aktuell/baumerziitig/ [R=301,L]
+  RewriteRule ^post/branding-fur-it-unternehmen/?$ /aktuell/it-stall/ [R=301,L]
+  RewriteRule ^post/branding-in-hinwil/?$ /aktuell/emotion-hinwil/ [R=301,L]
+  RewriteRule ^post/broschure-fur-non-profit/?$ /aktuell/yi-broschuere/ [R=301,L]
+  RewriteRule ^post/corporate-identity-in-gruningen/?$ /aktuell/sam-focus/ [R=301,L]
+  RewriteRule ^post/das-team/?$ /aktuell/team/ [R=301,L]
+  RewriteRule ^post/erscheinungsbild-fur-architekturunternehmen/?$ /aktuell/architekturmacher/ [R=301,L]
+  RewriteRule ^post/erscheinungsbild-fur-immobilie-in-zurich/?$ /aktuell/spinnereiplatz/ [R=301,L]
+  RewriteRule ^post/fahrschule-schweiz/?$ /aktuell/fahrschule-schweiz/ [R=301,L]
+  RewriteRule ^post/grundung/?$ /aktuell/gruendung/ [R=301,L]
+  RewriteRule ^post/hallo-christian-angst/?$ /aktuell/christian/ [R=301,L]
+  RewriteRule ^post/hallo-tamara-schmutz/?$ /aktuell/tamara/ [R=301,L]
+  RewriteRule ^post/ki-als-kommunikationswerkzeug/?$ /aktuell/ki/ [R=301,L]
+  RewriteRule ^post/pink-bewegt-hinwil/?$ /aktuell/emotion-hinwil/ [R=301,L]
+  RewriteRule ^post/produktefilm-fur-sportgetrank/?$ /aktuell/empower/ [R=301,L]
+  RewriteRule ^post/saison-guide/?$ /aktuell/dt-baeretswil/ [R=301,L]
+  RewriteRule ^post/servus-webseite/?$ /aktuell/servus/ [R=301,L]
+  RewriteRule ^post/standortforderung-zurioberland/?$ /aktuell/standortfoerderung/ [R=301,L]
+  RewriteRule ^post/unser-podcast-ein-jahr-selbststandigkeit/?$ /aktuell/podcast-selbststaendigkeit/ [R=301,L]
+  RewriteRule ^post/visuelle-kommunikation-in-hinwil/?$ /aktuell/emotion-hinwil/ [R=301,L]
+  RewriteRule ^post/von-ruti-zh-nach-saland/?$ /aktuell/umzug-saland/ [R=301,L]
+  RewriteRule ^post/webauftritt-in-bauma/?$ /aktuell/physio-rothe/ [R=301,L]
+  RewriteRule ^post/webentwicklung-fur-w-rs-maschinenbau-ag/?$ /aktuell/w-rs/ [R=301,L]
+  RewriteRule ^post/webentwicklung-in-pfaffikon-zh/?$ /aktuell/ripa/ [R=301,L]
+  RewriteRule ^post/webseite-fur-ferienhaus/?$ /aktuell/regan/ [R=301,L]
+
+  # --- Catch-Alls fuer nicht gelistete Alt-URLs ---
+  RewriteRule ^project(/|$) /projekte/ [R=301,L]
+  RewriteRule ^post(/|$) /aktuell/ [R=301,L]
+</IfModule>
+
+# ============================================================
+#  Uftritt – Security-Header (Plesk / Apache)
+#  Wird von Astro aus public/ nach dist/ kopiert und liegt dann
+#  im Web-Root. Wirkt nur, wenn Apache .htaccess auswertet
+#  (Plesk-Standard: nginx -> Apache). Bei "nginx-only" stattdessen
+#  die nginx-Direktiven im Plesk-Panel nutzen (siehe Doku/Chat).
+# ============================================================
+
+# Staging-/Entwicklungs-Hosts markieren (wird oben bei den Headern fuer
+# X-Robots-Tag genutzt): jeder Host auf *.mklkreativ.ch = nicht indexieren.
+SetEnvIf Host "mklkreativ\.ch$" UFTRITT_NOINDEX=1
+
+<IfModule mod_headers.c>
+  # --- Staging/Entwicklungs-Hosts (z.B. uftritt.mklkreativ.ch) aus Suchmaschinen
+  #     halten (Duplicate Content zur Live-Site vermeiden). Greift host-abhaengig,
+  #     die Live-Domain uftritt.ch bleibt indexierbar. ---
+  Header always set X-Robots-Tag "noindex, nofollow" env=UFTRITT_NOINDEX
+
+  # --- Clickjacking-Schutz: Seite darf nicht in fremde <iframe> ---
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # --- Kein MIME-Type-Sniffing ---
+  Header always set X-Content-Type-Options "nosniff"
+
+  # --- Referrer sparsam mitgeben ---
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # --- Nicht genutzte Browser-Features sperren ---
+  #     (Fullscreen/Autoplay bleiben frei -> YouTube-Embed funktioniert)
+  Header always set Permissions-Policy "geolocation=(), camera=(), microphone=(), payment=(), usb=()"
+
+  # --- HTTPS erzwingen (NUR wenn ein gültiges SSL-Zertifikat aktiv ist!) ---
+  #     includeSubDomains bewusst weggelassen (Dev-Domain-Rücksicht);
+  #     auf der finalen uftritt.ch kann man es ergänzen.
+  Header always set Strict-Transport-Security "max-age=31536000"
+
+  # --- Server-/PHP-Details nicht verraten ---
+  Header always unset X-Powered-By
+
+  # ============================================================
+  #  Content-Security-Policy
+  #  Vorerst NUR als Report-Only -> blockt nichts, meldet aber
+  #  Verstösse in der Browser-Konsole (F12).
+  #
+  #  Vorgehen zum Scharfschalten:
+  #   1) Seite mit dieser Report-Only-CSP durchklicken (Karte, Videos,
+  #      Formulare, Startseite-Rakete). Konsole auf CSP-Meldungen prüfen.
+  #   2) Wenn nichts (mehr) gemeldet wird: unten die Report-Only-Zeile
+  #      auskommentieren und die "scharfe" Zeile aktivieren.
+  # ============================================================
+  # Report-Only wurde getestet (keine Verstösse) -> jetzt scharf geschaltet.
+  # Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' https://analytics.mklkreativ.ch; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.basemaps.cartocdn.com https://analytics.mklkreativ.ch; font-src 'self'; connect-src 'self' https://analytics.mklkreativ.ch; frame-src https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://analytics.mklkreativ.ch; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.basemaps.cartocdn.com https://analytics.mklkreativ.ch; font-src 'self'; connect-src 'self' https://analytics.mklkreativ.ch; frame-src https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+</IfModule>
+
+# ============================================================
+#  Eigene 404-Seite (Astro baut 404.html aus src/pages/404.astro)
+# ============================================================
+ErrorDocument 404 /404.html
+
+# ============================================================
+#  Cache-Steuerung (PSI: „Effiziente Verweildauer im Cache")
+#  Extensions-basiert (MIME-Typen des Servers sind unzuverlaessig):
+#  CSS/JS (gehasht) + Fonts: 1 Jahr · Bilder: 6 Monate · JSON: 1 Monat.
+#  HTML bleibt frisch (gleiche Dateinamen bei Deploys).
+# ============================================================
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 hour"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|woff2?|ttf|otf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(jpe?g|png|gif|svg|webp|avif|ico)$">
+    Header set Cache-Control "public, max-age=15552000"
+  </FilesMatch>
+  <FilesMatch "\.json$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>

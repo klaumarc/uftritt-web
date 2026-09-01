@@ -1,0 +1,376 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["physio-rothe", "regan", "seatalytics", "ripa-immobilien"].includes(p.slug)
+);
+
+const einsatz = [
+  {
+    title: "Für eine Kampagne",
+    note: "Deine Aktion, dein neues Produkt oder dein Anlass bekommt eine eigene Bühne, ohne dass du den Rest deines Auftritts anfassen musst.",
+  },
+  {
+    title: "Für ein einziges Angebot",
+    note: "Ein Angebot, ein Versprechen, ein nächster Schritt. Alles auf der Seite zieht in dieselbe Richtung, ohne Ablenkung durch Menu und Unterseiten.",
+  },
+  {
+    title: "Als Zielseite für Ads",
+    note: "Wer auf eine Anzeige klickt, erwartet genau das Beworbene. Eine eigene Seite löst das Versprechen der Anzeige ein, statt Besucher im Menu suchen zu lassen.",
+  },
+  {
+    title: "Für einen Event",
+    note: "Datum, Programm, Anmeldung. Eine kompakte Seite, die nach dem Anlass wieder verschwinden darf, ohne deine Website umzubauen.",
+  },
+];
+
+const anforderungen = [
+  {
+    title: "Ein Call-to-Action",
+    note: "Die ganze Seite zieht in eine Richtung: anrufen, anmelden, kaufen. Wer alles will, bekommt nichts, darum gibt es genau einen nächsten Schritt.",
+  },
+  {
+    title: "Message-Match",
+    note: "Was Anzeige, Post oder Flyer versprechen, muss die Seite einlösen: gleiches Angebot, gleiche Sprache, gleiches Bild. Jeder Bruch kostet Besucher.",
+  },
+  {
+    title: "Ladezeit",
+    note: "Gerade aus Werbung kommen Besucher ungeduldig. Lädt die Seite zu lange, ist der Klick verbrannt, bevor er wirken kann.",
+  },
+  {
+    title: "Mobiles Design",
+    note: "Die meisten Klicks kommen vom Handy, oft unterwegs. Darum gestalten wir Landingpages mobil zuerst, nicht als Nachgedanke am Schluss.",
+  },
+];
+
+const ablauf = [
+  "Erstgespräch: Was soll die Seite bewirken, und für wen ist sie da",
+  "Konzept: Ziel, Botschaft und die eine Handlung, die zählt",
+  "Texte und Design: auf den Punkt und in deiner Sprache",
+  "Umsetzung: schnelle Ladezeit, mobil zuerst, sauber messbar",
+  "Launch: Die Seite geht live, getestet auf allen Geräten",
+  "Danach: Betreuung mit Updates und Anpassungen für CHF 33 pro Monat",
+];
+
+const ranges = [
+  {
+    name: "Selber bauen mit Baukasten",
+    price: "CHF 6 bis 40 pro Monat",
+    note: "Wix, Webador, Hostpoint Sites und Co. Keine Gestaltungskosten, dafür deine Arbeitszeit. Für einen ersten Test mit kleinem Budget eine faire Option.",
+  },
+  {
+    name: "Landingpage von der Agentur",
+    price: "CHF 3000 bis 5000",
+    note: "Mit Konzept, eigenem Design, Texten und sauberer Technik. Entspricht der Range für einen Onepager im Schweizer Markt.",
+  },
+  {
+    name: "Mit Kampagnen-Setup",
+    price: "CHF 5000 bis 10 000",
+    note: "Dazu kommen Tracking, Anbindung der Ads-Kampagne und Varianten für Tests. Je mehr davon, desto höher landest du in der Range.",
+  },
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Landingpage?",
+    a: "Selber gebaut mit einem Baukasten kostet sie nur das Abo, rund CHF 6 bis 40 pro Monat, plus deine Arbeitszeit. Von einer Agentur mit Konzept, eigenem Design und Texten liegt eine Landingpage im Schweizer Markt bei CHF 3000 bis 5000, mit Kampagnen-Setup wie Tracking und Ads-Anbindung bei CHF 5000 bis 10 000. Das sind Richtwerte aus unserer Projekterfahrung. Für dein Vorhaben bekommst du nach einem kostenlosen Erstgespräch ein transparentes Angebot mit klarem Preis.",
+  },
+  {
+    q: "Was ist der Unterschied zwischen Landingpage und Website?",
+    a: "Eine Landingpage ist eine einzelne Seite mit genau einem Ziel: anrufen, anmelden, kaufen. Alles auf ihr zieht in diese eine Richtung, ohne Menu und ohne Abzweigungen. Eine Website ist dein ganzer Auftritt mit mehreren Themen, Seiten und Zielgruppen. Kurz gesagt: Die Landingpage ist der Sprint für eine Kampagne, die Website ist dein Zuhause im Netz. Was du brauchst, hängt vom Vorhaben ab, und wir sagen dir ehrlich, wenn eine einzelne Seite nicht reicht.",
+  },
+  {
+    q: "Wie lange dauert es, bis eine Landingpage online ist?",
+    a: "Deutlich schneller als eine ganze Website, weil sich Konzept und Inhalt auf eine Seite und ein Ziel fokussieren. Wie viele Wochen es genau braucht, hängt davon ab, ob Texte und Bilder schon existieren und wie schnell Feedbacks kommen. Nach dem Erstgespräch bekommst du von uns einen realistischen Terminplan mit klaren Etappen. Und wenn es für einen Event oder eine Kampagne auf ein fixes Datum hinarbeiten muss, planen wir rückwärts ab diesem Datum.",
+  },
+  {
+    q: "Könnt ihr auch nur die Texte für unsere Landingpage machen?",
+    a: "Ja. Gerade bei Landingpages entscheiden Worte über die Wirkung: Versprechen, Nutzen, Einwände, Call-to-Action. Wir texten deine bestehende Seite neu oder schärfen sie nach, vom Einstieg bis zum Button. Wenn wir dabei sehen, dass Struktur oder Technik die Wirkung bremsen, sagen wir dir das ehrlich, die Entscheidung liegt bei dir.",
+  },
+  {
+    q: "Brauche ich für Google Ads eine eigene Landingpage?",
+    a: "In den meisten Fällen ja. Eine Anzeige macht ein Versprechen, und die Zielseite muss exakt dieses Versprechen einlösen: gleiches Angebot, gleiche Sprache, ein klarer nächster Schritt. Schickst du Werbeklicks auf deine Startseite, suchen Besucher erst einmal selbst, und viele brechen ab. Eine eigene Landingpage pro Kampagne kostet zwar extra, rechnet sich aber über jeden Kontakt, den die generische Seite verloren hätte.",
+  },
+  {
+    q: "Wird eine einzelne Landingpage bei Google gefunden?",
+    a: "Ja, und das ist einer ihrer grössten Vorteile: Eine Landingpage, die sich voll auf ein Thema fokussiert, kann für genau dieses Suchwort ranken, wenn sie inhaltlich stark und technisch sauber ist. Wir sehen das an unseren eigenen SEO-Landingpages: Sie werden gefunden und bringen Anfragen. So ergänzt sie deine bestehende Website gezielt, etwa für eine Dienstleistung, eine Region oder eine Kampagne. Für ein breites Themenfeld braucht es aber weiterhin den ganzen Auftritt mit entsprechend vielen Seiten.",
+  },
+];
+---
+
+<Layout
+  title="Landingpage erstellen lassen, die konvertiert - Uftritt"
+  description="Landingpage erstellen lassen für Kampagne, Angebot oder Ads: ein klares Ziel, ein CTA, schnelle Ladezeit. Ehrlich beraten, wann es die ganze Website braucht."
+>
+  <PageHero
+    eyebrow="Eine Seite, ein Ziel"
+    title={"Landingpage\nerstellen lassen"}
+    lead="Die kurze Antwort: Eine Landingpage lohnt sich, wenn du ein einziges Anliegen hast: eine Kampagne, ein Angebot, eine Ads-Zielseite oder einen Event. Sie führt Besucher ohne Umwege zu einer Handlung. Sie lohnt sich aber auch aus SEO-Gründen: Als fokussierte Seite rankt sie für ein gezieltes Suchwort und ergänzt deine bestehende Website. Brauchst du mehrere Themen, Produkte oder Zielgruppen unter einem Dach, ist die ganze Website die bessere Wahl."
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Einsatzfälle */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Der richtige Einsatz</span>
+        <h2>Wann eine einzelne Landingpage richtig ist</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          einsatz.map((e) => (
+            <article class="karte">
+              <h3>{e.title}</h3>
+              <p class="karte-note">{e.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Anforderungen */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Damit sie wirkt</span>
+        <h2>Was eine Landingpage braucht, damit sie konvertiert</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          anforderungen.map((a) => (
+            <article class="karte">
+              <h3>{a.title}</h3>
+              <p class="karte-note">{a.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Ehrliche Einordnung + First-Hand */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Und wann du ehrlich eine ganze Website brauchst</h2>
+        <div class="lp-text">
+          <p>
+            Wir verdienen kein Geld damit, dir das Falsche zu verkaufen. Wenn du
+            mehrere Leistungen zeigen, verschiedene Zielgruppen ansprechen oder
+            über Jahre bei Google wachsen willst, reicht eine Seite nicht. Dann
+            braucht es Struktur, mehrere Seiten und Raum für Inhalte.
+          </p>
+          <p>
+            Wie wir einen ganzen Auftritt aufbauen, zeigen wir auf unserer Seite
+            <a href="/website-erstellen-lassen/">Website erstellen lassen</a>.
+            Und wenn du unsicher bist, sagen wir dir im kostenlosen Erstgespräch
+            offen, welcher Weg für dein Vorhaben der richtige ist, auch wenn das
+            der kleinere ist.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Übrigens: Diese Seite hier ist auch eine</h2>
+        <div class="lp-text">
+          <p>
+            Was du gerade liest, ist selbst eine Landingpage: ein Thema, ein Ziel,
+            ein klarer nächster Schritt. Unsere SEO-Landingpages auf uftritt.ch
+            entstehen alle nach dem Muster, das wir dir hier empfehlen, mit
+            direkter Antwort, ehrlicher Einordnung und schnellen Ladezeiten.
+          </p>
+          <p>
+            Wir verkaufen dir also nichts, das wir nicht täglich selbst einsetzen.
+            Diese Seiten werden bei Google gefunden und bringen Besucher, die
+            genau nach dem suchen, was die Seite bietet.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Preisranges */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Was kostet eine Landingpage?</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Reine SEO-Text-Landingpages ohne eigenes Design liegen tiefer. Details
+        dazu findest du auf unserer Seite <a href="/seo-kosten/">SEO-Kosten</a>.
+      </p>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. Jede Landingpage ist individuell,
+        darum sind das Ranges und keine Ladenpreise. Weitere Preisranges für ganze Websites und
+        Shops findest du in unserem Guide zu den
+        <a href="/website-kosten/">Website-Kosten</a>.
+      </p>
+    </div>
+  </section>
+
+  {/* Prozess */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>So entsteht deine Landingpage bei uns</h2>
+        <div class="lp-text">
+          <p>
+            Kein Agentur-Theater, sondern ein klarer Ablauf: Du weisst jederzeit,
+            wo wir stehen, und die Seite ist da, wenn deine Kampagne startet,
+            nicht drei Wochen danach.
+          </p>
+          <p>
+            Was genau drinsteckt, erfährst du nach dem Erstgespräch in einem
+            transparenten Angebot mit klarem Preis. Ohne versteckte Kosten.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in sechs Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Landingpage</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Hast du ein Angebot, das eine eigene Bühne verdient?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deiner Kampagne oder deinem Vorhaben. Wir sagen dir
+        ehrlich, ob eine Landingpage reicht oder ob es mehr braucht, und machen
+        ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .ranges { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+  .quellen a { color: var(--color-blue); font-weight: 700; }
+  .quellen a:hover { color: var(--color-pink); }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--4, .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--4, .ranges { grid-template-columns: 1fr; }
+  }
+</style>

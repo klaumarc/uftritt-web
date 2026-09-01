@@ -45,8 +45,9 @@ if ($istEmail) {
     $headers .= "Reply-To: $k\r\n";
 }
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+$headers .= "Content-Transfer-Encoding: quoted-printable\r\n";
 
-$ok = mail($empfaenger, $betreff, $body, $headers, "-f" . $absender);
+$ok = mail($empfaenger, $betreff, quoted_printable_encode($body), $headers, "-f" . $absender);
 if ($ok) {
     echo "ok";
 } else {

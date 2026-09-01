@@ -1,0 +1,275 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "aas-freight", "youngstars"].includes(p.slug)
+);
+
+const uebernahme = [
+  {
+    title: "Strategie und Planung",
+    note: "Ziele, Zielgruppen, Massnahmenplan und Budgetlogik. Damit Marketing nicht Bauchgefühl bleibt, sondern Richtung hat.",
+  },
+  {
+    title: "Content und Kampagnen",
+    note: "Texte, Bilder, Inserate, Newsletter, Social-Media-Beiträge und ganze Kampagnen: produziert aus einem Guss, weil Grafik, Text und Video bei uns unter einem Dach arbeiten.",
+  },
+  {
+    title: "Website und Auffindbarkeit",
+    note: "Deine Website bleibt aktuell, technisch sauber und bei Google sichtbar. Von der Landingpage bis zur laufenden Pflege.",
+  },
+  {
+    title: "Auswertung und Steuerung",
+    note: "Wir behalten die Resultate im Blick, berichten verständlich und justieren gemeinsam nach. So wird Marketing Monat für Monat besser.",
+  },
+];
+
+const ablauf = [
+  "Kostenloses Erstgespräch: Wir hören zu, wo du stehst und was du erreichen willst",
+  "Bestandsaufnahme: Was läuft schon, was fehlt, was bringt am schnellsten etwas",
+  "Massnahmenplan mit klarem monatlichem Rahmen: du weisst genau, was du bekommst",
+  "Laufende Umsetzung: wir produzieren, schalten und berichten, du bleibst Chef",
+  "Regelmässige Absprache: Resultate anschauen, nachsteuern, nächste Schritte planen",
+];
+
+const faq = [
+  {
+    q: "Was kostet es, Marketing auszulagern?",
+    a: "Weniger als eine eigene Marketingstelle, das ist der eigentliche Punkt: Du bekommst ein ganzes Team aus Strategie, Grafik, Text, Web und Video statt einer einzelnen Person. Wir arbeiten mit einem klaren monatlichen Rahmen, den wir gemeinsam definieren. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot, aus dem genau hervorgeht, was drin ist und was es kostet.",
+  },
+  {
+    q: "Für wen lohnt sich eine externe Marketingabteilung?",
+    a: "Für KMU, die Marketing ernst nehmen wollen, aber keine eigene Marketingstelle aufbauen möchten. Typisch: Die Geschäftsführung macht Marketing heute nebenbei, es passiert nur etwas, wenn gerade Zeit ist, und der Auftritt wirkt entsprechend zusammengestückelt. Wenn du hingegen nur ein einzelnes Projekt hast, etwa eine neue Website, ist ein fix umrissenes Projekt die bessere Wahl als ein laufender Rahmen.",
+  },
+  {
+    q: "Was übernehmt ihr konkret alles?",
+    a: "Von der Strategie bis zur Ausführung: Massnahmenplanung, Texte und Bilder, Inserate, Newsletter, Social Media, Website-Pflege und Suchmaschinen-Grundlagen. Weil wir Grafikdesign, Web und Video selbst machen, kommt alles aus einer Hand. Du hast einen Draht zu uns statt fünf verschiedene Lieferanten.",
+  },
+  {
+    q: "Behalte ich die Kontrolle über mein Marketing?",
+    a: "Ja. Wir legen alle Pläne und Inhalte vor, bevor sie live gehen, und du entscheidest. Wir berichten regelmässig verständlich, was wir getan haben und was es gebracht hat. Ausgelagert heisst entlastet, nicht entmündigt.",
+  },
+  {
+    q: "Wie schnell kann es losgehen?",
+    a: "Nach dem Erstgespräch erstellen wir die Bestandsaufnahme und den Massnahmenplan. Die ersten sichtbaren Massnahmen gehen meist innert weniger Wochen live. Gerade bei Dingen, die seit Monaten liegen bleiben, wirkt das erlösend.",
+  },
+  {
+    q: "Kann ich auch nur einzelne Projekte bei euch buchen?",
+    a: "Natürlich. Viele Zusammenarbeiten starten mit einem konkreten Projekt, etwa einem Katalog, einer Kampagne oder einer Website. Merken wir beide, dass eine laufende Begleitung mehr bringt, bauen wir sie gemeinsam auf. Ohne Druck in ein langes Abo.",
+  },
+];
+---
+
+<Layout
+  title="Marketing auslagern: Deine externe Marketingabteilung, Uftritt"
+  description="Marketing auslagern an die Agentur aus dem Zürcher Oberland: Strategie, Content, Kampagnen und Website aus einer Hand. Für KMU ohne eigene Marketingstelle."
+>
+  <PageHero
+    eyebrow="Externe Marketingabteilung"
+    title={"Marketing\nauslagern"}
+    lead="Du hast kein Marketing-Team, aber Grosses vor? Wir werden deine externe Marketingabteilung: Wir planen, gestalten und führen aus, von der Strategie über Content und Kampagnen bis zur Website. Aus dem Zürcher Oberland, mit klarem monatlichem Rahmen und ehrlicher Beratung, was sich für deinen Betrieb lohnt und was nicht."
+    lottie="/lottie/marketingbegleitung.json"
+    lottieLabel="Marketingbegleitung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/marketingbegleitung/" label="Marketingbegleitung" lottie="/lottie/marketingbegleitung.json" projects={cases} />
+
+  {/* Für wen + was wir übernehmen */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Woran du merkst, dass es Zeit wird</h2>
+        <div class="lp-text">
+          <p>
+            In den meisten KMU macht Marketing die Geschäftsführung nebenbei. Es
+            passiert etwas, wenn gerade Zeit ist: mal ein Post, mal ein Inserat,
+            dann wieder drei Monate nichts. Der Auftritt wirkt zusammengestückelt,
+            und gute Ideen bleiben liegen.
+          </p>
+          <p>
+            Eine eigene Marketingstelle löst das, kostet aber schnell einen
+            sechsstelligen Jahresbetrag und deckt trotzdem nie alles ab: Strategie,
+            Grafik, Text, Web, Video. Genau hier setzen wir an: Du bekommst das
+            ganze Team, aber nur den Anteil davon, den du wirklich brauchst.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>So arbeiten wir zusammen</h2>
+        <div class="lp-text">
+          <p>
+            Wir starten mit Zuhören statt mit Folien: Wo stehst du, wen willst du
+            erreichen, was bringt am schnellsten etwas? Daraus entsteht ein
+            Massnahmenplan mit einem klaren monatlichen Rahmen. Du weisst jederzeit,
+            was drin ist und was es bringt.
+          </p>
+          <p>
+            Und ja, wir sagen dir auch ehrlich, was sich nicht lohnt. Lieber ein
+            gutes Inserat weniger als ein Franken zu viel ausgegeben.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Was wir übernehmen */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Alles aus einer Hand</span>
+        <h2>Was wir für dich übernehmen</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          uebernahme.map((u) => (
+            <article class="karte">
+              <h3>{u.title}</h3>
+              <p class="karte-note">{u.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Ablauf */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wie das in echt aussieht</h2>
+        <div class="lp-text">
+          <p>
+            Die Aweso AG aus Wetzikon, ein Familienunternehmen im Glas- und
+            Metallbau mit rund hundert Jahren Geschichte, hatte keine Marketingstelle
+            und keinen einzigen aktiven Social-Media-Kanal. Wir haben mit Identitäts-
+            und Zielgruppen-Workshops begonnen, Botschaften und Bildwelt entwickelt
+            und das Corporate Design weitergeführt.
+          </p>
+          <p>
+            Heute kommen Website, Kataloge, Inserate, Newsletter und Social Media aus
+            einem Guss, und die Positionierung «bewährt statt alt» trägt das
+            Traditionsunternehmen in die Gegenwart. Genau so kann ausgelagertes
+            Marketing aussehen: erst Fundament, dann laufende Umsetzung.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Marketing auslagern</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Sollen wir dein Marketing übernehmen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, wo du stehst. Wir sagen dir ehrlich, ob sich eine externe
+        Marketingabteilung für dich lohnt, und machen ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

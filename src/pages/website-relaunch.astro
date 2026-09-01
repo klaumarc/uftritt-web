@@ -1,0 +1,338 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "garage-frei", "ripa-immobilien"].includes(p.slug)
+);
+
+const aufwand = [
+  {
+    title: "Inhalte",
+    note: "Jede Seite wird gesichtet: Was bleibt, was wird überarbeitet, was fliegt raus, was fehlt? Texte, Bilder und Downloads wollen migriert und oft neu geschrieben sein. Das ist meist der grösste Brocken.",
+  },
+  {
+    title: "Struktur",
+    note: "Die Navigation wird neu gedacht: Welche Seiten braucht es, wie hängen sie zusammen, was findet man in wie vielen Klicks? Eine klare Sitemap ist das Rückgrat des Relaunchs.",
+  },
+  {
+    title: "Technik",
+    note: "CMS oder Framework, Hosting, Ladezeit, Darstellung auf Mobilgeräten, Formulare und Datenschutz: Das Fundament muss tragen, sonst hilft das schönste Design nichts.",
+  },
+  {
+    title: "Weiterleitungen",
+    note: "Jede alte URL braucht ein neues Zuhause. Fehlt die Weiterleitung, landen Besucher und Google auf einer Fehlerseite, und jahrelang aufgebaute Rankings verpuffen.",
+  },
+];
+
+const ablauf = [
+  "Kostenloses Erstgespräch und Inhalts-Audit: Was bringt deine heutige Site mit, was soll weg, was fehlt",
+  "Neue Struktur: Sitemap und Seitenlogik, damit Besucher und Google alles finden",
+  "Inhalte: Texte, Bilder und Videos übernehmen, überarbeiten oder neu produzieren",
+  "Design und Umsetzung: neuer Look, schnelle Technik, sauber auf Mobilgeräten",
+  "Weiterleitungen und SEO-Setup: jede alte URL zeigt aufs neue Ziel, Titel und Beschreibungen sitzen",
+  "Launch und Kontrolle: Livegang, testen, Rankings beobachten, nachjustieren",
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Website Relaunch?",
+    a: "Das hängt vom Umfang ab: Anzahl Seiten, Zustand der Inhalte, gewünschte Funktionen, Sprachen. Ein Relaunch mit sauberen Weiterleitungen und überarbeiteten Inhalten ist mehr als ein neuer Anstrich, und genau das macht den Unterschied im Resultat. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot, aus dem genau hervorgeht, was drin ist und was es kostet.",
+  },
+  {
+    q: "Wie lange dauert ein Website Relaunch?",
+    a: "Eine kleine Site mit wenigen Seiten ist in ein paar Wochen relauncht, ein grösserer Auftritt mit vielen Inhalten braucht mehrere Monate. Der Engpass ist selten die Technik, sondern Inhalte und Freigaben auf deiner Seite. Wir planen deshalb von Anfang an mit einem realistischen Fahrplan und sagen dir, welche Termine von wem abhängen.",
+  },
+  {
+    q: "Verlieren wir unsere Google-Rankings beim Relaunch?",
+    a: "Nicht, wenn der Relaunch sauber gemacht ist. Kurzfristige Schwankungen sind normal, weil Google die neue Site erst einmal neu einordnet. Bleiben starke Inhalte erhalten, zeigt jede alte URL per Weiterleitung aufs passende neue Ziel und stimmt die Technik, erholt sich die Sichtbarkeit in der Regel rasch. Ohne Weiterleitungen hingegen drohen echte Verluste. Wir haben das bei unserem eigenen Relaunch von uftritt.ch genau so durchgespielt.",
+  },
+  {
+    q: "Können alte Inhalte übernommen werden?",
+    a: "Ja, und meist ist das sogar sinnvoll. Das Inhalts-Audit zeigt, welche Seiten Besucher und Rankings bringen. Diese Inhalte ziehen mit auf die neue Site, überarbeitet statt blind kopiert, wenn sie veraltet sind. Was niemand mehr liest und nichts mehr mit deinem Angebot zu tun hat, darf gehen.",
+  },
+  {
+    q: "Braucht es ein ganz neues Design?",
+    a: "Nein. Ein Relaunch betrifft Struktur, Technik und Inhalte. Wenn dein Erscheinungsbild aktuell ist, führen wir es weiter und passen es an die neue Site an. Oft entsteht dabei ein frischerer Look fast von selbst, weil klare Strukturen und gute Bilder viel ausmachen. Ein komplett neues Corporate Design ist eine separate Entscheidung, die wir nur empfehlen, wenn sie wirklich nötig ist.",
+  },
+  {
+    q: "Was gehört auf eine Website-Relaunch-Checkliste?",
+    a: "Das Wichtigste in Kürze: Inhalts-Audit der bestehenden Site, neue Sitemap und Struktur, vollständige Weiterleitungsliste aller alten URLs, Titel und Beschreibungen für jede Seite, schnelle Ladezeiten und saubere Darstellung auf Mobilgeräten, XML-Sitemap und Indexierung nach dem Livegang einreichen, danach Rankings und Fehlerseiten einige Wochen beobachten.",
+  },
+];
+---
+
+<Layout
+  title="Website Relaunch: Checkliste und Kosten - Uftritt"
+  description="Website Relaunch: Checkliste, Kosten und SEO-Fallen ehrlich erklärt. So ziehst du mit deiner Website um, ohne Rankings zu verlieren. Aus dem Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="Website Relaunch"
+    title={"Website\nRelaunch"}
+    lead="Ein Website Relaunch lohnt sich, wenn der Auftritt veraltet wirkt, langsam lädt oder bei Google nicht gefunden wird. Hier bekommst du die Checkliste und eine ehrliche Einordnung der Kosten, dazu das Wissen aus unseren eigenen Projekten: Inhalts-Audit, Weiterleitungen, Rankings sichern."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Wann + eigener Case */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann sich ein Website Relaunch lohnt</h2>
+        <div class="lp-text">
+          <p>
+            Vier Zeichen sprechen für einen Relaunch: Deine Website sieht aus wie
+            vor zehn Jahren und passt nicht mehr zu deinem Betrieb. Sie lädt
+            spürbar langsam, besonders auf dem Handy. Sie ist auf Mobilgeräten
+            mühsam zu bedienen. Und sie wird bei Google schlicht nicht gefunden,
+            obwohl deine Leistung gesucht wird.
+          </p>
+          <p>
+            Ein neuer Anstrich allein löst das nicht. Hinter diesen Symptomen
+            stecken meist veraltete Technik, eine gewachsene Struktur und Inhalte,
+            die niemand mehr pflegt. Genau dort setzt ein Relaunch an: Er ersetzt
+            das Fundament, nicht nur die Fassade. Manchmal genügt aber auch eine
+            gezielte Überarbeitung. Das sagen wir dir ehrlich, bevor du Geld
+            ausgibst. Was Websites in der Schweiz typischerweise kosten, haben
+            wir auf der Seite <a href="/website-kosten/">Website-Kosten</a>
+            ehrlich eingeordnet.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Aus erster Hand, nicht aus Lehrbüchern</h2>
+        <div class="lp-text">
+          <p>
+            Wir haben unsere eigene Website selbst relauncht: uftritt.ch ist von
+            Webflow auf eine neue, deutlich schnellere Site umgezogen. Inhalts-Audit,
+            neue Struktur, Weiterleitungen, der Moment, in dem man den alten
+            Auftritt abschaltet und hofft, dass Google mitspielt: Jeder Schritt
+            ist uns vertraut, und genau diese Erfahrung fliesst in deinen
+            Relaunch ein.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Was ihn aufwendig macht */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Der Aufwand</span>
+        <h2>Was einen Relaunch aufwendig macht</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          aufwand.map((a) => (
+            <article class="karte">
+              <h3>{a.title}</h3>
+              <p class="karte-note">{a.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* SEO-Fallen */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Typische SEO-Fallen beim Relaunch</h2>
+        <div class="lp-text">
+          <p>
+            <strong>Alte URLs ohne Weiterleitung.</strong> Die häufigste und
+            teuerste Falle: Seiten, die jahrelang Rankings aufgebaut haben,
+            führen nach dem Relaunch ins Leere. Die Lösung ist eine vollständige
+            Weiterleitungsliste, erstellt vor dem Livegang, nicht danach.
+          </p>
+          <p>
+            <strong>Starke Inhalte gestrichen.</strong> Beim Aufräumen fliegen
+            oft Seiten raus, die still Traffic bringen. Das Inhalts-Audit zeigt
+            vorher, welche Seiten Besucher und Rankings haben. Diese Inhalte
+            werden übernommen oder besser neu geschrieben, nie einfach gelöscht.
+          </p>
+          <p>
+            <strong>Neue Struktur, die niemand versteht.</strong> Wenn wichtige
+            Seiten plötzlich vier Klicks tief vergraben sind, verlieren sie an
+            Gewicht, bei Besuchern wie bei Google. Flach und logisch bleibt die
+            Devise.
+          </p>
+          <p>
+            <strong>Technik als Nebensache.</strong> Langsame Ladezeiten, eine
+            Testumgebung, die versehentlich indexiert wird, oder eine fehlende
+            Sitemap: Solche Details entscheiden mit, ob der Relaunch gewinnt
+            oder verliert.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>So gehst du ihnen aus dem Weg</h2>
+        <div class="lp-text">
+          <p>
+            Die Gegenmassnahme ist immer dieselbe: erst prüfen, dann handeln. Vor
+            dem Relaunch wird inventarisiert, was deine Site heute leistet.
+            Daraus entstehen die Weiterleitungsliste, die neue Sitemap und der
+            Plan, welche Inhalte wohin ziehen.
+          </p>
+          <p>
+            Nach dem Livegang ist der Job nicht fertig: Rankings, Fehlerseiten
+            und Ladezeiten gehören in den Wochen danach unter Beobachtung, damit
+            du sofort nachjustieren kannst, statt Monate später den Verlust
+            festzustellen. Genau so machen wir es auch bei deinem Relaunch.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in sechs Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was Relaunch-Projekte uns gelehrt haben</h2>
+        <div class="lp-text">
+          <p>
+            Erstens: Das Inhalts-Audit kommt vor allem anderen. Erst wenn du
+            weisst, welche Seiten Rankings und Besucher haben, kannst du
+            entscheiden, was in die neue Struktur zieht. Zweitens: Die
+            Weiterleitungsliste ist fertig, bevor die neue Site live geht, nicht
+            eine Woche danach.
+          </p>
+          <p>
+            Drittens: Tempo ist ein Feature. Besucher und Google belohnen
+            schnelle Websites, darum ist ein Relaunch immer auch eine
+            Entscheidung für Ladezeit. Ob du von
+            <a href="/webflow-agentur/">Webflow</a>, WordPress oder einem
+            Baukasten wegziehst: Wichtige Inhalte bleiben in wenigen Klicks
+            erreichbar, und die Technik trägt die nächsten Jahre. Was wir dir im
+            Bereich <a href="/angebot/webdesign/">Webdesign</a> konkret
+            anbieten, siehst du auf der Angebotsseite.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Website Relaunch</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Planst du einen Relaunch?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, wo deine Website heute steht. Wir sagen dir ehrlich, ob sich
+        ein Relaunch lohnt, und machen dir nach einem kostenlosen Erstgespräch
+        ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

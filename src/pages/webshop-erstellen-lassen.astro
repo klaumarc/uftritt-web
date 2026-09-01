@@ -1,0 +1,325 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "ripa-immobilien", "regan", "physio-rothe", "seatalytics", "garage-frei"].includes(p.slug)
+);
+
+const systeme = [
+  {
+    title: "Shopify: mieten",
+    note: "Schnell am Start, Abo ab ca. CHF 30 pro Monat, dazu kommen Apps und Gebühren pro Verkauf. Um eine Idee zügig zu testen, oft genau richtig. Der Shop gehört dir am Ende aber nicht, und deine eigene Zeit steckst du trotzdem rein.",
+  },
+  {
+    title: "WooCommerce: besitzen",
+    note: "Der verbreitetste eigene Weg: flexibel, bewährt und in deinem Besitz. Für die meisten KMU-Shops die stimmige Lösung. Dafür braucht es Hosting, Wartung und Updates, und die will jemand zuverlässig machen.",
+  },
+  {
+    title: "Individuell: bauen lassen",
+    note: "Wenn Schnittstellen zu Warenwirtschaft oder Buchhaltung, B2B-Preise oder besondere Bestellprozesse im Spiel sind. Mehr Investition, dafür genau auf deine Abläufe gebaut und in deinem Besitz.",
+  },
+];
+
+const pflichten = [
+  {
+    title: "Zahlen wie die Schweiz",
+    note: "TWINT ist am Handy Pflicht, dazu Karten, PostFinance und Kauf auf Rechnung. Wir binden die Zahlarten über bewährte Provider wie Datatrans oder Saferpay an und testen den Checkout mit echten Bestellungen.",
+  },
+  {
+    title: "Rechtstexte, die stimmen",
+    note: "AGB, Datenschutzerklärung nach revDSG und ein Impressum gehören in jeden Shop. Die Mehrwertsteuer-Nummer kommt dazu, sobald dein Betrieb mehrwertsteuerpflichtig ist, also ab CHF 100 000 Umsatz. Wir setzen alles sauber ein; die verbindliche Prüfung liegt bei deiner Anwältin oder deinem Treuhänder.",
+  },
+  {
+    title: "Mehrwertsteuer korrekt",
+    note: "Seit 2024 gilt in der Schweiz der Normalsatz von 8.1 Prozent. Preise inklusive Mehrwertsteuer, korrekte Sätze je Produkt und eine saubere Ausweisung auf der Rechnung richten wir von Anfang an ein.",
+  },
+  {
+    title: "Barrierefrei verkaufen",
+    note: "Verkaufst du an Verbraucherinnen und Verbraucher in der EU, gilt seit Juni 2025 das Barrierefreiheitsgesetz auch für Schweizer Shops. Was das für dich heisst, erklären wir auf unserer Seite zur <a href=\"/barrierefreie-website/\">barrierefreien Website</a>.",
+  },
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: Sortiment, Ziele und Abläufe verstehen",
+  "System-Empfehlung und transparente Offerte mit klarem Umfang",
+  "Design und Prototyp: du siehst deinen Shop, bevor wir bauen",
+  "Aufbau mit Produkten, Zahlarten, Versand, Steuern und Rechtstexten",
+  "Echte Testbestellungen, Launch und Einweisung für dein Team",
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Webshop?",
+    a: "Im Schweizer Markt kostet ein kleiner professioneller Shop CHF 5000 bis 10 000, ein typischer KMU-Shop mit TWINT, Karten, Kauf auf Rechnung und Versandlogik CHF 10 000 bis 50 000. Mit einem Baukasten-Abo startest du ab ca. CHF 30 pro Monat, steckst aber deine eigene Zeit rein. Die ganze Übersicht mit laufenden Kosten findest du in unserem Guide zu den Webshop-Kosten. Und bei uns: kostenloses Erstgespräch, danach eine transparente Offerte mit klarem Preis.",
+  },
+  {
+    q: "Shopify, WooCommerce oder individuell: Was passt zu uns?",
+    a: "Das hängt von Sortiment und Abläufen ab. Shopify ist Miete: schnell am Start, dafür Abo, App-Kosten und Gebühren pro Verkauf. WooCommerce gehört dir, ist flexibel und bewährt, braucht aber Wartung. Individuell entwickeln lohnt sich bei Schnittstellen, B2B-Preisen oder besonderen Prozessen. Wir bauen mit Shopify und WooCommerce und empfehlen das System erst, wenn wir dein Sortiment und deine Ziele kennen.",
+  },
+  {
+    q: "Wer pflegt die Produkte in den Shop ein?",
+    a: "Die Struktur mit Kategorien, Varianten und Versandklassen richten wir ein, und die ersten Produkte erfassen wir gemeinsam mit dir. Danach übernehmen viele Kundinnen und Kunden die Pflege selbst: In der Einweisung zeigen wir dir, wie du Produkte anlegst, Preise änderst und Aktionen schaltest. Wenn du willst, pflegen wir dein Sortiment auch laufend für dich.",
+  },
+  {
+    q: "Welche Zahlarten braucht mein Shop in der Schweiz?",
+    a: "TWINT ist am Handy für viele Schweizer Käuferinnen und Käufer die erste Wahl, ohne TWINT brechen spürbar mehr Käufe im Checkout ab. Dazu gehören Karten, PostFinance und Kauf auf Rechnung. Die Anbindung läuft über Payment-Provider wie Datatrans oder Saferpay und kostet rund 1.3 bis 3 Prozent pro Verkauf plus kleine Fixgebühren pro Transaktion.",
+  },
+  {
+    q: "Wie lange dauert es, bis der Shop live ist?",
+    a: "Das entscheiden deine Produktdaten: Ein kleiner Shop mit sauberen Texten und Fotos ist in wenigen Wochen live. Mehrere hundert Produkte aus einer alten Warenwirtschaft, viele Varianten oder Mehrsprachigkeit machen daraus ein grösseres Projekt. Mit der Offerte bekommst du von uns einen verbindlichen Zeitplan mit klaren Etappen.",
+  },
+  {
+    q: "Was muss rechtlich alles in den Shop?",
+    a: "AGB, eine Datenschutzerklärung nach revDSG, ein Impressum und korrekte Preisangaben inklusive Mehrwertsteuer. Die Mehrwertsteuer-Nummer gehört ins Impressum, sobald du mehrwertsteuerpflichtig bist, also ab CHF 100 000 Umsatz. Anders als in der EU gibt es in der Schweiz kein gesetzliches Widerrufsrecht, deine AGB regeln, was gilt. Wir bauen alles sauber ein und arbeiten mit geprüften Vorlagen; die verbindliche Rechtsberatung holst du dir bei deiner Anwältin oder deinem Treuhänder, dafür sind wir ehrlich nicht die richtigen.",
+  },
+];
+---
+
+<Layout
+  title="Webshop erstellen lassen für die Schweiz, Uftritt"
+  description="Webshop erstellen lassen in der Schweiz: dein Onlineshop mit TWINT, Zahlarten, Steuern und Rechtstexten sauber umgesetzt. Ehrlich beraten, klar offeriert."
+>
+  <PageHero
+    eyebrow="Onlineshop für die Schweiz"
+    title={"Webshop erstellen lassen\nfür die Schweiz"}
+    lead="Du willst online verkaufen und suchst ein Team, das deinen Shop richtig baut? Wir erstellen Onlineshops für Schweizer KMU: mit TWINT und Karten, sauberer Mehrwertsteuer, Rechtstexten nach revDSG und einem System, das zu deinem Sortiment passt. Ehrlich beraten, transparent offeriert, nach dem Launch betreut."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webshop erstellen lassen"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Systemwahl */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Ehrlich eingeordnet</span>
+        <h2>Welches System passt zu dir?</h2>
+      </header>
+      <div class="karten karten--3" data-reveal>
+        {
+          systeme.map((s) => (
+            <article class="karte">
+              <h3>{s.title}</h3>
+              <p class="karte-note">{s.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Schweizer Pflichten */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Schweizer Pflichten</span>
+        <h2>Was ein Shop hierzulande können muss</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          pflichten.map((p) => (
+            <article class="karte">
+              <h3>{p.title}</h3>
+              <p class="karte-note" set:html={p.note} />
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Wann lohnt sich ein Shop */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann sich ein eigener Shop lohnt</h2>
+        <div class="lp-text">
+          <p>
+            Wenn Bestellungen heute per Telefon, Mail oder Zettel reinkommen und
+            dich das Stunden kostet. Wenn dein Laden einen zweiten Vertriebskanal
+            braucht, der auch am Sonntag verkauft. Oder wenn deine Kundinnen und
+            Kunden schon heute erwarten, deine Produkte online zu finden.
+          </p>
+          <p>
+            Dann rechnet sich ein sauber gebauter Shop schnell: Er nimmt
+            Bestellungen entgegen, während du arbeitest, und macht den
+            Verkaufsprozess für beide Seiten einfacher.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Und was es realistisch kostet</h2>
+        <div class="lp-text">
+          <p>
+            Zuerst das Ehrliche: Für drei Bestellungen im Monat lohnt sich kein
+            Shop-Projekt. Dann reicht ein einfaches Bestellformular oder ein
+            Baukasten-Abo, und genau das sagen wir dir im Erstgespräch auch.
+          </p>
+          <p>
+            Für alles darüber: Ein kleiner professioneller Shop kostet im
+            Schweizer Markt CHF 5000 bis 10 000, der typische KMU-Shop mit TWINT,
+            Karten und Versandlogik CHF 10 000 bis 50 000. Dazu kommen laufende
+            Kosten: Hosting oder Plattform-Abo, Zahlungsgebühren von ca. 1.3 bis
+            3 Prozent pro Verkauf und Wartung.
+          </p>
+          <p>
+            Alle Ranges, Preistreiber und Jahreskosten legen wir offen in unserem
+            Guide <a href="/webshop-kosten/">Webshop-Kosten</a>. Bei uns selbst
+            gibt es keine Listenpreise: Nach dem kostenlosen Erstgespräch bekommst
+            du eine transparente Offerte mit klarem Umfang.
+          </p>
+          <p>
+            Richtwerte aus Projekterfahrung. Details im Guide
+            <a href="/webshop-kosten/">Webshop-Kosten</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Prozess */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>So arbeiten wir mit dir</h2>
+        <div class="lp-text">
+          <p>
+            Kein Agentur-Theater: Wir hören zuerst zu, was du verkaufst und wie
+            dein Betrieb tickt. Erst dann empfehlen wir ein System. Wir bauen
+            Shops mit Shopify und WooCommerce, weil wir beide im Griff haben und
+            dein Team sie später selbst bedienen kann.
+          </p>
+          <p>
+            Du bekommst früh einen Prototypen zu sehen, nicht erst am Ende ein
+            fertiges Ding, das niemand bestellt hat. Und nach dem Launch lassen
+            wir dich nicht allein: Die Einweisung gehört dazu, Betreuung auf
+            Wunsch auch.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Webshop</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit, online zu verkaufen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du verkaufen willst und wer kaufen soll. Wir sagen dir
+        ehrlich, ob und wie sich ein Shop für dich rechnet, und machen dir eine
+        transparente Offerte.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--3, .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--3, .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,333 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "dtb-redesign", "emotion-hinwil"].includes(p.slug)
+);
+
+const ranges = [
+  {
+    name: "Design: Schriftzug im bestehenden CD",
+    price: "CHF 400 bis 900",
+    note: "Logo und Schriftzug werden auf Basis deines Erscheinungsbilds sauber aufs Fahrzeug übertragen, inklusive Reinzeichnung und druckfertiger Daten.",
+  },
+  {
+    name: "Design: eigenständiges Konzept",
+    price: "CHF 1200 bis 2800",
+    note: "Flächenführung, Farbwelt und Hierarchie werden neu fürs Fahrzeug gedacht, in drei ausgearbeiteten Varianten zur Auswahl, bei Flotten mit Ableitungen für verschiedene Fahrzeugtypen.",
+  },
+  {
+    name: "Folierung: einfache Beschriftung",
+    price: "CHF 300 bis 800",
+    note: "Folienplott von Schriftzug und Logo auf Türen oder Heck, inklusive Montage. Grössenordnung, je nach Betrieb und Fahrzeug.",
+  },
+  {
+    name: "Folierung: Teil- oder Vollfolierung",
+    price: "CHF 1500 bis 5000",
+    note: "Grosse Folienflächen bis zum kompletten Car Wrapping. Fahrzeuggrösse, Folienqualität und Vorbereitung treiben den Preis.",
+  },
+];
+
+const prozess = [
+  "Erstgespräch: Welche Fahrzeuge, welche Ziele, was an Gestaltung schon vorhanden ist",
+  "Konzept: Entwurf direkt auf dem Fahrzeugriss deines Modells, Seiten, Heck und Front",
+  "Feinschliff: Deine Korrekturrunden, bis Flächen, Schrift und Farben sitzen",
+  "Reinzeichnung: Druckfertige Daten mit Folienfarben und Massblatt pro Fahrzeugseite",
+  "Übergabe und Abnahme: Koordination mit dem Folierer, 1:1-Kontrolle vor der Montage",
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Fahrzeugbeschriftung?",
+    a: "Zwei Posten kommen zusammen: das Design und die Folierung. Fürs Design eines Schriftzugs auf Basis deines bestehenden Erscheinungsbilds liegen die Marktpreise bei CHF 400 bis 900, ein eigenständiges Konzept fürs Fahrzeug bei CHF 1200 bis 2800, inklusive drei ausgearbeiteter Varianten zur Auswahl. Die Folierung selbst kostet für eine einfache Beschriftung grob CHF 300 bis 800, für Teilfolierung oder Vollfolierung CHF 1500 bis 5000. Nach dem Erstgespräch bekommst du von uns ein transparentes Angebot für den Design-Teil, fürs Folieren eine Offerte vom Partnerbetrieb.",
+  },
+  {
+    q: "Foliert ihr die Fahrzeuge auch selbst?",
+    a: "Nein, und das ist Absicht: Folieren ist ein eigenes Handwerk mit Spezialwerkzeug, Erfahrung und Garantiefragen. Unser Teil ist das Design, das zu deiner Marke passt, plus druckfertige Daten und die Abnahme am fertigen Layout. Die Umsetzung machen Partnerbetriebe aus der Region, mit denen wir die technischen Details direkt absprechen. Du hast trotzdem nur einen Ansprechpartner für die Gestaltung.",
+  },
+  {
+    q: "Kann ich die Beschriftung mit KI entwerfen lassen?",
+    a: "Als Ideensammlung gerne: Ein KI-Bild zeigt schnell, in welche Richtung es gehen könnte. Produktionsreif ist das Ergebnis aber nie: KI liefert Pixelbilder ohne Masstreue, erfindet Schriften, die es nicht gibt, und kennt weder Folienfarben noch die exakten Masse deines Fahrzeugs. Bring deinen Entwurf mit, wir machen daraus ein Design, das der Folierer wirklich verarbeiten kann.",
+  },
+  {
+    q: "Welche Daten bekommt der Folierer?",
+    a: "Ein komplettes, druckfertiges Paket: Vektordaten der Schriftzüge und Grafiken, definierte Folien- oder Druckfarben, ein Massblatt pro Fahrzeugseite und auf Wunsch ein 1:1-Auszug zur Abnahme. Damit kann der Folierer direkt plotten oder drucken, ohne Rückfragen und ohne teure Nachkorrekturen am Auto.",
+  },
+  {
+    q: "Lohnt sich Design schon für ein einzelnes Fahrzeug?",
+    a: "Ja, wenn das Fahrzeug im Kundenverkehr unterwegs ist: Ein Lieferwagen ist eine fahrende Werbefläche, die jeden Tag gesehen wird, und ein wirr gestalteter Wagen wirkt eher gegen dich. Ehrlich gesagt: Brauchst du nur Name und Telefonnummer auf der Türe, macht das der Folierer oft selbst und günstiger. Unser Teil beginnt dort, wo die Beschriftung wie ein Teil deiner Marke aussehen soll, sei es bei einem Fahrzeug oder bei zwanzig.",
+  },
+  {
+    q: "Wie lange dauert es bis zur fertigen Beschriftung?",
+    a: "Fürs Design rechnen wir je nach Umfang mit ein bis drei Wochen vom Briefing bis zur Freigabe, inklusive Korrekturrunden. Danach hängt es am Terminkalender des Folierers: Die Montage eines Schriftzugs ist meist an einem halben Tag erledigt, eine Vollfolierung nimmt zwei bis drei Tage in Anspruch. Wir koordinieren die Übergabe, damit nichts liegen bleibt.",
+  },
+];
+---
+
+<Layout
+  title="Fahrzeugbeschriftung gestalten lassen - Uftritt"
+  description="Fahrzeugbeschriftung gestalten lassen: Design, das zur Marke passt und im Verkehr lesbar ist. Druckfertige Daten, Folierung über Partnerbetriebe der Region."
+>
+  <PageHero
+    eyebrow="Fahrzeugwerbung · Zürcher Oberland"
+    title={"Fahr­zeug­be­schrif­tung,\ndie im Verkehr wirkt"}
+    lead="Deine Fahrzeugbeschriftung gestalten wir als Teil deines Corporate Designs: gut lesbar im Verkehr, mit klarer Hierarchie für Logo, Angebot und Kontaktdaten. Du bekommst druckfertige Daten mit Abnahme, die Folierung selbst machen Partnerbetriebe aus der Region. Für einen einfachen Schriftzug ohne Design-Anspruch reicht oft auch der Folierer um die Ecke."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Fahrzeugbeschriftung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Markt-Ranges */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Was kostet eine Fahrzeugbeschriftung?</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. Die Folierung offeriert der
+        Partnerbetrieb jeweils direkt, unsere Ranges dienen der Einordnung.
+      </p>
+    </div>
+  </section>
+
+  {/* Design-Substanz */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gestaltet für den Verkehr, nicht fürs Büro</h2>
+        <div class="lp-text">
+          <p>
+            Eine Fahrzeugbeschriftung hat drei Sekunden: Niemand studiert deinen
+            Lieferwagen an der Ampel wie ein Plakat im Wartezimmer. Darum gestalten
+            wir für Distanz und Tempo: wenige, grosse Elemente, hohe Kontraste und
+            eine Schrift, die auch bei 80 auf der Überlandstrasse lesbar bleibt.
+          </p>
+          <p>
+            Die Hierarchie folgt dem Blick im Verkehr: zuerst wer du bist, dann was
+            du anbietest, dann wie man dich erreicht. Und das Heck ist wertvoller
+            als die Motorhaube: Im Stau schaut dir niemand vorne aufs Auto, aber
+            jeder hinten drauf.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ein Fahrzeug oder die ganze Flotte</h2>
+        <div class="lp-text">
+          <p>
+            Sobald mehr als ein Fahrzeug unterwegs ist, lohnt sich ein System:
+            dieselbe Flächenlogik für Transporter, Personenwagen und Anhänger, pro
+            Fahrzeugtyp ein Template. So sieht die Flotte aus wie eine Firma statt
+            wie ein Sammelsurium, und jedes neue Fahrzeug ist schnell beschriftet.
+          </p>
+          <p>
+            Damit das funktioniert, denken wir die Beschriftung als Teil deines
+            <a href="/corporate-design/">Corporate Designs</a>: dieselben Farben,
+            Schriften und Regeln wie auf Website, Briefschaft und
+            <a href="/geschaeftsdrucksachen/">Geschäftsdrucksachen</a>. Beim
+            Rebranding der <a href="/projekte/aweso/">Aweso AG</a> in Wetzikon trägt
+            auch das Geschäftsfahrzeug das neue Erscheinungsbild, als rollender
+            Teil der Marke.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Aufgabenteilung, ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Unser Teil: Design, Daten, Abnahme</h2>
+        <div class="lp-text">
+          <p>
+            Wir gestalten Fahrzeugwerbung mit derselben Sorgfalt wie alles andere
+            im <a href="/grafikdesign-zuercher-oberland/">Grafikdesign</a>:
+            Briefing, Entwurf auf dem Fahrzeugriss deines Modells,
+            Korrekturrunden, bis es sitzt.
+          </p>
+          <p>
+            Am Schluss bekommt der Folierer ein komplettes Datenpaket:
+            Vektordaten, Folienfarben und Massblätter pro Fahrzeugseite. Die finale
+            Abnahme machst du am 1:1-Auszug oder am Layout auf dem Fahrzeugriss,
+            bevor auch nur eine Folie geschnitten wird.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Teil des Folierers, ehrlich gesagt</h2>
+        <div class="lp-text">
+          <p>
+            Folieren ist ein eigenes Handwerk: Folienwahl, Plott oder Druck,
+            Montage ohne Blasen und später die rückstandsfreie Demontage. Das
+            machen Partnerbetriebe aus der Region, mit denen wir die technischen
+            Details direkt absprechen.
+          </p>
+          <p>
+            Und noch ehrlicher: Brauchst du nur Name und Telefonnummer auf der
+            Türe, ohne Design-Anspruch, macht das der Folierer oft selbst und
+            günstiger. Unser Teil beginnt dort, wo die Beschriftung zur Marke
+            passen soll. Hast du schon einen KI-Entwurf? Bring ihn mit, wir machen
+            ihn produktionsreif.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Ein Beschriftungskonzept, das auf jedem deiner Fahrzeuge funktioniert,
+            und ein Datenpaket, mit dem jeder professionelle Folierer sofort
+            arbeiten kann. Du bleibst unabhängig: Die Daten gehören dir, und du
+            kannst die Folierung dort machen lassen, wo du willst.
+          </p>
+          <p>
+            Und wenn deine Firma wächst, wächst das System mit: Das nächste
+            Fahrzeug ist dann keine neue Gestaltungsfrage mehr, sondern ein
+            Nachbestellen der Daten fürs neue Modell.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Fahrzeugbeschriftung</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Was soll dein Fahrzeug über dich erzählen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, welche Fahrzeuge du beschriften willst und was an Gestaltung
+        schon da ist. Du bekommst eine ehrliche Einschätzung und ein transparentes
+        Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges { grid-template-columns: 1fr; }
+  }
+</style>

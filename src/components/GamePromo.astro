@@ -1,0 +1,186 @@
+---
+// Promo-Karte fürs Uftritt-Spiel (Raketen-Höhenspiel auf /durchstarten/):
+// gleiches Pattern wie RecallPopup (Karte unten rechts), erscheint auf
+// Landingpages (Scope: .hero-ctas vorhanden) und der Startseite, auf LPs erst,
+// wenn das Rückruf-Popup bereits erledigt ist, nie gleichzeitig. Einmal pro Session.
+---
+
+<aside class="gpromo" id="gpromo" aria-label="Spiel entdecken" hidden>
+  <button class="gpromo-close" type="button" aria-label="Schliessen" data-gpromo-close>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+      <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" />
+    </svg>
+  </button>
+
+  <div class="gpromo-body">
+    <div class="gpromo-head">
+      <img class="gpromo-icon" src="/img/icons/abheben-icon.svg" alt="" width="35" height="53" loading="lazy" />
+      <h3>Uftritt-Tasse gewinnen</h3>
+    </div>
+    <p>Zünd die Rakete und flieg so hoch du kannst. Ab 10 000 Punkten wartet eine Uftritt-Tasse auf dich.</p>
+    <a class="gpromo-btn" href="/durchstarten/" data-gpromo-link>
+      <span class="btn-arrow" aria-hidden="true"><i></i></span>
+      <span class="btn-label">Zum Spiel</span>
+    </a>
+  </div>
+</aside>
+
+<script>
+  const gp = document.getElementById("gpromo");
+  // Scope: Landingpages mit Hero-CTA + Startseite (übrige Seiten bleiben frei).
+  // Auf der Startseite gibt es kein RecallPopup → dort ohne Dismiss-Vorbedingung.
+  const isHome = location.pathname === "/";
+  if (gp && (isHome || document.querySelector(".hero-ctas"))) {
+    const KEY = "gpromo-dismissed";
+    const RECALL_KEY = "recall-dismissed";
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const close = () => {
+      gp.classList.remove("is-open");
+      sessionStorage.setItem(KEY, "1");
+      const done = () => {
+        gp.hidden = true;
+        gp.removeEventListener("transitionend", done);
+      };
+      if (reduce) gp.hidden = true;
+      else gp.addEventListener("transitionend", done);
+    };
+
+    // Erstmals nach 18 s prüfen, bei Nichterfüllung alle 5 s erneut,
+    // max. 8 Versuche, danach diese Session nichts mehr zeigen.
+    let attempts = 0;
+    const tryShow = () => {
+      attempts++;
+      if (sessionStorage.getItem(KEY) === "1") return;
+      const recallDone = isHome || sessionStorage.getItem(RECALL_KEY) === "1";
+      if (!recallDone) {
+        if (attempts < 8) window.setTimeout(tryShow, 5000);
+        return;
+      }
+      gp.hidden = false;
+      void gp.offsetWidth;
+      gp.classList.add("is-open");
+    };
+    window.setTimeout(tryShow, 18000);
+
+    gp.querySelector("[data-gpromo-close]")?.addEventListener("click", close);
+    gp.querySelector("[data-gpromo-link]")?.addEventListener("click", () => {
+      (window as any)._paq?.push(["trackEvent", "Engagement", "Spiel-Promo geklickt"]);
+    });
+  }
+</script>
+
+<style>
+  .gpromo {
+    position: fixed;
+    right: clamp(1rem, 3vw, 2.5rem);
+    /* gleiche Eck-Position wie das Rückruf-Popup (nie gleichzeitig sichtbar) */
+    bottom: calc(clamp(1rem, 3vw, 2.5rem) + clamp(92px, 11vw, 132px) + 0.9rem);
+    z-index: 95;
+    width: min(340px, calc(100vw - 2rem));
+    background: #fff;
+    border: 2px solid var(--color-blue);
+    padding: clamp(1.1rem, 2vw, 1.5rem);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  }
+  .gpromo.is-open {
+    opacity: 1;
+    transform: none;
+  }
+  .gpromo[hidden] {
+    display: none;
+  }
+  .gpromo-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: var(--color-blue);
+    padding: 0.3rem;
+    line-height: 0;
+  }
+  .gpromo-close:hover {
+    color: var(--color-pink);
+  }
+  .gpromo-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.7rem;
+    padding-right: 1.5rem;
+  }
+  .gpromo-icon {
+    width: auto;
+    height: 52px;
+    flex: none;
+  }
+  .gpromo h3 {
+    font-size: 1.15rem;
+    color: var(--color-blue);
+    margin: 0;
+    text-wrap: balance;
+  }
+  .gpromo p {
+    color: var(--color-blue);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0 0 0.9rem;
+  }
+  .gpromo-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    color: #fff;
+    background: var(--color-blue);
+    padding: 0.75rem 1rem;
+    transition: background 0.3s var(--ease);
+  }
+  .gpromo-btn:hover {
+    background: var(--color-blue-dark);
+  }
+  /* Marken-Pfeil wie in Button.astro (gleitet bei Hover rein) */
+  .gpromo-btn .btn-arrow {
+    display: inline-block;
+    max-width: 0;
+    margin-right: 0;
+    overflow: visible;
+    transition: max-width 0.6s var(--ease), margin-right 0.6s var(--ease);
+  }
+  .gpromo-btn .btn-arrow i {
+    display: block;
+    width: 1.1em;
+    height: 0.85em;
+    background-color: #fff;
+    -webkit-mask: url("/img/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    mask: url("/img/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+  }
+  .gpromo-btn:hover .btn-arrow,
+  .gpromo-btn:focus-visible .btn-arrow {
+    max-width: 1.1em;
+    margin-right: 0.55rem;
+  }
+  .gpromo-btn:hover .btn-arrow i,
+  .gpromo-btn:focus-visible .btn-arrow i {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  @media (hover: none) {
+    .gpromo-btn .btn-arrow {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .gpromo {
+      transition: none;
+    }
+  }
+</style>

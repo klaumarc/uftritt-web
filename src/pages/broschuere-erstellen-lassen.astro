@@ -1,0 +1,281 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["youngstars-broschuere", "aweso", "dt-baeretswil"].includes(p.slug)
+);
+
+const leistungen = [
+  {
+    title: "Konzept und Struktur",
+    note: "Was soll die Broschüre bewirken, wen soll sie überzeugen, in welcher Reihenfolge? Wir bauen den roten Faden, bevor gestaltet wird.",
+  },
+  {
+    title: "Text",
+    note: "Wir schreiben deine Inhalte verständlich und auf den Punkt, oder wir überarbeiten, was du bereits hast. Du musst keinen einzigen Satz selbst formulieren.",
+  },
+  {
+    title: "Design",
+    note: "Layout, Typografie und Bildwelt passend zu deinem Erscheinungsbild: von der einseitigen Karte über den Flyer bis zum mehrseitigen Katalog.",
+  },
+  {
+    title: "Druck und Digital",
+    note: "Wir organisieren auf Wunsch den Druck und liefern dir die Broschüre zusätzlich als PDF, damit du sie auch per Mail oder auf der Website einsetzen kannst.",
+  },
+];
+
+const ablauf = [
+  "Kostenloses Erstgespräch: Was soll die Broschüre erreichen, wen soll sie überzeugen?",
+  "Konzept: Inhalt, Umfang und Format festlegen, dazu ein transparentes Angebot",
+  "Text und Design: wir schreiben und gestalten, du gibst Feedback",
+  "Reinzeichnung und Druck: druckfertige Daten und Abstimmung mit der Druckerei",
+  "Auslieferung und digital: gedruckt bei dir und als PDF zum Versenden",
+];
+
+const faq = [
+  {
+    q: "Was kostet es, eine Broschüre erstellen zu lassen?",
+    a: "Das hängt von Umfang, Seitenzahl und Auflage ab: Ein Flyer ist ein anderes Projekt als ein mehrseitiger Katalog. Wir arbeiten nicht mit Pauschalpreisen, sondern schauen im kostenlosen Erstgespräch, was du brauchst, und machen dir danach ein transparentes Angebot, aus dem genau hervorgeht, was drin ist und was es kostet.",
+  },
+  {
+    q: "Macht ihr auch den Druck?",
+    a: "Ja. Auf Wunsch organisieren wir den ganzen Druck für dich: druckfertige Daten, Abstimmung mit der Druckerei, Auslieferung zu dir. Du musst dich um nichts kümmern und hältst am Ende das fertige Produkt in der Hand. Falls du schon eine Druckerei deines Vertrauens hast, liefern wir dir selbstverständlich auch nur die druckfertigen Daten.",
+  },
+  {
+    q: "Wer schreibt die Texte für die Broschüre?",
+    a: "Wir, wenn du willst. Viele Kundinnen und Kunden liefern uns Stichworte, bestehende Unterlagen oder eine grobe Rohfassung, und wir machen daraus Texte, die verständlich sind und zu dir passen. Für die Fundraising-Broschüre von Youngstars International haben wir Konzept, Text und Gestaltung komplett übernommen. Wenn du lieber selbst schreibst, schleifen wir deine Texte auf Wunsch nach.",
+  },
+  {
+    q: "Wie lange dauert es, bis die Broschüre fertig ist?",
+    a: "Ein einfacher Flyer geht deutlich schneller als ein umfangreicher Katalog mit vielen Abstimmungen. Entscheidend sind vor allem die Feedbackschlaufen auf deiner Seite. Nach dem Erstgespräch bekommst du von uns einen realistischen Zeitplan, damit du weisst, wann du mit dem fertigen Druckprodukt rechnen kannst.",
+  },
+  {
+    q: "Kann ich die Broschüre auch digital nutzen?",
+    a: "Ja, das empfehlen wir sogar. Du bekommst die Broschüre zusätzlich als PDF zum Versenden und zum Download auf deiner Website. Inhalte aus der Broschüre lassen sich auch als Landingpage weiterverwenden: Für AAS Freight haben wir etwa Flyer gebaut, deren QR-Code direkt auf eine passende Landingpage führt. So arbeitet der gleiche Inhalt gedruckt und online.",
+  },
+  {
+    q: "Für wen lohnt sich eine gedruckte Broschüre überhaupt noch?",
+    a: "Für alle, deren Angebot Erklärung braucht: Maschinen, Dienstleistungen mit Tiefgang, Non-Profit-Arbeit, Immobilien. Am Messestand, im Verkaufsgespräch und im Briefkasten im lokalen Umfeld bleibt eine gute Broschüre liegen und wirkt nach. Ehrlich gesagt: Für Preise, die sich wöchentlich ändern, oder schnelle News ist die Website das bessere Medium. Wir sagen dir im Gespräch offen, was sich für dich lohnt.",
+  },
+];
+---
+
+<Layout
+  title="Broschüre erstellen lassen: Konzept bis Druck, Uftritt"
+  description="Broschüre erstellen lassen bei Uftritt im Zürcher Oberland: Konzept, Text, Design und Druck aus einer Hand. Für Messe, Verkaufsgespräch und Briefkasten."
+>
+  <PageHero
+    eyebrow="Print, das liegen bleibt"
+    title={"Broschüre\nerstellen lassen"}
+    lead="Du willst eine Broschüre erstellen lassen, die bei Kundinnen und Kunden liegen bleibt statt im Altpapier zu landen? Wir konzipieren, texten und gestalten deine Broschüre und organisieren auf Wunsch auch den Druck. Alles aus einer Hand, aus dem Zürcher Oberland, für KMU in der ganzen Schweiz."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Grafikdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Wann Print wirkt + alles aus einer Hand */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann eine Broschüre bei KMU wirkt</h2>
+        <div class="lp-text">
+          <p>
+            Print spielt seine Stärke dort aus, wo du Menschen persönlich
+            begegnest: am Messestand, im Verkaufsgespräch, im Briefkasten im
+            lokalen Umfeld. Eine gute Broschüre bleibt liegen, wird
+            weitergegeben und erinnert Wochen später noch an dich.
+          </p>
+          <p>
+            Gerade komplexe Angebote lassen sich auf Papier ruhiger erklären
+            als am Bildschirm: Maschinen, Dienstleistungen mit Tiefgang,
+            Projekte mit Geschichte. Was Erklärung braucht, gewinnt durch
+            Platz, Haptik und Zeit, die sich Lesende für ein gedrucktes Stück
+            nehmen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Von der Idee bis zum fertigen Druck</h2>
+        <div class="lp-text">
+          <p>
+            Wir übernehmen Konzept, Text, Design und auf Wunsch die Organisation
+            des Drucks aus einer Hand. Du hast einen Ansprechpartner statt einer
+            Kette aus Texterin, Gestalter und Druckerei, und am Ende hältst du
+            ein Stück Papier in der Hand, das zu deinem ganzen Auftritt passt.
+          </p>
+          <p>
+            Weil wir auch <a href="/angebot/grafikdesign/">Grafikdesign</a>,
+            Websites und Kampagnen selbst machen, entsteht die Broschüre nie
+            losgelöst: Bilder und Inhalte lassen sich auf der Website, in
+            Inseraten und in den sozialen Medien weiterverwenden.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Leistungen */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Alles aus einer Hand</span>
+        <h2>Was wir für dich übernehmen</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          leistungen.map((l) => (
+            <article class="karte">
+              <h3>{l.title}</h3>
+              <p class="karte-note">{l.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Ablauf + echte Beispiele */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wie das in echt aussieht</h2>
+        <div class="lp-text">
+          <p>
+            Für die Non-Profit-Organisation Youngstars International haben wir
+            eine <a href="/projekte/youngstars-broschuere/">Informationsbroschüre
+            als Fundraising-Werkzeug</a> konzipiert, verfasst und gestaltet.
+            Und beim Industrieunternehmen <a href="/projekte/aweso/">Aweso aus
+            Wetzikon</a> kommen Kataloge, Inserate und Website aus einem Guss.
+          </p>
+          <p>
+            Auch kleinere Formate zeigen die Bandbreite: die <a href="/projekte/dt-baeretswil/">Saisonbroschüre
+            des Unihockeyvereins DT Bäretswil</a> haben wir lesefreundlicher und
+            leichter gestaltet, und für AAS Freight führen Flyer per QR-Code
+            direkt auf die passende Landingpage. Liegt dein Ziel eher im
+            laufenden Dialog mit deiner Kundschaft, ist ein <a href="/magazin-erstellen-lassen/">Kundenmagazin</a>
+            das passendere Format.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen rund um deine Broschüre</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Sollen wir deine Broschüre gestalten?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du vorhast. Wir sagen dir ehrlich, ob sich Print für
+        dich lohnt, und machen dir ein transparentes Angebot vom Konzept bis
+        zum Druck.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

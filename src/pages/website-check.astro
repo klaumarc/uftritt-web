@@ -1,0 +1,387 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+import WebsiteCheckTool from "../components/WebsiteCheckTool.astro";
+
+const schritte = [
+  "URL eingeben: Adresse deiner Website ins Feld tippen, Klick, fertig. Mehr braucht es nicht.",
+  "Sofort-Resultat: Gesamtnote, fünf Kategorie-Scores und die ersten Befunde mit einem kurzen Fazit.",
+  "Voller Report: Alle 40+ Befunde mit priorisiertem Aktionsplan. Freischalten für CHF 9, sofort online und per E-Mail.",
+];
+
+const kategorien = [
+  {
+    title: "Technik",
+    note: "HTTPS, Weiterleitungen, Statuscodes, sauberes HTML und die technische Grundhygiene deiner Seite.",
+  },
+  {
+    title: "SEO",
+    note: "Title, Description, Überschriften und strukturierte Daten. Kurz: ob Google deine Seite versteht.",
+  },
+  {
+    title: "Performance",
+    note: "Ladezeit, Datenmenge und was deine Seite ausbremst. Gemessen an echten Werten, nicht am Bauchgefühl.",
+  },
+  {
+    title: "Inhalt und Conversion",
+    note: "Ob deine Texte klar sind, Handlungsaufforderungen fehlen und Besucherinnen den nächsten Schritt finden.",
+  },
+  {
+    title: "UX-Basis",
+    note: "Die Grundlagen: mobile Darstellung, Lesbarkeit, Linkziele und Barrierefreiheit im Ansatz.",
+  },
+];
+
+const faq = [
+  {
+    q: "Kostet der Website-Check etwas?",
+    a: "Der Check mit Sofort-Resultat ist gratis: Gesamtnote, fünf Kategorie-Scores und die ersten Befunde. Möchtest du den vollständigen Report mit allen 40+ Befunden und dem priorisierten Aktionsplan, kostet er einmalig CHF 9 inkl. MwSt. Kein Abo, kein Kleingedrucktes.",
+  },
+  {
+    q: "Was passiert mit meinen Daten?",
+    a: "Die geprüfte URL verwenden wir für die Analyse und die Report-Zustellung. Kaufst du den Report, läuft die Zahlung über Stripe und wir nutzen deine E-Mail-Adresse für Zustellung und Buchhaltung. Mehr nicht. Alle Details stehen in unserer Datenschutzerklärung.",
+  },
+  {
+    q: "Wie genau ist die automatische Analyse?",
+    a: "Der Check prüft über 40 Kriterien aus Technik, SEO, Performance, Inhalt und UX, so gut das automatisch und ohne visuelles Rendering möglich ist. Er ist ehrlich, aber nicht allwissend: Wie deine Seite bei echten Menschen ankommt, beurteilt am besten ein Mensch. Darum bieten wir dir danach ein kurzes Gespräch an.",
+  },
+  {
+    q: "Wie bezahle ich den Report?",
+    a: "Sicher via Stripe mit Karte oder TWINT. Nach der Zahlung öffnet sich der Report sofort im Browser und liegt zusätzlich in deinem Postfach. Die Rechnung kommt per E-Mail.",
+  },
+  {
+    q: "Wie oft kann ich meine Website prüfen?",
+    a: "Pro Tag sind 2 Gratis-Checks pro Anschluss drin, damit das Tool für alle schnell bleibt. Ein gekaufter Report bleibt dir 90 Tage lang online erhalten.",
+  },
+  {
+    q: "Was passiert nach dem Check?",
+    a: "Du siehst sofort die wichtigsten Befunde. Für die Tiefe gibt es den vollen Report für CHF 9. Und wenn du willst, besprechen wir das Ergebnis in 20 Minuten am Telefon: gratis und unverbindlich.",
+  },
+  {
+    q: "Darf ich jede beliebige Website prüfen?",
+    a: "Bitte prüfe nur Websites, für deren Analyse du berechtigt bist. In der Regel ist das deine eigene Website oder die deines Arbeitgebers. Der Check ruft die Seite nur wenige Male ab, ganz so wie es ein normaler Besucher tut.",
+  },
+];
+---
+
+<Layout
+  title="Website-Check: Gratis-Analyse mit ehrlichem Fazit, Uftritt"
+  description="Gratis Website-Check von Uftritt: URL eingeben und sofort Noten für Technik, SEO, Performance, Inhalt und UX sehen. Ehrlich, konstruktiv, von echter Agentur."
+>
+  {/* Tool zuerst: das ist der Kern der Seite */}
+  <section class="section" id="check">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Gratis-Tool</span>
+        <h1>Website-Check</h1>
+        <p class="tool-lead">
+          Wie gut ist deine Website wirklich? Gib deine URL ein, kurz warten und
+          du siehst die Noten für Technik, SEO, Performance, Inhalt und UX, dazu
+          ein ehrliches Fazit mit Augenzwinkern. Kostenlos und unverbindlich.
+        </p>
+      </header>
+      <div data-reveal>
+        <WebsiteCheckTool />
+      </div>
+    </div>
+  </section>
+
+  {/* So funktioniert's */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>So funktioniert's</h2>
+        <div class="lp-text">
+          <p>
+            Kein Formular-Marathon, keine Warteliste, kein Verkaufsdruck. Du gibst
+            deine Adresse ein, wir analysieren deine Seite und du bekommst sofort
+            ein ehrliches Resultat mit den wichtigsten Befunden. Den vollen Report
+            schaltest du bei Bedarf für CHF 9 frei.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In drei Schritten zum Resultat</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {schritte.map((s, i) => <li><span class="modul-nr">{i + 1}</span>{s}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Was wir prüfen */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Die fünf Kategorien</span>
+        <h2>Was wir prüfen</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          kategorien.map((k) => (
+            <article class="karte">
+              <h3>{k.title}</h3>
+              <p class="karte-note">{k.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <div class="grenz-hinweis" data-reveal>
+        <h3>Ehrlichkeit gehört dazu</h3>
+        <p>
+          Der Check ist eine automatische Basis-Analyse ohne visuelles Rendering.
+          Er sieht, was unter der Haube los ist, aber nicht, wie deine Seite bei
+          echten Menschen wirkt. Ein persönliches Audit ersetzt er nicht. Wenn du
+          tiefer gehen willst, <a href="/kontakt/">melde dich bei uns</a>, wir
+          schauen uns deine Website gerne mit echten Augen an.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section section--soft">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Website-Check</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Abschluss-CTA */}
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Deine Website kann mehr</h2>
+      <p class="lp-cta-text">
+        Der Check zeigt, wo es hakt. Wenn du willst, bringen wir deine Website
+        gemeinsam auf Vordermann: vom gezielten Fix bis zum kompletten Relaunch.
+      </p>
+      <div class="lp-cta-actions">
+        <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+        <Button href="/angebot/webdesign/" variant="text">Webdesign bei Uftritt</Button>
+        <Button href="/website-relaunch/" variant="text">Website-Relaunch</Button>
+      </div>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .tool-lead {
+    color: var(--color-blue);
+    font-size: 1.15rem;
+    line-height: 1.65;
+    max-width: 62ch;
+    margin: 0.5rem 0 0;
+  }
+
+  .karten {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+  }
+  .karte {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: #fff;
+    border: 1px solid #e7ecf3;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 {
+    color: var(--color-blue);
+    font-size: 1.15rem;
+  }
+  .karte-note {
+    color: var(--color-blue);
+    opacity: 0.85;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .grenz-hinweis {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    background: #fff;
+    border: 1px solid #e7ecf3;
+    border-left: 3px solid var(--color-yellow);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    max-width: 860px;
+  }
+  .grenz-hinweis h3 {
+    margin: 0 0 0.6rem;
+    color: var(--color-blue);
+    font-size: 1.15rem;
+  }
+  .grenz-hinweis p {
+    margin: 0;
+    color: var(--color-blue);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .grenz-hinweis a {
+    color: var(--color-blue);
+    font-weight: 700;
+  }
+  .grenz-hinweis a:hover {
+    color: var(--color-pink);
+  }
+
+  .lp-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+  }
+  .lp-block {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: clamp(1rem, 3vw, 3rem);
+    align-items: start;
+  }
+  .lp-block h2 {
+    position: sticky;
+    top: 100px;
+  }
+  .lp-text p {
+    color: var(--color-blue);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .lp-text a {
+    color: var(--color-blue);
+    font-weight: 700;
+  }
+  .lp-text a:hover {
+    color: var(--color-pink);
+  }
+
+  .modul-liste {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .modul-liste li {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue);
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+  .modul-liste li:last-child {
+    border-bottom: 0;
+  }
+  .modul-nr {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6em;
+    height: 1.6em;
+    background: var(--color-yellow);
+    color: var(--color-blue);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  .faq-wrap {
+    max-width: 860px;
+  }
+  .faq-item {
+    border-bottom: 1px solid rgba(1, 64, 128, 0.2);
+  }
+  .faq-item summary {
+    cursor: var(--cur-hand);
+    list-style: none;
+    padding: 1.1rem 0;
+    font-weight: 700;
+    color: var(--color-blue);
+    font-size: 1.15rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item summary::after {
+    content: "+";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+    line-height: 1;
+    transform-origin: center;
+    font-weight: 700;
+    transition: transform 0.3s var(--ease);
+  }
+  .faq-item[open] summary::after {
+    transform: rotate(45deg);
+  }
+  .faq-item p {
+    color: var(--color-blue);
+    line-height: 1.7;
+    padding-bottom: 1.1rem;
+    max-width: 70ch;
+  }
+
+  .lp-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+  .lp-cta-text {
+    color: var(--color-blue);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 60ch;
+    margin: 0;
+  }
+  .lp-cta-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem 2rem;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 760px) {
+    .lp-block {
+      grid-template-columns: 1fr;
+    }
+    .lp-block h2 {
+      position: static;
+    }
+  }
+</style>

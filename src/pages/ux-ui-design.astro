@@ -1,0 +1,315 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["seatalytics", "smart-navigator", "regan"].includes(p.slug)
+);
+
+const bausteine = [
+  {
+    title: "Research und Nutzerflüsse",
+    note: "Wir klären, wer deine Website oder App nutzt und was diese Menschen erreichen wollen. Daraus entstehen klare Wege durch dein Angebot statt hübscher Einzelseiten.",
+  },
+  {
+    title: "Wireframes",
+    note: "Bevor gestaltet wird, steht das Gerüst: Was steht wo, in welcher Reihenfolge, mit welcher Gewichtung. Wireframes sind schnell angepasst und sparen teure Korrekturen im fertigen Design.",
+  },
+  {
+    title: "Klickbarer Prototyp",
+    note: "Du testest die Anwendung, bevor sie gebaut wird: Klick dich durch, prüfe Abläufe, entscheide mit einem echten Gefühl statt anhand von Bildschirmbildern. Mehr dazu auf der Seite <a href=\"/app-prototyping/\">App-Prototyping</a>.",
+  },
+  {
+    title: "Design-System",
+    note: "Farben, Typografie, Abstände und Komponenten folgen festen Regeln. So bleibt der Auftritt konsistent, auch wenn die Website oder App später wächst.",
+  },
+];
+
+const prozess = [
+  "Ziele und Nutzergruppen klären: Wer nutzt die Anwendung, was sollen sie erreichen",
+  "Nutzerflüsse skizzieren: die Wege durch dein Angebot, Schritt für Schritt",
+  "Wireframes und Prototyp: Gerüst bauen, klickbar testen, anpassen",
+  "Design-System festlegen: Farben, Typografie und Komponenten mit festen Regeln",
+  "Usability-Check und Übergabe: geprüft in echten Nutzungssituationen, dann gebaut",
+];
+
+const faq = [
+  {
+    q: "Was ist der Unterschied zwischen UX und UI Design?",
+    a: "UX, die User Experience, betrifft die Führung: Wie kommen Menschen ans Ziel, was steht wo, in welcher Reihenfolge. UI, das User Interface Design, betrifft die Oberfläche: Farben, Typografie, Buttons, Abstände. Kurz gesagt: UX entscheidet, ob es funktioniert, UI, wie es sich anfühlt. Beides gehört zusammen, darum planen wir beides in einem Prozess.",
+  },
+  {
+    q: "Brauche ich UX/UI Design auch bei einer kleinen Website?",
+    a: "Ja und nein, ehrlich gesagt: Die Basics braucht jede Website, also klare Navigation, verständliche Inhalte, Kontaktwege ohne Suchrunde und saubere Darstellung auf dem Handy. Diese Grundlagen sind bei uns Teil jedes Webprojekts, ohne Grossprogramm. Ein eigener UX-Prozess mit Research, Prototyp und Tests lohnt sich, wenn Nutzerinnen und Nutzer echte Aufgaben erledigen, etwa in einer App, einem Portal oder einem Webshop.",
+  },
+  {
+    q: "Wie läuft ein UX/UI-Projekt bei euch ab?",
+    a: "In fünf Schritten: Zuerst klären wir Ziele und Nutzergruppen, dann skizzieren wir die Nutzerflüsse. Daraus entstehen Wireframes und ein klickbarer Prototyp, den du testen kannst, bevor irgendetwas gebaut wird. Danach legen wir das Design-System mit Farben, Typografie und Komponenten fest und prüfen alles in einem Usability-Check. Weil wir auch selbst entwickeln, geht es danach nahtlos in den Build.",
+  },
+  {
+    q: "Was kostet UX/UI Design?",
+    a: "Bei uns ist UX/UI kein separates Grossprojekt, sondern Teil des Web- oder App-Projekts. Der Aufwand hängt davon ab, was du brauchst: eine klare Website mit soliden Grundlagen oder eine Anwendung mit Prototyp und eigenem Design-System. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot, in dem Design und Umsetzung sauber ausgewiesen sind.",
+  },
+  {
+    q: "Gestaltet ihr auch nur das Design, ohne die Umsetzung?",
+    a: "Ja, das kommt vor, etwa wenn dein eigenes Entwicklungsteam baut. Der ehrliche Hinweis dazu: Unser grösster Vorteil liegt im Zusammenspiel, weil Design und Build bei uns aus derselben Hand kommen. Und noch ehrlicher: Für mehrmonatige UX-Programme von Grosskonzernen mit eigenen Testlaboren sind wir nicht die richtige Adresse. Wir sind auf KMU-Projekte spezialisiert, pragmatisch und umsetzungsnah.",
+  },
+  {
+    q: "Könnt ihr unsere bestehende Website oder App verbessern?",
+    a: "Ja. Oft starten wir mit einem Usability-Check: Wir gehen die wichtigsten Wege durch, prüfen Inhalte, Navigation und mobile Nutzung und liefern dir eine priorisierte Liste von Stolpersteinen. Was du davon umsetzt, entscheidest du. Manches ist mit kleinen Eingriffen behoben, anderes gehört in einen Relaunch, das sagen wir dir offen.",
+  },
+];
+---
+
+<Layout
+  title="UX/UI Design für Websites und Apps, Uftritt"
+  description="UX/UI Design für Websites und Apps: Research, Wireframes, Prototyping und Design-System. Bei uns landet das Design exakt so im Build, aus einer Hand für KMU."
+>
+  <PageHero
+    eyebrow="UX/UI Design für KMU"
+    title={"UX/UI Design\nfür Websites und Apps"}
+    lead="UX/UI Design sorgt dafür, dass deine Website oder App nicht nur gut aussieht, sondern selbsterklärend funktioniert: klare Nutzerflüsse, Wireframes, Prototypen und ein stimmiges Design-System. Wir gestalten und entwickeln im selben Team, darum landet jedes Detail exakt so im Build, wie es konzipiert wurde."
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Bausteine */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Das Handwerk</span>
+        <h2>Was UX/UI Design konkret umfasst</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          bausteine.map((b) => (
+            <article class="karte">
+              <h3>{b.title}</h3>
+              <p class="karte-note" set:html={b.note} />
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Design und Build aus einer Hand + ehrliche Einordnung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Warum das Design exakt so im Build landet</h2>
+        <div class="lp-text">
+          <p>
+            In klassischen Projekten gestaltet eine Agentur und eine andere baut.
+            Dabei gehen Details verloren: Abstände ändern, Zustände fehlen, der
+            Prototyp sieht besser aus als das fertige Produkt.
+          </p>
+          <p>
+            Bei uns arbeiten Gestaltung und Entwicklung im selben Team. Jede
+            Entscheidung aus dem Design-System wird im Build eins zu eins
+            umgesetzt, vom Abstand bis zum Verhalten auf dem Handy. Ob Website
+            oder <a href="/webapp-entwickeln-lassen/">Web-App</a>: Was du im
+            Prototypen freigibst, bekommst du auch geliefert.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ehrlich: Wir sind kein reines UX-Studio</h2>
+        <div class="lp-text">
+          <p>
+            Suchst du ein mehrmonatiges Research-Programm mit Testlabor für
+            einen Grosskonzern, sind wir nicht die richtige Adresse. Dafür gibt
+            es spezialisierte UX-Studios.
+          </p>
+          <p>
+            Wir sind eine Kommunikationsagentur für KMU: UX/UI Design ist bei
+            uns Teil von Web- und App-Projekten, pragmatisch geplant,
+            budgetbewusst und immer mit dem Ziel, dass es danach auch gebaut
+            wird. Die technische Seite dazu findest du unter
+            <a href="/angebot/applikationsentwicklung/">Applikationsentwicklung</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Wann lohnt es sich, wann reichen Basics */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann sich UX/UI Design lohnt</h2>
+        <div class="lp-text">
+          <p>
+            Sobald Menschen bei dir etwas erledigen statt nur lesen: sich
+            anmelden, buchen, bestellen, konfigurieren. Typische Fälle sind Apps
+            und Portale, Webshops mit Kaufabbrüchen oder Websites mit mehreren
+            Zielgruppen, die unterschiedliche Wege brauchen.
+          </p>
+          <p>
+            Dann entscheidet die Führung über Erfolg und Misserfolg. Jeder
+            Umweg kostet Nutzer, jede Unklarheit kostet Anfragen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wann die Basics reichen</h2>
+        <div class="lp-text">
+          <p>
+            Bei einer überschaubaren Firmenwebsite mit klarem Inhalt braucht es
+            kein Grossprogramm. Klare Navigation, verständliche Texte,
+            erreichbare Kontaktwege, saubere Darstellung auf dem Handy: Diese
+            Grundlagen sind bei uns Teil jedes Projekts, keine Zusatzleistung.
+          </p>
+          <p>
+            Und wenn dein Vorhaben wächst, etwa mit Login oder Buchungen,
+            rüsten wir den UX-Prozess nach. Du zahlst nie für Methodik, die du
+            nicht brauchst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Praxis + Ablauf */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Aus der Praxis: Seatalytics</h2>
+        <div class="lp-text">
+          <p>
+            Zwei völlig verschiedene Zielgruppen, eine Website: Fachleute der
+            Rollstuhlversorgung und betroffene Menschen. Für Seatalytics hiess
+            die Aufgabe, Informationen so zu strukturieren, dass beide Gruppen
+            ohne Umwege finden, was sie suchen.
+          </p>
+          <p>
+            Entstanden ist eine gut strukturierte Webpräsenz mit klarer
+            Nutzendenführung und freundlicher, leichter Wirkung. Genau das ist
+            UX-Arbeit: Sie passiert lange bevor es um Farben geht.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu UX/UI Design</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Deine Website oder App soll einfach funktionieren?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was deine Nutzerinnen und Nutzer erreichen sollen. Wir
+        sagen dir ehrlich, welcher Aufwand sinnvoll ist, und machen dir ein
+        transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--3, .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--3, .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

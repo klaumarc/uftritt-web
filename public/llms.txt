@@ -1,0 +1,34 @@
+# Uftritt GmbH
+
+> Uftritt ist eine Kommunikationsagentur im Zürcher Oberland (Saland, Kanton Zürich, Schweiz).
+> Leistungen: Grafikdesign & Branding, Webdesign und Entwicklung, Videoproduktion,
+> App-Entwicklung, Magazinbetreuung und Marketingbegleitung — alles aus einer Hand,
+> für KMU aus der Region und der ganzen Deutschschweiz.
+
+## Fakten
+
+- Firma: Uftritt GmbH (gegründet 27. September 2023)
+- Adresse: Frauwisstrasse 9, 8493 Saland, Schweiz
+- Telefon: +41 44 500 29 55
+- E-Mail: info@uftritt.ch
+- Website: https://www.uftritt.ch/
+- Region: Zürcher Oberland (Tösstal, Wetzikon, Hinwil, Bauma, Rüti, Pfäffikon, Uster)
+- Sprachen: Deutsch
+- Besonderheiten: Zertifizierte Webflow-Partner, Weblink-Partner (barrierearme Websites), KI-Kurse und EU-AI-Act-Schulungen für KMU
+
+## Leistungen
+
+- [Grafikdesign im Zürcher Oberland](https://www.uftritt.ch/angebot/grafikdesign/): Corporate Design, Logo, Editorial Design
+- [Webdesign und Entwicklung im Zürcher Oberland](https://www.uftritt.ch/angebot/webdesign/): Websites, Onlineshops, Landingpages, Web-Apps, SEO
+- [Videoproduktion im Zürcher Oberland](https://www.uftritt.ch/angebot/videoproduktion/): Imagefilm, Produktfilm, Video-Podcast, Social-Media-Content
+- [App-Entwicklung Schweiz](https://www.uftritt.ch/angebot/applikationsentwicklung/): Web-Applikationen und individuelle Software für KMU
+- [Kundenmagazin erstellen lassen](https://www.uftritt.ch/angebot/magazinbetreuung/): Redaktion, Gestaltung und Produktion von Magazinen
+- [Marketingbegleitung im Zürcher Oberland](https://www.uftritt.ch/angebot/marketingbegleitung/): Strategie, Kampagnen, laufende Betreuung
+
+## Weitere Seiten
+
+- [Projekte / Referenzen](https://www.uftritt.ch/projekte/): Case Studies aus dem Zürcher Oberland
+- [Agentur](https://www.uftritt.ch/agentur/): Team und Haltung
+- [Aktuell](https://www.uftritt.ch/aktuell/): News und Projekt-Updates
+- [Kontakt](https://www.uftritt.ch/kontakt/): Anfrage, Rückruf, Anfahrt
+- [Sitemap](https://www.uftritt.ch/sitemap-index.xml)

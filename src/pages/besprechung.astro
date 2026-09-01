@@ -1,0 +1,263 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SubHero from "../components/SubHero.astro";
+---
+
+<Layout
+  title="Besprechung anfragen: 20 Minuten für deine Website, Uftritt"
+  description="Gratis 20-Minuten-Besprechung zum Website-Check: Wir gehen deinen Report gemeinsam durch und zeigen, was sich zuerst lohnt. Unverbindlich, ohne Verkaufsdruck."
+>
+  <SubHero
+    eyebrow="Gratis-Besprechung"
+    title="20 Minuten für deine Website"
+    lead="Wir gehen deinen Website-Check gemeinsam durch: Was ist dringend, was bringt am meisten, was kannst du dir getrost sparen. Ehrlich, konkret und ohne Verkaufsdruck."
+  >
+    <p class="hero-contact" slot="hero-extra">
+      <span>Lieber direkt?</span>
+      <a href="tel:+41445002955">044 500 29 55</a>
+      <a href="mailto:info@uftritt.ch">info@uftritt.ch</a>
+    </p>
+  </SubHero>
+
+  <section class="section">
+    <div class="container">
+      <div class="besprechung-grid">
+        <div class="besprechung-intro" data-reveal>
+          <h2>So läuft es ab</h2>
+          <ol class="steps">
+            <li>
+              <strong>Anfrage senden.</strong> Formular ausfüllen, das dauert eine Minute.
+              Sag uns, wann es dir passt.
+            </li>
+            <li>
+              <strong>Termin erhalten.</strong> Wir melden uns innert 24 Stunden an
+              Arbeitstagen mit konkreten Vorschlägen.
+            </li>
+            <li>
+              <strong>Durchsprechen.</strong> 20 Minuten am Telefon oder per Video:
+              Report durchgehen, Prioritäten setzen, Fragen klären.
+            </li>
+          </ol>
+          <p class="intro-note">
+            Du bekommst von uns eine ehrliche Einschätzung, was sich lohnt und was nicht.
+            Auch wenn du danach alles selbst machst: Die Besprechung bleibt gratis.
+          </p>
+        </div>
+
+        <form
+          class="besprechung-form"
+          name="besprechung"
+          method="POST"
+          action="/besprechung.php"
+          data-reveal
+        >
+          {/* Spam-Honeypot: für Menschen unsichtbar, Bots füllen es aus */}
+          <p class="hp-field" hidden aria-hidden="true">
+            <label>Bitte leer lassen: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+          </p>
+          <p class="besprechung-error" id="besprechung-error" role="alert" hidden>
+            Da ist leider etwas schiefgelaufen. Bitte prüfe deine Angaben, oder
+            schreib uns direkt an <a href="mailto:info@uftritt.ch">info@uftritt.ch</a>.
+          </p>
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" required autocomplete="name" />
+          </label>
+          <label>
+            <span>E-Mail</span>
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+          <label>
+            <span>Telefon (für die Besprechung, optional)</span>
+            <input type="tel" name="telefon" autocomplete="tel" />
+          </label>
+          <label>
+            <span>Wann passt es dir gut?</span>
+            <input type="text" name="wunschzeiten" required placeholder="z. B. Di oder Do am Nachmittag" />
+          </label>
+          <label>
+            <span>Deine Website (falls schon geprüft)</span>
+            <input type="text" name="website" id="besprechung-website" placeholder="www.deine-firma.ch" />
+          </label>
+          <label>
+            <span>Bemerkung (optional)</span>
+            <textarea name="bemerkung" rows="3"></textarea>
+          </label>
+          <button type="submit" class="besprechung-submit">
+            <span class="bs-arrow" aria-hidden="true"><i></i></span>
+            <span>Afragä schickä</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Fehler-Hinweis zeigen, wenn besprechung.php mit ?fehler=1 zurückleitet
+  if (new URLSearchParams(location.search).get("fehler") === "1") {
+    const el = document.getElementById("besprechung-error");
+    if (el) el.hidden = false;
+  }
+  // Website aus dem Report-Kontext vorbelegen (?domain=…)
+  const domain = new URLSearchParams(location.search).get("domain");
+  const websiteInput = document.getElementById("besprechung-website");
+  if (domain && websiteInput instanceof HTMLInputElement) {
+    websiteInput.value = domain;
+  }
+</script>
+
+<style>
+  .hero-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.75rem;
+    margin-top: 1.5rem;
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    font-weight: 700;
+  }
+  .hero-contact a {
+    color: var(--color-blue);
+  }
+  .hero-contact a:hover {
+    color: var(--color-pink);
+  }
+
+  .besprechung-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+    max-width: 1040px;
+    margin-inline: auto;
+  }
+  .besprechung-intro h2 {
+    margin-bottom: 1rem;
+  }
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    counter-reset: step;
+  }
+  .steps li {
+    position: relative;
+    padding-left: 2.75rem;
+    margin-bottom: 1.1rem;
+    line-height: 1.6;
+    color: var(--color-blue);
+    counter-increment: step;
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0.05rem;
+    width: 1.9rem;
+    height: 1.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-yellow);
+    color: var(--color-blue);
+    font-weight: 800;
+  }
+  .intro-note {
+    color: var(--color-blue);
+    line-height: 1.7;
+    font-size: 1.05rem;
+  }
+
+  .besprechung-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .besprechung-error {
+    border-left: 3px solid var(--color-pink);
+    padding: 0.75rem 1rem;
+    color: var(--color-blue);
+    font-weight: 600;
+  }
+  .besprechung-error a {
+    color: var(--color-pink);
+  }
+  .besprechung-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-weight: 600;
+    color: var(--color-blue);
+  }
+  .besprechung-form input,
+  .besprechung-form textarea {
+    font-family: var(--font-base);
+    font-size: 1rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid #e7ecf3;
+    background: #fff;
+    color: var(--color-blue);
+  }
+  .besprechung-form input:focus,
+  .besprechung-form textarea:focus {
+    outline: none;
+    border-color: var(--color-blue);
+  }
+  .besprechung-submit {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    line-height: 1;
+    color: #fff;
+    background: var(--color-blue);
+    border: none;
+    padding: 1rem 1.7rem;
+    cursor: var(--cur-hand);
+    transition: background 0.4s var(--ease);
+  }
+  .besprechung-submit:hover {
+    background: var(--color-blue-dark);
+  }
+  .bs-arrow {
+    display: inline-block;
+    max-width: 0;
+    overflow: visible;
+    transition: max-width 0.6s var(--ease), margin-right 0.6s var(--ease);
+  }
+  .bs-arrow i {
+    display: block;
+    width: 1.1em;
+    height: 0.85em;
+    background-color: #fff;
+    -webkit-mask: url("/img/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    mask: url("/img/icons/pfeil-rechts-blau.svg") no-repeat center / contain;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.5s var(--ease), transform 0.6s var(--ease);
+  }
+  .besprechung-submit:hover .bs-arrow,
+  .besprechung-submit:focus-visible .bs-arrow {
+    max-width: 1.1em;
+    margin-right: 0.55rem;
+  }
+  .besprechung-submit:hover .bs-arrow i,
+  .besprechung-submit:focus-visible .bs-arrow i {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bs-arrow,
+    .bs-arrow i {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .besprechung-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

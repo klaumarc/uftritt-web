@@ -10,11 +10,6 @@ const videos = [
 ---
 
 <div class="videos">
-  <header class="section-head" data-reveal>
-    <span class="eyebrow">Bewegte Bilder</span>
-    <h2>Geschichten, die in Erinnerung bleiben</h2>
-  </header>
-
   <ul class="video-grid">
     {
       videos.map((v, i) => (
@@ -43,7 +38,7 @@ const videos = [
 <style>
   .video-grid {
     display: grid;
-    grid-template-columns: 1fr; /* nur 1 Video – Revision Jeffrey */
+    grid-template-columns: 1fr; /* nur 1 Video, Revision Jeffrey */
     gap: clamp(1rem, 2.5vw, 2rem);
   }
   .video-thumb {
@@ -145,7 +140,8 @@ const videos = [
 
   function open(id: string) {
     if (!lb || !embed) return;
-    embed.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="Video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+    embed.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="Video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen"></iframe>`;
+    (window as any)._paq?.push(["trackEvent", "Video", "Play", id]);
     lb.hidden = false;
     void lb.offsetWidth;
     lb.classList.add("is-open");

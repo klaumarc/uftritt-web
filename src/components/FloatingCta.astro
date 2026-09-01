@@ -1,10 +1,10 @@
 ---
-// Schwebender, sticky Kontakt-Button "Schriib eus" – auf allen Seiten sichtbar.
+// Schwebender, sticky Kontakt-Button "Schriib eus", auf allen Seiten sichtbar.
 // Verlinkt auf die Kontaktseite (alternativ mailto:info@uftritt.ch?subject=Kafidate).
 const { href = "/kontakt" } = Astro.props;
 ---
 
-<a class="floating-cta" href={href} aria-label="Schriib eus – zum Kontakt">
+<a class="floating-cta" href={href} aria-label="Schriib eus, zum Kontakt">
   <img src="/img/schriib-eus.png" alt="Schriib eus" width="132" height="132" />
 </a>
 
@@ -23,7 +23,7 @@ const { href = "/kontakt" } = Astro.props;
     transform-origin: center;
     transition: transform 0.6s var(--ease);
   }
-  /* Skalierung + Drehung auf dem Bild – sonst überschreibt die float-Animation des
+  /* Skalierung + Drehung auf dem Bild, sonst überschreibt die float-Animation des
      Wrappers das transform beim Hover. */
   .floating-cta:hover img {
     transform: scale(1.15) rotate(-20deg);

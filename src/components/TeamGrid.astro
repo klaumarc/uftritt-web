@@ -21,10 +21,12 @@ const { carousel = false } = Astro.props;
             data-bio={m.bio}
             data-email={m.email}
             data-photo={m.photo}
+            data-partner={m.partner ? "true" : undefined}
           >
             <span class="team-photo">
               <img src={m.photo} alt={m.name} loading="lazy" />
               <span class="team-caption">
+                {m.partner && <span class="team-badge">Partner</span>}
                 <span class="team-name">{m.name}</span>
                 <span class="team-role">{m.role}</span>
               </span>
@@ -60,9 +62,10 @@ const { carousel = false } = Astro.props;
       </svg>
     </button>
     <div class="team-lightbox-media">
-      <img id="tl-photo" src="" alt="" />
+      <img id="tl-photo" src="" alt="Teamfoto" />
     </div>
     <div class="team-lightbox-body">
+      <span class="team-badge" id="tl-badge" hidden>Partner</span>
       <h3 id="tl-name"></h3>
       <p class="tl-role" id="tl-role"></p>
       <p class="tl-bio" id="tl-bio"></p>
@@ -124,7 +127,7 @@ const { carousel = false } = Astro.props;
     scrollbar-width: none;
     /* Beidseitig full-bleed bis zum Bildschirmrand; Items bleiben content-bündig.
        Beim Blättern verschwindet das Foto am linken Bildrand, das nächste taucht
-       rechts auf – kein Abschneiden mitten im Screen. */
+       rechts auf, kein Abschneiden mitten im Screen. */
     margin-inline: calc(50% - 50vw);
     padding-inline: calc(50vw - 50%);
     scroll-padding-left: calc(50vw - 50%);
@@ -148,6 +151,20 @@ const { carousel = false } = Astro.props;
   @media (max-width: 980px)  { .team-track.is-carousel { --vis: 3; } }
   @media (max-width: 680px)  { .team-track.is-carousel { --vis: 2; } }
   @media (max-width: 480px)  { .team-track.is-carousel { --vis: 1.12; } }
+
+  /* Mobile Ein-Kachel-Ansicht: Kacheln snappen mittig (statt links), und die
+     ERSTE Kachel steht schon beim Laden zentriert da, symmetrische Ränder,
+     die naechste Person lugt rechts wie links herein (Revision Jeffrey 2026-08-28). */
+  @media (max-width: 480px) {
+    .team-track.is-carousel {
+      padding-inline: 11vw;
+      scroll-padding-left: 11vw;
+    }
+    .team-track.is-carousel .team-item {
+      flex-basis: 78vw;
+      scroll-snap-align: center;
+    }
+  }
 
   /* ---------- Slider-Navigation (Pfeile) ----------
      Erscheinen nur, wenn der Slider tatsächlich überläuft UND ein Maus-Zeiger
@@ -260,6 +277,28 @@ const { carousel = false } = Astro.props;
     transform: none;
     opacity: 1;
   }
+  /* «Partner»-Label: blaue eckige Fläche, linksbündig über dem Namen
+     (Grid-Caption unten links auf dem Bild + Lightbox über h3) */
+  .team-badge {
+    display: inline-block;
+    width: fit-content;
+    background: var(--color-blue);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    padding: 0.3rem 0.5rem;
+    margin-bottom: 0.3rem;
+  }
+  /* hidden-Attribut muss die display-Regel oben schlagen, sonst zeigt die
+     Lightbox das Badge bei ALLEN Personen (Bug aus Revision 2026-08-28) */
+  .team-badge[hidden] {
+    display: none;
+  }
+  .team-lightbox-body .team-badge {
+    margin-bottom: 0.45rem;
+  }
   .team-name {
     color: #fff;
     font-weight: 700;
@@ -332,7 +371,7 @@ const { carousel = false } = Astro.props;
   .team-lightbox-close:hover {
     transform: rotate(90deg);
   }
-  /* Volles Bild zeigen – Köpfe nicht stark anschneiden */
+  /* Volles Bild zeigen, Köpfe nicht stark anschneiden */
   .team-lightbox-media img {
     width: 100%;
     height: auto;
@@ -388,8 +427,13 @@ const { carousel = false } = Astro.props;
     const overflow = carousel.scrollWidth - carousel.clientWidth > 4;
     let cloned = false;
 
+    // Endlos-Loop NUR mit echter Maus (Desktop). Auf Touch verursachte das
+    // Zurücksetzen von scrollLeft mitten in der Wisch-Bewegung ein Zittern /
+    // halb-transparentes Aufblitzen am Rundenende → dort finiter Swipe.
+    const canLoop = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
     // Endlos-Loop bei jeder Breite, sobald nicht alle reinpassen
-    if (overflow) {
+    if (overflow && canLoop) {
       // Items duplizieren (3 Sets), Start im mittleren Set → nahtloser Loop in beide Richtungen
       const originals = Array.from(carousel.children);
       originals.forEach((n) => carousel.appendChild(n.cloneNode(true)));
@@ -455,6 +499,7 @@ const { carousel = false } = Astro.props;
   const lightbox = document.querySelector<HTMLElement>("#team-lightbox");
   const els = {
     photo: document.querySelector<HTMLImageElement>("#tl-photo"),
+    badge: document.querySelector<HTMLElement>("#tl-badge"),
     name: document.querySelector<HTMLElement>("#tl-name"),
     role: document.querySelector<HTMLElement>("#tl-role"),
     bio: document.querySelector<HTMLElement>("#tl-bio"),
@@ -470,6 +515,7 @@ const { carousel = false } = Astro.props;
       els.photo.src = d.photo || "";
       els.photo.alt = d.name || "";
     }
+    if (els.badge) els.badge.hidden = d.partner !== "true";
     if (els.name) els.name.textContent = d.name || "";
     if (els.role) els.role.textContent = d.role || "";
     if (els.bio) els.bio.textContent = d.bio || "";

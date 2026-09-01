@@ -1,0 +1,336 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "garage-frei", "physio-rothe", "it-stall"].includes(p.slug)
+);
+
+const ranges = [
+  {
+    name: "Einmaliges Local-Setup",
+    price: "CHF 500 bis 2000 einmalig",
+    note: "Profil einrichten oder bereinigen, Firmendaten (NAP) angleichen, die wichtigsten Schweizer Verzeichnisse eintragen. Der kompakte Start, wenn deine Website technisch solide ist.",
+  },
+  {
+    name: "Local-SEO-Betreuung",
+    price: "CHF 300 bis 1500 pro Monat",
+    note: "Laufende Pflege von Profil und Bewertungen, Verzeichnisse, lokale Inhalte und Reporting. Typisch für Einzelfirmen und Betriebe mit regionalem Einzugsgebiet.",
+  },
+  {
+    name: "SEO-Audit mit lokalem Fokus",
+    price: "CHF 1500 bis 8000 einmalig",
+    note: "Analyse von Technik, Inhalten und lokaler Sichtbarkeit mit priorisiertem Massnahmenplan. Ein reines Local-Audit für eine kleine Website liegt am unteren Ende der Range.",
+  },
+  {
+    name: "Lokale Landingpages",
+    price: "CHF 500 bis 1500 pro Seite",
+    note: "Eine Seite pro Ort oder Leistung, mit echtem Bezug statt Textbaustein. Günstige Massentexte ranken selten und können deiner Domain schaden.",
+  },
+];
+
+const hebel = [
+  {
+    title: "Google-Unternehmensprofil",
+    note: "Der stärkste Einzelhebel: Dein Profil entscheidet, ob du im Local Pack und in Google Maps auftauchst, wenn jemand in deiner Nähe sucht. Vollständig, richtig kategorisiert, gepflegt.",
+  },
+  {
+    title: "Bewertungen",
+    note: "Echte, aktuelle Bewertungen sind Sichtbarkeits- und Vertrauenssignal zugleich. Entscheidend ist ein laufender Strom statt einer einmaligen Aktion, und dass du jede Bewertung beantwortest.",
+  },
+  {
+    title: "Lokale Landingpages mit echtem Ortsbezug",
+    note: "Eine eigene Seite pro Ort oder Leistung, mit Inhalten, die es wirklich nur für diesen Ort gibt. Seiten, bei denen nur der Ortsname ausgetauscht wird, erkennt Google und straft sie ab.",
+  },
+  {
+    title: "Konsistente Firmendaten (NAP)",
+    note: "Name, Adresse und Telefonnummer müssen auf Website, Profil und in allen Verzeichnissen identisch geschrieben sein. Jede Abweichung verwässert das Signal an Google.",
+  },
+  {
+    title: "Schweizer Verzeichnisse",
+    note: "local.ch zuerst, dazu search.ch und passende Branchenverzeichnisse. Diese Einträge bestätigen Google, dass es deinen Betrieb wirklich gibt und wo er tätig ist.",
+  },
+];
+
+const faq = [
+  {
+    q: "Was kostet Local SEO in der Schweiz?",
+    a: "Die Markt-Ranges: Eine laufende Local-SEO-Betreuung kostet CHF 300 bis 1500 pro Monat, ein einmaliges Setup mit Profil, Verzeichnissen und bereinigten Firmendaten CHF 500 bis 2000. Lokale Landingpages werden meist pro Seite abgerechnet, CHF 500 bis 1500. Wo du landest, hängt von der Ausgangslage und dem Wettbewerb in deinem Ort ab. Bei uns startet es mit einem kostenlosen Erstgespräch, danach bekommst du ein transparentes Angebot mit allen Leistungen und einem klaren Preis.",
+  },
+  {
+    q: "Wie schnell wirkt Local SEO?",
+    a: "Das Google-Unternehmensprofil ist der schnellste Hebel: Ein sauber eingerichtetes, gepflegtes Profil kann innert Wochen mehr Anrufe und Routenanfragen bringen. Lokale Landingpages und Verzeichniseinträge brauchen länger, rechne mit drei bis sechs Monaten, bis sie spürbar Anfragen liefern. Ehrlich gesagt: Local SEO ist kein Schalter, sondern ein Zinseszins. Was du heute sauber aufsetzt, arbeitet jahrelang für dich.",
+  },
+  {
+    q: "Brauche ich einen Laden, um lokal gefunden zu werden?",
+    a: "Nein. Auch Dienstleister ohne Ladenfläche können lokal ranken: Handwerker, Beraterinnen oder mobile Dienste tragen im Google-Profil ein Einsatzgebiet ein statt einer öffentlichen Adresse. Google nennt das Service-Area-Business. Wichtig ist, dass das Einzugsgebiet echt ist: Wer Orte angibt, in denen er nie arbeitet, riskiert die Sperrung des Profils. Und für lokale Landingpages gilt dasselbe: nur Seiten für Orte, zu denen du wirklich etwas zu sagen hast.",
+  },
+  {
+    q: "Was ist wichtiger: die Website oder das Google-Profil?",
+    a: "Kurzfristig das Profil, langfristig die Website. Das Profil entscheidet über den Eintrag im Local Pack und in Google Maps und wirkt innert Wochen. Die Website trägt die organischen Treffer darunter und wird mit jeder guten Seite stärker. Wer nur das Profil pflegt, verschenkt die halbe Sichtbarkeit, wer nur die Website optimiert, die schnellere. Darum behandeln wir beides als ein System.",
+  },
+  {
+    q: "Kann ich Local SEO auch selber machen?",
+    a: "Die Grundlagen ja, und sie kosten Zeit statt Geld: Profil vollständig ausfüllen, Öffnungszeiten aktuell halten, zufriedene Kunden um Bewertungen bitten und jede Bewertung beantworten, Firmendaten überall gleich schreiben. Damit bist du vielen Konkurrenten voraus. An Grenzen stösst du bei der Keyword-Recherche, dem Bau lokaler Landingpages, die wirklich ranken, und der technischen Basis der Website. Viele unserer Kunden pflegen das Profil selbst und lassen sich von uns Website und Struktur bauen.",
+  },
+  {
+    q: "Garantiert ihr Platz 1 bei Google?",
+    a: "Nein, und jeder, der das tut, verspricht etwas, das er nicht kontrolliert. Rankings hängen vom Wettbewerb, vom Standort der suchenden Person und von Hunderten Faktoren ab, die laufend ändern. Was wir dir versprechen: saubere Arbeit an den Hebeln, die wirklich zählen, transparentes Reporting und eine ehrliche Einschätzung, was in deinem Markt erreichbar ist. Mehr darf dir niemand versprechen.",
+  },
+  {
+    q: "Was ist der Unterschied zwischen SEO und Local SEO?",
+    a: "Klassisches SEO macht dich bei thematischen Suchanfragen sichtbar, egal wo die suchende Person sitzt. Local SEO zielt auf Suchanfragen mit Ortsbezug: «Elektriker Wetzikon», «Physio in der Nähe», «Garage Zürcher Oberland». Dafür zählen zusätzliche Signale: dein Google-Profil, Bewertungen, Verzeichniseinträge und Seiten mit echtem Ortsbezug. Für regionale KMU ist Local SEO meist der Einstieg mit dem schnellsten Return.",
+  },
+];
+---
+
+<Layout
+  title="Local SEO: als KMU lokal gefunden werden, Uftritt"
+  description="Local SEO für KMU: Google-Unternehmensprofil, Bewertungen, lokale Landingpages und konsistente Firmendaten. Ehrliche Ranges, klare Hebel, keine Versprechen."
+>
+  <PageHero
+    eyebrow="Local SEO · für KMU"
+    title={"Local SEO:\nlokal gefunden\nwerden"}
+    lead="Local SEO macht deinen Betrieb genau dort sichtbar, wo Kaufentscheide fallen: im Local Pack, in Google Maps und bei Suchanfragen mit Ortsbezug. Die wichtigsten Hebel sind dein Google-Unternehmensprofil, echte Bewertungen, lokale Landingpages und konsistente Firmendaten in allen Verzeichnissen. Was das kostet und wie wir vorgehen, steht hier."
+    lottie="/lottie/marketingbegleitung.json"
+    lottieLabel="Local SEO"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/marketingbegleitung/" label="Marketingbegleitung" lottie="/lottie/marketingbegleitung.json" projects={cases} />
+
+  {/* Antwort-Block: Preisranges */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Was Local SEO in der Schweiz kostet</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. Die Zahlen decken sich mit den
+        Ranges in unserem Guide zu den
+        SEO-Kosten: Betreuung ab CHF 300 pro Monat, Audit CHF 1500 bis 8000, Content
+        CHF 500 bis 1500.
+      </p>
+    </div>
+  </section>
+
+  {/* Die fünf Hebel */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Die Hebel</span>
+        <h2>Die fünf Hebel des Local SEO</h2>
+      </header>
+      <div class="karten karten--3" data-reveal>
+        {
+          hebel.map((h) => (
+            <article class="karte">
+              <h3>{h.title}</h3>
+              <p class="karte-note">{h.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Einstieg + First-Hand */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Profil oder Website: Wo fängst du an?</h2>
+        <div class="lp-text">
+          <p>
+            Ehrliche Antwort: mit beiden, aber das Profil zuerst, weil es schneller
+            wirkt. Ein sauber eingerichtetes Google-Unternehmensprofil kann innert
+            Wochen mehr Anrufe bringen, während lokale Landingpages Monate brauchen.
+            Alles zur Einrichtung und Pflege des Profils haben wir auf unserer Seite
+            zum <a href="/google-business-profile/">Google Business Profile</a>
+            zusammengefasst.
+          </p>
+          <p>
+            Deine Website ist das Fundament, auf dem alles andere aufbaut: Ohne sie
+            hat Google nichts zu ranken und Kunden nichts zu lesen. Darum betrachten
+            wir Profil und Website nie getrennt voneinander.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wir machen es für uns selbst genau so</h2>
+        <div class="lp-text">
+          <p>
+            Was wir dir empfehlen, wenden wir auf uftritt.ch selbst an: Unsere Seiten
+            zu Webdesign in Wetzikon, Hinwil, Uster und weiteren Orten der Region
+            sind genau solche lokalen Landingpages, mit echtem Bezug zum Ort statt
+            austauschbarem Text. Und unser eigenes Profil pflegen wir nach denselben
+            Regeln wie die unserer Kunden.
+          </p>
+          <p>
+            Was wir dir nicht versprechen: Platz 1. Den kann niemand seriös
+            garantieren. Was wir versprechen: Arbeit an den Hebeln, die wirklich
+            zählen, mit transparentem Reporting. Wie eine solche laufende
+            Zusammenarbeit aussieht, zeigen wir auf unserer Seite zur
+            <a href="/seo-betreuung/">SEO-Betreuung</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* DIY ehrlich + Übernahme */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was du selber machen kannst</h2>
+        <div class="lp-text">
+          <p>
+            Einiges, und zwar gratis: Profil vollständig ausfüllen, Fotos hochladen,
+            Öffnungszeiten pflegen, zufriedene Kunden um Bewertungen bitten und jede
+            Bewertung beantworten. Dazu gehört auch, deine Firmendaten überall gleich
+            zu schreiben: auf der Website, im Profil, in den Verzeichnissen.
+          </p>
+          <p>
+            Damit bist du einem grossen Teil der Konkurrenz bereits voraus, denn die
+            meisten KMU vernachlässigen genau diese Basics.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wo wir übernehmen</h2>
+        <div class="lp-text">
+          <p>
+            Keyword-Recherche mit Profi-Tools: Wonach suchen deine Kunden wirklich,
+            und mit welchem Ortsbezug? Daraus entstehen die Seiten, die deine Website
+            braucht. Wir bauen lokale Landingpages mit echten Inhalten, bereinigen
+            deine Verzeichniseinträge und kümmern uns um die technische Basis.
+          </p>
+          <p>
+            Der sinnvollste Start ist oft ein Audit: Es zeigt schonungslos, wo du
+            heute stehst und welcher Hebel bei dir zuerst zieht. Wie das abläuft,
+            steht auf unserer Seite zum <a href="/seo-audit/">SEO-Audit</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu Local SEO</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Wirst du gefunden, wenn es zählt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du anbietest und wo. Wir schauen uns dein Profil und deine
+        Website an und sagen dir ehrlich, welcher Hebel bei dir zuerst zieht.
+        Kostenlos und unverbindlich.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges, .karten--3 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges, .karten--3 { grid-template-columns: 1fr; }
+  }
+</style>

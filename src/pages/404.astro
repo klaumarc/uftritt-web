@@ -1,0 +1,46 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
+---
+
+<Layout title="Seite nicht gefunden, Uftritt" noindex={true}>
+  <section class="nf">
+    <div class="container nf-inner" data-reveal>
+      <span class="eyebrow">404</span>
+      <h1>Hoppala — diese Seite gibt es nicht (mehr).</h1>
+      <p>
+        Wir haben unsere Website gerade neu lanciert; möglicherweise hat es den
+        Link dabei verschoben. Am schnellsten findest du alles über die
+        Startseite.
+      </p>
+      <div class="nf-actions">
+        <Button href="/" variant="blue">Zur Startseite</Button>
+        <Button href="/kontakt/" variant="text">Schriib eus</Button>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .nf {
+    padding-block: clamp(4rem, 10vw, 8rem);
+  }
+  .nf-inner {
+    max-width: 640px;
+  }
+  .nf-inner h1 {
+    margin-bottom: 1rem;
+  }
+  .nf-inner p {
+    color: var(--color-blue);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .nf-actions {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+</style>

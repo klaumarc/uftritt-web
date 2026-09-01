@@ -1,0 +1,324 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+
+const funktionen = [
+  {
+    title: "Termine und Anlässe",
+    note: "Trainings, Matches, Generalversammlung und Feste: Alle Daten an einem Ort, mit Anmeldung direkt in der App statt über drei Kanäle.",
+  },
+  {
+    title: "News und Push",
+    note: "Neuigkeiten und kurzfristige Änderungen erreichen deine Mitglieder sofort per Push, statt in Mailverteilern und Chatgruppen unterzugehen.",
+  },
+  {
+    title: "Team-Bereiche",
+    note: "Jede Mannschaft, Abteilung oder Gruppe hat ihren eigenen Bereich mit eigenen Terminen, Resultaten und Infos.",
+  },
+  {
+    title: "Rollen und Rechte",
+    note: "Vorstand, Trainer und Mitglieder sehen und dürfen Unterschiedliches. So bleiben Mitgliederdaten geschützt, und die Pflege verteilt sich auf viele Schultern.",
+  },
+];
+
+const ranges = [
+  {
+    name: "Vereins-Website",
+    price: "CHF 3000 bis 15 000",
+    note: "Agenda, News, Anmeldeformular und Kontakt: Für viele Vereine reicht das völlig. Die ehrliche erste Option, bevor überhaupt an eine App gedacht wird.",
+  },
+  {
+    name: "Vereins-App als Web-App",
+    price: "CHF 15 000 bis 40 000",
+    note: "Eigene App mit Login, Team-Bereichen und Push, als fokussierter Einstieg, der mit dem Verein wächst. Das entspricht der Markt-Range für einen MVP in der Schweiz.",
+  },
+  {
+    name: "Vereinssoftware im Abo",
+    price: "laufendes Abo",
+    note: "Standardlösungen decken Mitgliederdaten und Beitragswesen ab, kosten monatlich und sehen bei jedem Verein gleich aus. Du passt dich dem Tool an, nicht umgekehrt.",
+  },
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Vereins-App?",
+    a: "Ehrlich gesagt hängt das vom Weg ab: Eine individuelle Vereins-App als Web-App kostet in der Schweiz CHF 15 000 bis 40 000 als fokussierter Einstieg. Standard-Vereinssoftware und Baukästen sind deutlich günstiger, laufen im Abo, sehen aber überall gleich aus und zwingen dich in deren Struktur. Und selbst bauen mit No-Code-Tools geht noch günstiger, stösst aber bei Rollen, Rechten und Datenschutz schnell an Grenzen. Für viele Vereine reicht eine gute Website für CHF 3000 bis 15 000 völlig. Im kostenlosen Erstgespräch sagen wir dir offen, welcher Weg für deinen Verein passt, auch wenn das der günstigste ist.",
+  },
+  {
+    q: "Läuft die App auf iOS und Android?",
+    a: "Ja. Wir bauen die Vereins-App als Web-App: Sie läuft im Browser auf iPhone, Android und am Computer, ohne App-Store und ohne Installation. Wer will, legt sie mit einem Icon auf dem Homescreen ab und bekommt Push-Nachrichten wie bei einer installierten App. Updates gibt es zentral, sofort für alle.",
+  },
+  {
+    q: "Können Mitglieder selbst Inhalte erfassen?",
+    a: "Ja, genau dafür ist sie gebaut: Vorstand, Trainerinnen oder Ressortleiter erfassen News, Resultate und Termine selbst über einen geschützten Bereich, ohne dass du uns jedes Mal brauchst. Wer was sieht und bearbeiten darf, regeln wir über Rollen und Rechte. Die Pflege zeigen wir dir in einer Schulung, und wenn etwas hakt, sind wir erreichbar.",
+  },
+  {
+    q: "Wie steht es um den Datenschutz?",
+    a: "Mitgliederdaten sind sensibel, im Sport oft auch Daten von Minderjährigen. Darum hosten wir neue Vereins-Apps bei unserem Schweizer Hoster und bauen datensparsam: Erfasst wird nur, was der Vereinsbetrieb wirklich braucht. Über Rollen und Rechte ist geregelt, wer welche Daten sieht. So bleibt die App auf dem Boden des revidierten Schweizer Datenschutzgesetzes.",
+  },
+  {
+    q: "Reicht nicht auch eine Website oder eine Chatgruppe?",
+    a: "Für einen kleinen Verein mit überschaubarem Betrieb oft ja. Eine gut gemachte Website mit Agenda, News und Anmeldeformular deckt viel ab, und eine Chatgruppe kennt ohnehin jede und jeder. Die App lohnt sich, wenn es viele Teams und Anlässe gibt, Informationen in Kanälen untergehen und der Vorstand mehr Zeit mit Verteilen verbringt als mit dem Verein selbst.",
+  },
+  {
+    q: "Was passiert nach dem Launch?",
+    a: "Wir lassen dich nicht im Stich: Hosting, Wartung, Updates und Weiterentwicklung kommen auf Wunsch aus derselben Hand, mit klaren Absprachen, bevor gebaut wird. Und weil der Code deiner App dir gehört, hängst du nicht an uns: Du kannst sie jederzeit anderswo weiterentwickeln lassen.",
+  },
+];
+---
+
+<Layout
+  title="Vereins-App: Mitglieder-App für deinen Verein, Uftritt"
+  description="Vereins-App für deinen Verein: Termine, News, Push und Team-Bereiche in einer Mitglieder-App. Ehrliche Einordnung, Kosten und Datenschutz in der Schweiz."
+>
+  <PageHero
+    eyebrow="Für Vereine und Sportclubs"
+    title={"Vereins-App für\ndeinen Verein"}
+    lead="Eine Vereins-App bringt Termine, News, Anlässe und Team-Bereiche direkt aufs Handy deiner Mitglieder, inklusive Push-Nachrichten. Sie lohnt sich, wenn Infos in Chatgruppen und Mailverteilern untergehen. Wir bauen sie als Web-App ohne App-Store und sagen dir ehrlich, wenn eine gute Website reicht. Neue Vereins-Apps hosten wir bei unserem Schweizer Hoster, datensparsam bauen wir immer."
+    lottie="/lottie/applikationsentwicklung.json"
+    lottieLabel="Vereins-App"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/applikationsentwicklung/" label="App-Entwicklung" lottie="/lottie/applikationsentwicklung.json" />
+
+  {/* Funktionen */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Was drinstecken muss</span>
+        <h2>Was eine Vereins-App können muss</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          funktionen.map((f) => (
+            <article class="karte">
+              <h3>{f.title}</h3>
+              <p class="karte-note">{f.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Website oder App: ehrliche Einordnung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann eine gute Website reicht</h2>
+        <div class="lp-text">
+          <p>
+            Für viele Vereine ist die ehrliche Antwort: eine gut gemachte Website.
+            Mit Agenda, News, Anmeldeformular und Kontakt deckt sie den Alltag
+            kleiner und mittlerer Clubs ab, und sie wird bei Google gefunden,
+            wenn neue Mitglieder suchen.
+          </p>
+          <p>
+            Auch Gedrucktes bleibt relevant: Manche Mitglieder und Gönner
+            erreichst du am zuverlässigsten mit einem
+            <a href="/vereinsmagazin/">Vereinsmagazin</a>, das im Haushalt
+            liegen bleibt.
+          </p>
+          <p>
+            Und der Unterhalt ist planbar: Hosting, Wartung und Updates kosten
+            bei uns fix CHF 33 pro Monat.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wann sich eine App lohnt</h2>
+        <div class="lp-text">
+          <p>
+            Sobald der Vereinsbetrieb grösser wird: viele Teams und Abteilungen,
+            Anmeldungen für Anlässe, Resultate am Wochenende und Infos, die in
+            Chatgruppen untergehen. Dann bringt eine App alles an einen Ort, mit
+            Push direkt aufs Handy und Team-Bereichen, in denen jede Gruppe ihr
+            Eigenes hat.
+          </p>
+          <p>
+            Wie so ein Projekt bei uns abläuft, vom kostenlosen Erstgespräch
+            über den klickbaren Prototyp bis zum laufenden Betrieb, zeigen wir
+            auf der Seite <a href="/app-entwickeln-lassen/">App entwickeln lassen</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Praxis + Datenschutz */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Aus der Praxis: ein Sportclub aus der Region</h2>
+        <div class="lp-text">
+          <p>
+            Für einen Sportclub aus der Region haben wir eine Kommunikationsplattform
+            gebaut: Termine, News und eigene Bereiche für mehrere Abteilungen,
+            statt einer Flut aus Chatgruppen und Mailverteilern. Das Projekt ist
+            nicht öffentlich, darum nennen wir keinen Namen. Genau aus solchen
+            Projekten wissen wir, worauf es bei einer Vereins-App ankommt.
+          </p>
+          <p>
+            Technisch bauen wir Vereins-Apps als Web-App: Sie läuft auf jedem
+            Gerät, braucht keinen App-Store und ist per Link verteilt. Was eine
+            Web-App genau ist und warum sie für Vereine passt, erklären wir auf
+            der Seite <a href="/webapp-entwickeln-lassen/">Webapp entwickeln lassen</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Mitgliederdaten gehören in die Schweiz</h2>
+        <div class="lp-text">
+          <p>
+            In einer Vereins-App stecken sensible Daten: Adressen, Beiträge und
+            im Sport oft auch Daten Minderjähriger. Darum hosten wir neue
+            Vereins-Apps bei unserem Schweizer Hoster und bauen datensparsam:
+            Erfasst wird nur, was der Vereinsbetrieb wirklich braucht.
+          </p>
+          <p>
+            Über Rollen und Rechte legen wir fest, wer was sieht und bearbeitet,
+            vom Vorstand bis zum Elternteil. So bleibt die App auf dem Boden des
+            revidierten Schweizer Datenschutzgesetzes, und deine Mitglieder
+            können sich darauf verlassen.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Kosten: Markt-Ranges */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Marktüberblick</span>
+        <h2>Was kostet eine Vereins-App?</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          ranges.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Richtwerte aus unserer Projekterfahrung. Jeder Verein ist anders, darum
+        sind das Ranges und keine Ladenpreise. Welcher Weg für deinen passt, klären wir im
+        kostenlosen Erstgespräch ehrlich.
+      </p>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Vereins-App</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Wird dein Verein von Chats und Mails überrollt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, wie eure Kommunikation heute läuft. Wir sagen dir ehrlich,
+        ob es eine App braucht oder eine gute Website reicht, und machen ein
+        transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .ranges { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--4 { grid-template-columns: repeat(2, 1fr); }
+    .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--4 { grid-template-columns: 1fr; }
+    .ranges { grid-template-columns: 1fr; }
+  }
+</style>

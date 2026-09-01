@@ -1,0 +1,295 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["cynterim", "emotion-hinwil", "stahel-koeng"].includes(p.slug)
+);
+
+const orte = [
+  { name: "Wetzikon", href: "/webdesign-wetzikon/", note: "grösste Stadt der Region" },
+  { name: "Dürnten", href: "/webdesign-duernten/", note: "zwischen Bachtel und Rüti" },
+  { name: "Rüti", href: "/webdesign-rueti/", note: "Klosterort im Jonatal" },
+  { name: "Wald", href: "/webdesign-wald/", note: "Gewerbeort im Jonatal" },
+  { name: "Bäretswil", href: "/webdesign-baeretswil/", note: "zwischen Glatt- und Tösstal" },
+  { name: "Bauma", href: "/webdesign-bauma/", note: "unsere Heimatgemeinde" },
+];
+
+const weitere = ["Gibswil", "Fischenthal", "Bubikon", "Russikon", "Grüningen", "Gossau"];
+
+const faq = [
+  { q: "Was kostet eine Website für einen Betrieb in Hinwil?", a: "Kommt auf den Umfang an: Ein Onepager für das Kleingewerbe im Dorf kostet weniger als eine mehrsprachige Plattform fürs Industriequartier. Nach einem kostenlosen Erstgespräch erhältst du ein transparentes Angebot mit klarem Preis, ohne Kleingedrucktes." },
+  { q: "Kommst du zu uns nach Hinwil?", a: "Klar, von unserem Büro in Saland sind wir in rund zehn Minuten bei dir, ob im Dorf, im Industriequartier oder in einer Aussenwacht wie Girenbad oder Wernetshausen. Und wenn es schnell gehen muss, reicht auch ein Video-Call. Ein Kaffee bei uns in Saland geht natürlich auch." },
+  { q: "Werde ich als Hinwiler Betrieb bei Google überhaupt gefunden?", a: "Ja, wenn die Basis stimmt: Wir liefern jede Website mit sauberer SEO-Grundlage aus, Struktur, Ladezeiten, Meta-Texte, Google-Anmeldung. Dazu gehört ein gepflegtes Google-Unternehmensprofil, damit du in Hinwil und Umgebung auch auf der Karte sichtbar bist. Gerade in einem Gewerbeort wie Hinwil suchen Kundinnen und Kunden lokal, und Google liefert lokale Antworten." },
+  { q: "Macht ihr auch mehr als Websites?", a: "Ja, Logo, Corporate Design, Print, Fotografie und Video kommen bei uns aus demselben Haus. In Hinwil siehst du das am pinken Auftritt von emotion Hinwil oder am Jubiläumsauftritt von Stahel + Köng. Dazu kommt die laufende Begleitung, etwa wenn aus dem neuen Logo später Broschüren oder ein Newsletter entstehen sollen." },
+  { q: "Wir haben schon eine Website, lohnt sich ein Relaunch?", a: "Wenn deine Seite älter als vier, fünf Jahre ist, auf dem Handy hakt oder bei Google abrutscht: meistens ja. Wir schauen uns deine Seite kostenlos an und sagen dir ehrlich, ob ein Neubau nötig ist, oder ob es auch mit einem gezielten Eingriff getan ist." },
+  { q: "Wer kümmert sich nach dem Launch um die Website?", a: "Auf Wunsch wir, mit Updates, Backups und kleinen Anpassungen im laufenden Betrieb. Oder wir schulen dich, damit du die Inhalte selbst pflegst. Beides ist bei uns üblich, du entscheidest." },
+  { q: "Wie lange dauert ein Website-Projekt?", a: "Je nach Umfang vier bis zwölf Wochen. Einen klickbaren Prototypen siehst du schon früh im Prozess, nicht erst kurz vor dem Launch. Komplexere Plattformen können länger dauern, auch das steht transparent im Angebot." },
+  { q: "Kann ich die Website danach selbst pflegen?", a: "Ja. Wir bauen so, dass du Texte, Bilder und News selbst anpassen kannst, und wir zeigen dir, wie es geht. Wenn doch etwas hakt: Wir sind zehn Minuten entfernt, nicht am anderen Ende eines Ticketsystems." },
+];
+---
+
+<Layout
+  title="Webdesign Hinwil, Uftritt"
+  description="Webdesign für Hinwil: Websites, Branding und mehr für KMU und Gewerbe im Bezirkshauptort, von der Webagentur aus Saland, nur zehn Minuten entfernt."
+>
+  <PageHero
+    eyebrow="Webdesign · Hinwil"
+    title={"Webdesign\nHinwil"}
+    lead="Du suchst Webdesign in Hinwil? Uftritt ist die Kommunikationsagentur aus dem Zürcher Oberland, wir entwickeln Websites und Erscheinungsbilder für KMU und Gewerbe in Hinwil, vom schlanken Onepager für den Dorfladen bis zur Firmenplattform fürs Industriequartier: persönlich, ohne Template und mit echter Nähe. Von unserem Büro in Saland sind wir in rund zehn Minuten bei dir."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Für den Bezirkshauptort am Bachtel</h2>
+        <div class="lp-text">
+          <p>
+            Hinwil ist mit fast 12 000 Einwohnerinnen und Einwohnern Hauptort seines
+            Bezirks und liegt am Westhang des Bachtels, dem 1115 Meter hohen Hausberg
+            mit dem bekannten Aussichtsturm. Zum Dorf gehören sechs Aussenwachten:
+            Girenbad, Hadlikon, Ringwil, Unterbach, Unterholz und Wernetshausen.
+          </p>
+          <p>
+            Wirtschaftlich ist Hinwil grösser, als viele denken: Im Industriequartier
+            sitzen Weltmarktführer wie Belimo und Ferag, und das Formel-1-Team, das
+            viele noch als Sauber kennen. Gleichzeitig prägen Kleingewerbe, Läden und
+            Dienstleister das Zentrum und die Aussenwachten. Und dazwischen steht mit
+            der KEZO eine der sechs Kehrichtverwertungen des Kantons, die 39
+            Oberländer Gemeinden versorgt.
+          </p>
+          <p>
+            Dazu kommt die Anbindung: Die S14 bringt dich im Halbstundentakt direkt
+            an den Zürcher Hauptbahnhof, und am Kreisel Betzholz trifft die
+            Oberlandautobahn auf die Forchautostrasse. Wer in Hinwil arbeitet, ist
+            ländlich und urban zugleich.
+          </p>
+          <p>
+            Wir kennen beide Welten. Unser Büro in Saland ist nur rund zehn Minuten
+            entfernt, Besprechungen finden bei dir statt, nicht in einer anonymen
+            Agentur-Etage in der Stadt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In Hinwil schon gut sichtbar</h2>
+        <div class="lp-text">
+          <p>
+            Das pinke Erscheinungsbild des Unihockeyvereins emotion Hinwil? Von uns -
+            vom Logo über das Corporate Design bis zu den Social-Media-Vorlagen. Das
+            Jubiläumslogo zum 125-Jahr-Fest des Normleisten-Herstellers Stahel + Köng?
+            Ebenfalls von uns. Und für das Salesforce-Partnerunternehmen Cynterim an
+            der Unterdorfstrasse haben wir Logo, Branding und Website von Grund auf
+            neu gebaut, inklusive Texten und WordPress-Umsetzung.
+          </p>
+          <p>
+            Bis auf den Bachtel hinauf hat es uns auch schon verschlagen: Der Imagefilm
+            für Heusser Holzbau aus der Region ist dort entstanden, Drohnenaufnahmen
+            inklusive. Vom Sportverein über den Industriebetrieb bis zum
+            Softwarepartner: Die Bandbreite unserer Hinwiler Projekte spiegelt die
+            Wirtschaft des Ortes ziemlich gut, und genau so arbeiten wir.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Webseite erstellen lassen, vom Onepager bis zur Plattform</h2>
+        <div class="lp-text">
+          <p>
+            Was muss eine Website für einen Hinwiler Betrieb leisten? Zuerst dies:
+            Wer dich googelt, findet dich, mit Leistungen, Öffnungszeiten und Kontakt
+            auf einen Blick, auf dem Handy genauso wie am Computer. Und wer deinen
+            Namen noch nicht kennt, soll dich trotzdem entdecken können: über eine
+            saubere SEO-Basis, die wir bei jeder Website gleich mitliefern, und über
+            dein <a href="/google-business-profile/">Google-Unternehmensprofil</a>,
+            das dich auf der Karte sichtbar macht. Terminbuchung, Shop oder ein
+            News-Bereich, was für deinen Betrieb Sinn ergibt, bauen wir gleich mit
+            ein.
+          </p>
+          <p>
+            Uftritt ist dabei mehr als eine Webagentur: Als Werbeagentur decken wir
+            ab, was dazugehört, Logo und Erscheinungsbild, Printwerbung, Foto und
+            Video sowie die laufende Betreuung. Ein Partner für alles, statt fünf
+            Ansprechpersonen für fünf Disziplinen.
+          </p>
+          <p>
+            Und wir sagen es auch, wenn weniger genügt: Für viele Betriebe im Dorf
+            ist ein gut gemachter Onepager die richtige Lösung, kein Grossprojekt.
+            Was du bekommst, hängt davon ab, was deine Kundinnen und Kunden wirklich
+            brauchen, nicht davon, was sich am besten verkaufen liesse.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In vier Schritten zur neuen Website</h2>
+        <div class="lp-text">
+          <p>
+            <strong>1. Erstgespräch bei dir.</strong> Kostenlos und unverbindlich -
+            am liebsten bei dir in Hinwil, im Industriequartier wie im Dorf, auf
+            Wunsch auch bei uns in Saland oder per Video-Call. Wir hören zu, fragen
+            nach und beraten ehrlich, auch dann, wenn die ehrliche Antwort lautet,
+            dass du uns gar nicht brauchst.
+          </p>
+          <p>
+            <strong>2. Konzept und Prototyp.</strong> Du siehst früh einen klickbaren
+            Entwurf deiner neuen Homepage, nicht erst kurz vor dem Launch. Dein
+            Feedback fliesst direkt ein, bevor wir bauen. So gibt es keine
+            Überraschungen.
+          </p>
+          <p>
+            <strong>3. Umsetzung.</strong> Wir bauen die Seite, schreiben auf Wunsch
+            die Texte und organisieren die Fotografie, alles aus einer Hand, alles
+            mit dir abgestimmt.
+          </p>
+          <p>
+            <strong>4. Launch und Betreuung.</strong> Nach dem Go-Live lassen wir dich
+            nicht im Stich: <a href="/website-betreuung/">Betreuung und Wartung</a>,
+            <a href="/seo-betreuung/">SEO-Begleitung</a> oder eine Schulung, damit du
+            die Seite selbst pflegst. Du hast schon eine Website, die in die Jahre
+            gekommen ist? Dann ist ein <a href="/website-relaunch/">Relaunch</a> der
+            richtige Einstieg.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet das?</h2>
+        <div class="lp-text">
+          <p>
+            Die ehrliche Antwort: Es kommt darauf an, was du brauchst. Der Onepager
+            für den Handwerksbetrieb in Wernetshausen kostet weniger als die
+            mehrsprachige Firmenplattform im Industriequartier. Pauschalpreise wären
+            unseriös, deshalb erhältst du nach dem kostenlosen Erstgespräch ein
+            transparentes Angebot mit allen Leistungen und einem klaren Preis.
+          </p>
+          <p>
+            Zur Orientierung vorab: Unser <a href="/website-kosten/">Guide zu
+            Website-Kosten</a> zeigt echte Marktpreise in der Schweiz. So weisst du,
+            was eine Website kosten darf, bevor du mit uns oder einer anderen
+            Agentur sprichst. Und weil eine Website nach dem Launch weiterläuft,
+            rechnen wir auch das offen mit: Hosting, Domain und Betreuung kommen
+            dazu, wir legen es auf den Tisch, bevor du unterschreibst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">In deiner Nähe</span>
+        <h2>Webdesign in deinem Ort</h2>
+      </header>
+      <div class="orte" data-reveal>
+        {
+          orte.map((o) => (
+            <a class="ort-card" href={o.href}>
+              <span class="ort-name">{o.name}</span>
+              <span class="ort-note">{o.note}</span>
+            </a>
+          ))
+        }
+      </div>
+      <p class="orte-note" data-reveal>
+        Und natürlich auch in: {weitere.join(", ")}, kurzum: im ganzen Bezirk
+        Hinwil und darüber hinaus.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deinen neuen Webauftritt in Hinwil?</h2>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); text-decoration: underline; text-underline-offset: 0.15em; }
+
+  .orte { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .ort-card {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .ort-card:hover { border-color: var(--color-blue); transform: translateY(-2px); }
+  .ort-name { font-weight: 700; font-size: 1.25rem; color: var(--color-blue); }
+  .ort-note { color: var(--color-blue); opacity: 0.8; font-size: 0.95rem; }
+  .orte-note { margin-top: 1.5rem; color: var(--color-blue); line-height: 1.7; max-width: 75ch; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+
+  @media (max-width: 900px) {
+    .orte { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .orte { grid-template-columns: 1fr; }
+  }
+</style>

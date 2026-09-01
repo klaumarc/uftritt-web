@@ -1,0 +1,340 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+
+const inhalte = [
+  {
+    title: "Verstehen, was KI wirklich tut",
+    note: "Keine Zauberei, sondern Muster und Wahrscheinlichkeiten: Wer das Prinzip einmal verstanden hat, beurteilt Ergebnisse richtig und nutzt die Tools gezielt statt hoffnungsvoll. Das ist das Fundament der Schulung.",
+  },
+  {
+    title: "ChatGPT und Co. sicher nutzen",
+    note: "Konten richtig einrichten, passende Einstellungen wählen, verstehen, was mit euren Eingaben passiert. Damit niemand aus Versehen Firmendaten ins falsche Tool tippt.",
+  },
+  {
+    title: "Über den Chat hinaus: KI im Terminal",
+    note: "Die meisten kennen nur das Chatfenster. Wir zeigen live, was KI auf dem eigenen Gerät leistet: Dateien lesen und sortieren, Auswertungen bauen, wiederkehrende Arbeit automatisieren, direkt im Terminal.",
+  },
+  {
+    title: "Prompt-Grundlagen",
+    note: "Aufgaben so formulieren, dass brauchbare Ergebnisse kommen: Kontext geben, Rollen nutzen, iterativ nachschärfen. Geübt wird an euren echten Arbeitsfällen.",
+  },
+  {
+    title: "Datenschutz, Haftung und Recht",
+    note: "Was in ein KI-Tool darf und was nie: Kundendaten, Personalakten, vertrauliche Offerten. Und: Wer haftet, wenn KI-Inhalte falsch oder rechtswidrig sind? Ihr bekommt einfache Regeln, die sich jede Person merken kann.",
+  },
+  {
+    title: "Grenzen erkennen",
+    note: "KI erfindet Fakten und klingt dabei überzeugt. Euer Team lernt, Ergebnisse zu prüfen, Quellen zu hinterfragen und zu wissen, wann Menschen entscheiden müssen.",
+  },
+];
+
+const formate = [
+  {
+    title: "Halbtägiger Workshop",
+    note: "Der kompakte Einstieg: Grundlagen, Sicherheit und erste eigene Übungen in etwa vier Stunden. Ideal, um ein ganzes Team auf denselben Stand zu bringen.",
+  },
+  {
+    title: "Ganztägiger Workshop",
+    note: "Mehr Raum für eigene Fälle und Vertiefung: Am Nachmittag arbeitet jede Person an konkreten Aufgaben aus dem eigenen Job, mit direktem Feedback.",
+  },
+  {
+    title: "Team-Session",
+    note: "Zwei bis drei Stunden zu einem Thema, etwa KI in der Korrespondenz oder bei Offerten. Passt als Auffrischung oder als Einstieg für einzelne Abteilungen.",
+  },
+];
+
+const ablauf = [
+  "Kurzes Vorgespräch: Ziele, Kenntnisstand und eingesetzte Tools klären",
+  "Fälle sammeln: typische Aufgaben aus eurem Betrieb als Übungsmaterial",
+  "Workshop: jede Person arbeitet am eigenen Laptop, wir coachen",
+  "Unterlagen und Nachweis: Zusammenfassung plus Bestätigung pro Person",
+  "Optional: Auffrischung oder Vertiefung nach einigen Monaten",
+];
+
+const faq = [
+  {
+    q: "Wie lange dauert eine KI-Schulung?",
+    a: "Das Grundmodul dauert einen halben Tag, etwa dreieinhalb bis vier Stunden inklusive Pausen. Ganztägige Workshops gehen tiefer und lassen mehr Raum für eigene Fälle und Übungen. Für eine kompakte Team-Session von zwei bis drei Stunden kürzen wir das Programm auf die Themen, die euch am meisten bringen.",
+  },
+  {
+    q: "Wie gross sollte die Gruppe sein?",
+    a: "Praxisarbeit am eigenen Laptop funktioniert am besten in Gruppen bis etwa acht Personen. So bleibt Zeit für Fragen und individuelle Fälle. Für grössere Teams empfehlen wir zwei Sessions oder einen zweiten Coach, damit niemand nur zuschaut.",
+  },
+  {
+    q: "Brauchen wir Vorkenntnisse?",
+    a: "Nein. Die Schulung startet dort, wo euer Team steht: vom ersten Login bis zu Leuten, die ChatGPT schon täglich nutzen. Im Vorgespräch klären wir Kenntnisstand und Ziele, damit niemand unterfordert oder überfordert ist. Ein eigener Laptop und ein Zugang zu den Tools genügen.",
+  },
+  {
+    q: "Wo findet die Schulung statt?",
+    a: "Wie es euch passt: bei euch im Betrieb vor Ort oder bei uns im Zürcher Oberland. Vor Ort hat den Vorteil, dass alle im gewohnten Umfeld arbeiten und wir eure Abläufe direkt sehen. Bei uns seid ihr aus dem Alltag raus und ungestört.",
+  },
+  {
+    q: "Ist eine KI-Schulung gesetzlich Pflicht?",
+    a: "Seit dem 2. Februar 2025 verlangt Artikel 4 des EU AI Act von Anbietern und Betreibern von KI-Systemen, die KI-Kompetenz ihrer Mitarbeitenden zu fördern. Eine Zertifikats- oder Kurspflicht kennt das Gesetz nicht, und fehlende KI-Kompetenz ist für sich allein nicht bussiert. Wer in der EU aktiv ist, sollte die Schulung trotzdem dokumentieren können. Alle Details stehen auf unserer Seite zum EU AI Act.",
+  },
+  {
+    q: "Wer haftet, wenn KI-Inhalte falsch oder rechtswidrig sind?",
+    a: "Ihr als Unternehmen: Rechtlich verantwortlich ist immer, wer Inhalte verwendet und veröffentlicht, nicht das Tool. Darum sind Haftbarkeit und Recht ein fester Teil der Schulung: welche Inhalte geprüft werden müssen, was Datenschutz und Urheberrecht verlangen, wann Offenlegung nötig ist und was der EU AI Act vorschreibt. Ihr bekommt einfache Regeln, mit denen euer Team KI-Ergebnisse sicher einsetzt.",
+  },
+  {
+    q: "Was kostet eine KI-Schulung?",
+    a: "Das hängt von Format, Gruppengrösse und Vorbereitung ab: eine halbtägige Session für ein kleines Team ist etwas anderes als ein Ganztags-Workshop mit firmeneigenen Übungsfällen. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit einem klaren Preis, ohne versteckte Kosten.",
+  },
+  {
+    q: "Gibt es einen Nachweis für die Teilnehmenden?",
+    a: "Ja. Jede Person erhält eine Teilnahmebestätigung, und wir dokumentieren die behandelten Themen. Damit könnt ihr im Ernstfall nachvollziehbar zeigen, wer wann was gelernt hat. Das ist der sauberste Weg, die KI-Kompetenz im Sinne von Artikel 4 zu belegen.",
+  },
+];
+---
+
+<Layout
+  title="KI-Schulung für Unternehmen: Praxis-Workshops - Uftritt"
+  description="KI-Schulung für KMU: Praxis-Workshops am eigenen Laptop, mit echten Arbeitsfällen statt Folien. Verstehen, was KI tut: von ChatGPT bis Terminal, Datenschutz, Haftung, EU AI Act."
+>
+  <PageHero
+    eyebrow="Praxis-Workshops für KMU"
+    title={"KI-Schulung, die\nim Alltag ankommt"}
+    lead="Eine KI-Schulung bei Uftritt ist kein Folien-Vortrag: Dein Team versteht am Ende, was KI wirklich tut, und hat es selbst ausprobiert, am eigenen Laptop, mit Fällen aus dem eigenen Arbeitsalltag. Von ChatGPT bis zur Frage, was KI im Terminal auf dem eigenen Gerät leisten kann. Halbtägig oder ganztägig, bei euch oder bei uns: Ziel ist ein Team, das KI ohne Berührungsangst sicher, effizient und regelkonform einsetzt."
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/eu-ai-act/" variant="text">EU AI Act im Überblick</Button>
+    </div>
+  </PageHero>
+
+  {/* Inhalte */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Inhalte</span>
+        <h2>Was euer Team in der KI-Schulung lernt</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          inhalte.map((s) => (
+            <article class="karte">
+              <h3>{s.title}</h3>
+              <p class="karte-note">{s.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Formate */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Formate</span>
+        <h2>Drei Wege, je nach Zeit und Ziel</h2>
+      </header>
+      <div class="karten karten--3" data-reveal>
+        {
+          formate.map((g) => (
+            <article class="karte">
+              <h3>{g.title}</h3>
+              <p class="karte-note">{g.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Praxis + EU AI Act */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Praxis statt Folien</h2>
+        <div class="lp-text">
+          <p>
+            Aus Erfahrung: Reine Folien-Vorträge fühlen sich gut an und sind nach
+            zwei Wochen vergessen. Darum wechseln bei uns kurze, verständliche
+            Inputs mit praktischen Übungen: Jede Person arbeitet am eigenen
+            Laptop, mit Aufgaben aus eurem echten Alltag: Offerten, Mails,
+            Protokolle, Social Posts, Auswertungen.
+          </p>
+          <p>
+            Vor dem Workshop sammeln wir mit euch typische Fälle aus dem Betrieb.
+            So lernt das Team nicht irgendeine Theorie, sondern genau die Arbeit,
+            die am Montag wieder ansteht. Und auch Skeptiker merken dabei: KI
+            nimmt Arbeit ab, statt sie wegzunehmen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Vom Chatfenster zum Terminal</h2>
+        <div class="lp-text">
+          <p>
+            Hinter ChatGPT steckt dieselbe Technik, die auf deinem eigenen Gerät
+            noch viel mehr kann. Wir zeigen live im Terminal, wie KI Dateien
+            liest, Ordner strukturiert, Auswertungen baut und wiederkehrende
+            Arbeit erledigt, ohne dass etwas programmiert werden muss.
+          </p>
+          <p>
+            Für viele Teams ist genau das der Moment, in dem KI vom netten
+            Chatpartner zum echten Werkzeug wird. Und wer weiss, was die Technik
+            auf dem eigenen Gerät leistet, geht auch die digitale Transformation
+            im eigenen Betrieb mit weniger Hemmungen an.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>EU AI Act: KI-Kompetenz als Grundmodul</h2>
+        <div class="lp-text">
+          <p>
+            Seit dem 2. Februar 2025 verlangt Artikel 4 des EU AI Act, dass Anbieter
+            und Betreiber von KI-Systemen die KI-Kompetenz ihrer Mitarbeitenden
+            fördern. Eine Zertifikatspflicht gibt es nicht, und für rein inländisch
+            tätige Schweizer Betriebe ist das keine EU-Pflicht. Gute Praxis ist es
+            trotzdem.
+          </p>
+          <p>
+            Unser Grundmodul deckt genau diese Kompetenz ab und dokumentiert sie pro
+            Person. Was sonst noch gilt, welche Fristen laufen und was das für
+            Schweizer KMU heisst, steht auf unserer Seite zum
+            <a href="/eu-ai-act/">EU AI Act</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Grenzen + Ablauf */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was eine Schulung nicht ersetzt</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlichkeit gehört dazu: Nach einem Workshop ist niemand KI-Profi. Eine
+            Schulung ersetzt weder eine KI-Strategie noch eine schriftliche Policy
+            für den Betrieb, und die Tools entwickeln sich so schnell weiter, dass
+            eine Auffrischung nach einigen Monaten sinnvoll ist.
+          </p>
+          <p>
+            Was bleibt: ein Team, das KI sicher und selbstständig nutzt. Und wenn du
+            willst, dass KI danach im Marketing-Alltag wirklich Früchte trägt, etwa
+            für Texte, Kampagnen oder Social Media, begleiten wir euch auch laufend:
+            unsere <a href="/angebot/marketingbegleitung/">Marketingbegleitung</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>So läuft die Schulung ab</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur KI-Schulung</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Wann soll euer Team starten?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, wo euer Team steht und was ihr mit KI erreichen wollt. Wir
+        schlagen dir ein passendes Format vor und machen ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--3, .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--3, .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

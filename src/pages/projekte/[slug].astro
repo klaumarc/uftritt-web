@@ -2,9 +2,11 @@
 import Layout from "../../layouts/Layout.astro";
 import Button from "../../components/Button.astro";
 import Lottie from "../../components/Lottie.astro";
+import RefStrip from "../../components/RefStrip.astro";
 import { projects } from "../../data/projects";
 import { projectDetails } from "../../data/projectDetails";
 import { projectStories } from "../../data/projectStories";
+import { webpSrcSet } from "../../utils/img";
 
 export function getStaticPaths() {
   return projects.map((p, i) => ({
@@ -24,16 +26,44 @@ const gallery = detail.gallery?.length ? detail.gallery : [project.image];
 const services = story?.services ?? detail.services ?? [];
 const intro = story?.intro ?? detail.body ?? [];
 const website = story?.website ?? project.website ?? null;
+
+// Meta-Description: Fliesstext auf SERP-taugliche Laenge kuerzen (Wortgrenze, ~155 Z.)
+const truncate = (s: string, max = 155) =>
+  s.length <= max ? s : s.slice(0, s.lastIndexOf(" ", max)).replace(/[.,;:\s]+$/, "") + " …";
+const metaDescription = truncate(intro?.[0] ?? project.title);
+
+// #1 Leistungen → Angebotsseiten verlinken (Keyword-Mapping; Unbekanntes bleibt Text)
+const SERVICE_LINKS = [
+  { re: /video|film|dreh|imagefilm/i, href: "/angebot/videoproduktion/" },
+  { re: /app|applikation|software/i, href: "/angebot/applikationsentwicklung/" },
+  { re: /web|website|ui|ux|online/i, href: "/angebot/webdesign/" },
+  { re: /magazin|zeitschrift/i, href: "/angebot/magazinbetreuung/" },
+  { re: /marketing|social|kampagne|werbung/i, href: "/angebot/marketingbegleitung/" },
+  { re: /grafik|corporate|editorial|logo|branding|brosch|gestaltung|design/i, href: "/angebot/grafikdesign/" },
+];
+const serviceHref = (s: string) => SERVICE_LINKS.find((x) => x.re.test(s))?.href ?? null;
+
+// #2 Ähnliche Projekte: gleiche Kategorie, max. 3
+const relatedProjects = projects
+  .filter((p) => p.slug !== project.slug && p.categories.some((c) => project.categories.includes(c)))
+  .slice(0, 3);
+
+// srcset-sizes: Hero/Full = volle Container-Breite (90vw), Split/Duo/Galerie-Rest
+// = 2-spaltig (~45vw); Galerie <=520px 1-spaltig. Erste Galerie-Kachel Vollbreite.
+const SIZES_FULL = "90vw";
+const SIZES_HALF = "45vw";
+const SIZES_GALLERY_FIRST = "90vw";
+const SIZES_GALLERY_REST = "(max-width: 520px) 90vw, 45vw";
 ---
 
-<Layout title={`${project.title} – Uftritt`} description={intro?.[0] ?? project.title}>
+<Layout title={`${project.title}, Uftritt`} description={metaDescription}>
   <article class="pd">
     <div class="container">
       <nav class="pd-nav" data-reveal>
-        <Button href="/projekte" variant="text">Zur Übersicht</Button>
+        <Button href="/projekte/" variant="text">Zur Übersicht</Button>
         <span class="pd-arrows">
-          <a href={`/projekte/${prev.slug}`} class="pd-arrow pd-arrow-prev" aria-label={`Vorheriges Projekt: ${prev.title}`}></a>
-          <a href={`/projekte/${next.slug}`} class="pd-arrow pd-arrow-next" aria-label={`Nächstes Projekt: ${next.title}`}></a>
+          <a href={`/projekte/${prev.slug}/`} class="pd-arrow pd-arrow-prev" aria-label={`Vorheriges Projekt: ${prev.title}`}></a>
+          <a href={`/projekte/${next.slug}/`} class="pd-arrow pd-arrow-next" aria-label={`Nächstes Projekt: ${next.title}`}></a>
         </span>
       </nav>
 
@@ -48,7 +78,17 @@ const website = story?.website ?? project.website ?? null;
               {services.length > 0 && (
                 <>
                   <span class="pd-services-title">Leistungen</span>
-                  <p class="pd-services-list">{services.join(", ")}</p>
+                  <p class="pd-services-list">
+                    {services.map((s, i) => {
+                      const href = serviceHref(s);
+                      return (
+                        <>
+                          {i > 0 && ", "}
+                          {href ? <a href={href}>{s}</a> : <span>{s}</span>}
+                        </>
+                      );
+                    })}
+                  </p>
                 </>
               )}
               {website && (
@@ -69,7 +109,10 @@ const website = story?.website ?? project.website ?? null;
             b.type === "hero" ? (
               <div class="container">
                 <div class="st-hero" data-reveal>
-                  <img src={b.img} alt={b.alt ?? project.title} loading="lazy" />
+                  <picture>
+                    {webpSrcSet(b.img) && <source type="image/webp" srcset={webpSrcSet(b.img)!} sizes={SIZES_FULL} />}
+                    <img src={b.img} alt={b.alt ?? project.title} loading="lazy" decoding="async" />
+                  </picture>
                 </div>
               </div>
             ) : b.type === "text" ? (
@@ -85,7 +128,10 @@ const website = story?.website ?? project.website ?? null;
                     <figure class="st-cell">
                       <div class="st-media" style={cell.bg ? `background:${cell.bg}` : undefined}>
                         {cell.img && (
-                          <img src={cell.img} alt={cell.alt ?? ""} class:list={[{ contain: cell.contain }]} loading="lazy" />
+                          <picture>
+                            {webpSrcSet(cell.img) && <source type="image/webp" srcset={webpSrcSet(cell.img)!} sizes={SIZES_HALF} />}
+                            <img src={cell.img} alt={cell.alt ?? ""} class:list={[{ contain: cell.contain }]} loading="lazy" decoding="async" />
+                          </picture>
                         )}
                         {cell.lottie && (
                           <div class="st-lottie">
@@ -103,7 +149,10 @@ const website = story?.website ?? project.website ?? null;
                   {b.cells.map((cell) => (
                     <figure class="st-cell">
                       <div class="st-media">
-                        <img src={cell.img} alt={cell.alt ?? ""} loading="lazy" />
+                        <picture>
+                          {webpSrcSet(cell.img) && <source type="image/webp" srcset={webpSrcSet(cell.img)!} sizes={SIZES_HALF} />}
+                          <img src={cell.img} alt={cell.alt ?? ""} loading="lazy" decoding="async" />
+                        </picture>
                       </div>
                     </figure>
                   ))}
@@ -115,10 +164,13 @@ const website = story?.website ?? project.website ?? null;
                 <div class="container">
                   <div class:list={["st-full-inner", { narrow: b.narrow }]} data-reveal>
                     {b.img && (
-                      <img src={b.img} alt={b.alt ?? project.title} class:list={[{ contain: b.contain }]} loading="lazy" />
+                      <picture>
+                        {webpSrcSet(b.img) && <source type="image/webp" srcset={webpSrcSet(b.img)!} sizes={SIZES_FULL} />}
+                        <img src={b.img} alt={b.alt ?? project.title} class:list={[{ contain: b.contain }]} loading="lazy" decoding="async" />
+                      </picture>
                     )}
                     {b.video && (
-                      <video src={b.video} muted loop playsinline preload="auto" data-play-once></video>
+                      <video src={b.video} muted loop playsinline preload="none" data-play-once></video>
                     )}
                     {b.lottie && (
                       <div class="st-lottie">
@@ -135,11 +187,17 @@ const website = story?.website ?? project.website ?? null;
         <>
           {gallery.length > 0 && (
             <div class="container pd-gallery">
-              {gallery.map((img) => (
-                <span class="pd-tile" data-reveal>
-                  <img src={img} alt={project.title} loading="lazy" />
-                </span>
-              ))}
+              {gallery.map((img, i) => {
+                const srcset = webpSrcSet(img);
+                return (
+                  <span class="pd-tile" data-reveal>
+                    <picture>
+                      {srcset && <source type="image/webp" srcset={srcset} sizes={i === 0 ? SIZES_GALLERY_FIRST : SIZES_GALLERY_REST} />}
+                      <img src={img} alt={`${project.title}, Projektansicht ${i + 1}`} loading="lazy" decoding="async" />
+                    </picture>
+                  </span>
+                );
+              })}
             </div>
           )}
           {detail.youtube && (
@@ -149,7 +207,6 @@ const website = story?.website ?? project.website ?? null;
                   src={`https://www.youtube-nocookie.com/embed/${detail.youtube}?rel=0`}
                   title={project.title}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-                  allowfullscreen
                   loading="lazy"
                 />
               </div>
@@ -159,9 +216,15 @@ const website = story?.website ?? project.website ?? null;
       )
     }
 
+    {relatedProjects.length > 0 && (
+      <div class="pd-related">
+        <RefStrip title="Ähnliche Projekte" projects={relatedProjects} />
+      </div>
+    )}
+
     <div class="container pd-cta" data-reveal>
       <h2>Sollen wir auch deinen Auftritt umsetzen?</h2>
-      <Button href="/kontakt" variant="blue">Schriib eus</Button>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
     </div>
   </article>
 </Layout>
@@ -188,6 +251,9 @@ const website = story?.website ?? project.website ?? null;
 <style>
   .pd {
     padding-block: clamp(2rem, 5vw, 4rem) clamp(3rem, 7vw, 6rem);
+  }
+  .pd-related {
+    margin-top: clamp(2.5rem, 6vw, 4.5rem);
   }
   .pd-nav {
     display: flex;
@@ -253,14 +319,18 @@ const website = story?.website ?? project.website ?? null;
     line-height: 1.7;
     margin: 0;
   }
+  .pd-services-list a {
+    color: var(--color-blue);
+  }
+  .pd-services-list a:hover {
+    color: var(--color-pink);
+  }
   .pd-website {
     margin-top: 1.1rem;
   }
   .pd-website a {
     color: var(--color-blue);
     font-weight: 700;
-    text-decoration: underline;
-    text-underline-offset: 3px;
   }
   .pd-website a:hover {
     color: var(--color-pink);
@@ -272,6 +342,11 @@ const website = story?.website ?? project.website ?? null;
     display: flex;
     flex-direction: column;
     gap: clamp(2.5rem, 6vw, 5rem);
+  }
+  /* picture-Wrapper (webp/srcset): keine eigene Box -> die img liegen
+     layout-seitig weiter direkt in ihrem Container (Containing Block gleich) */
+  picture {
+    display: contents;
   }
   .st-hero img {
     width: 100%;

@@ -1,0 +1,144 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["heusser-holzbau", "peter-ott", "100pro-openair-2024"].includes(p.slug)
+);
+
+const faq = [
+  { q: "Was kostet ein Imagefilm oder Produktfilm?", a: "Das hängt von Aufwand und Umfang ab: Anzahl Drehtage, Drohne, Schnitt, Musik, Untertitel. Nach einem kostenlosen Erstgespräch erhältst du ein transparentes Angebot mit klarem Preis, ohne Überraschungen." },
+  { q: "Kommst du mit dem Equipment zu uns?", a: "Ja, gerne. Unser Büro ist in Saland, und wir sind in wenigen Minuten in Wetzikon, Hinwil, Bauma oder Rüti. Kurze Anfahrten halten die Kosten klein und die Terminplanung einfach." },
+  { q: "Macht ihr auch kurze Videos für Social Media?", a: "Ja: Reels, Shorts und Clips für Instagram, TikTok und YouTube gehören genauso dazu wie der klassische Imagefilm. Wir schneiden aus einem Dreh auf Wunsch mehrere Formate." },
+  { q: "Wie lange dauert ein Videoprojekt?", a: "Vom kurzen Social-Clip in wenigen Tagen bis zum Imagefilm in einigen Wochen, je nach Drehaufwand und Feedbackschlaufen. Den Fahrplan bekommst du vorab." },
+];
+---
+
+<Layout
+  title="Videoproduktion Zürcher Oberland - Uftritt"
+  description="Videoproduktion im Zürcher Oberland: Imagefilm, Produktfilm, Event- und Social-Media-Videos für KMU, von der Agentur aus Saland. Kurze Wege, kurze Drehtage."
+>
+  <PageHero
+    eyebrow="Videoproduktion · Zürcher Oberland"
+    title={"Video­produktion im\nZürcher Oberland"}
+    lead="Uftritt ist die Kommunikationsagentur aus Saland für Videoproduktion im Zürcher Oberland: Imagefilm, Produktfilm, Event- und Social-Media-Videos für KMU aus Wetzikon, Hinwil, Bauma und Umgebung, gedreht bei dir vor Ort, geschnitten bei uns im Tösstal."
+    lottie="/lottie/videoproduktion.json"
+    lottieLabel="Videoproduktion"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/videoproduktion/" label="Videoproduktion" lottie="/lottie/videoproduktion.json" projects={cases} />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gedreht in der Region</h2>
+        <div class="lp-text">
+          <p>
+            Der <a href="/projekte/heusser-holzbau/">Imagefilm für Heusser Holzbau</a>
+            in Hinwil, die Filme für die <a href="/projekte/peter-ott/">Fahrschule
+            Peter Ott</a>, die Bewegtbild-Begleitung des
+            <a href="/projekte/100pro-openair-2024/">100pro Openairs</a>
+            im Tösstal: Unsere Videos entstehen hier, mit den Gesichtern und
+            Orten, die deine Kundschaft kennt.
+          </p>
+          <p>
+            Weil wir aus Saland kommen, ist die Anfahrt zu dir kurz: Das spart
+            Drehzeit und Budget und macht spontane Nachdrehs möglich, wenn das
+            Wetter mitspielen muss.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ein Dreh, viele Formate</h2>
+        <div class="lp-text">
+          <p>
+            Wir denken Video nicht als Einzelprodukt: Aus einem Drehtag entstehen
+            auf Wunsch der Imagefilm für deine Website, kurze Clips für Social Media
+            und Standbilder für Print, alles im gleichen Look, alles aus einer Hand.
+          </p>
+          <p>
+            Und weil wir auch deine Website bauen können, landet das fertige Video
+            gleich an der richtigen Stelle, technisch sauber eingebunden.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für dein Video-Projekt?</h2>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+</style>

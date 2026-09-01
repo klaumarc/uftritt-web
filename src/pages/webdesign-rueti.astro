@@ -1,0 +1,301 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["cynterim", "emotion-hinwil", "physio-rothe"].includes(p.slug)
+);
+
+const orte = [
+  { name: "Hinwil", href: "/webdesign-hinwil/", note: "Bezirkshauptort am Bachtel" },
+  { name: "Dürnten", href: "/webdesign-duernten/", note: "Nachbargemeinde mit Tann" },
+  { name: "Wald", href: "/webdesign-wald/", note: "Nachbarort im Osten" },
+  { name: "Wetzikon", href: "/webdesign-wetzikon/", note: "grösste Stadt der Region" },
+  { name: "Saland", href: "/webdesign-saland/", note: "hier sind wir zuhause" },
+  { name: "Zürcher Oberland", href: "/webdesign-zuercher-oberland/", note: "unsere Heimregion" },
+];
+
+const weitere = ["Tann", "Fägswil", "Bubikon", "Grüningen", "Seegräben", "Hombrechtikon", "Rapperswil-Jona"];
+
+const faq = [
+  { q: "Was kostet eine Website für einen Betrieb in Rüti?", a: "Das hängt vom Umfang ab: vom schlanken Onepager bis zur Plattform mit Shop. Nach einem kostenlosen Erstgespräch erhältst du ein transparentes Angebot mit klarem Preis. Keine Überraschungen, versprochen." },
+  { q: "Kommt ihr zu uns nach Rüti?", a: "Gerne. Von Saland sind wir in gut einer Viertelstunde bei dir, sei es am Bahnhof, im Joweid oder in Fägswil. Auf Wunsch auch per Video-Call." },
+  { q: "Lohnt sich eine eigene Website auch für ein kleines Gewerbe in Rüti?", a: "Ja. Rüti lebt von seinen kleinen Betrieben, und von rund 120 Vereinen. Auch beim Handwerker, in der Praxis oder im Laden im Dorf googeln Kundinnen und Kunden zuerst. Eine klare, schnelle Website mit Öffnungszeiten, Leistungen und Kontakt wirkt rund um die Uhr. Wir sagen dir ehrlich, was sich für dich lohnt, und was du dir sparen kannst." },
+  { q: "Werde ich als Betrieb in Rüti überhaupt gefunden?", a: "Mit einer Website allein ist es nicht getan, aber fast: Wir liefern jede Seite mit sauberer SEO-Basis aus, von der Struktur über die Ladezeiten bis zu den Meta-Texten. Dazu gehört ein gepflegtes Google-Unternehmensprofil, damit du in Rüti und Umgebung auch auf der Karte auftauchst, und nicht nur die Einkaufszentren an der Bandwiesstrasse." },
+  { q: "Macht ihr auch mehr als Websites?", a: "Ja: Logo, Corporate Design, Broschüren, Fotografie und Video kommen bei uns aus demselben Haus. So bleibt dein Auftritt vom Briefblatt bis zur Website aus einem Guss." },
+  { q: "Wir haben schon eine Website, lohnt sich ein Relaunch?", a: "Häufig ja. Ist die Seite älter als vier, fünf Jahre, langsam auf dem Handy oder bei Google abgerutscht, bringt ein Neubau mehr als weiteres Flickwerk. Schick uns deinen Link, wir schauen uns die Seite kostenlos an und sagen dir ehrlich, ob sich ein Relaunch lohnt." },
+  { q: "Wer kümmert sich nach dem Launch um die Website?", a: "Auf Wunsch wir: mit Updates, Backups, kleinen Anpassungen und laufender Betreuung, damit die Seite sicher bleibt und mit deinem Betrieb wächst. Oder wir schulen dich, damit du Texte und Bilder selbst pflegst, ganz, wie es für dich passt." },
+  { q: "Wie lange dauert ein Website-Projekt?", a: "Je nach Umfang 4 bis 12 Wochen, mit klickbarem Prototyp schon früh im Prozess. Ein schlanker Onepager geht schneller, eine Plattform mit Shop braucht länger, den realistischen Zeitplan bekommst du zusammen mit dem Angebot." },
+];
+---
+
+<Layout
+  title="Webdesign Rüti, Uftritt"
+  description="Webdesign für Rüti ZH: Webseite erstellen lassen bei der Webagentur aus Saland, Websites und Branding für KMU und Gewerbe, persönlich und ohne Template."
+>
+  <PageHero
+    eyebrow="Webdesign · Rüti"
+    title={"Webdesign\nRüti"}
+    lead="Du suchst Webdesign in Rüti? Uftritt ist die Kommunikationsagentur aus dem Zürcher Oberland: Wir entwickeln Websites und Erscheinungsbilder für KMU in Rüti, persönlich, ohne Template und mit echter Nähe. Von unserem Büro in Saland sind wir in gut einer Viertelstunde bei dir."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Für den Knotenpunkt zwischen Oberland und Tösstal</h2>
+        <div class="lp-text">
+          <p>
+            Rüti zählt 12 971 Einwohnerinnen und Einwohner (Stand Ende 2024) und
+            ist im Bezirk Hinwil der Verkehrsknoten schlechthin: Am Bahnhof
+            treffen die S-Bahnen aus Richtung Zürich und Rapperswil auf die
+            Tösstallinie Richtung Bauma und Winterthur, dazu kreuzen sich zwei
+            Hauptstrassen im Dorf. Aus dem ehemaligen Industriedorf rund um die
+            Maschinenfabrik in der Joweid ist längst ein Dienstleistungsort
+            geworden, vom Zentrum an der Bandwiesstrasse bis zu den Weilern
+            Fägswil und Ferrach. Durchs Dorf fliesst die Jona, und über den
+            Dächern ragt der Batzberg auf 778 Meter, das Naherholungsgebiet
+            beginnt praktisch vor der Haustür. Und seit 2015 ist Rüti als
+            Energiestadt Gold zertifiziert, ein Label, das weit über den Bezirk
+            hinaus bekannt ist.
+          </p>
+          <p>
+            Unser Büro liegt in Saland, nur eine Viertelstunde entfernt.
+            Besprechungen finden bei dir statt, ob im Joweid Zentrum, am Bahnhof
+            oder in Fägswil.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Aktuell in Rüti, seit Jahren im Bezirk</h2>
+        <div class="lp-text">
+          <p>
+            In Rüti selbst begleiten wir gerade einen Plattenlegerbetrieb direkt
+            am Bahnhof beim schrittweisen Aufbau seiner Kommunikation. Und für
+            einen CNC-Lohnfertiger im Joweid Zentrum haben wir Icons,
+            Header-Bilder und den Prototypen einer neuen Website entwickelt.
+            Schon 2024 waren wir hier: Für einen Anbieter aus dem
+            Gesundheitsbereich an der Spitalstrasse haben wir damals Logos
+            finalisiert und Visitenkarten gestaltet und produziert.
+          </p>
+          <p>
+            Im Bezirk sind wir schon länger sichtbar: Für das
+            Salesforce-Partnerunternehmen Cynterim in Hinwil haben wir Logo,
+            Branding und Website von Grund auf gebaut, das pinke Erscheinungsbild
+            des Unihockeyvereins emotion Hinwil stammt aus unserer Feder. Und
+            für die Physio &amp; Sportreha Rothe in Bauma haben wir die Website
+            erneuert und die Praxis fotografisch in Szene gesetzt.
+          </p>
+          <p>
+            Mehr zu unserer Arbeit in der Region:
+            <a href="/webdesign-zuercher-oberland/">Webdesign im Zürcher Oberland</a>,
+            <a href="/webdesign-hinwil/">Webdesign in Hinwil</a>,
+            <a href="/webdesign-wetzikon/">Webdesign in Wetzikon</a>,
+            <a href="/webdesign-wald/">Webdesign in Wald</a> und
+            <a href="/webdesign-duernten/">Webdesign in Dürnten</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Webseite erstellen lassen, von der Webagentur aus der Region</h2>
+        <div class="lp-text">
+          <p>
+            Wer in Rüti einen Betrieb führt, konkurriert nicht nur mit dem
+            Geschäft an der Bandwiesstrasse, sondern mit allem, was bei Google
+            auftaucht. Deine Website muss deshalb vor allem eines können: Wer
+            nach dir sucht, findet dich, mit Leistungen, Öffnungszeiten und
+            Kontakt auf einen Blick, auf dem Handy genauso wie am Computer. Und
+            wer dich noch nicht kennt, entdeckt dich über Google, idealerweise
+            über ein gepflegtes
+            <a href="/google-business-profile/">Unternehmensprofil</a> samt
+            Eintrag auf der Karte. Gesucht wird längst unterwegs auf dem Handy -
+            am Bahnhof, im Joweid oder auf dem Weg in die Bandwies.
+          </p>
+          <p>
+            Wenn du deine Webseite bei uns erstellen lässt, bekommst du mehr als
+            eine Homepage: Uftritt ist Webagentur und Werbeagentur in einem -
+            Logo und Erscheinungsbild, Printwerbung, Fotografie und Video kommen
+            aus demselben Haus. Ein Partner für deine ganze Kommunikation statt
+            fünf Ansprechpersonen für fünf Disziplinen.
+          </p>
+          <p>
+            Und wir sagen es dir ehrlich, wenn weniger genügt: Nicht jeder
+            Betrieb zwischen Bahnhof, Joweid und Batzberg braucht ein
+            Grossprojekt. Oft ist ein sauber gemachter Onepager der richtige
+            Anfang, die Suchmaschinen-Basis liefern wir immer mit. Und wächst
+            dein Betrieb, wächst die Website mit: Erweiterungen sind jederzeit
+            möglich.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In vier Schritten zur neuen Website</h2>
+        <div class="lp-text">
+          <p>
+            <strong>1. Erstgespräch.</strong> Kostenlos und unverbindlich, am
+            liebsten bei dir in Rüti, ob am Bahnhof, im Joweid oder in
+            Fägswil. Auf Wunsch bei uns in Saland oder per Video-Call. Wir hören
+            zu und beraten ehrlich, auch wenn das Ergebnis lautet: Du brauchst
+            uns nicht.
+          </p>
+          <p>
+            <strong>2. Konzept und Prototyp.</strong> Du siehst früh einen
+            klickbaren Entwurf statt erst am Schluss ein fertiges Resultat. So
+            weisst du immer, wohin die Reise geht.
+          </p>
+          <p>
+            <strong>3. Umsetzung.</strong> Wir bauen die Seite, schreiben auf
+            Wunsch die Texte und organisieren die Fotografie, alles aus einer
+            Hand, alles abgestimmt auf dein Erscheinungsbild.
+          </p>
+          <p>
+            <strong>4. Launch und Betreuung.</strong> Nach dem Go-Live bleiben
+            wir erreichbar: <a href="/website-betreuung/">Betreuung und
+            Wartung</a>, <a href="/seo-betreuung/">laufende SEO-Begleitung</a>
+            oder eine Schulung, damit du Inhalte selbst pflegst. Besteht schon
+            eine ältere Website, starten wir mit einem
+            <a href="/website-relaunch/">Relaunch</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet eine Website in Rüti?</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlich gesagt: Das lässt sich nicht pauschal beantworten. Ein
+            Onepager für den Coiffeur um die Ecke kostet weniger als eine
+            Plattform mit Shop für ein Industrieunternehmen im Joweid. Preise
+            von der Stange wären unseriös, darum bekommst du nach dem
+            kostenlosen Erstgespräch ein transparentes Angebot mit allen
+            Leistungen und einem festen Preis.
+          </p>
+          <p>
+            Zur Orientierung vorab: In unserem
+            <a href="/website-kosten/">Guide zu den Website-Kosten</a> legen wir
+            echte Schweizer Marktpreise offen. So weisst du, was eine Website
+            kosten darf, bevor du mit uns oder einer anderen Agentur sprichst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">In deiner Nähe</span>
+        <h2>Webdesign in deinem Ort</h2>
+      </header>
+      <div class="orte" data-reveal>
+        {
+          orte.map((o) => (
+            <a class="ort-card" href={o.href}>
+              <span class="ort-name">{o.name}</span>
+              <span class="ort-note">{o.note}</span>
+            </a>
+          ))
+        }
+      </div>
+      <p class="orte-note" data-reveal>
+        Und natürlich auch in: {weitere.join(", ")}, kurzum: im ganzen Bezirk
+        Hinwil und über die Gemeindegrenzen hinaus.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deinen neuen Webauftritt in Rüti?</h2>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); text-decoration: underline; text-underline-offset: 0.15em; }
+
+  .orte { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .ort-card {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .ort-card:hover { border-color: var(--color-blue); transform: translateY(-2px); }
+  .ort-name { font-weight: 700; font-size: 1.25rem; color: var(--color-blue); }
+  .ort-note { color: var(--color-blue); opacity: 0.8; font-size: 0.95rem; }
+  .orte-note { margin-top: 1.5rem; color: var(--color-blue); line-height: 1.7; max-width: 75ch; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+
+  @media (max-width: 900px) {
+    .orte { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .orte { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,303 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "arte-bellezza", "heusser-holzbau", "physio-rothe"].includes(p.slug)
+);
+
+const orte = [
+  { name: "Hinwil", href: "/webdesign-hinwil/", note: "Bezirkshauptort am Bachtel" },
+  { name: "Pfäffikon ZH", href: "/webdesign-pfaeffikon/", note: "am anderen Ufer des Pfäffikersees" },
+  { name: "Uster", href: "/webdesign-uster/", note: "grösste Stadt des Oberlands" },
+  { name: "Bäretswil", href: "/webdesign-baeretswil/", note: "Nachbargemeinde im Hinterland" },
+  { name: "Dürnten", href: "/webdesign-duernten/", note: "an der Jona Richtung Rüti" },
+  { name: "Bauma", href: "/webdesign-bauma/", note: "unsere Heimatgemeinde" },
+];
+
+const weitere = ["Seegräben", "Gossau", "Grüningen", "Russikon", "Bubikon", "Wolfhausen"];
+
+const faq = [
+  { q: "Was kostet eine Website für ein KMU in Wetzikon?", a: "Das hängt vom Umfang ab, vom schlanken Onepager bis zur Plattform mit Shop oder Mitgliederbereich. Nach einem kostenlosen Erstgespräch erhältst du ein transparentes Angebot mit klarem Preis. Keine Pauschalen von der Stange, keine versteckten Kosten." },
+  { q: "Kommst du zu uns nach Wetzikon?", a: "Gerne. Von unserem Büro in Saland sind wir in rund einer Viertelstunde bei dir, egal ob im Zentrum von Oberwetzikon, in Unterwetzikon oder in einem der Industriequartiere." },
+  { q: "Lohnt sich eine Website auch für einen kleinen Betrieb?", a: "Ja, gerade in einer Stadt mit über tausend Unternehmen. Wer in Wetzikon einen Handwerker, eine Praxis oder einen Laden sucht, googelt zuerst. Eine klare, schnelle Website mit Leistungen, Öffnungszeiten und Kontakt arbeitet dann für dich, auch am Sonntag. Und wir sagen dir ehrlich, wenn ein schlichter Onepager genügt." },
+  { q: "Werde ich als Wetziker Betrieb überhaupt gefunden?", a: "Mit einer Website allein ist es in Wetzikon nicht getan, die Konkurrenz ist hier grösser als im Dorf. Darum liefern wir jede Website mit sauberer SEO-Basis aus: Struktur, Ladezeiten, Meta-Texte, Anmeldung bei Google. Und mit einem gepflegten Google-Unternehmensprofil tauchst du auch auf der Karte auf, etwa wenn jemand in Kempten oder Robenhausen nach deinem Angebot sucht." },
+  { q: "Wir haben schon eine Website, lohnt sich ein Relaunch?", a: "Oft ja. Wenn die Seite älter als vier, fünf Jahre ist, auf dem Handy hakt oder bei Google abrutscht, bringt ein Neubau mehr als weiteres Flickwerk. Wir schauen uns deine bestehende Seite kostenlos an und sagen dir ehrlich, ob sich ein Relaunch lohnt, auch dann, wenn die Antwort nein lautet." },
+  { q: "Wie lange dauert ein Website-Projekt?", a: "Je nach Umfang 4 bis 12 Wochen. Du siehst früh einen klickbaren Prototypen und bleibst durchgehend im Bild." },
+  { q: "Wer kümmert sich nach dem Launch um die Website?", a: "Auf Wunsch wir: mit Updates, Backups und kleinen Anpassungen, damit die Seite sicher bleibt und mit deinem Betrieb mitwächst. Oder wir schulen dich, damit du die Inhalte selbst pflegen kannst, ganz so, wie es für dich passt." },
+  { q: "Kann ich die Website danach selbst pflegen?", a: "Klar. Wir zeigen dir, wie du Inhalte selbst anpasst, oder wir übernehmen Pflege und Weiterentwicklung für dich." },
+  { q: "Machst du auch Websites für Vereine?", a: "Ja, und in einer Stadt mit über 50 Vereinen liegt uns das besonders. Für den EHC Wetzikon betreuen wir Website, Webshop und digitale Prozesse laufend, vom Merch-Verkauf bis zur Saisonkarte. Wir wissen, wie Vereinskommunikation mit kleinen Budgets und vielen Freiwilligen funktioniert, und bauen Lösungen, die ein Vorstand ohne IT-Abteilung pflegen kann." },
+];
+---
+
+<Layout
+  title="Webdesign Wetzikon, Uftritt"
+  description="Webdesign für Wetzikon: Websites für KMU und Gewerbe in der grössten Stadt im Bezirk Hinwil, von der Agentur aus der Region, eine Viertelstunde ab Saland."
+>
+  <PageHero
+    eyebrow="Webdesign · Wetzikon"
+    title={"Webdesign\nWetzikon"}
+    lead="Du suchst Webdesign in Wetzikon? Uftritt ist die Kommunikationsagentur aus dem Zürcher Oberland, wir entwickeln Websites für KMU, Gewerbe und Dienstleister in Wetzikon: persönlich, ohne Template und mit Betreuung nach dem Launch. Aus Saland sind wir in einer Viertelstunde bei dir."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Für die grösste Stadt im Bezirk</h2>
+        <div class="lp-text">
+          <p>
+            Wetzikon ist mit fast 27 000 Einwohnerinnen und Einwohnern die grösste
+            Ortschaft im Bezirk Hinwil, und nach Uster der zweitgrösste
+            Wirtschaftsstandort im Zürcher Oberland. Über 1100 Unternehmen mit
+            gegen 11 000 Arbeitsplätzen sind hier zu Hause: zwischen den Zentren
+            in Ober- und Unterwetzikon, den Industriequartieren und den
+            Gemeindeteilen Kempten, Ettenhausen und Robenhausen. Aus dem
+            Spinnerei- und Fahrzeugbau-Standort von einst ist ein Mix aus
+            Mechanik, Maschinenbau, Elektronik, Logistik und Dienstleistung
+            geworden, dazu der Pfäffikersee vor der Haustür und die S-Bahn,
+            die dich in 17 Minuten nach Zürich bringt. Mit dem GZO-Spital,
+            der Kantonsschule und über 50 Vereinen ist Wetzikon zudem der
+            Versorgungs- und Kulturanker der ganzen Region.
+          </p>
+          <p>
+            Unser Büro ist in Saland, eine Viertelstunde entfernt. Das heisst: kurze
+            Wege, Besuche bei dir vor Ort und ein Gegenüber, das den Unterschied
+            kennt zwischen einem Industriebetrieb an der Motorenstrasse und
+            einer Praxis im Zentrum von Oberwetzikon.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Schon mitten drin</h2>
+        <div class="lp-text">
+          <p>
+            In Wetzikon kennen wir uns aus: Für den EHC Wetzikon betreuen wir
+            die digitale Kommunikation laufend, vom Merch-Webshop über die
+            digitalen Götti- und Saisonkarten-Prozesse mit automatischer
+            Rechnungsstellung bis zu einer eigenen Vereinsplattform, mit der
+            der Club seine Organisation abbildet.
+          </p>
+          <p>
+            Für die Aweso AG, das
+            Familienunternehmen für Glas- und Metallbau-Beschläge mit rund
+            hundert Jahren Firmengeschichte, haben wir Markenidentität und
+            Erscheinungsbild weiterentwickelt, den Website-Relaunch begleitet
+            und betreuen die Kommunikation laufend weiter. Und für den
+            Coiffeursalon Arte&amp;Bellezza an der Bahnhofstrasse kamen
+            Fotografie der neu bezogenen Räumlichkeiten, Team-Porträts,
+            Print-Material und die laufende Website-Betreuung von uns.
+          </p>
+          <p>
+            Auch der Imagefilm für die Wetziker Zimmerei Heusser Holzbau stammt
+            von uns, mit Drohnenaufnahmen von der Aufrichtung am Bachtel.
+            Dazu kommen Projekte in der ganzen Region, von der Physiotherapie
+            in Bauma bis zum IT-Unternehmen in Saland. Einen Auszug findest du
+            weiter unten.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Webseite erstellen lassen, mit Substanz statt Template</h2>
+        <div class="lp-text">
+          <p>
+            Was muss eine Website für einen Wetziker Betrieb leisten? Zuerst
+            dies: Wer nach dir sucht, findet dich, mit Leistungen,
+            Öffnungszeiten und Kontakt auf einen Blick, auf dem Handy genauso
+            wie am Computer. Und wer dich noch nicht kennt, soll dich über
+            Google entdecken können. In einer Stadt mit über tausend
+            Unternehmen reicht eine hübsche Homepage allein nicht: Sie muss
+            schnell laden, klar strukturiert sein und die SEO-Basis gleich
+            mitbringen. Genau so bauen wir. Und gerade für die vielen
+            B2B-Betriebe im Maschinen- und Anlagebau gilt: Die Website ist
+            oft der erste Eindruck vor dem ersten Telefonat, sie muss
+            Vertrauen schaffen, bevor überhaupt ein Gespräch stattfindet.
+          </p>
+          <p>
+            Uftritt ist dabei mehr als eine Webagentur: Als Werbeagentur decken
+            wir ab, was darüber hinausgeht, Logo und Erscheinungsbild,
+            Fotografie, Video, Print und die laufende Betreuung deiner
+            Kommunikation. Ein Partner für alles, statt fünf Ansprechpersonen
+            für fünf Disziplinen.
+          </p>
+          <p>
+            Und weil Sichtbarkeit vor Ort entschieden wird, kümmern wir uns auf
+            Wunsch auch um dein <a href="/google-business-profile/">Google-Unternehmensprofil</a>
+           , damit du auf der Karte gefunden wirst, nicht nur in den
+            Suchresultaten. Ob du neu eine <a href="/website-erstellen-lassen/">Webseite
+            erstellen lassen</a> willst
+            oder eine bestehende überarbeiten: Wir sagen dir ehrlich, was sich
+            lohnt und was nicht.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In vier Schritten zur neuen Website</h2>
+        <div class="lp-text">
+          <p>
+            <strong>1. Erstgespräch bei dir.</strong> Kostenlos und unverbindlich
+           , am liebsten bei dir im Betrieb in Wetzikon, auf Wunsch bei uns in
+            Saland oder per Video-Call. Wir hören zu, fragen nach und beraten
+            ehrlich.
+          </p>
+          <p>
+            <strong>2. Konzept und Prototyp.</strong> Du bekommst früh einen
+            klickbaren Entwurf zu sehen, nicht erst kurz vor dem Launch. So
+            gibt es keine Überraschungen.
+          </p>
+          <p>
+            <strong>3. Umsetzung.</strong> Wir bauen die Seite, schreiben auf
+            Wunsch die Texte und organisieren Fotografie, alles aus einer
+            Hand.
+          </p>
+          <p>
+            <strong>4. Launch und Betreuung.</strong> Nach dem Go-Live lassen
+            wir dich nicht im Stich: <a href="/website-betreuung/">Betreuung
+            und Wartung</a>, <a href="/seo-betreuung/">SEO-Begleitung</a> oder
+            Schulung, damit du die Seite selbst pflegen kannst. Du hast schon
+            eine ältere Website? Dann ist ein
+            <a href="/website-relaunch/">Relaunch</a> der richtige Einstieg.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet das?</h2>
+        <div class="lp-text">
+          <p>
+            Die ehrliche Antwort: Es kommt darauf an, was du brauchst, ein
+            Onepager für den Salon um die Ecke kostet weniger als eine
+            mehrsprachige Plattform für ein Industrieunternehmen. Pauschalpreise
+            von der Stange wären unseriös. Darum gilt: Nach dem kostenlosen
+            Erstgespräch erhältst du ein transparentes Angebot mit allen
+            Leistungen und einem klaren Preis.
+          </p>
+          <p>
+            Zur Orientierung vorab: In unserem <a href="/website-kosten/">Guide
+            zu Website-Kosten</a> zeigen wir echte Marktpreise in der Schweiz -
+            damit du weisst, was eine Website kosten darf, bevor du mit uns
+            oder einer anderen Agentur sprichst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">In deiner Nähe</span>
+        <h2>Webdesign in deinem Ort</h2>
+      </header>
+      <div class="orte" data-reveal>
+        {
+          orte.map((o) => (
+            <a class="ort-card" href={o.href}>
+              <span class="ort-name">{o.name}</span>
+              <span class="ort-note">{o.note}</span>
+            </a>
+          ))
+        }
+      </div>
+      <p class="orte-note" data-reveal>
+        Und natürlich auch in: {weitere.join(", ")}, kurzum: im ganzen Bezirk
+        Hinwil und im gesamten Zürcher Oberland.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deinen neuen Webauftritt in Wetzikon?</h2>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); text-decoration: underline; text-underline-offset: 0.15em; }
+
+  .orte { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .ort-card {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .ort-card:hover { border-color: var(--color-blue); transform: translateY(-2px); }
+  .ort-name { font-weight: 700; font-size: 1.25rem; color: var(--color-blue); }
+  .ort-note { color: var(--color-blue); opacity: 0.8; font-size: 0.95rem; }
+  .orte-note { margin-top: 1.5rem; color: var(--color-blue); line-height: 1.7; max-width: 75ch; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+
+  @media (max-width: 900px) {
+    .orte { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .orte { grid-template-columns: 1fr; }
+  }
+</style>
