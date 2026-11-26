@@ -38,6 +38,14 @@ cd "$(dirname "$0")/.."
 
 MODE="${1:-}"
 
+# Seit 2026-11-26 deployt auch srv1 (Social-News) aus origin/main: Alles, was
+# hier uncommitted live geht, kennt der Server nicht. Warnen, nicht sperren
+# (iteratives Designen soll moeglich bleiben — aber danach committen+pushen).
+if [ "$MODE" != "--seed" ] && command -v git >/dev/null && [ -n "$(git status --porcelain 2>/dev/null)" ]; then
+  echo "WARNUNG: Arbeitskopie hat uncommitted Aenderungen — ohne commit+push"
+  echo "         weiss srv1 nichts davon (News-Deploys laufen ab origin/main)."
+fi
+
 echo "==> Build (astro)"
 npm run build >/dev/null
 
