@@ -1,0 +1,323 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects
+  .filter((p) =>
+    ["metallfaktur", "aweso", "stahel-koeng"].includes(p.slug)
+  )
+  .slice(0, 3);
+
+const grundbedarf = [
+  {
+    title: "Referenzen, die für dich verkaufen",
+    note: "Geländer, Treppen, Tore, Vordächer, Sonderanfertigungen: Deine Arbeit spricht über Bilder. Eine gepflegte Galerie, geordnet nach Leistung, zeigt Privaten und Profis sofort, was du kannst.",
+  },
+  {
+    title: "Anfrage mit Foto und Mass",
+    note: "Kunden schicken Fotos, Skizzen und Masse direkt übers Formular mit. Du antwortest fundiert, statt zehn Rückfragen am Telefon zu stellen.",
+  },
+  {
+    title: "Private und Profis gleichermassen",
+    note: "Die Hausbesitzerin will ein Geländer, der Bauleiter einen Partner fürs Treppenhaus im Mehrfamilienhaus: Beide finden in zwei Klicks, was sie brauchen.",
+  },
+  {
+    title: "Gefunden werden in der Region",
+    note: "Wer «Metallbau» plus deinen Ort googelt, soll dich finden: saubere lokale Sichtbarkeit, ein gepflegtes Google-Profil und echte Bewertungen.",
+  },
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: Was du baust, wen du erreichst, was schon da ist",
+  "Struktur und Konzept: Leistungen, Referenzen und Anfrage am richtigen Platz",
+  "Inhalte: Fotoshooting in der Werkstatt, Texte, die nach deinem Betrieb klingen",
+  "Bau und Feinschliff: mobil zuerst, schnell ladend, mit deinem Feedback",
+  "Online und betreut: Für CHF 33 pro Monat bleiben wir auch nach dem Launch dran",
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Website für einen Metallbaubetrieb?",
+    a: "Das hängt vom Umfang ab: Eine schlanke Seite mit Leistungen, Referenzen und Anfrageformular kostet deutlich weniger als ein grosser Auftritt mit eigener Bildwelt und vielen Bereichen. Nach dem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit klarem Preis. Grössenordnungen aus Schweizer Quellen findest du auf unserer Seite <a href=\"/website-kosten/\">Website-Kosten</a>. Danach bleibt die Seite für CHF 33 pro Monat betreut.",
+  },
+  {
+    q: "Wir haben kaum brauchbare Fotos von unseren Projekten. Geht das trotzdem?",
+    a: "Ja, das ist sogar der Normalfall: Im Arbeitsalltag bleibt das Fotografieren liegen. Wir kommen für ein Shooting in deine Werkstatt und auf laufende Baustellen, vom Funkenflug beim Schweissen bis zum montierten Geländer. So entsteht eine Bildwelt, die wirklich dein Betrieb ist und die du auch für Offerten und Social Media nutzen kannst.",
+  },
+  {
+    q: "Können Kunden Fotos und Masse direkt über die Website schicken?",
+    a: "Ja, genau so bauen wir das Anfrageformular: Foto-Upload, Felder für Masse und Material, Wunschtermin. Du bekommst eine vollständige Anfrage statt eines «Rufen Sie mich an» und kannst direkt mit einer fundierten Antwort oder einem Besuchstermin reagieren.",
+  },
+  {
+    q: "Unsere Aufträge kommen über Empfehlungen. Braucht es da eine Website?",
+    a: "Die Empfehlung bleibt dein stärkster Kanal, aber was macht die empfohlene Person als Erstes? Sie googelt dich. Findet sie eine gepflegte Seite mit echten Referenzen und Bewertungen, wird aus der Empfehlung ein Auftrag. Findet sie nichts oder eine veraltete Seite, entstehen Zweifel. Ehrlich gesagt: Wer die Auftragsbücher voll hat, kann warten. Alle anderen sollten sichtbar sein.",
+  },
+  {
+    q: "Können wir neue Referenzen und Leistungen selbst einstellen?",
+    a: "Ja, genau dafür bauen wir: Neue Projekte mit Fotos und Kurztext pflegst du ohne Programmierkenntnisse über eine einfache Oberfläche, bei Bedarf auch vom Handy auf der Baustelle. Und wenn du gar nicht selbst pflegen willst, übernehmen wir das in der <a href=\"/website-betreuung/\">Website-Betreuung</a> für CHF 33 pro Monat.",
+  },
+  {
+    q: "Wir arbeiten für Private und für Profis. Passt das auf eine Website?",
+    a: "Ja, wenn die Struktur stimmt: Private finden Referenzen, Inspiration und den einfachen Weg zur Anfrage. Professionelle Partner wie Architekten, Bauleiter oder Einkäufer finden Leistungen, Maschinenpark und direkte Kontaktwege. Wir ordnen die Inhalte so, dass jede Zielgruppe in zwei Klicks am richtigen Ort ist.",
+  },
+];
+---
+
+<Layout
+  title="Website für Metallbauer und Schlossereien - Uftritt"
+  description="Website für Metallbauer und Schlossereien: Referenzen, Leistungen und Anfragen mit Foto-Upload. Selbst pflegbar, lokal sichtbar, betreut für CHF 33 pro Monat."
+>
+  <PageHero
+    eyebrow="Für Metallbauer und Schlossereien"
+    title={"Website für\nMetallbauer und Schlossereien"}
+    lead="Die kurze Antwort: Eine Website für einen Metallbaubetrieb muss zeigen, was ihr baut: Referenzprojekte mit guten Bildern, klare Leistungen und eine Anfrage, bei der Kunden direkt Fotos und Masse mitschicken. Dazu Pflege, die du selbst machst, und lokale Sichtbarkeit, damit Architekten, Bauleiter und Private dich finden."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Website für Metallbauer"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Was die Seite braucht */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Das Fundament</span>
+        <h2>Was eine Metallbauer-Website können muss</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          grundbedarf.map((g) => (
+            <article class="karte">
+              <h3>{g.title}</h3>
+              <p class="karte-note">{g.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Bildwelt und Zielgruppen */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Bilder aus der Werkstatt statt Stockfotos</h2>
+        <div class="lp-text">
+          <p>
+            Wer mit Metall arbeitet, hat starke Motive: Funken beim Schweissen,
+            blanke Schweissnähte, die fertige Treppe vor Ort. Wir fotografieren
+            direkt in deiner Produktion und auf der Baustelle, damit die Website
+            dein Handwerk zeigt statt austauschbarer Archivbilder.
+          </p>
+          <p>
+            Für die <a href="/projekte/metallfaktur/">Metallfaktur</a>
+            in Rüti haben wir genau so gearbeitet: Fotoshooting in der
+            Produktion, Texte für Kompetenzen und Maschinenpark, Icons für
+            die Leistungen und eine redaktionell aufbereitete Maschinenliste.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Auch für Architekten und Bauleiter gemacht</h2>
+        <div class="lp-text">
+          <p>
+            Private schauen Bilder an, Profis wollen Fakten: Leistungen im
+            Überblick, Materialien, Maschinenpark und einen direkten Kontakt
+            ohne Umweg. Wer im Stundenlohn plant, hat keine Zeit für Sucherei.
+          </p>
+          <p>
+            Darum strukturieren wir die Website nach Zielgruppen: Referenzen
+            und Inspiration für Private, technische Angaben und kurze Wege für
+            Architekten, Bauleiter und Generalunternehmer. So dient dieselbe
+            Seite dem Vordach fürs Einfamilienhaus wie dem Stahlbau im
+            Grossprojekt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Anfragen und Pflege */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Weniger Telefonklingeln, mehr passende Anfragen</h2>
+        <div class="lp-text">
+          <p>
+            Ein gutes Anfrageformular ersetzt den ersten halben Telefontermin:
+            Fotos, Masse und Wunschtermin kommen schriftlich und vollständig
+            an. Solche kleinen digitalen Schritte entlasten das Büro spürbar,
+            mehr dazu auf unserer Seite zur
+            <a href="/digitalisierung-kmu/">Digitalisierung im KMU</a>.
+          </p>
+          <p>
+            Und damit aus Besuchern überhaupt Anfragen werden, sorgen wir für
+            lokale Sichtbarkeit: <a href="/local-seo/">Local SEO</a>, ein
+            gepflegtes Google-Profil und echte
+            <a href="/google-bewertungen/">Google-Bewertungen</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Neue Referenzen selbst nachtragen</h2>
+        <div class="lp-text">
+          <p>
+            Jede montierte Treppe, jedes Geländer ist ein neues Referenzprojekt:
+            Mit Fotos und Kurztext stellst du es ohne Programmierkenntnisse
+            selbst auf die Website, bei Bedarf direkt vom Handy auf der
+            Baustelle. So bleibt die Seite aktuell, ohne dass jemand dafür ins
+            Büro muss.
+          </p>
+          <p>
+            Die Bilder dafür kommen aus dem Shooting oder direkt von dir: Wir
+            zeigen dir, welche Perspektiven auf der Website wirken, den Rest
+            machst du nebenbei auf der Baustelle mit.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf und Betreuung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Nach dem Launch bleiben wir dran</h2>
+        <div class="lp-text">
+          <p>
+            Mit der <a href="/website-betreuung/">Website-Betreuung</a> für
+            CHF 33 pro Monat kümmern wir uns um Hosting, Updates und deine
+            Änderungen, von der neuen Referenz bis zum Teamfoto aus der
+            Werkstatt.
+          </p>
+          <p>
+            Übrigens: Für andere Branchen im Handwerk bauen wir mit demselben
+            Anspruch, etwa <a href="/website-fuer-holzbauer/">Websites für Holzbauer</a>
+            oder generell <a href="/webdesign-fuer-handwerker/">Webdesign für Handwerker</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen von Metallbauern</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p set:html={f.a} />
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Zeit für eine Website, die zeigt, was dein Betrieb kann?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns in einem kostenlosen Erstgespräch, was du baust und wen du
+        erreichst. Wir sagen dir ehrlich, was eine Website bringen kann und
+        was sie kostet.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a.replace(/<[^>]*>/g, "") },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--3, .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--3, .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

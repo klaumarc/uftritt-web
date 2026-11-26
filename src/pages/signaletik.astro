@@ -1,0 +1,333 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects
+  .filter((p) => ["spinnereiplatz", "dtb-redesign", "emotion-hinwil"].includes(p.slug))
+  .slice(0, 3);
+
+const elemente = [
+  {
+    name: "Leitsystem und Wegweisung",
+    note: "Vom Arealeingang bis zum richtigen Stockwerk: Pfeile, Steher und Übersichtspläne, die deine Besucher ohne Rückfragen ans Ziel bringen.",
+  },
+  {
+    name: "Fassade und Eingang",
+    note: "Schriftzug am Gebäude, Eingangsschild, Logo an exponierter Stelle: der erste Eindruck deiner Firma, schon von der Strasse aus.",
+  },
+  {
+    name: "Türen, Praxen und Büros",
+    note: "Türbeschilderung, Namensschilder, Fensterfolien und Vitrinen: die ruhigen Zeichen im Inneren, die Orientierung geben.",
+  },
+  {
+    name: "Aussenflächen und Parkplatz",
+    note: "Standorttafeln, Parkplatzbeschilderung, Fahnen und Banner: damit dein Betrieb von der Strasse aus gefunden und erkannt wird.",
+  },
+];
+
+const prozess = [
+  "Erstgespräch und Bestandesaufnahme: Was hängt heute wo, was fehlt, welche Ziele hat die Signaletik",
+  "Konzept: Schildertypen, Standorte und Hierarchien als Übersicht, abgestimmt auf dein Erscheinungsbild",
+  "Entwurf und Korrektur: Gestaltung der wichtigsten Elemente, mit deinen Korrekturrunden bis es sitzt",
+  "Reinzeichnung: Produktionsfertige Daten mit Material-, Farb- und Massangaben pro Schild",
+  "Übergabe und Abnahme: Koordination mit dem Partnerbetrieb, Kontrolle der Entwürfe vor der Produktion",
+];
+
+const faq = [
+  {
+    q: "Was gehört alles zur Signaletik?",
+    a: "Signaletik ist die Summe aller Zeichen, die an und in deinem Gebäude orientieren: Leitsystem und Wegweisung auf dem Areal, Fassadenschriftzug und Eingangsschild, Türbeschilderung und Namensschilder, Fensterfolien und Vitrinen bis hin zur Parkplatzbeschilderung. Im engeren Sinn geht es um Beschilderung, im weiteren Sinn um alles, was Besucher und Kunden ohne Umwege ans Ziel bringt. Wir betrachten Signaletik dabei nie als Einzelschild, sondern als System, das zu deinem Erscheinungsbild passt.",
+  },
+  {
+    q: "Produziert und montiert ihr die Schilder auch selbst?",
+    a: "Nein, und das ist Absicht: Schilderbau ist ein eigenes Handwerk mit Spezialwerkzeug, Materialwissen und Garantiefragen. Unser Teil ist das Konzept, das Design und die produktionsfertigen Daten, dazu die Abnahme der Entwürfe vor der Produktion. Produktion und Montage machen Partnerbetriebe aus der Region, mit denen wir die technischen Details direkt absprechen. Du hast trotzdem nur einen Ansprechpartner für die Gestaltung.",
+  },
+  {
+    q: "Was kostet eine Signaletik für unseren Betrieb?",
+    a: "Das hängt stark vom Umfang ab: Eine Türbeschriftung ist eine andere Grössenordnung als ein Leitsystem fürs ganze Areal. Massgebend sind die Anzahl Schilder, die Materialien und der Gestaltungsaufwand. Nach dem Erstgespräch und einer Bestandesaufnahme bekommst du von uns ein transparentes Angebot für Konzept und Design. Die Produktion offeriert der Partnerbetrieb jeweils direkt und positionsgenau.",
+  },
+  {
+    q: "Braucht unsere Beschilderung eine Bewilligung?",
+    a: "Je nach Grösse und Standort ja: Werbeanlagen an Gebäuden oder im öffentlichen Raum unterliegen in der Schweiz meist kantonalen oder kommunalen Vorschriften, und grössere Schilder brauchen oft eine Bewilligung der Gemeinde. Die gute Nachricht: Wir kennen die typischen Anforderungen und berücksichtigen sie schon im Konzept, etwa bei Grösse, Platzierung und Ausleuchtung. Die definitive Auskunft gibt die zuständige Gemeinde, bei Bedarf ziehen wir sie früh bei.",
+  },
+  {
+    q: "Wir haben schon ein Logo und Farben, könnt ihr damit arbeiten?",
+    a: "Sehr gerne sogar: Signaletik funktioniert am besten als Fortsetzung deines bestehenden Erscheinungsbilds. Wir übertragen deine Farben, Schriften und Formensprache auf Schilder und Leitsysteme und achten dabei auf Dinge, die im Raum anders funktionieren als auf Papier oder Bildschirm, etwa Lesbarkeit auf Distanz und Kontraste bei Nacht. Fehlt im bestehenden Auftritt etwas, zum Beispiel eine Piktogramm-Familie, entwickeln wir sie im selben Stil.",
+  },
+  {
+    q: "Wie lange dauert ein Signaletik-Projekt?",
+    a: "Für Konzept und Design rechnen wir je nach Umfang mit mehreren Wochen vom Briefing bis zur Freigabe, inklusive Bestandesaufnahme vor Ort und deinen Korrekturrunden. Danach hängt der Zeitplan an Material und Terminkalender des Partnerbetriebs: Eine Türbeschriftung ist schnell montiert, ein ganzes Leitsystem mit Spezialanfertigungen braucht entsprechend länger. Wir koordinieren die Übergabe, damit zwischen Freigabe und Montage nichts liegen bleibt.",
+  },
+];
+---
+
+<Layout
+  title="Signaletik Schweiz: Konzept und Gestaltung - Uftritt"
+  description="Signaletik für Firmen, Areale und Praxen in der Schweiz: Konzept, Design und produktionsfertige Daten von Uftritt, Montage über Partnerbetriebe."
+>
+  <PageHero
+    eyebrow="Signaletik · Schweiz"
+    title={"Signa­le­tik,\ndie den Weg weist"}
+    lead="Deine Signaletik entwickeln wir als Konzept: vom Leitsystem für dein Areal über Fassadenschriftzüge bis zur Türbeschriftung. Design und produktionsfertige Daten kommen von uns, die Produktion und Montage machen Partnerbetriebe aus der Region. Du bekommst alles aus einer Hand, mit einem Ansprechpartner für die Gestaltung."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Signaletik"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Elemente der Signaletik */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Überblick</span>
+        <h2>Was alles zur Signaletik gehört</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          elemente.map((e) => (
+            <article class="range-card">
+              <h3>{e.name}</h3>
+              <p class="range-note">{e.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Konzept, Design und produktionsfertige Daten für all diese Elemente
+        kommen von uns. Produktion und Montage machen Partnerbetriebe aus der
+        Region, wir koordinieren und kontrollieren.
+      </p>
+    </div>
+  </section>
+
+  {/* Design-Substanz */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Signaletik ist Corporate Design im Raum</h2>
+        <div class="lp-text">
+          <p>
+            Ein Schild, das nicht zum Rest deines Auftritts passt, wirkt wie ein
+            Fremdkörper: fremde Farben, fremde Schrift, fremde Sprache. Darum
+            denken wir Signaletik als Teil deines
+            <a href="/corporate-design/">Corporate Designs</a>: dieselben Farben,
+            Schriften und Regeln wie auf Website, Briefschaft und Drucksachen,
+            nur übersetzt in den Raum.
+          </p>
+          <p>
+            Dass wir für Immobilien und Areale gestalten, zeigt zum Beispiel das
+            Projekt am <a href="/projekte/spinnereiplatz/">Spinnereiplatz</a> in
+            Zürich Green City: Für eine Wohnung in der ehemaligen Spinnerei
+            Mannegg haben wir das Erscheinungsbild und die Verkaufskommunikation
+            gestaltet, von den Fotos bis zu den Texten.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Vom Einzelschild zum System</h2>
+        <div class="lp-text">
+          <p>
+            Gute Signaletik ist kein Sammelsurium einzelner Tafeln, sondern ein
+            System: festgelegte Schildertypen, eine klare Hierarchie von gross
+            nach klein, einheitliche Materialien und Masse. So findet man sich
+            auf dem Areal zurecht, und jedes neue Schild passt automatisch zu
+            den bestehenden.
+          </p>
+          <p>
+            Und was am Gebäude beginnt, setzt sich auf Papier fort:
+            Übersichtspläne, Prospekte und Plakate gestalten wir im selben
+            System, wie unser Angebot im <a href="/printdesign/">Printdesign</a>
+            zeigt. Deine Besucher erleben denselben Auftritt, ob sie den
+            Standortplan in der Hand halten oder vor dem Eingang stehen.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Aufgabenteilung, ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Unser Teil: Konzept, Design, Daten</h2>
+        <div class="lp-text">
+          <p>
+            Jedes Signaletik-Projekt beginnt bei uns vor Ort: Wir schauen an,
+            was heute wo hängt, was fehlt und wo Besucher falsch abbiegen. Daraus
+            entsteht ein Konzept mit Schildertypen, Standorten und Hierarchien,
+            abgestimmt auf dein Erscheinungsbild und dein Budget.
+          </p>
+          <p>
+            Nach dem Entwurf mit deinen Korrekturrunden liefern wir
+            produktionsfertige Daten: Vektoren, Material- und Farbangaben sowie
+            Masssätze pro Schild. Damit kann der Schilderbauer direkt arbeiten,
+            ohne Rückfragen und ohne teure Nachkorrekturen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Produktion und Montage via Partner</h2>
+        <div class="lp-text">
+          <p>
+            Schilderbau ist ein eigenes Handwerk: Materialwahl, Befestigung,
+            Untergrund und später die Wartung. Das machen Partnerbetriebe aus
+            der Region, mit denen wir die technischen Details direkt absprechen.
+            Du hast trotzdem nur einen Ansprechpartner für die Gestaltung.
+          </p>
+          <p>
+            Dasselbe Prinzip gilt übrigens bei der Werbung am Bau: Auch
+            <a href="/baugeruest-werbung/">Baugerüst-Werbung</a> gestalten wir,
+            produzieren lassen wir über Partner. Einen Überblick über alle
+            Formen sichtbarer Werbung draussen gibt unsere Seite zur
+            <a href="/aussenwerbung/">Aussenwerbung</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Ein Signaletik-Konzept, das auf deinem Areal funktioniert und mit
+            deinem Betrieb mitwächst, plus ein Datenpaket, mit dem jeder
+            professionelle Schilderbauer sofort arbeiten kann. Die Daten gehören
+            dir: Du bleibst unabhängig und lässt produzieren, wo du willst.
+          </p>
+          <p>
+            Und wenn deine Firma wächst, wächst das System mit: Der nächste
+            Standort oder das nächste Stockwerk ist dann keine neue
+            Gestaltungsfrage mehr, sondern ein Nachbestellen im bestehenden
+            System. Gestaltet wird alles von uns, dem
+            <a href="/grafikdesign-zuercher-oberland/">Grafikdesign aus dem
+            Zürcher Oberland</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Signaletik</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Welchen Weg sollen deine Besucher finden?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deinem Gebäude oder Areal und was an Beschilderung schon
+        vorhanden ist. Du bekommst eine ehrliche Einschätzung und ein
+        transparentes Angebot für Konzept und Design.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges { grid-template-columns: 1fr; }
+  }
+</style>

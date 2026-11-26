@@ -1,0 +1,596 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import Button from "../../components/Button.astro";
+import { TURNSTILE_SITEKEY } from "../../data/turnstile";
+---
+
+<Layout
+  title="Projekt starten · Uftakt"
+  description="Uftakt-Startformular: In wenigen Schritten lieferst du uns alles für deine Webseite, dein Logo oder beides. Dauert etwa 15 Minuten."
+  ogImage="/uftakt/og-uftakt.png"
+>
+  <PageHero
+    eyebrow="Projekt starten"
+    title={"Sag uns, was du anbietest."}
+    lead="Je nach Paket sind es fünf bis sieben kurze Schritte, etwa 15 Minuten. Danach brauchen wir bis zur Fertigstellung nichts mehr von dir."
+    compact
+  />
+
+  <section class="section section--soft">
+    <div class="container uf-wrap">
+      <form
+        class="uf-form"
+        id="uf-form"
+        action="/uftakt-start.php"
+        method="POST"
+        enctype="multipart/form-data"
+        novalidate
+      >
+        {/* Honeypot: für Menschen unsichtbar */}
+        <div class="uf-hp" aria-hidden="true">
+          <label>Bitte leer lassen <input type="text" name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
+        {/* Fortschritt (nur mit JS sichtbar) */}
+        <div class="uf-progress" id="uf-progress" hidden>
+          <div class="uf-progress-meta">
+            <span id="uf-step-count">Schritt 1 von 7</span>
+            <span class="uf-progress-title" id="uf-step-title">Deine Firma</span>
+          </div>
+          <div class="uf-progress-bar"><span class="uf-progress-fill" id="uf-progress-fill"></span></div>
+        </div>
+
+        {/* 1. Deine Firma */}
+        <fieldset class="uf-set" data-route="all" data-reveal>
+          <legend>Deine Firma</legend>
+          <div class="uf-grid">
+            <label class="uf-label">
+              Firma *
+              <input class="uf-input" type="text" name="firma" required autocomplete="organization" />
+            </label>
+            <label class="uf-label">
+              Kontaktperson *
+              <input class="uf-input" type="text" name="kontaktperson" required autocomplete="name" />
+            </label>
+            <label class="uf-label">
+              E-Mail *
+              <input class="uf-input" type="email" name="email" required autocomplete="email" />
+            </label>
+            <label class="uf-label">
+              Telefon
+              <input class="uf-input" type="tel" name="telefon" autocomplete="tel" />
+            </label>
+            <label class="uf-label">
+              Rechnungsadresse *
+              <span class="uf-hint">Firma, Vorname Name, Strasse, PLZ Ort für die Rechnung.</span>
+              <textarea class="uf-input" name="rechnungsadresse" rows="2" required></textarea>
+            </label>
+            <label class="uf-label" data-route="web">
+              Standortadresse
+              <span class="uf-hint">Nur ausfüllen, wenn dein Standort eine andere Adresse hat als die Rechnungsadresse (kommt so auf die Webseite).</span>
+              <textarea class="uf-input" name="standort" rows="2"></textarea>
+            </label>
+            <label class="uf-label">
+              Dein Paket *
+              <select class="uf-input" name="paket" required>
+                <option value="Logo + Webseite (CHF 3500)">Logo + Webseite (CHF 3500)</option>
+                <option value="Webseite (CHF 2500)">Webseite (CHF 2500)</option>
+                <option value="Logo (CHF 1750)">Logo (CHF 1750)</option>
+              </select>
+            </label>
+            <label class="uf-label" data-route="web">
+              Betreuungsabo
+              <select class="uf-input" name="abo">
+                <option value="2-jährig (CHF 780 pro Jahr)">2-jährig (CHF 780 pro Jahr)</option>
+                <option value="1-jährig (CHF 900 pro Jahr)">1-jährig (CHF 900 pro Jahr)</option>
+              </select>
+            </label>
+          </div>
+        </fieldset>
+
+        {/* 2. Dein Angebot */}
+        <fieldset class="uf-set" data-route="all" data-reveal>
+          <legend>Dein Angebot</legend>
+          <label class="uf-label">
+            Was bietest du an? *
+            <span class="uf-hint">Zwei bis drei Sätze genügen. Zum Beispiel: «Ich bin Coiffeur in Hinwil und schneide Damen und Herren, auch ohne Termin.»</span>
+            <textarea class="uf-input" name="angebot" rows="3" required></textarea>
+          </label>
+          <label class="uf-label">
+            Für wen ist das? *
+            <span class="uf-hint">Wer sind deine Kunden? Zum Beispiel: «Familien aus der Region, vor allem Mütter mit kleinen Kindern.»</span>
+            <textarea class="uf-input" name="zielgruppe" rows="2" required></textarea>
+          </label>
+          <label class="uf-label" data-route="web">
+            In welcher Region bist du tätig? *
+            <input class="uf-input" type="text" name="region" required placeholder="z.B. Zürcher Oberland, Hinwil und Umgebung" />
+          </label>
+          <label class="uf-label" data-route="web">
+            Deine 3 wichtigsten Leistungen *
+            <span class="uf-hint">Eine pro Zeile. Diese bekommen auf der Webseite den meisten Platz.</span>
+            <textarea class="uf-input" name="leistungen" rows="3" required></textarea>
+          </label>
+          <label class="uf-label" data-route="web">
+            Was sollen Besucher auf deiner Seite als Erstes tun? *
+            <select class="uf-input" name="ziel" required>
+              <option value="Anrufen">Anrufen</option>
+              <option value="Mail schreiben">Mail schreiben</option>
+              <option value="Termin oder Anfrage senden">Termin oder Anfrage senden</option>
+            </select>
+          </label>
+        </fieldset>
+
+        {/* 3. Inhalte pro Seite (nur mit Webseite) */}
+        <fieldset class="uf-set" data-route="web" data-reveal>
+          <legend>Inhalte pro Seite</legend>
+          <p class="uf-intro">Stichworte genügen, ganze Sätze musst du nicht schreiben. Die Texte daraus schreiben wir.</p>
+          <label class="uf-label">
+            Startseite
+            <span class="uf-hint">Was muss ein Besucher in den ersten 5 Sekunden wissen?</span>
+            <textarea class="uf-input" name="stichworte_start" rows="3"></textarea>
+          </label>
+          <label class="uf-label">
+            Über dich / Über uns
+            <span class="uf-hint">Wer steht dahinter? Seit wann, warum, was zeichnet dich aus?</span>
+            <textarea class="uf-input" name="stichworte_ueber" rows="3"></textarea>
+          </label>
+          <label class="uf-label">
+            Leistungen im Detail
+            <span class="uf-hint">Was genau ist in deinen Leistungen enthalten, was kostet was (wenn du Preise zeigen willst)?</span>
+            <textarea class="uf-input" name="stichworte_leistungen" rows="3"></textarea>
+          </label>
+          <label class="uf-label">
+            Referenzen
+            <span class="uf-hint">Kunden oder Projekte, die wir namentlich nennen dürfen (eine pro Zeile).</span>
+            <textarea class="uf-input" name="referenzen" rows="2"></textarea>
+          </label>
+          <label class="uf-label">
+            Öffnungszeiten
+            <span class="uf-hint">Nur falls relevant für deine Kunden.</span>
+            <input class="uf-input" type="text" name="oeffnungszeiten" />
+          </label>
+        </fieldset>
+
+        {/* 4. Domain und E-Mail (nur mit Webseite) */}
+        <fieldset class="uf-set" data-route="web" data-reveal>
+          <legend>Domain und E-Mail</legend>
+          <div class="uf-radios" role="radiogroup" aria-label="Domain-Status">
+            <label class="uf-radio"><input type="radio" name="domain_status" value="hat bereits eine Domain" checked /> Ich habe schon eine Domain</label>
+            <label class="uf-radio"><input type="radio" name="domain_status" value="braucht eine Domain" /> Ich brauche eine Domain</label>
+          </div>
+          <label class="uf-label">
+            Deine Domain
+            <span class="uf-hint">Die bestehende Adresse oder dein Wunsch, z.B. meinefirma.ch</span>
+            <input class="uf-input" type="text" name="domain_name" />
+          </label>
+          <label class="uf-label">
+            Gewünschte E-Mail-Adresse
+            <span class="uf-hint">Eine Adresse auf deiner Domain ist im Paket inklusive, z.B. info@meinefirma.ch</span>
+            <input class="uf-input" type="text" name="email_wunsch" />
+          </label>
+        </fieldset>
+
+        {/* 5. Dein Logo (nur mit Logo) */}
+        <fieldset class="uf-set" data-route="logo" data-reveal>
+          <legend>Dein Logo</legend>
+          <p class="uf-intro">Diese Fragen helfen uns, dein Logo in die richtige Richtung zu gestalten. Stichworte genügen.</p>
+          <label class="uf-label">
+            Deine Firma in 3 Stichworten *
+            <span class="uf-hint">Was macht euch aus? Zum Beispiel: bodenständig, schnell, familiär.</span>
+            <input class="uf-input" type="text" name="identitaet" required />
+          </label>
+          <label class="uf-label">
+            Firmenname im Logo *
+            <span class="uf-hint">So soll der Name im Logo stehen, zum Beispiel mit oder ohne AG, GmbH.</span>
+            <input class="uf-input" type="text" name="firmenname_logo" required />
+          </label>
+          <div class="uf-radios uf-radios--col" role="radiogroup" aria-label="Logoform">
+            <span class="uf-radios-title">Welche Logoform soll es werden? *</span>
+            <label class="uf-radio"><input type="radio" name="logoform" value="Wortmarke (nur Markenname)" required /> Wortmarke (nur der Name)</label>
+            <label class="uf-radio"><input type="radio" name="logoform" value="Wort-/Bildmarke (Name und Zeichen)" required /> Wort- und Bildmarke (Name und Zeichen)</label>
+            <label class="uf-radio"><input type="radio" name="logoform" value="Monogramm (Buchstaben)" required /> Monogramm (nur Buchstaben)</label>
+            <label class="uf-radio"><input type="radio" name="logoform" value="Bin mir nicht sicher" required /> Bin mir nicht sicher</label>
+          </div>
+          <label class="uf-label">
+            Hast du einen Claim, der zum Logo gehört?
+            <span class="uf-hint">Dein Versprechen in wenigen Worten. Steht später klein beim Logo.</span>
+            <input class="uf-input" type="text" name="claim" />
+          </label>
+        </fieldset>
+
+        {/* 6. Gestaltung und Bilder */}
+        <fieldset class="uf-set" data-route="all" data-reveal>
+          <legend>Gestaltung und Bilder</legend>
+          <label class="uf-label" data-route="web">
+            Webseiten, die dir gefallen
+            <span class="uf-hint">Ein bis zwei Links. Hilft uns, deinen Geschmack zu treffen.</span>
+            <textarea class="uf-input" name="gefaellt" rows="2"></textarea>
+          </label>
+          <label class="uf-label">
+            Farben und Wünsche
+            <span class="uf-hint">Welche Farben passen zu deiner Firma? Zum Beispiel: «Eher dunkel und ruhig» oder «Unsere Vereinsfarben sind Rot und Weiss.»</span>
+            <textarea class="uf-input" name="farben" rows="2"></textarea>
+          </label>
+          <div class="uf-radios" role="radiogroup" aria-label="Logo vorhanden" data-route="webonly">
+            <span class="uf-radios-title">Hast du schon ein Logo?</span>
+            <label class="uf-radio"><input type="radio" name="logo_vorhanden" value="Ja" /> Ja</label>
+            <label class="uf-radio"><input type="radio" name="logo_vorhanden" value="Nein" checked /> Nein</label>
+          </div>
+          <label class="uf-label" data-route="webonly">
+            Dein Logo (falls vorhanden)
+            <input class="uf-input" type="file" name="logo" id="uf-logo" accept=".jpg,.jpeg,.png,.webp,.gif,.svg,.pdf,.ai,.eps" disabled />
+          </label>
+          <p class="uf-intro">Bilder von dir, deinem Team, deiner Arbeit oder deinen Räumen helfen uns mehr als Stockbilder. Auch bisheriges Material (z.B. ein altes Logo) kannst du hochladen.</p>
+          <label class="uf-label">
+            Bilder hochladen
+            <span class="uf-hint">Bis zu 10 Dateien à max. 15 MB (JPG, PNG, WebP, HEIC, PDF). Mehr Material schickst du uns einfach per Mail an mk@uftritt.ch.</span>
+            <input class="uf-input" type="file" name="bilder[]" id="uf-bilder" accept=".jpg,.jpeg,.png,.webp,.gif,.heic,.heif,.pdf,.zip" multiple disabled />
+            <span class="uf-hint uf-nojs">Der Upload braucht JavaScript. Ohne JavaScript schick die Bilder einfach per Mail an mk@uftritt.ch.</span>
+          </label>
+        </fieldset>
+
+        {/* 7. Rechtliches */}
+        <fieldset class="uf-set" data-route="all" data-reveal>
+          <legend>Rechtliches</legend>
+          <label class="uf-label" data-route="web">
+            Name und Adresse fürs Impressum *
+            <span class="uf-hint">Vorname Name, Strasse, PLZ Ort, so wie es gesetzlich auf die Webseite muss. Meist dieselbe wie die Rechnungsadresse.</span>
+            <textarea class="uf-input" name="impressum" rows="2" required></textarea>
+          </label>
+          <label class="uf-label" data-route="web">
+            Handelsregister-Nr. oder UID
+            <span class="uf-hint">Falls vorhanden, z.B. UID CHE-123.456.789. Steht im Handelsregisterauszug deiner Firma.</span>
+            <input class="uf-input" type="text" name="uid_hr" />
+          </label>
+          <label class="uf-check">
+            <input type="checkbox" name="datenschutz" value="gelesen" required />
+            <span>Ich habe die <a href="/datenschutz/" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und bin einverstanden. *</span>
+          </label>
+        </fieldset>
+
+        <input type="hidden" name="f_ts" value="" />
+        {TURNSTILE_SITEKEY !== "" && (
+          <div class="cf-turnstile" data-sitekey={TURNSTILE_SITEKEY} data-theme="light"></div>
+        )}
+        <div class="uf-actions" data-reveal>
+          <div class="uf-nav">
+            <button type="button" class="uf-back" id="uf-back" hidden>Zurück</button>
+            <button type="submit" class="uf-submit" id="uf-submit">Angaben senden</button>
+            <button type="button" class="uf-submit" id="uf-next" hidden>Weiter</button>
+          </div>
+          <p class="uf-note">Mit dem Senden landen deine Angaben direkt bei uns. Wir melden uns nur, wenn etwas fehlt.</p>
+        </div>
+      </form>
+
+      {/* Danke-Zustand (nach AJAX oder ?danke=1) */}
+      <div class="uf-danke" id="uf-danke" hidden>
+        <h2>Danke, wir haben alles.</h2>
+        <p>Deine Angaben und Bilder sind bei uns angekommen. Wir melden uns nur, wenn etwas fehlt. Ansonsten hörst du von uns, sobald dein Projekt fertig ist.</p>
+        <Button href="/uftakt/" variant="blue">Zurück zu Uftakt</Button>
+      </div>
+
+      {/* Fehler-Zustand */}
+      <div class="uf-fehler" id="uf-fehler" hidden>
+        <h2>Das hat nicht geklappt.</h2>
+        <p id="uf-fehler-text">Beim Senden ist etwas schiefgelaufen. Prüfe die Pflichtfelder und die Dateigrösse (max. 15 MB pro Datei) und versuche es noch einmal. Wenn es wieder nicht klappt, schick deine Angaben direkt an mk@uftritt.ch.</p>
+        <button class="uf-retry" type="button" id="uf-retry">Zurück zum Formular</button>
+      </div>
+    </div>
+  </section>
+  {TURNSTILE_SITEKEY !== "" && (
+    <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  )}
+</Layout>
+
+<script>
+  const form = document.getElementById("uf-form") as HTMLFormElement | null;
+  const danke = document.getElementById("uf-danke");
+  const fehler = document.getElementById("uf-fehler");
+  const fehlerText = document.getElementById("uf-fehler-text");
+  const retry = document.getElementById("uf-retry");
+
+  const zeige = (zustand: "form" | "danke" | "fehler") => {
+    if (form) form.hidden = zustand !== "form";
+    if (danke) danke.hidden = zustand !== "danke";
+    if (fehler) fehler.hidden = zustand !== "fehler";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Redirect-Fallback (klassischer POST ohne JS): ?danke=1 / ?fehler=1
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("danke") === "1") zeige("danke");
+  if (params.get("fehler") === "1") zeige("fehler");
+
+  retry?.addEventListener("click", () => zeige("form"));
+
+  // ---------- Schritt-Formular mit Paket-Routing ----------
+  const paketSel = form?.querySelector<HTMLSelectElement>('select[name="paket"]') ?? null;
+  const progress = document.getElementById("uf-progress");
+  const stepCount = document.getElementById("uf-step-count");
+  const stepTitle = document.getElementById("uf-step-title");
+  const progressFill = document.getElementById("uf-progress-fill");
+  const backBtn = document.getElementById("uf-back") as HTMLButtonElement | null;
+  const nextBtn = document.getElementById("uf-next") as HTMLButtonElement | null;
+  const submitBtn = document.getElementById("uf-submit") as HTMLButtonElement | null;
+
+  const allSets = form ? Array.from(form.querySelectorAll<HTMLElement>(".uf-set")) : [];
+  let route = { web: true, logo: true };
+  let activeSets: HTMLElement[] = [];
+  let step = 0;
+
+  // Botguard: Lade-Zeitpunkt hinterlegen (Server verwirft Sendungen unter ~2,5 s)
+  const tsField = form?.querySelector<HTMLInputElement>('input[name="f_ts"]');
+  if (tsField) tsField.value = String(Date.now());
+
+  const fieldsOf = (el: HTMLElement) =>
+    Array.from(el.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>("input, select, textarea"));
+
+  // Nicht benötigte Felder/Schritte: disabled (werden nicht gesendet) und ohne required
+  const setEnabled = (container: HTMLElement, on: boolean) => {
+    fieldsOf(container).forEach((inp) => {
+      if (on) {
+        inp.disabled = false;
+        if (inp.dataset.req === "1") inp.required = true;
+      } else {
+        if (inp.required) inp.dataset.req = "1";
+        inp.required = false;
+        inp.disabled = true;
+      }
+    });
+  };
+
+  const showStep = (i: number) => {
+    step = i;
+    activeSets.forEach((s, idx) => (s.hidden = idx !== i));
+    const legend = activeSets[i]?.querySelector("legend")?.textContent?.trim() ?? "";
+    if (stepCount) stepCount.textContent = `Schritt ${i + 1} von ${activeSets.length}`;
+    if (stepTitle) stepTitle.textContent = legend;
+    if (progressFill) progressFill.style.width = `${((i + 1) / activeSets.length) * 100}%`;
+    if (backBtn) backBtn.disabled = i === 0;
+    if (nextBtn) nextBtn.hidden = i === activeSets.length - 1;
+    if (submitBtn) submitBtn.hidden = i !== activeSets.length - 1;
+  };
+
+  const applyRoute = () => {
+    const v = paketSel?.value ?? "";
+    route = { web: v.includes("Webseite"), logo: v.includes("Logo") };
+    form?.querySelectorAll<HTMLElement>("[data-route]").forEach((el) => {
+      const r = el.dataset.route ?? "all";
+      const on =
+        r === "all" ||
+        (r === "web" && route.web) ||
+        (r === "logo" && route.logo) ||
+        (r === "webonly" && route.web && !route.logo);
+      if (el.classList.contains("uf-set")) {
+        el.dataset.routeOn = on ? "1" : "";
+      } else {
+        el.hidden = !on;
+      }
+      setEnabled(el, on);
+    });
+    activeSets = allSets.filter((s) => s.dataset.routeOn === "1");
+    if (step > activeSets.length - 1) step = activeSets.length - 1;
+    showStep(step);
+  };
+
+  const firstInvalid = (scope: HTMLElement) => {
+    for (const inp of fieldsOf(scope)) {
+      if (inp.disabled) continue;
+      if (!inp.checkValidity()) return inp;
+    }
+    return null;
+  };
+
+  const scrollToForm = () => {
+    if (!form) return;
+    const top = form.getBoundingClientRect().top + window.scrollY - 90;
+    window.scrollTo({ top, behavior: "smooth" });
+  };
+
+  const goNext = () => {
+    const aktuelles = activeSets[step];
+    if (!aktuelles) return;
+    const bad = firstInvalid(aktuelles);
+    if (bad) {
+      bad.reportValidity();
+      return;
+    }
+    if (step < activeSets.length - 1) {
+      showStep(step + 1);
+      scrollToForm();
+    }
+  };
+
+  backBtn?.addEventListener("click", () => {
+    if (step > 0) {
+      showStep(step - 1);
+      scrollToForm();
+    }
+  });
+  nextBtn?.addEventListener("click", goNext);
+  paketSel?.addEventListener("change", applyRoute);
+
+  // Stepper aktivieren (ohne JS bleibt alles sichtbar und klassisch absendbar)
+  if (form && paketSel) {
+    progress?.removeAttribute("hidden");
+    backBtn?.removeAttribute("hidden");
+    nextBtn?.removeAttribute("hidden");
+    form.querySelectorAll("[data-reveal]").forEach((el) => el.classList.add("is-visible"));
+    applyRoute();
+  }
+
+  // Uploads erst mit JS aktivieren (ohne JS bleibt der Hinweis per Mail stehen)
+  document.querySelectorAll(".uf-nojs").forEach((el) => ((el as HTMLElement).hidden = true));
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    // Enter in einem früheren Schritt = Weiter, nicht Senden
+    if (step < activeSets.length - 1) {
+      goNext();
+      return;
+    }
+    // Letzter Schritt: alle aktiven Schritte prüfen, bei Fehler dorthin springen
+    for (let idx = 0; idx < activeSets.length; idx++) {
+      const bad = firstInvalid(activeSets[idx]);
+      if (bad) {
+        showStep(idx);
+        scrollToForm();
+        bad.reportValidity();
+        return;
+      }
+    }
+    const btn = submitBtn;
+    if (btn) btn.setAttribute("disabled", "true");
+    try {
+      // Dateien clientseitig als base64 mitsenden: die Server-WAF killt echte
+      // Multipart-Uploads, Text-Felder gehen durch.
+      const dateien: { name: string; b64: string }[] = [];
+      const inputs = [
+        document.getElementById("uf-logo") as HTMLInputElement | null,
+        document.getElementById("uf-bilder") as HTMLInputElement | null,
+      ].filter((inp): inp is HTMLInputElement => !!inp && !inp.disabled);
+      const MAX_DATEI = 15 * 1024 * 1024;
+      const MAX_TOTAL = 40 * 1024 * 1024;
+      const MAX_ANZAHL = 12;
+      let total = 0;
+      for (const inp of inputs) {
+        for (const f of Array.from(inp?.files ?? [])) {
+          if (dateien.length >= MAX_ANZAHL) throw new Error(`Maximal ${MAX_ANZAHL} Dateien. Bitte den Rest per Mail an mk@uftritt.ch schicken.`);
+          if (f.size > MAX_DATEI) throw new Error(`«${f.name}» ist grösser als 15 MB. Bitte per Mail an mk@uftritt.ch schicken.`);
+          total += f.size;
+          if (total > MAX_TOTAL) throw new Error("Die Dateien sind zusammen grösser als 40 MB. Bitte per Mail an mk@uftritt.ch schicken.");
+          const b64 = await new Promise<string>((resolve, reject) => {
+            const r = new FileReader();
+            r.onload = () => resolve((r.result as string).split(",")[1] ?? "");
+            r.onerror = () => reject(new Error(`«${f.name}» konnte nicht gelesen werden.`));
+            r.readAsDataURL(f);
+          });
+          dateien.push({ name: f.name, b64 });
+        }
+      }
+      const fd = new FormData(form);
+      fd.delete("logo");
+      fd.delete("bilder[]");
+      fd.set("dateien_json", JSON.stringify(dateien));
+      const res = await fetch("/uftakt-start.php", {
+        method: "POST",
+        body: fd,
+        headers: { "X-Requested-With": "XMLHttpRequest" },
+      });
+      const data = await res.json().catch(() => ({ ok: res.ok, msg: "" }));
+      if (data.ok) {
+        zeige("danke");
+      } else {
+        if (data.msg && fehlerText) fehlerText.textContent = data.msg;
+        (window as any).turnstile?.reset();
+        zeige("fehler");
+      }
+    } catch (err) {
+      if (err instanceof Error && err.message && fehlerText) fehlerText.textContent = err.message;
+      (window as any).turnstile?.reset();
+      zeige("fehler");
+    } finally {
+      if (btn) btn.removeAttribute("disabled");
+    }
+  });
+</script>
+
+<style>
+  .uf-wrap { max-width: 860px; }
+  .uf-form { display: flex; flex-direction: column; gap: clamp(2rem, 4vw, 3rem); }
+  /* Versteckte Schritte/Felder müssen die Flex-Layouts schlagen */
+  .uf-form [hidden] { display: none !important; }
+
+  .uf-set {
+    border: 0; margin: 0; padding: 0;
+    display: flex; flex-direction: column; gap: 1.1rem;
+  }
+  .uf-set legend {
+    font-size: 1.35rem; font-weight: 800; color: var(--color-blue);
+    margin-bottom: 0.4rem; padding: 0;
+  }
+  .uf-intro { color: var(--color-blue); font-size: 1rem; line-height: 1.6; margin: 0; max-width: 62ch; }
+
+  .uf-progress { display: flex; flex-direction: column; gap: 0.5rem; }
+  .uf-progress-meta {
+    display: flex; justify-content: space-between; gap: 1rem;
+    font-size: 0.88rem; font-weight: 700; color: var(--color-blue);
+  }
+  .uf-progress-title { font-weight: 400; opacity: 0.7; }
+  .uf-progress-bar { height: 6px; background: rgba(1, 64, 128, 0.15); }
+  .uf-progress-fill {
+    display: block; height: 100%; width: 0;
+    background: var(--color-pink);
+    transition: width 0.35s var(--ease);
+  }
+
+  .uf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+
+  .uf-label {
+    display: flex; flex-direction: column; gap: 0.25rem;
+    font-size: 0.95rem; font-weight: 700; color: var(--color-blue);
+  }
+  .uf-hint { font-size: 0.85rem; font-weight: 400; color: var(--color-blue); opacity: 0.7; line-height: 1.45; }
+  .uf-input {
+    font-family: var(--font-base); font-size: 1rem;
+    padding: 0.7rem 0.85rem;
+    border: 2px solid rgba(1, 64, 128, 0.25);
+    background: #fff; color: var(--color-blue);
+    resize: vertical; border-radius: 0;
+  }
+  .uf-input:focus { outline: none; border-color: var(--color-blue); }
+  input[type="file"].uf-input { padding: 0.6rem 0.85rem; }
+
+  .uf-radios { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; }
+  .uf-radios--col { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+  .uf-radios-title { font-size: 0.95rem; font-weight: 700; color: var(--color-blue); width: 100%; }
+  .uf-radio { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.95rem; color: var(--color-blue); }
+  .uf-radio input { accent-color: var(--color-pink); width: 1.05rem; height: 1.05rem; }
+
+  .uf-check { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.95rem; color: var(--color-blue); line-height: 1.5; }
+  .uf-check input { margin-top: 0.2rem; width: 1.05rem; height: 1.05rem; accent-color: var(--color-pink); }
+  .uf-check a { color: var(--color-blue); font-weight: 700; }
+
+  .uf-actions { display: flex; flex-direction: column; gap: 0.9rem; align-items: flex-start; }
+  .uf-nav { display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center; }
+  .uf-submit {
+    font-family: var(--font-base); font-weight: 700; font-size: 1.0625rem; line-height: 1;
+    padding: 1rem 1.7rem; border-radius: 0; border: 2px solid var(--color-blue);
+    background: var(--color-blue); color: #fff; cursor: pointer;
+    transition: background 0.4s var(--ease), color 0.4s var(--ease);
+  }
+  .uf-submit:hover { background: transparent; color: var(--color-blue); }
+  .uf-submit[disabled] { opacity: 0.6; cursor: wait; }
+  .uf-back {
+    font-family: var(--font-base); font-weight: 700; font-size: 1.0625rem; line-height: 1;
+    padding: 1rem 1.7rem; border-radius: 0; border: 2px solid var(--color-blue);
+    background: transparent; color: var(--color-blue); cursor: pointer;
+    transition: background 0.4s var(--ease), color 0.4s var(--ease);
+  }
+  .uf-back:hover { background: var(--color-blue); color: #fff; }
+  .uf-back[disabled] { opacity: 0.35; cursor: default; }
+  .uf-back[disabled]:hover { background: transparent; color: var(--color-blue); }
+  .uf-note { font-size: 0.9rem; color: var(--color-blue); opacity: 0.7; margin: 0; max-width: 52ch; }
+
+  .uf-hp { position: absolute; left: -9999px; top: -9999px; height: 0; overflow: hidden; }
+
+  .uf-danke, .uf-fehler {
+    background: #fff; border: 2px solid var(--color-blue);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    display: flex; flex-direction: column; gap: 1rem; align-items: flex-start;
+  }
+  .uf-danke[hidden], .uf-fehler[hidden] { display: none; }
+  .uf-danke h2, .uf-fehler h2 { margin: 0; }
+  .uf-danke p, .uf-fehler p { color: var(--color-blue); line-height: 1.6; margin: 0; max-width: 60ch; }
+  .uf-retry {
+    font-family: var(--font-base); font-weight: 700; font-size: 1rem;
+    background: transparent; color: var(--color-blue);
+    border: 2px solid var(--color-blue); padding: 0.7rem 1.4rem; cursor: pointer;
+  }
+  .uf-retry:hover { background: var(--color-blue); color: #fff; }
+
+  @media (max-width: 700px) {
+    .uf-grid { grid-template-columns: 1fr; }
+  }
+</style>

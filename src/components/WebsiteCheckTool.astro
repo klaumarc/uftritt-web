@@ -41,7 +41,7 @@
     <div class="wct-spinner" aria-hidden="true"></div>
     <p class="wct-step" id="wct-step">Seite wird geladen …</p>
     <p class="wct-progress-note">
-      Wir prüfen über 40 Kriterien. Das kann bis zu einer Minute dauern.
+      Wir prüfen über 45 Kriterien. Das kann bis zu einer Minute dauern.
     </p>
   </div>
 
@@ -64,6 +64,7 @@
         <p class="wct-cached" id="wct-cached" hidden>
           Diese Seite wurde kürzlich schon geprüft, du siehst das gespeicherte Resultat.
         </p>
+        <p class="wct-grade-key">Notenschlüssel: A = top, B = gut, C = genügend, D = schwach, F = ungenügend</p>
       </div>
     </div>
 
@@ -78,9 +79,10 @@
     <div class="wct-gate" id="wct-gate" hidden>
       <h3>Der volle Report gehört dir. Für CHF 9.</h3>
       <p>
-        Alle 40+ Befunde im Detail, der priorisierte Aktionsplan und die komplette
-        Analyse: sofort als Webseite und zusätzlich per E-Mail zum Weiterleiten
-        und Ausdrucken. Einmalig, inkl. MwSt., kein Abo.
+        Alle Befunde im Detail (über 45 Kriterien inklusive Textqualität und
+        Vertrauenssignalen), die Leseprobe deiner Texte, der priorisierte
+        Aktionsplan und die komplette Analyse: sofort als Webseite und zusätzlich
+        per E-Mail zum Weiterleiten und Ausdrucken. Einmalig, inkl. MwSt., kein Abo.
       </p>
       <p class="wct-quota" id="wct-quota-wrap" hidden>
         Heute übrig: <strong id="wct-quota">2 von 2 Gratis-Checks</strong>
@@ -102,6 +104,23 @@
         Widerrufsrecht (EU) erlischt dadurch. Mit dem Kauf gelten unsere
         <a href="/agb/">AGB</a>.
       </p>
+      <p class="wct-unlock-note">
+        Nach dem Kauf können wir dir einmalig konkrete Hinweise zu deinem Resultat
+        per E-Mail schicken. Dem kannst du jederzeit widersprechen, Details in der
+        <a href="/datenschutz/">Datenschutzerklärung</a>.
+      </p>
+    </div>
+
+    {/* Alternative ohne Zahlung: kostenlose Besprechung des Resultats */}
+    <div class="wct-besprechung-wrap" id="wct-besprechung-wrap" hidden>
+      <p>
+        <strong>Lieber persönlich statt allein lesen?</strong> Wir gehen dein
+        Resultat kostenlos mit dir durch und sagen dir ehrlich, was sich zuerst
+        lohnt und was du dir sparen kannst.
+      </p>
+      <a class="wct-besprechung" id="wct-besprechung" href="/besprechung/">
+        Kostenlose Besprechung zum Resultat
+      </a>
     </div>
   </div>
 </div>
@@ -130,13 +149,16 @@
     const restartBtn = document.getElementById("wct-restart") as HTMLButtonElement;
     const quotaWrap = document.getElementById("wct-quota-wrap") as HTMLElement;
     const quotaEl = document.getElementById("wct-quota") as HTMLElement;
+    const besprechungWrap = document.getElementById("wct-besprechung-wrap") as HTMLElement;
+    const besprechungLink = document.getElementById("wct-besprechung") as HTMLAnchorElement;
 
     const STEPS = [
       "Seite wird geladen …",
       "Technik wird geprüft …",
       "SEO-Signale werden gelesen …",
       "Performance wird gemessen …",
-      "Inhalt und Conversion werden bewertet …",
+      "Texte werden gelesen und bewertet …",
+      "Vertrauenssignale werden geprüft …",
       "KI schreibt das Fazit …",
     ];
     const STATUS_LABELS: Record<string, string> = {
@@ -393,6 +415,10 @@
       gateError.hidden = true;
       restartBtn.hidden = true;
       gate.hidden = false;
+      besprechungLink.href = lastDomain
+        ? "/besprechung/?domain=" + encodeURIComponent(lastDomain)
+        : "/besprechung/";
+      besprechungWrap.hidden = false;
       showQuota(
         typeof data.checks_left === "number" && isFinite(data.checks_left)
           ? Math.max(0, Math.min(2, data.checks_left))
@@ -422,6 +448,7 @@
     function resetTool() {
       result.hidden = true;
       gate.hidden = true;
+      besprechungWrap.hidden = true;
       errorBox.hidden = true;
       form.hidden = false;
       urlInput.focus();
@@ -481,6 +508,14 @@
     });
 
     restartBtn.addEventListener("click", resetTool);
+
+    // Deeplink: ?url= fuellt das Feld vor und startet den Check sofort
+    // (Homepage-Band, LP-Links, externe Kampagnen).
+    const prefill = new URLSearchParams(window.location.search).get("url");
+    if (prefill && normalizeUrl(prefill)) {
+      urlInput.value = prefill;
+      form.requestSubmit();
+    }
 
     gateSubmit.addEventListener("click", async () => {
       gateError.hidden = true;
@@ -576,8 +611,7 @@
   }
 
   .wct {
-    max-width: 1080px;
-    margin-inline: auto;
+    /* volle Container-Breite (wie restlicher Inhalt), keine eigene Deckelung */
   }
 
   /* Eingabe */
@@ -712,8 +746,7 @@
   /* Fehler */
   .wct-error {
     background: #fff;
-    border: 1px solid #e7ecf3;
-    border-left: 3px solid var(--color-pink);
+    margin-top: clamp(1.5rem, 3vw, 2.25rem);
     padding: clamp(1.25rem, 3vw, 2rem);
     display: flex;
     flex-direction: column;
@@ -786,6 +819,13 @@
     color: var(--color-blue);
     opacity: 0.65;
     font-size: 0.9rem;
+  }
+  .wct-grade-key {
+    margin: 0.5rem 0 0;
+    color: var(--color-blue);
+    opacity: 0.65;
+    font-size: 0.85rem;
+    line-height: 1.5;
   }
 
   /* Kategorie-Karten */
@@ -986,6 +1026,34 @@
   }
   .wct-restart:hover {
     color: var(--color-pink);
+  }
+  .wct-besprechung-wrap {
+    margin-top: 1.5rem;
+    background: #fff;
+    border: 1px solid #e7ecf3;
+    border-left: 3px solid var(--color-yellow);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .wct-besprechung-wrap p {
+    margin: 0;
+    flex: 1 1 320px;
+    color: var(--color-blue);
+  }
+  .wct-besprechung {
+    display: inline-block;
+    background: var(--color-blue);
+    color: #fff;
+    font-weight: 700;
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+  }
+  .wct-besprechung:hover {
+    background: var(--color-pink);
   }
 
   @media (max-width: 600px) {

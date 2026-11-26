@@ -5,6 +5,8 @@ import ServiceMarquee from "../../components/ServiceMarquee.astro";
 import RefStrip from "../../components/RefStrip.astro";
 import PageHero from "../../components/PageHero.astro";
 import Button from "../../components/Button.astro";
+import TeamSection from "../../components/TeamSection.astro";
+import Reviews from "../../components/Reviews.astro";
 import { projects } from "../../data/projects";
 
 const portfolio = projects
@@ -30,7 +32,7 @@ const blocks = [
     title: "SEO",
     text: [
       "SEO beginnt bereits bei der Planung: die richtige Auswahl und Platzierung von Keywords, eine klare Seitenstruktur und aussagekräftige Meta-Texte sind die Basis, damit Suchmaschinen deine Seite verstehen.",
-      "Doch SEO geht weiter: Ladezeit, mobile Darstellung und technische Qualität spielen eine entscheidende Rolle. Genauso wichtig ist, was ausserhalb passiert, mit hochwertigen Backlinks (Verweise auf deine Website), einem gepflegten Google-Business-Profil und positiven Bewertungen stärkst du deine Sichtbarkeit.",
+      "Doch SEO geht weiter: Ladezeit, mobile Darstellung und technische Qualität zählen mit. Und was ausserhalb passiert, ist genauso wichtig: mit hochwertigen Backlinks (Verweise auf deine Website), einem gepflegten Google-Business-Profil und positiven Bewertungen stärkst du deine Sichtbarkeit.",
     ],
   },
 ];
@@ -43,32 +45,45 @@ const tools = [
 ];
 
 const faq = [
+  { q: "Was kostet eine Website bei Uftritt?", a: "Ein Onepager kostet CHF 3000 bis 5000, eine KMU-Website CHF 5000 bis 15 000, ein Webshop ab rund CHF 10 000. Fix budgetieren kannst du die Betreuung: Hosting, Wartung, tägliche Backups und alle Updates für CHF 33 pro Monat. Alle Ranges und der Marktvergleich stehen auf unserer Seite «Was kostet eine Website?»." },
+  { q: "Wo seid ihr ansässig, und für welche Regionen arbeitet ihr?", a: "Unser Büro ist in Saland im Zürcher Oberland. Von dort aus betreuen wir KMU in der ganzen Region, von Uster über Wetzikon und Hinwil bis ins Tösstal, und ebenso Kunden in Winterthur und Zürich." },
   { q: "Ist meine Website auf allen Geräten ein gutes Erlebnis?", a: "Ja, deine Seite wird für Smartphone, Tablet und Desktop angepasst und das Nutzererlebnis für alle Formfaktoren optimiert." },
   { q: "Kann ich meine Seite selbst pflegen?", a: "Klar! Wir zeigen dir, wie du Inhalte selbst änderst, oder übernehmen das für dich." },
   { q: "Kann man die Webseite später weiter ausbauen?", a: "Absolut! Deine Website ist kein starres Konstrukt, sondern wächst mit deinen Zielen, egal, ob du mit einem Onepager startest oder gleich grösser einsteigst." },
   { q: "Wie individuell wird mein Webauftritt?", a: "Keine Templates von der Stange, wir entwickeln Websites, die zu dir passen. Darum erstellen wir vor der technischen Umsetzung Prototypen." },
-  { q: "Wie lange dauert das Projekt?", a: "Je nach Umfang 4-12 Wochen. Wir halten dich immer auf dem Laufenden." },
+  { q: "Wie lange dauert das Projekt?", a: "Je nach Umfang 4 bis 12 Wochen. Wir halten dich immer auf dem Laufenden." },
   { q: "Was ist, wenn ich spezielle Funktionen brauche?", a: "Online-Shop, Übersetzungen, Mitgliederbereich, Newsletter, Eventkalender? Kein Problem, wir beraten ehrlich, was Sinn macht." },
-  { q: "Wie läuft das mit Logo, Text, Fotos und Video?", a: "Bei uns bekommst du alles aus einer Hand, Grafikdesign, Texterstellung, Fotoshooting und Videoproduktion. Ohne Schnittstellenchaos." },
+  { q: "Wie läuft das mit Logo, Text, Fotos und Video?", a: "Grafikdesign, Texterstellung, Fotoshooting und Videoproduktion bekommst du bei uns von derselben Agentur. Ohne Schnittstellenchaos." },
 ];
 
 const steps = [
   { icon: "/img/icons/zuhoeren-icon.svg", t: "Zuhören und Verstehen", d: "Was muss deine Website kommunizieren? Welche Funktionen sind unerlässlich? Diese und weitere Fragen legen die Grundlage für den gelungenen Web-Auftritt." },
-  { icon: "/img/icons/analyse-icon.svg", t: "Alles aus einer Hand", d: "Text, Fotos, Headervideo und andere Inhalte für die Website, alles bieten wir dir auf professioneller Basis an." },
+  { icon: "/img/icons/analyse-icon.svg", t: "Text, Foto und Video", d: "Texte, Fotos, Headervideo und andere Inhalte für die Website produzieren wir für dich, auf professioneller Basis." },
   { icon: "/img/icons/brainstorm-icon.svg", t: "Prototyp und Screendesign", d: "Wir entwickeln einen klickbaren Prototyp, der sich schon anfühlt wie deine künftige Website." },
   { icon: "/img/icons/austauschen-icon.svg", t: "Umsetzung", d: "Ob Webflow, WordPress oder eine individuelle Lösung, deine Website wird technisch solide und auf Wachstum ausgelegt umgesetzt." },
   { icon: "/img/icons/abheben-icon.svg", t: "Support", d: "Wir begleiten dich bis zur Liveschaltung, und darüber hinaus: Wartung, Updates, Content-Pflege, SEO." },
 ];
 ---
 
-<Layout title="Webdesign und Entwicklung im Zürcher Oberland, Uftritt" description="Webdesign und Entwicklung aus dem Zürcher Oberland: UI/UX, Prototyping, SEO. Zertifizierte Webflow- und Weblink-Partner, massgeschneidert statt von der Stange.">
+<Layout title="Webdesign und Website erstellen lassen im Zürcher Oberland | Uftritt" description="Webdesign für KMU im Zürcher Oberland: Wir gestalten und entwickeln deine Website mit Prototyp und SEO. Persönlich betreut aus unserem Büro in Saland.">
   <PageHero
     eyebrow="Angebot"
     title={"Webdesign und Entwicklung"}
-    lead="Die Website repräsentiert dein Business im Internet. Gemeinsam entwickeln wir den Web-Auftritt, der deiner Identität gerecht wird und zum Verweilen einlädt, vom einfachen Onepager über komplexe Websites bis zur spezifischen Landingpage."
+    lead="Die Website repräsentiert dein Business im Internet. Gemeinsam entwickeln wir den Web-Auftritt, der deiner Identität gerecht wird und zum Verweilen einlädt, vom einfachen Onepager über komplexe Websites bis zur spezifischen Landingpage. Persönlich betreut aus unserem Büro in Saland, für KMU im ganzen Zürcher Oberland."
     lottie="/lottie/webdesign.json"
     lottieLabel="Webdesign"
   />
+
+  {/* Hinweis auf die Linie Uftakt (gleiches Band wie auf startup-website) */}
+  <div class="et-hinweis-band">
+    <div class="container">
+      <p class="et-hinweis" data-reveal>
+        <strong>Neu: Uftakt.</strong> Logo und Webseite zum Fixpreis für
+        kleine Firmen und Startups, inklusive Betreuung im Abo.
+        <a href="/uftakt/">Zur Linie Uftakt</a>
+      </p>
+    </div>
+  </div>
 
   <section class="section">
     <div class="container lp-blocks">
@@ -82,6 +97,9 @@ const steps = [
       }
     </div>
   </section>
+
+  {/* Referenzen */}
+  <RefStrip title="Webprojekte aus unserem Portfolio" projects={portfolio} />
 
   {/* Das gestalten wir für dich */}
   <ServiceMarquee
@@ -125,7 +143,7 @@ const steps = [
       </p>
       <p class="tools-note" data-reveal>
         Wir sind mitten in der Region zuhause: Webdesign-Projekte und Angebote
-        fürs <a href="/webdesign-zuercher-oberland/">Zürcher Oberland</a> -
+        fürs <a href="/webdesign-zuercher-oberland/">Zürcher Oberland</a>,
         von <a href="/webdesign-wetzikon/">Wetzikon</a>,
         <a href="/webdesign-hinwil/">Hinwil</a>,
         <a href="/webdesign-pfaeffikon/">Pfäffikon</a>,
@@ -200,10 +218,6 @@ const steps = [
     </div>
   </section>
 
-
-  {/* Referenzen */}
-  <RefStrip title="Webprojekte aus unserem Portfolio" projects={portfolio} />
-
   {/* Interne Verlinkung LP-Programm */}
   <section class="section">
     <div class="container mehr-dazu" data-reveal>
@@ -216,15 +230,26 @@ const steps = [
         <li><a href="/wordpress-agentur/">WordPress-Agentur</a></li>
         <li><a href="/website-mit-ki-erstellen/">Website mit KI erstellen?</a></li>
         <li><a href="/website-betreuung/">Website-Betreuung</a></li>
+        <li><a href="/seo-betreuung/">SEO-Betreuung</a></li>
         <li><a href="/webshop-kosten/">Was kostet ein Webshop?</a></li>
       </ul>
+    </div>
+  </section>
+
+  {/* Team, wiederverwendete Komponente wie auf /agentur/ */}
+  <TeamSection soft={false} />
+
+  {/* Bewertungen */}
+  <section class="section section--soft">
+    <div class="container">
+      <Reviews />
     </div>
   </section>
 
   <section class="section section--yellow">
     <div class="container lp-cta" data-reveal>
       <h2>Bereit für deinen neuen Webauftritt?</h2>
-      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
     </div>
   </section>
   <script
@@ -242,6 +267,11 @@ const steps = [
 </Layout>
 
 <style>
+  .et-hinweis-band { background: var(--color-blue); padding: 1.1rem 0; }
+  .et-hinweis { color: #fff; font-size: 1.05rem; line-height: 1.5; margin: 0; }
+  .et-hinweis a { color: var(--color-yellow); font-weight: 700; }
+  .et-hinweis a:hover { text-decoration: underline; }
+
   .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
   .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
   .lp-block h2 { position: sticky; top: 100px; }

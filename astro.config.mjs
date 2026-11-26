@@ -20,7 +20,24 @@ export default defineConfig({
   integrations: [
     sitemap({
       // Utility-Seiten nicht in die Sitemap: Danke-Seite (noindex) + 404
-      filter: (page) => !page.includes("/danke") && !page.includes("/404"),
+      // 2026-10-20 (Doorway-Sanierung, SEO): diese 10 Orts-Landingpages stehen auf
+      // noindex und fliegen deshalb auch aus der Sitemap, damit sich das
+      // Ranking-Signal auf die starken Orts-Seiten konzentriert.
+      filter: (page) =>
+        !page.includes("/danke") &&
+        !page.includes("/404") &&
+        ![
+          "/webdesign-baeretswil/",
+          "/webdesign-bauma/",
+          "/webdesign-duernten/",
+          "/webdesign-pfaeffikon/",
+          "/webdesign-rueti/",
+          "/webdesign-saland/",
+          "/webdesign-toesstal/",
+          "/webdesign-wald/",
+          "/webdesign-zuerichsee/",
+          "/webdesign-zuerich/",
+        ].some((slug) => page.endsWith(slug)),
     }),
   ],
 });

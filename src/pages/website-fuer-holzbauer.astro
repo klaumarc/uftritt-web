@@ -1,0 +1,320 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects
+  .filter((p) =>
+    ["heusser-holzbau", "stahel-koeng", "it-stall"].includes(p.slug)
+  )
+  .slice(0, 3);
+
+const grundbedarf = [
+  {
+    title: "Referenzgalerie, die überzeugt",
+    note: "Bauten, Innenausbau und Möbel: Bauherren und Architekten entscheiden mit den Augen. Eine gepflegte Galerie, nach Leistung sortiert, ist dein stärkstes Verkaufsargument.",
+  },
+  {
+    title: "Leistungen klar getrennt",
+    note: "Holzbau, Innenausbau, Schreinerei, Renovation: Private Bauherren und Architekturbüros finden ihren Bereich sofort, ohne zu suchen.",
+  },
+  {
+    title: "Material und Haltung zeigen",
+    note: "Warum Holz, welche Holzarten, woher es kommt: Wer nachhaltig bauen will, will wissen, mit wem er es zu tun hat.",
+  },
+  {
+    title: "Team und Werkstatt sichtbar",
+    note: "Gesichter, Werkstatt und Maschinen schaffen Vertrauen ins Handwerk und zeigen Bewerbenden, dass dein Betrieb ein guter Arbeitsplatz ist.",
+  },
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: Was soll die Seite bringen, was ist an Fotos und Texten schon da",
+  "Struktur und Konzept: Referenzen, Leistungen, Team und Stellen am richtigen Platz",
+  "Inhalte: Wir schreiben und ordnen ein, du lieferst Projektfotos und Baustelleninfos",
+  "Bau und Feinschliff: schnell ladend, mobil zuerst, mit deinem Feedback",
+  "Online und betreut: Für CHF 33 pro Monat bleiben wir auch nach dem Launch dran",
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Website für einen Holzbaubetrieb?",
+    a: "Das hängt vom Umfang ab: Eine schlanke Seite mit Leistungen, Team und ein paar Referenzen kostet deutlich weniger als ein grosser Auftritt mit ausgebauter Projektgalerie und Stellenbereich. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit klarem Preis. Grössenordnungen aus Schweizer Quellen findest du auf unserer Seite <a href=\"/website-kosten/\">Website-Kosten</a>. Danach bleibt die Seite für CHF 33 pro Monat betreut.",
+  },
+  {
+    q: "Wir haben kaum gute Projektfotos. Geht das trotzdem?",
+    a: "Fast jeder Betrieb hat mehr Material, als er denkt: Baustellenfotos vom Handy, Bilder von der Montage, Pläne. Wir sortieren mit dir, was sich eignet, und sagen ehrlich, was fehlt. Und wenn du deinen Betrieb richtig zeigen willst, ist ein <a href=\"/imagefilm-erstellen-lassen/\">Imagefilm</a> eine starke Ergänzung: Für <a href=\"/projekte/heusser-holzbau/\">Heusser Holzbau</a> haben wir genau so einen Film produziert.",
+  },
+  {
+    q: "Bringt die Website auch Aufträge von Architekten und Unternehmern?",
+    a: "Genau dafür ist sie da: Architekturbüros und Generalunternehmer schauen sich Referenzen und Leistungsbereiche an, bevor sie anfragen. Eine gepflegte Galerie mit Holzbauten, Innenausbau oder Schreinerarbeiten zeigt schneller als jedes Telefonat, was dein Betrieb kann. Private Bauherren googeln zudem gezielt nach Holzbau in der Region, und dafür sorgen wir mit <a href=\"/local-seo/\">Local SEO</a>.",
+  },
+  {
+    q: "Reichen Instagram oder Facebook für unsere Referenzen nicht?",
+    a: "Für schnelle Einblicke sind die Kanäle gut, aber sie ersetzen keine eigene Website: Bauherren und Architekten googeln deinen Betrieb, Bauten von vor drei Jahren versinken im Feed, und die Offertanfrage gehört auf eine Seite, die dir gehört. Am stärksten wirkt das Zusammenspiel: Die Website bleibt die Heimat, Social Media bringt die Leute dorthin.",
+  },
+  {
+    q: "Wer pflegt neue Referenzen und Projekte ein?",
+    a: "Du selbst, wenn du willst: Neue Bauten, Fotos und Texte pflegst du ohne Programmierkenntnisse über eine einfache Oberfläche. Und wenn im Betrieb keine Zeit dafür bleibt, übernehmen wir das in der <a href=\"/website-betreuung/\">Website-Betreuung</a> für CHF 33 pro Monat, vom neuen Referenzprojekt bis zur Stellenanzeige.",
+  },
+  {
+    q: "Lohnt sich eine Website auch für einen kleinen Schreinereibetrieb?",
+    a: "Meistens ja, weil gerade kleine Betriebe von Mundpropaganda leben und potenzielle Kunden dich danach googeln: Eine schlanke Seite mit Referenzen, Leistungen und Kontaktweg bestätigt die Empfehlung. Wir bauen darum aufs Wesentliche konzentriert, damit es zum Betrieb passt. Im kostenlosen Erstgespräch sagen wir dir ehrlich, was sich für dich lohnt und was nicht.",
+  },
+];
+---
+
+<Layout
+  title="Website für Holzbauer und Schreinereien - Uftritt"
+  description="Website für deinen Holzbaubetrieb: Referenzgalerie, Leistungen und Team, die Bauherren und Architekten überzeugen. Mobil zuerst, betreut für CHF 33 pro Monat."
+>
+  <PageHero
+    eyebrow="Für Holzbauer und Schreinereien"
+    title={"Website für Holzbauer\nund Schreinereien"}
+    lead="Die kurze Antwort: Eine Website für einen Holzbaubetrieb gewinnt über Bilder: Referenzen von Bauten, Möbeln und Innenausbau, klar nach Leistungen sortiert, dazu Team, Werkstatt und Materialkompetenz. Wir bauen sie schnell ladend und mobil zuerst, damit Bauherren, Architekten und Bewerbende sofort finden, was sie überzeugt."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Website für Holzbauer"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Was die Seite braucht */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Das Fundament</span>
+        <h2>Was eine Website für einen Holzbaubetrieb können muss</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          grundbedarf.map((g) => (
+            <article class="karte">
+              <h3>{g.title}</h3>
+              <p class="karte-note">{g.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Referenzen und ehrliches Case-Framing */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Deine Bauten sind das Verkaufsgespräch</h2>
+        <div class="lp-text">
+          <p>
+            Niemand beauftragt einen Holzbaubetrieb wegen eines klugen Satzes,
+            sondern wegen dessen, was er gebaut hat: der Elementbau am Hang,
+            der Dachstuhl mit Charakter, der Innenausbau, der auf den
+            Millimeter sitzt. Darum steht die Referenzgalerie bei uns nie an
+            zweiter Stelle.
+          </p>
+          <p>
+            Wir bauen die Galerie so, dass sie im Alltag gepflegt bleibt: Neue
+            Bauten sind schnell ergänzt, grosse Bilder laden trotzdem schnell,
+            und auf dem Handy auf der Baustelle sieht alles gut aus.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Vom Imagefilm zur Website, offen gesagt</h2>
+        <div class="lp-text">
+          <p>
+            Transparenz gehört für uns dazu: Eine Website für einen
+            Holzbaubetrieb haben wir bisher noch nicht gebaut. Für
+            <a href="/projekte/heusser-holzbau/">Heusser Holzbau</a> haben wir
+            stattdessen einen <a href="/imagefilm-erstellen-lassen/">Imagefilm</a>
+            produziert, und genau dabei gelernt, was in dieser Branche zählt:
+            echte Menschen, echte Werkstatt, fertige Bauten statt Stockfotos.
+          </p>
+          <p>
+            Diese Bildsprache bringen wir auf deiner Website zusammen. Und wenn
+            du willst, kommt der Film gleich dazu: Bewegtbild aus der Werkstatt
+            wirkt auf der Startseite stärker als jede Slideshow.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Sichtbarkeit und Nutzen im Alltag */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gefunden werden, wenn gebaut wird</h2>
+        <div class="lp-text">
+          <p>
+            Wer ein Haus baut oder ausbaut, googelt: Holzbau plus Region,
+            Schreinerei in der Nähe, Zimmerer für den Dachstock. Damit dein
+            Betrieb genau dann erscheint, bauen wir die Seite von Anfang an
+            für <a href="/local-seo/">Local SEO</a>: klare Leistungsseiten,
+            saubere Ortsangaben, schnelle Ladezeiten.
+          </p>
+          <p>
+            Dazu gehört auch die Handwerker-Perspektive: Auf unserer Seite zum
+            <a href="/webdesign-fuer-handwerker/">Webdesign für Handwerker</a>
+            zeigen wir, was Betriebe aus Bau und Gewerbe im Web gemeinsam haben.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Mehr als eine digitale Visitenkarte</h2>
+        <div class="lp-text">
+          <p>
+            Eine gute Seite nimmt deinem Betrieb Arbeit ab: Offertanfragen
+            kommen strukturiert herein, mit Angaben zum Projekt statt einem
+            leeren Mail. Und über die Stellenseite findest du eher die
+            Schreinerin oder den Zimmerer, die dein Betrieb sucht.
+          </p>
+          <p>
+            Und wenn du weiter denkst, etwa an digitale Prozesse hinter der
+            Website, schau auf unsere Seite zur
+            <a href="/digitalisierung-kmu/">Digitalisierung für KMU</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf und Betreuung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Nach dem Launch bleiben wir dran</h2>
+        <div class="lp-text">
+          <p>
+            Gerade nach der Bausaison bleibt im Büro wenig Zeit für die
+            Website. Mit der <a href="/website-betreuung/">Website-Betreuung</a>
+            für CHF 33 pro Monat kümmern wir uns um Hosting, Updates und deine
+            Änderungen, vom neuen Referenzprojekt bis zur Stellenanzeige.
+          </p>
+          <p>
+            Übrigens: Für das Nachbargewerbe bauen wir mit demselben Anspruch,
+            etwa <a href="/website-fuer-metallbauer/">Websites für Metallbauer</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen von Holzbauern und Schreinereien</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p set:html={f.a} />
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Zeit für eine Website, die zu deinem Betrieb passt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns in einem kostenlosen Erstgespräch, was dein Holzbaubetrieb
+        braucht. Wir sagen dir ehrlich, was eine Website bringen kann und was
+        sie kostet.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a.replace(/<[^>]*>/g, "") },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

@@ -48,6 +48,17 @@ $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $headers .= "Content-Transfer-Encoding: quoted-printable\r\n";
 
 $ok = mail($empfaenger, $betreff, quoted_printable_encode($body), $headers, "-f" . $absender);
+
+// ---- Lead-Log: Submission unabhängig vom Mail-Ergebnis festhalten ----
+@include_once __DIR__ . '/inc/leadlog.php';
+if (function_exists('lead_log')) {
+    lead_log('rueckruf', [
+        'kontakt' => $k,
+        'seite'   => $clean($_POST["seite"] ?? ""),
+        'mail_ok' => (bool) $ok,
+    ]);
+}
+
 if ($ok) {
     echo "ok";
 } else {

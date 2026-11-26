@@ -53,11 +53,16 @@ if [ "$MODE" = "--seed" ]; then
 fi
 
 # Zu uebertragende Dateien bestimmen
-if [ -f "$MANIFEST" ] && [ "$MODE" != "--full" ]; then
-  comm -23 "$NEW" <(sort "$MANIFEST") | sed 's/^[0-9a-f]\{64\} \*\{0,1\}//' > "$UPLOAD"
+# Manifest immer CR-bereinigt lesen: ein Manifest mit CRLF (z. B. nach Lauf aus
+# PowerShell heraus) laesst comm alle Zeilen als "abweichend" sehen und loescht
+# sonst den ganzen Server-Bestand (passiert 2026-11-04).
+MAN_CLEAN="$(mktemp)"; trap 'rm -f "$NEW" "$UPLOAD" "$DELS" "$MAN_CLEAN"' EXIT
+[ -f "$MANIFEST" ] && tr -d '\r' < "$MANIFEST" > "$MAN_CLEAN" || : > "$MAN_CLEAN"
+if [ -s "$MAN_CLEAN" ] && [ "$MODE" != "--full" ]; then
+  comm -23 "$NEW" <(sort "$MAN_CLEAN") | sed 's/^[0-9a-f]\{64\} \*\{0,1\}//' > "$UPLOAD"
   # Geloeschte Dateien: Pfad in Manifest, aber nicht mehr im Build
   comm -13 <(sed 's/^[0-9a-f]\{64\} \*\{0,1\}//' "$NEW" | sort) \
-           <(sed 's/^[0-9a-f]\{64\} \*\{0,1\}//' "$MANIFEST" | sort) > "$DELS"
+           <(sed 's/^[0-9a-f]\{64\} \*\{0,1\}//' "$MAN_CLEAN" | sort) > "$DELS"
 else
   sed 's/^[0-9a-f]\{64\} \*\{0,1\}//' "$NEW" > "$UPLOAD"
   : > "$DELS"
@@ -66,6 +71,16 @@ fi
 UP_N=$(grep -c . "$UPLOAD" || true)
 DEL_N=$(grep -c . "$DELS" || true)
 echo "==> $UP_N Datei(en) hochladen, $DEL_N loeschen"
+
+# Sicherheitsgurt: Massen-DELE (mehr als 20 Dateien oder mehr als 5 % des
+# Builds) deutet fast immer auf ein kaputtes Manifest hin, nicht auf echte
+# Loeschungen. Dann abbrechen statt die Site zu demolieren.
+TOTAL=$(wc -l < "$NEW")
+if [ "$DEL_N" -gt 20 ] || [ "$DEL_N" -gt $((TOTAL / 20)) ]; then
+  echo "ABBRUCH: $DEL_N Loeschungen bei $TOTAL Build-Dateien wirkt verdaechtig." >&2
+  echo "Manifest pruefen (Zeilenenden?) oder bewusst --full deployen." >&2
+  exit 1
+fi
 
 n=0
 while IFS= read -r f; do

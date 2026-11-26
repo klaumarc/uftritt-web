@@ -1,0 +1,353 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["seatalytics", "smart-navigator", "tenini-webshop"].includes(p.slug)
+);
+
+const felder = [
+  {
+    title: "Interne Werkzeuge",
+    note: "Aufgaben, Rapporte, Checklisten oder Auswertungen laufen in vielen Betrieben über Excel und Mailketten. Ein eigenes Werkzeug bildet euren Ablauf eins zu eins ab, statt euch einem Standardprodukt anzupassen.",
+  },
+  {
+    title: "Schnittstellen",
+    note: "Deine Systeme sollen miteinander reden: Buchhaltung, Webshop, CRM oder Plattformen wie AutoScout24. Wir bauen die Verbindung dazwischen, damit niemand mehr Daten von Hand hin und her trägt.",
+  },
+  {
+    title: "Automatisierung",
+    note: "Wiederkehrende Schritte laufen von selbst: Aus der Anmeldung auf der Website entsteht die Rechnung in der Buchhaltung, aus dem Auftrag die Bestellung. Ohne Copy-Paste, ohne Fehlerquellen.",
+  },
+  {
+    title: "Auswertungen",
+    note: "Zahlen aus verschiedenen Quellen an einem Ort: Auswertungen und Übersichten, die zeigen, was in deinem Betrieb läuft, ohne dass jemand Listen zusammenkopieren muss.",
+  },
+];
+
+const prozess = [
+  "Erstgespräch: Wir verstehen deine Abläufe, die Systeme im Einsatz und was heute hakt",
+  "Konzept: Funktionen, Schnittstellen und Aufwand, festgehalten in einem klaren Rahmen",
+  "Prototyp: Ein klickbares Bild der Lösung, bevor richtig programmiert wird",
+  "Entwicklung in Etappen: Du siehst laufend Fortschritt und steuerst nach, wo nötig",
+  "Betrieb: Einführung, Schulung deines Teams und danach Wartung aus derselben Hand",
+];
+
+const faq = [
+  {
+    q: "Was kostet es, individuelle Software entwickeln zu lassen?",
+    a: "Das hängt vom Umfang ab: Eine schlanke Schnittstelle zwischen zwei Systemen kostet weniger als ein komplettes internes Werkzeug mit mehreren Benutzerrollen. Marktübliche Preisranges legen wir transparent in unserem Guide zu den App-Entwicklungskosten offen. Für dein Vorhaben rechnen wir sauber durch: Nach einem kostenlosen Erstgespräch bekommst du ein Angebot mit allen Leistungen und einem klaren Preis.",
+  },
+  {
+    q: "Wie lange dauert die Entwicklung?",
+    a: "Das hängt vom Umfang und den Schnittstellen ab. Sicher ist: Du wartest nicht monatelang aufs erste Ergebnis. Der klickbare Prototyp kommt früh im Prozess, danach entwickeln wir in Etappen und du siehst laufend Fortschritt. Eine ehrliche Zeitschätzung bekommst du mit dem Konzept, nicht erst mittendrin.",
+  },
+  {
+    q: "Lohnt sich individuelle Software auch für einen kleinen Betrieb?",
+    a: "Ja, wenn dein Ablauf einzigartig ist oder Systeme nicht miteinander reden: Gerade kleine Betriebe verlieren viel Zeit mit doppelter Datenpflege und Handarbeit. Ehrlich gesagt: Deckt ein Standardprodukt deinen Bedarf weitgehend ab, sagen wir dir das im Erstgespräch und raten vom Eigenbau ab. Individuell lohnt sich dort, wo das Standardtool dich zum Kompromiss zwingt.",
+  },
+  {
+    q: "Muss unsere bestehende Software ersetzt werden?",
+    a: "In den meisten Fällen nein. Oft ist die beste Lösung eine Schnittstelle, die deine bestehenden Systeme verbindet, statt alles neu zu bauen. Für einen Autohändler haben wir zum Beispiel den Fahrzeugbestand per Synchronisation mit AutoScout24 verbunden: Was früher doppelt gepflegt wurde, läuft heute von selbst. Was bleibt, was weg kann und was dazukommt, klären wir im Konzept.",
+  },
+  {
+    q: "Wem gehört die Software und was ist mit dem Code?",
+    a: "Dir. Du bekommst den Code und die Daten, du hängst nicht an uns. Die Lösung lässt sich auch von anderen weiterentwickeln, falls du das je willst. Wir empfehlen trotzdem eine laufende Betreuung aus derselben Hand, weil Updates und Anpassungen so am schnellsten gehen, aber die Entscheidung liegt bei dir.",
+  },
+  {
+    q: "Was passiert, wenn sich unsere Abläufe ändern?",
+    a: "Genau dafür bauen wir schrittweise: auf einer sauberen Basis, die sich erweitern lässt. Neue Funktionen, weitere Schnittstellen oder zusätzliche Benutzerrollen kommen in Etappen dazu, ohne dass alles neu gebaut werden muss. Viele Projekte starten bewusst klein mit einem fokussierten Werkzeug und wachsen mit dem Alltag des Betriebs.",
+  },
+];
+---
+
+<Layout
+  title="Individuelle Software entwickeln lassen - Uftritt"
+  description="Individuelle Software entwickeln lassen: massgeschneiderte Tools, Schnittstellen und Automatisierung für KMU. Ehrlich beraten, aus einer Hand."
+>
+  <PageHero
+    eyebrow="Individuelle Software · Zürcher Oberland"
+    title={"Individuelle Software\nentwickeln lassen"}
+    lead="Du willst individuelle Software entwickeln lassen, weil Excel, Mailketten und Standardtools an ihre Grenzen kommen? Wir bauen massgeschneiderte Werkzeuge, Schnittstellen und Automatisierungen für KMU: von der ersten Idee über den klickbaren Prototyp bis zum laufenden Betrieb. Ehrlich beraten, aus einer Hand, ohne Projekttheater."
+    lottie="/lottie/applikationsentwicklung.json"
+    lottieLabel="Individuelle Software entwickeln lassen"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/applikationsentwicklung/" label="Applikationsentwicklung" lottie="/lottie/applikationsentwicklung.json" projects={cases} />
+
+  {/* Was wir bauen */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Die Bausteine</span>
+        <h2>Was wir für KMU bauen</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          felder.map((f) => (
+            <article class="karte">
+              <h3>{f.title}</h3>
+              <p class="karte-note">{f.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Abgrenzung + ehrliche Einordnung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Software, Web-App oder App: Was ist was?</h2>
+        <div class="lp-text">
+          <p>
+            Individuelle Software ist der Oberbegriff: jedes Werkzeug, das für
+            deinen Betrieb gebaut wird, vom internen Tool bis zur Schnittstelle
+            zwischen zwei Systemen. Läuft die Anwendung im Browser, spricht man
+            von einer Web-App. Das ist für die meisten KMU-Vorhaben der
+            pragmatischste Weg, mehr dazu auf unserer Seite zur
+            <a href="/webapp-entwickeln-lassen/">Web-App-Entwicklung</a>.
+          </p>
+          <p>
+            Soll es eine richtige App fürs Handy werden, mit Platz im App-Store
+            und Zugriff auf Gerätefunktionen, liest du unter
+            <a href="/app-entwickeln-lassen/">App entwickeln lassen</a>, wann
+            sich das lohnt. Wir sagen dir im Erstgespräch ehrlich, welche Form
+            zu deinem Vorhaben passt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wann wir dir vom Eigenbau abraten</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlichkeit zuerst: Deckt ein Standardprodukt deinen Bedarf
+            weitgehend ab, kauf das Standardprodukt. Individuelle Software
+            lohnt sich dort, wo dein Ablauf einzigartig ist, wo Systeme nicht
+            miteinander reden oder wo du dich sonst dem Werkzeug anpassen
+            müsstest.
+          </p>
+          <p>
+            Was ein solches Projekt kostet, legen wir transparent in unserem
+            Guide zu den <a href="/app-entwicklung-kosten/">App-Entwicklungskosten</a>
+            offen. Und manchmal ist die ehrlichste Antwort ein bestehendes Tool
+            plus eine kleine Schnittstelle statt eines grossen Neubaus.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Anonyme Praxisbeispiele */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Aus der Praxis</span>
+        <h2>Gebaut für echte Betriebe</h2>
+      </header>
+      <div class="case-cards" data-reveal>
+        <article class="karte">
+          <h3>AutoScout24-Synchronisation für einen Autohändler</h3>
+          <p class="karte-note">
+            Der Fahrzeugbestand des Händlers wurde früher doppelt gepflegt:
+            einmal im eigenen System, einmal von Hand auf der Plattform. Eine
+            gebaute Schnittstelle synchronisiert die Fahrzeuge heute automatisch
+            zwischen beiden Seiten. Was früher Stunden pro Woche kostete, läuft
+            jetzt von selbst.
+          </p>
+        </article>
+        <article class="karte">
+          <h3>Buchungs- und Rechnungsautomatik für einen Sportclub</h3>
+          <p class="karte-note">
+            Anmeldungen kamen über das Formular auf der Website, die Rechnungen
+            entstanden von Hand in der Buchhaltung. Eine Automatik verbindet
+            beides: Aus der Anmeldung entsteht die Rechnung von selbst, und das
+            Sekretariat sieht alles an einem Ort statt in drei Listen.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  {/* Ablauf + Prototyp */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Erst klickbar, dann programmiert</h2>
+        <div class="lp-text">
+          <p>
+            Bevor richtig entwickelt wird, bekommst du einen klickbaren
+            Prototypen: Er zeigt, wie sich die Lösung anfühlt, und macht
+            Missverständnisse sichtbar, solange sie noch günstig zu korrigieren
+            sind. Wie das funktioniert, zeigen wir auf unserer Seite zum
+            <a href="/app-prototyping/">App-Prototyping</a>.
+          </p>
+          <p>
+            Danach entwickeln wir in Etappen. Du testest mit echten Daten aus
+            deinem Alltag, und erst wenn die Lösung im Betrieb trägt, gilt ein
+            Schritt als fertig.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* KI-Bezug + Ergebnis */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Und wo kommt KI ins Spiel?</h2>
+        <div class="lp-text">
+          <p>
+            Viele wiederkehrende Abläufe lassen sich heute zusätzlich mit KI
+            beschleunigen: Texte zusammenfassen, Eingänge sortieren, Antworten
+            vorbereiten. Wo das in deinem Prozess sinnvoll ist und wo nicht,
+            sagen wir dir ehrlich.
+          </p>
+          <p>
+            Konkrete Beispiele, etwa die Rechnungsautomatik zwischen
+            Website-Formular und Buchhaltung, zeigen wir auf unserer Seite zur
+            <a href="/ki-automatisierung/">KI-Automatisierung</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Eine Lösung, die zu deinem Betrieb passt, statt umgekehrt. Du
+            bekommst den Code und die Daten, eine Anwendung, die sich erweitern
+            lässt, und ein Team, das deine Abläufe kennt.
+          </p>
+          <p>
+            Und wenn sich dein Betrieb weiterentwickelt, entwickelt sich die
+            Software mit: Wir bleiben auch nach dem Launch für Wartung, Updates
+            und Ausbau erreichbar, aus derselben Hand.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu individueller Software</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Welcher Prozess soll endlich von selbst laufen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was bei euch heute über Excel, Mailketten oder Handarbeit
+        läuft. Wir sagen dir ehrlich, ob sich individuelle Software lohnt, und
+        machen ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .case-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+    .case-cards { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

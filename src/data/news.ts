@@ -14,6 +14,43 @@ export interface NewsItem {
 // Reihenfolge: neueste zuerst. Nur Originaltexte, keine KI-Platzhalter.
 export const news: NewsItem[] = [
   {
+    title: "100pro Openair, Auftritt 2026",
+    slug: "100pro-openair-auftritt-2026",
+    category: "Agentur",
+    date: "November 2026",
+    image: "/news/100pro-openair-auftritt-2026.jpg",
+    excerpt:
+      "Das 100Pro Openair ist ein Worship-Festival im Tösstal, das wir seit 2018 begleiten. Für die Ausgabe vom 5.–7. Juni 2026 unter dem Motto «Gang ufs Ganze»...",
+    body: [
+      "Das 100Pro Openair ist ein Worship-Festival im Tösstal, das wir seit 2018 begleiten. Für die Ausgabe vom 5.–7. Juni 2026 unter dem Motto «Gang ufs Ganze» durften wir den gesamten Auftritt verantworten: Erscheinungsbild, Website, Social-Media-Kampagne, Out-of-home-Werbemittel, Bühnen-Screens und das Ticketing mit Eventfrog. Einen Einblick erhältst du auf https://100proopenair.ch/",
+    ],
+    gallery: [
+      "/news/100pro-openair-auftritt-2026-2.jpg",
+      "/news/100pro-openair-auftritt-2026-3.jpg",
+      "/news/100pro-openair-auftritt-2026-4.jpg",
+    ],
+  },
+  {
+    title: "Ein Verband, viele Betriebe, eine Plattform",
+    slug: "ein-verband-viele-betriebe-eine-plattform",
+    category: "Agentur",
+    date: "November 2026",
+    image: "/news/ein-verband-viele-betriebe-eine-plattform.jpg",
+    gallery: [
+      "/news/ein-verband-viele-betriebe-eine-plattform-2.jpg",
+      "/news/ein-verband-viele-betriebe-eine-plattform-3.jpg",
+      "/news/ein-verband-viele-betriebe-eine-plattform-4.jpg",
+      "/news/ein-verband-viele-betriebe-eine-plattform-5.jpg",
+      "/news/ein-verband-viele-betriebe-eine-plattform-6.jpg",
+      "/news/ein-verband-viele-betriebe-eine-plattform-7.jpg",
+    ],
+    excerpt:
+      "Für «Gewerbe bewegt», die Gewerbeschau des Gewerbevereins Bubikon Wolfhausen, durften wir den gesamten Auftritt entwickeln und umsetzen: Strategie, Website,...",
+    body: [
+      "Für «Gewerbe bewegt», die Gewerbeschau des Gewerbevereins Bubikon Wolfhausen, durften wir den gesamten Auftritt entwickeln und umsetzen: Strategie, Website, Festführer, Inserate, Plakate und Rückblicksvideo. 53 regionale Betriebe öffneten am 6. Juni 2026 ihre Türen, über zwei Dörfer verteilt, wobei der Routen- und Shuttle-Fahrplan für klare Orientierung sorgte. Sieh dir das Ergebnis an: https://gewerbebewegt.ch/",
+    ],
+  },
+  {
     title: "natürli Käsemarkt",
     slug: "natuerli-kaesemarkt",
     category: "Agentur",

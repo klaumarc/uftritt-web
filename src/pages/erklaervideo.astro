@@ -1,0 +1,338 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects
+  .filter((p) => ["smart-navigator", "seatalytics", "aas-freight"].includes(p.slug))
+  .slice(0, 3);
+
+const einsatzorte = [
+  {
+    title: "Auf der Website",
+    note: "Auf der Start- oder Angebotsseite erklärt dein Video in rund zwei Minuten, wofür sonst drei Scrollhöhen Text nötig wären. Besucher verstehen schneller, was du anbietest, und bleiben länger dran.",
+  },
+  {
+    title: "Im Verkauf und an der Messe",
+    note: "Dein Team erklärt euer Angebot jedes Mal gleich stark, auch wenn das Produkt zu komplex oder gerade nicht greifbar ist. Am Messestand läuft das Video in der Schlaufe, mit Untertiteln auch ohne Ton.",
+  },
+  {
+    title: "In Support und Einführung",
+    note: "Wiederkehrende Fragen beantwortest du einmal richtig statt hundertmal am Telefon: Anleitungen, Abläufe und die Einführung neuer Kunden oder Mitarbeitender als verständliches Video.",
+  },
+  {
+    title: "Für die öffentliche Kommunikation",
+    note: "Gemeinden, Verbände und Organisationen erklären Vorlagen, Abstimmungen oder neue Angebote sachlich und ohne Werbeton. Gerade bei komplexen Themen schafft ein ruhiges Erklärvideo Verständnis statt Widerstand.",
+  },
+];
+
+const prozess = [
+  "Erstgespräch: Thema, Zielgruppe und Einsatzorte klären, kostenlos",
+  "Konzept: Kernbotschaft und Struktur, bis die Geschichte auf einer Seite passt",
+  "Sprechertext und Storyboard: jedes Bild skizziert, bevor produziert wird",
+  "Produktion: Animation bei uns oder Dreh bei dir vor Ort",
+  "Stimme und Sound: professionelle Sprecherstimme, lizenzierte Musik, Untertitel",
+  "Korrektur und Lieferung: deine Runden bis zur Freigabe, Export in allen Formaten",
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Erklärvideo in der Schweiz?",
+    a: "Eine seriöse Zahl gibt es erst nach dem Briefing: Der Preis hängt von Stil, Länge, Sprecher und der Anzahl Versionen ab. Ein animiertes Erklärvideo hat einen anderen Aufwand als ein Realfilm mit Drehtag. Marktübliche Ranges für Videoproduktionen haben wir in unserem Kosten-Guide zusammengefasst. Bei uns bekommst du nach dem kostenlosen Erstgespräch ein transparentes Angebot mit allen Leistungen und einem klaren Preis, ohne versteckte Kosten.",
+  },
+  {
+    q: "Wie lang soll ein Erklärvideo sein?",
+    a: "So kurz wie möglich, so lang wie nötig. Als Faustregel funktionieren 60 bis 120 Sekunden am besten: lang genug für die Kernbotschaft, kurz genug, damit die Zuschauer dranbleiben. Wird das Thema grösser, lohnt sich eher eine kleine Serie mit mehreren kurzen Videos als ein zehnminütiger «Erklärbär». Das Wichtigste gehört in die ersten Sekunden, weil viele vor dem Ende abspringen.",
+  },
+  {
+    q: "Animation oder echter Dreh: Was passt zu unserem Thema?",
+    a: "Abstrakte Themen, Abläufe und Software erklären sich am besten animiert: Grafiken und Figuren zeigen, was keine Kamera filmen kann, und das Video bleibt lange aktuell. Geht es um Vertrauen, Menschen oder einen konkreten Ort, gewinnt der echte Dreh mit deinem Team und deinen Räumen. Oft ist ein Mix am stärksten. Im Erstgespräch sagen wir dir ehrlich, welcher Stil zu deinem Thema und Budget passt, auch wenn das die günstigere Variante ist.",
+  },
+  {
+    q: "Können wir den Text oder das Skript selbst liefern?",
+    a: "Gerne, und bestehende Texte sind ein guter Startpunkt: Broschüren, Website-Texte oder Präsentationen helfen uns, dein Thema schnell zu verstehen. Für den Sprechertext überarbeiten wir das Material aber in jedem Fall, denn gesprochene Sprache funktioniert anders als geschriebene: kürzere Sätze, klarer Rhythmus, ein Gedanke pro Satz. Am Ende zählt nicht, was auf dem Papier schön aussieht, sondern was man gerne zuhört.",
+  },
+  {
+    q: "Macht ihr Erklärvideos auch für Behörden oder Abstimmungen?",
+    a: "Ja. Für Gemeinden, Verbände und Organisationen produzieren wir sachliche Erklärvideos ohne Werbeton: klar strukturiert, in neutraler Sprache und mit Untertiteln, damit das Video auch ohne Ton und für möglichst alle verständlich ist. Gerade bei Abstimmungsvorlagen oder komplexen Informationen zählt Sachlichkeit mehr als Effekte. Ablauf und Freigaben richten wir nach euren Gremien, damit niemand überrascht wird.",
+  },
+  {
+    q: "Setzt ihr KI für Erklärvideos ein?",
+    a: "Wo sie hilft, ja: Für Ideen, Moodboards und erste Vorvisualisierungen beschleunigt KI die Konzeptphase spürbar. Das fertige Video entsteht dann aber von Hand, denn Timing, Dramaturgie und eine glaubwürdige Stimme sind genau das, was ein KI-Video bis heute vermissen lässt. Falls du mit KI-Stimmen oder KI-Bildern experimentiert hast: Bring deine Versuche mit, wir sagen dir ehrlich, was davon produktionsreif ist.",
+  },
+  {
+    q: "Wie lange dauert die Produktion?",
+    a: "Rechne mit einigen Wochen vom Briefing bis zur Freigabe: Konzept und Sprechertext brauchen ein bis zwei Wochen, die Produktion je nach Stil zwei bis vier, und deine Korrekturschleifen sitzen dazwischen. Animierte Erklärvideos lassen sich gut parallel zu deinem Alltag produzieren, weil kein Drehtag koordiniert werden muss. Hast du einen fixen Termin wie eine Messe oder eine Abstimmung, planen wir rückwärts ab diesem Datum.",
+  },
+];
+---
+
+<Layout
+  title="Erklärvideo erstellen lassen - Uftritt"
+  description="Erklärvideo erstellen lassen: Komplexes verständlich erklärt, von Konzept und Sprechertext bis Animation und Schnitt aus einer Hand. Kostenloses Erstgespräch."
+>
+  <PageHero
+    eyebrow="Videoproduktion · Erklärvideo"
+    title={"Erklär­video\nerstellen lassen"}
+    lead="Dein Erklärvideo macht komplexe Produkte, Abläufe oder Dienstleistungen in rund zwei Minuten verständlich: für Website, Verkauf, Support oder die öffentliche Kommunikation. Wir entwickeln Konzept, Sprechertext und Storyboard und produzieren Animation oder Realfilm aus einer Hand. Im kostenlosen Erstgespräch klären wir, welcher Stil zu deinem Thema passt."
+    lottie="/lottie/videoproduktion.json"
+    lottieLabel="Erklärvideo erstellen lassen"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/videoproduktion/" label="Videoproduktion" lottie="/lottie/videoproduktion.json" projects={cases} />
+
+  {/* Einsatzorte */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Einsatzorte</span>
+        <h2>Wo dein Erklärvideo wirkt</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          einsatzorte.map((e) => (
+            <article class="range-card">
+              <h3>{e.title}</h3>
+              <p class="range-note">{e.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Methode + Stil */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Erst verstehen, dann vereinfachen</h2>
+        <div class="lp-text">
+          <p>
+            Die eigentliche Arbeit an einem Erklärvideo passiert vor jeder
+            Animation: Wir steigen in dein Thema ein, bis wir es selbst
+            verstehen, und destillieren die eine Kernbotschaft, die hängen
+            bleiben soll. Was Fachleute selbstverständlich finden, ist für dein
+            Publikum oft der Knackpunkt, und genau dort setzen wir an.
+          </p>
+          <p>
+            Dieses Vereinfachen ist unser Alltag, auch ohne Film: Für die
+            Unternehmensberatung <a href="/projekte/smart-navigator/">smart
+            navigator</a> haben wir von der Namensfindung über das
+            Erscheinungsbild bis zur Website einen Auftritt gebaut, der eine
+            abstrakte Beratungsleistung greifbar macht. Und für <a
+            href="/projekte/seatalytics/">Seatalytics</a>, eine Expertin für
+            Rollstuhlfitting, haben wir eine Website entwickelt, die Fachwissen
+            für Fachleute und Privatpersonen gleichermassen verständlich macht.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Animation, Realfilm oder ein Mix</h2>
+        <div class="lp-text">
+          <p>
+            Abstrakte Themen, Prozesse und Software erklären sich am besten
+            animiert: Icons, Diagramme und Figuren zeigen, was keine Kamera
+            filmen kann, und das Ergebnis bleibt jahrelang aktuell. Mehr dazu
+            auf unserer Seite zum <a href="/animationsvideo/">Animationsvideo</a>.
+          </p>
+          <p>
+            Sobald Vertrauen, Menschen oder Orte im Zentrum stehen, gewinnt der
+            echte Dreh: dein Team, deine Räume, dein Angebot in echtem Licht.
+            Oft ist ein Mix am stärksten, etwa echter Dreh mit eingeblendeten
+            Grafiken. Als <a href="/videoproduktion-zuercher-oberland/">Videoproduktion
+            im Zürcher Oberland</a> drehen wir bei dir vor Ort, kurze Anfahrten
+            inklusive. Und wenn es emotionaler und markenbildender sein darf,
+            ist der <a href="/imagefilm-erstellen-lassen/">Imagefilm</a> die
+            passende Schwester.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Zusammenarbeit + Kosten, ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was wir von dir brauchen</h2>
+        <div class="lp-text">
+          <p>
+            Dein Fachwissen, mehr nicht. Du kennst dein Thema, deine Kunden und
+            deren Fragen, wir bringen Struktur, Dramaturgie und Produktion mit.
+            Konkret heisst das: ein Briefing von etwa einer Stunde, zwei bis
+            drei kompakte Korrekturschleifen und eine Person bei dir, die
+            Entscheide treffen kann.
+          </p>
+          <p>
+            Alles andere kommt von uns: Recherche, Sprechertext, Storyboard,
+            Sprecherstimme, Musik und die technische Umsetzung. Du bekommst
+            jeden Schritt zur Freigabe, bevor es weitergeht, vom ersten Skript
+            bis zum finalen Schnitt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Und was kostet ein Erklärvideo?</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlich: ohne Briefing ist jede Zahl unseriös. Der Aufwand hängt von
+            Stil, Länge, Sprecher und der Anzahl Versionen ab, und ein
+            gezeichneter Animationsfilm kostet anders als ein Drehtag bei dir
+            vor Ort. Marktübliche Ranges haben wir in unserem Guide zu den
+            <a href="/imagefilm-kosten/">Video-Kosten</a> zusammengefasst.
+          </p>
+          <p>
+            Bei uns gilt wie immer: kostenloses Erstgespräch, dann ein
+            transparentes Angebot mit allen Leistungen und einem klaren Preis.
+            Und wenn ein Erklärvideo für dein Anliegen überdimensioniert ist,
+            sagen wir dir das auch, etwa wenn ein kurzes <a
+            href="/produktvideo/">Produktvideo</a> oder eine gut strukturierte
+            Seite das Gleiche leistet.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in sechs Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Ein Erklärvideo, das dein Thema ein für alle Mal verständlich macht,
+            plus alle Versionen, die du brauchst: 16:9 für Website und YouTube,
+            Hochformat für Social Media, mit Untertiteln für alle, die ohne Ton
+            schauen.
+          </p>
+          <p>
+            Die Nutzungsrechte sind klar geregelt: Du kannst das Video
+            unbegrenzt auf deinen Kanälen einsetzen, die Musik ist sauber
+            lizenziert. Und der Verschnitt ist gleich mitgedacht: Aus dem
+            Hauptvideo schneiden wir kurze Clips für deine Kanäle, ohne neuen
+            Drehtag.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Erklärvideo</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Was soll dein Publikum endlich verstehen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, welches Thema du erklären willst und wo das Video zum
+        Einsatz kommt. Du bekommst eine ehrliche Einschätzung zum Stil und
+        danach ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges { grid-template-columns: 1fr; }
+  }
+</style>

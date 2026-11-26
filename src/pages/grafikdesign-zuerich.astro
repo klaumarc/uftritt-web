@@ -1,0 +1,228 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import TeamSection from "../components/TeamSection.astro";
+import Reviews from "../components/Reviews.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "stahel-koeng", "beat-brugger"].includes(p.slug)
+);
+
+const faq = [
+  {
+    q: "Arbeitet ihr auch für Betriebe in der Stadt Zürich?",
+    a: "Ja, und wir sagen es offen: Unser Büro ist in Saland im Zürcher Oberland, nicht in der Stadt. Die Distanz ist klein, per Zug und Auto sind wir gut erreichbar, Besprechungen machen wir gerne bei dir im Betrieb oder per Video-Call. Dafür bekommst du Agenturarbeit ohne Grossstadt-Overhead und ohne Agentur-Attitüde.",
+  },
+  {
+    q: "Was kostet Grafikdesign bei euch?",
+    a: "Das hängt vom Umfang ab: Ein einzelner Flyer kostet weniger als ein komplettes Erscheinungsbild mit Logo, Farbwelt und Typografie, Pauschalpreise von der Stange wären unseriös. Nach einem kostenlosen Erstgespräch erhältst du ein transparentes Angebot mit allen Leistungen und einem klaren Preis, ohne versteckte Kosten.",
+  },
+  {
+    q: "Läuft die Zusammenarbeit remote oder vor Ort?",
+    a: "Beides funktioniert. Das Erstgespräch machen wir am liebsten bei dir im Betrieb, egal ob im Kreis 4, in Oerlikon oder am Zürichberg, auf Wunsch bei uns in Saland oder per Video-Call. Die weitere Abstimmung läuft so, wie es für dich passt: per Mail, am Telefon oder in kurzen Calls.",
+  },
+  {
+    q: "Könnt ihr Referenzen zeigen?",
+    a: "Gerne: das Rebranding der Aweso AG aus Wetzikon, das Jubiläumslogo zum 125-Jahr-Jubiläum von Stahel + Köng und das Logo zur Firmengründung von Beat Brugger Impulse sind drei Beispiele aus unserem Portfolio. Auf unserer Projektseite findest du weitere Arbeiten, im Erstgespräch zeigen wir dir gerne Beispiele aus deiner Branche.",
+  },
+  {
+    q: "Gestaltet ihr auch nur eine einzelne Drucksache?",
+    a: "Klar, es muss nicht immer das komplette Branding sein. Wir gestalten einzelne Drucksachen wie Broschüren, Flyer oder Visitenkarten genauso sorgfältig wie ganze Auftritte, und wir sagen dir ehrlich, wenn eine einfache Vorlage für deinen Zweck reicht.",
+  },
+  {
+    q: "Was ist, wenn wir schon ein Logo haben?",
+    a: "Dann bauen wir darauf auf: Wir modernisieren bestehende Logos behutsam oder ergänzen, was fehlt, Farben, Typografie und Vorlagen für den Alltag. Dein Erscheinungsbild muss nicht bei null anfangen, es muss am Ende einfach zusammenpassen.",
+  },
+];
+---
+
+<Layout
+  title="Grafikdesign Zürich - Uftritt"
+  description="Grafikdesign für Zürcher Betriebe: Logo, Corporate Design und Drucksachen von Uftritt, der Kommunikationsagentur aus Saland im Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="Grafikdesign · Zürich"
+    title={"Grafik­design\nZürich"}
+    lead="Du suchst Grafikdesign in Zürich? Uftritt ist die Kommunikationsagentur aus Saland im Zürcher Oberland: Wir gestalten Logos, Erscheinungsbilder und Drucksachen für Betriebe in der Stadt Zürich, persönlich, ohne Agentur-Overhead und mit ehrlicher Beratung. Per Zug und Auto sind wir gut erreichbar, auf Wunsch läuft alles per Video-Call."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Grafikdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Stadt-Kontext + ehrliches Framing */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Grafikdesign für die grösste Stadt der Schweiz</h2>
+        <div class="lp-text">
+          <p>
+            Zürich ist mit 436 551 Einwohnerinnen und Einwohnern (Stand Ende
+            2024) die grösste Stadt der Schweiz, in der Agglomeration leben
+            rund 1,45 Millionen Menschen (Stand 2022). In zwölf Stadtkreisen,
+            von der Altstadt über Wiedikon bis Oerlikon, konkurrieren Tausende
+            Betriebe um dieselbe Aufmerksamkeit.
+          </p>
+          <p>
+            Darum reicht ein hübsches Logo allein nicht: Dein Auftritt muss
+            überall derselbe sein, auf der Website, auf der Visitenkarte, auf
+            dem Plakat an der Tramhaltestelle. Genau diese Konsistenz über alle
+            Kanäle ist unsere Arbeit im
+            <a href="/grafikdesign-zuercher-oberland/">Grafikdesign</a>: ein
+            Erscheinungsbild, das man in der Menge wiedererkennt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ehrlich gesagt: Unser Büro ist nicht in Zürich</h2>
+        <div class="lp-text">
+          <p>
+            Unser Büro steht in Saland im Zürcher Oberland, nicht an der
+            Bahnhofstrasse. Trotzdem arbeiten wir für Kunden in der Stadt und
+            ihrer Agglomeration: Für eine Wohnung im Zürcher Quartier Green
+            City am <a href="/projekte/spinnereiplatz/">Spinnereiplatz</a>
+            haben wir eine Verkaufs-Website mit eigenen Fotos und Texten
+            gebaut, und Besprechungen machen wir gerne bei dir im Betrieb, egal
+            ob im Kreis 4, in Oerlikon oder am Zürichberg.
+          </p>
+          <p>
+            Gerade für ein Zürcher KMU ist das ein Vorteil: Du bekommst
+            Gestaltung aus einer Hand, vom Logo über die Drucksache bis zur
+            Website, ohne den Overhead und die Preise einer Grossagentur. Und
+            wir sagen dir ehrlich, was sich lohnt und was nicht. Brauchst du
+            dazu eine neue Website? Unsere
+            <a href="/webdesign-zuerich/">Webdesign-Seite für Zürich</a> zeigt,
+            wie wir dort arbeiten.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Vom Logo bis zur fertigen Drucksache</h2>
+        <div class="lp-text">
+          <p>
+            Bei uns bekommst du das ganze Handwerk aus einer Hand: Logo und
+            <a href="/corporate-design/">Corporate Design</a>, Visitenkarten
+            und <a href="/geschaeftsdrucksachen/">Geschäftsdrucksachen</a>,
+            Broschüren, <a href="/flyer-gestalten-lassen/">Flyer</a> und
+            Plakate, von der ersten Idee bis zur druckfertigen Datei.
+          </p>
+          <p>
+            Und weil wir auch Websites, Fotografie und Video selbst machen,
+            bleibt dein Auftritt über alle Kanäle konsistent, ohne
+            Schnittstellenchaos zwischen fünf Ansprechpersonen in fünf Büros.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Markenarbeit, die wir zeigen dürfen</h2>
+        <div class="lp-text">
+          <p>
+            Das Rebranding der <a href="/projekte/aweso/">Aweso AG</a> aus
+            Wetzikon, das Jubiläumslogo zum 125-Jahr-Jubiläum von
+            <a href="/projekte/stahel-koeng/">Stahel + Köng</a> aus Hinwil, das
+            Logo und die Geschäftsdrucksachen zur Firmengründung von
+            <a href="/projekte/beat-brugger/">Beat Brugger Impulse</a> aus
+            Pfäffikon: alles Markenarbeit aus unserem Büro in Saland.
+          </p>
+          <p>
+            Weitere Beispiele findest du in unserem
+            <a href="/projekte/">Portfolio</a>, und im Erstgespräch zeigen wir
+            dir gerne Arbeiten, die zu deiner Branche passen.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <TeamSection />
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section">
+    <div class="container">
+      <Reviews />
+    </div>
+  </section>
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für einen Auftritt, der in Zürich auffällt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du gestalten lassen willst, vom Logo über die Broschüre
+        bis zum ganzen Erscheinungsbild. Du bekommst eine ehrliche Einschätzung
+        und ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+</style>

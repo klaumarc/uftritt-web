@@ -1,0 +1,333 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["stahel-koeng", "100pro-openair-2024", "dt-baeretswil"].includes(p.slug)
+);
+
+const zutaten = [
+  {
+    title: "Chronik und Meilensteine",
+    note: "Die Geschichte von der Gründung bis heute, erzählt an konkreten Stationen und Wendepunkten statt als trockene Kolonne von Jahreszahlen.",
+  },
+  {
+    title: "Menschen im Zentrum",
+    note: "Porträts und Interviews mit Gründergeneration, Mitarbeitenden, Kunden und Wegbegleitern: Gesichter und Stimmen, die man gerne liest.",
+  },
+  {
+    title: "Bilder aus dem Archiv",
+    note: "Alte Fotos, Prospekte und Dokumente, gesichtet, aufbereitet und in Bildstrecken gesetzt. Der beste Stoff liegt oft in Schubladen und Kartons.",
+  },
+  {
+    title: "Blick nach vorn",
+    note: "Das Jubiläum als Anlass, die nächste Etappe zu zeigen: Was bleibt, was kommt, wohin der Betrieb steuert. So wird das Heft mehr als Nostalgie.",
+  },
+];
+
+const ablauf = [
+  "Erstgespräch: Anlass, Zielgruppe und was an Geschichten und Material schon da ist",
+  "Konzept: Dramaturgie, Rubriken und Umfang, abgestimmt auf Fest und Budget",
+  "Recherche und Redaktion: Interviews, Texte und aufbereitetes Archivmaterial",
+  "Gestaltung: Editorial Design im Look deiner Marke, auf Wunsch mit Jubiläumslogo",
+  "Korrektur und Freigabe: Ohne dein Ja geht nichts in den Druck",
+  "Druck und Lieferung: Reinzeichnung, Produktion mit der Druckerei, fertig vor dem Fest",
+];
+
+const faq = [
+  {
+    q: "Was ist der Unterschied zwischen Jubiläumsmagazin und Jubiläumszeitung?",
+    a: "Vor allem Umfang und Haltbarkeit: Die Jubiläumszeitung ist das schlanke Format, wenige Seiten im Zeitungslook, gedacht als Beilage zum Fest oder zur Feier, die man einmal durchblättert. Das Jubiläumsmagazin ist das bleibende Format: mehr Seiten, hochwertigeres Papier, gebunden wie ein Heft, das in Regalen und Empfangsbereichen liegen bleibt. Inhaltlich folgen beide derselben Idee, und im Erstgespräch klären wir, welches Format zu Anlass, Material und Budget passt. Manche Betriebe machen beides: die Zeitung für alle Gäste, das Magazin für Kunden und Wegbegleiter.",
+  },
+  {
+    q: "Was gehört inhaltlich in ein Jubiläumsmagazin?",
+    a: "Eine Mischung aus Rückblick und Ausblick: die Chronik der wichtigsten Stationen, Porträts und Interviews mit Menschen, die den Betrieb geprägt haben, Bildstrecken aus dem Archiv und ein Blick auf das, was als Nächstes kommt. Dazu passen Rubriken wie Kundenstimmen, Zahlen und Geschichten aus den Jahrzehnten oder Anekdoten, die sonst niemand aufschreibt. Wir entwickeln das Inhaltsverzeichnis gemeinsam mit dir, damit das Heft erzählt statt nur dokumentiert.",
+  },
+  {
+    q: "Wann sollten wir mit dem Jubiläumsmagazin anfangen?",
+    a: "Rechne vom Festdatum zurück: Konzept, Interviews, Redaktion, Gestaltung und Korrekturrunden brauchen ihre Zeit, und Archivmaterial aufzutreiben dauert oft länger als gedacht. Als Faustregel empfehlen wir, vier bis sechs Monate vor dem Anlass zu starten, dann bleibt Ruhe für Freigaben und der Druck ist fertig, bevor das Fest beginnt. Kürzer geht es auch, dann müssen Umfang und Material realistisch geplant werden. Sag uns im Erstgespräch dein Datum, wir sagen dir ehrlich, was bis dahin machbar ist.",
+  },
+  {
+    q: "Wir haben kaum Bilder aus den frühen Jahren. Geht das trotzdem?",
+    a: "Ja, das ist sogar der Normalfall: In den wenigsten Betrieben liegt ein sortiertes Archiv bereit. Wir gehen systematisch vor, sichten, was in Schubladen, Kartons und bei ehemaligen Mitarbeitenden liegt, und ergänzen mit Interviews, bei denen Geschichten und oft auch weitere Bilder auftauchen. Was fehlt, füllen wir redaktionell: Anekdoten, Zeitzeugen und Dokumente erzählen mehr als perfekte Fotos. Ein unvollständiges Archiv ist also kein Hinderungsgrund, sondern Teil der Recherche.",
+  },
+  {
+    q: "Was kostet ein Jubiläumsmagazin?",
+    a: "Ehrlich: Das hängt stark vom Umfang ab. Seitenzahl, Auflage und Papier bestimmen den Druck, und bei den Inhalten macht es einen grossen Unterschied, ob du Texte und Bilder lieferst oder wir recherchieren, interviewen und schreiben. Zwischen der schlanken Jubiläumszeitung mit geliefertem Material und dem Magazin mit eigener Redaktion und Bildbearbeitung liegen Welten, darum nennen wir keine Ranges. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit klarem Preis.",
+  },
+  {
+    q: "Übernehmt ihr auch Druck und Versand?",
+    a: "Ja: Wir reinzeichnen, stimmen Papier, Bindung und Auflage mit dir ab und wickeln die Produktion mit der Druckerei ab, inklusive Terminplanung, damit die Auflage rechtzeitig vor dem Fest da ist. Auf Wunsch kümmern wir uns auch um Adressaufbereitung und Versand an Kunden und Wegbegleiter. Die digitale Ausgabe stellen wir dir optimiert dazu, damit du das Heft auch online teilen kannst.",
+  },
+];
+---
+
+<Layout
+  title="Jubiläumsmagazin erstellen lassen - Uftritt"
+  description="Jubiläumsmagazin oder Jubiläumszeitung erstellen lassen: Konzept, Redaktion, Gestaltung und Druck aus einer Hand. Damit die Geschichte deines Betriebs bleibt."
+>
+  <PageHero
+    eyebrow="Firmenjubiläum und Festanlass"
+    title={"Jubiläumsmagazin,\ndas deine Geschichte trägt"}
+    lead="Ein Jubiläumsmagazin hält fest, was Jahrzehnte geformt hat: die Menschen, Meilensteine und Geschichten deines Unternehmens oder Vereins. Wir entwickeln Konzept, Redaktion und Gestaltung und begleiten dich bis zum Druck, ob Jubiläumszeitung zur Feier oder Magazin als bleibendes Geschenk. Du lieferst Erinnerungen und Bilder, wir machen daraus ein Heft, das man gerne in die Hand nimmt."
+    lottie="/lottie/magazinbetreuung.json"
+    lottieLabel="Jubiläumsmagazin"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/magazinbetreuung/" label="Magazinbetreuung" lottie="/lottie/magazinbetreuung.json" projects={cases} />
+
+  {/* Inhaltliche Zutaten */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Inhalt</span>
+        <h2>Was in ein Jubiläumsmagazin gehört</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          zutaten.map((z) => (
+            <article class="karte">
+              <h3>{z.title}</h3>
+              <p class="karte-note">{z.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Anspruch + Ablauf */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Mehr als eine Festschrift</h2>
+        <div class="lp-text">
+          <p>
+            Viele Jubiläumshefte scheitern am selben Punkt: Sie dokumentieren,
+            statt zu erzählen. Eine Aneinanderreihung von Jahreszahlen und
+            Gratulationsadressen liest niemand freiwillig, nicht einmal am Fest
+            selbst.
+          </p>
+          <p>
+            Wir machen Jubiläumsmagazine redaktionell: Interviews mit den
+            Menschen hinter den Meilensteinen, Geschichten, die nur die
+            Belegschaft kennt, und eine Dramaturgie, die vom ersten Tag bis in
+            die Zukunft trägt. Und falls es bei dir schlanker sein darf: Eine
+            gut gemachte Jubiläumszeitung erfüllt denselben Zweck im kleineren
+            Format.
+          </p>
+          <p>
+            Was nach dem Jubiläum aus so einem Heft werden kann, zeigt das
+            <a href="/kundenmagazin/">Kundenmagazin</a>: Wer die Geschichten
+            einmal aufbereitet hat, kann mit ihnen weiterarbeiten.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in sechs Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Cases */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>125 Jahre Stahel + Köng</h2>
+        <div class="lp-text">
+          <p>
+            Für das Industrieunternehmen Stahel + Köng aus Hinwil haben wir die
+            Kampagne zum 125-jährigen Bestehen konzipiert und gestaltet: ein
+            Jubiläumslogo in mehreren Varianten, für Mitarbeitende, Kunden und
+            neutrale Anwendungen, später ergänzt um französische Fassungen mit
+            der Zeile «125 ans».
+          </p>
+          <p>
+            Dazu gehörte ein Jubiläumsgeschenk mit eigener Gestaltung: eine
+            gravierte Edelstahl-Flasche in Serie, teils personalisiert mit
+            Vornamen. Das zeigt, worauf es bei einem Jubiläum ankommt: Logo,
+            Geschenk und Kommunikation müssen wie aus einem Guss wirken. Mehr
+            dazu im <a href="/projekte/stahel-koeng/">Projekt</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Jubiläum heisst auch: feiern</h2>
+        <div class="lp-text">
+          <p>
+            Ein Jubiläum ist mehr als ein Heft, es ist ein Anlass. Für das
+            100Pro Openair 2024 haben wir das Erscheinungsbild eines ganzen
+            Festes gestaltet: Logo, Flyer, Plakate, Signaletik vor Ort und die
+            Website dazu, alles aus einer Hand.
+          </p>
+          <p>
+            Zum Fest gehört oft auch der Film: Wer die Feier festhalten will,
+            findet auf der Seite
+            <a href="/imagefilm-erstellen-lassen/">Imagefilm erstellen lassen</a>
+            den Einstieg. Und ehrlich: Einen Teil unserer Jubiläumsarbeit
+            zeigen wir bewusst nicht öffentlich, weil nicht jede Firma ihre
+            internen Geschichten im Netz sehen will.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Format + ehrliche Einordnung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gedruckt, digital oder beides</h2>
+        <div class="lp-text">
+          <p>
+            Das gedruckte Magazin liegt auf dem Festtisch, im Empfang und bei
+            guten Kunden: Es ist Geschenk und Verkaufsinstrument zugleich. Die
+            digitale Ausgabe lebt weiter, als PDF, auf deiner Website und als
+            Inhalt für Newsletter und Social Media.
+          </p>
+          <p>
+            Den Druck wickeln wir komplett ab: Papierwahl, Bindung, Auflage und
+            Reinzeichnung, produziert mit Druckpartnern und terminiert auf dein
+            Festdatum. Was wir bei der Druckabwicklung im Detail übernehmen,
+            steht auf der Seite <a href="/magazin-drucken/">Magazin drucken</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wann es sich lohnt und wann nicht</h2>
+        <div class="lp-text">
+          <p>
+            Ein Jubiläumsmagazin lohnt sich bei einem runden Anlass mit
+            Substanz: gewachsene Geschichte, Menschen mit Erzählfreude und ein
+            Fest, auf dem das Heft sein Publikum findet. Dann wird es zum Stück
+            Firmengeschichte, das bleibt.
+          </p>
+          <p>
+            Fehlt das Material oder die Zeit, empfehlen wir ehrlich die
+            kleinere Lösung: eine schlanke Jubiläumszeitung oder ein Dossier
+            auf deiner Website. Wie wir Magazine generell von der Idee bis zur
+            fertigen Ausgabe produzieren, zeigen wir auf der Seite
+            <a href="/magazin-erstellen-lassen/">Magazin erstellen lassen</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Jubiläumsmagazin</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Steht bei dir ein rundes Jubiläum an?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, welches Jahr dein Betrieb oder Verein feiert und was an
+        Geschichten und Material schon da ist. Du bekommst eine ehrliche
+        Einschätzung, welches Format sich lohnt, und ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

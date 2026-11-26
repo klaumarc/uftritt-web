@@ -14,6 +14,11 @@ import Button from "../components/Button.astro";
   </section>
 </Layout>
 
+<script is:inline>
+  // OpenAI Ads: Lead-Conversion (Redirect von kontakt.php/besprechung.php nach erfolgreichem Versand)
+  if (window.oaiq) oaiq("measure", "lead_created", { type: "customer_action" });
+</script>
+
 <style>
   .danke {
     min-height: calc(100svh - 76px);

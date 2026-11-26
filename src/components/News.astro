@@ -1,5 +1,6 @@
 ---
 import { news } from "../data/news";
+import { webpSrcSet } from "../utils/img";
 
 interface Props {
   limit?: number;
@@ -42,11 +43,16 @@ const filters = ["Alle", ...years];
 
   <ul class="news-grid">
     {
-      items.map((n) => (
+      items.map((n) => {
+        const srcset = webpSrcSet(n.image);
+        return (
         <li class="news-item" data-year={yearOf(n.date)}>
           <a class="news-card" href={`/aktuell/${n.slug}/`}>
             <span class="news-media">
-              <img src={n.image} alt={n.title} loading="lazy" />
+              <picture>
+                {srcset && <source type="image/webp" srcset={srcset} sizes="(max-width: 860px) 90vw, 33vw" />}
+                <img src={n.image} alt={n.title} loading="lazy" />
+              </picture>
             </span>
             <span class="news-body">
               <span class="news-meta">
@@ -58,12 +64,17 @@ const filters = ["Alle", ...years];
             </span>
           </a>
         </li>
-      ))
+        );
+      })
     }
   </ul>
 </div>
 
 <style>
+  /* picture-Wrapper (webp/srcset): keine eigene Box, img bleibt layout-seitig gleich */
+  picture {
+    display: contents;
+  }
   .news-filter {
     display: flex;
     flex-wrap: wrap;

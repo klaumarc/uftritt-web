@@ -1,0 +1,259 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["dtb-redesign", "emotion-hinwil", "100pro-openair-2024"].includes(p.slug)
+);
+
+const prozess = [
+  "Erstgespräch: Welche Messe, welche Fläche, was der Stand für dich erreichen soll",
+  "Konzept: Botschaft, Grundriss und Blickführung, abgestimmt auf dein Budget",
+  "Design: Wände, Theke und Sujets in deinem Erscheinungsbild, mit Korrekturrunden",
+  "Reinzeichnung: Druckfertige Daten für jedes Element, direkt für den Messebauer",
+  "Koordination: Aufbau, Technik und Abnahme mit dem Messebau-Partner vor Ort",
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Messestand?",
+    a: "Das hängt von Fläche, System und Anlass ab: Ein mobiler Stand für wenige Quadratmeter ist ein anderes Projekt als ein gemieteter Systemstand mit Lieferung und Aufbau, und dazu kommen Standmiete des Veranstalters, Strom, WLAN, Möbel und Personal. Regional statt national macht einen enormen Unterschied: An einer Gewerbeschau, die wir selbst betreuen, ist ein Auftritt schon mit kleinem Budget möglich. Was Konzept und Design für deinen Stand kosten, klären wir im kostenlosen Erstgespräch, danach bekommst du ein transparentes Angebot mit klarem Preis.",
+  },
+  {
+    q: "Wann sollten wir mit der Planung anfangen?",
+    a: "Für das reine Equipment rechnen Anbieter mit etwa zwei Wochen Vorlauf, mit individuell gedruckten Grafiken mit rund vier Wochen. Davor liegt aber das Konzept: Botschaft, Grundriss und Design brauchen eigene Korrekturrunden. Unsere Empfehlung: Starte mehrere Monate vor der Messe, dann bleibt genug Ruhe für Konzept, Design und Produktion. Für die ZOM 2027 ist jetzt ein guter Moment.",
+  },
+  {
+    q: "Systemstand oder individueller Messebau?",
+    a: "Ein modularer Systemstand lässt sich mehrfach einsetzen, ist schnell aufgebaut und kann gemietet oder gekauft werden. Ein individuell gebauter Stand gibt dir gestalterisch die maximale Freiheit, kostet aber mehr Aufwand bei Bau, Transport und Lagerung. Ehrlich gesagt: Für die meisten KMU ist ein gut gestalteter Systemstand die richtige Wahl, entscheidend ist nicht das System, sondern was draufsteht. Wir gestalten für beide Varianten und sagen dir im Erstgespräch, was sich für deinen Auftritt lohnt.",
+  },
+  {
+    q: "Baut ihr den Stand auch selbst auf?",
+    a: "Nein, und das ist Absicht: Messebau ist ein eigenes Handwerk mit Statik, Materialfragen und Logistik. Unser Teil ist Konzept, Design, druckfertige Daten und die Koordination des Aufbaus. Konstruktion und Aufbau machen Messebau-Partner, mit denen wir die technischen Details direkt absprechen. Du hast trotzdem nur einen Ansprechpartner für die Gestaltung, und vor Ort prüfen wir, ob der Stand aussieht wie der Entwurf.",
+  },
+  {
+    q: "Kann ich einen KI-Entwurf mitbringen?",
+    a: "Sehr gerne: Ein KI-Bild zeigt schnell, in welche Richtung dein Stand gehen könnte, und ist eine gute Grundlage fürs Briefing. Produktionsreif ist so ein Entwurf aber nie: KI liefert Pixelbilder ohne Masstreue, erfindet Konstruktionen, die kein System hergibt, und kennt weder deine Fläche noch die Vorgaben des Veranstalters. Bring deinen Entwurf mit, wir machen daraus ein Konzept, das der Messebauer wirklich umsetzen kann.",
+  },
+  {
+    q: "Wir wollen an die ZOM, was müssen wir wissen?",
+    a: "Die ZOM 2026 in Wetzikon: 2. bis 6. September, 200 Aussteller, 30 000 Besucher, die 52. Durchführung, Veranstalter ist die ZOM Event GmbH. Für 2027 lohnt es sich, früh anzufangen: Sichere zuerst deinen Standplatz beim Veranstalter, dann gehen wir Konzept und Design an, damit Produktion und Aufbau ohne Hektik laufen. Wir gestalten deinen Auftritt und koordinieren den Messebau, melde dich für ein kostenloses Erstgespräch.",
+  },
+];
+---
+
+<Layout
+  title="Messestand gestalten lassen - Uftritt"
+  description="Messestand gestalten lassen: Konzept, Design und druckfertige Daten von Uftritt, Konstruktion und Aufbau über Messebau-Partner im Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="Messe und Event · Zürcher Oberland"
+    title={"Messestände,\ndie Besucher anhalten"}
+    lead="Deinen Messestand gestalten wir so, dass er Besucher anhält: Konzept, Design, druckfertige Daten und die Koordination des Aufbaus kommen von uns, die Konstruktion baut ein Messebau-Partner. Du hast einen Ansprechpartner vom ersten Entwurf bis zum fertigen Stand, egal ob regionaler Anlass oder grosse Fachmesse."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Messestand gestalten"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Design-Substanz + Aufgabenteilung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Ein Stand hat drei Sekunden</h2>
+        <div class="lp-text">
+          <p>
+            Niemand bleibt an einem unübersichtlichen Stand stehen: Die Besucher
+            laufen vorbei und entscheiden im Gehen. In drei Sekunden muss dein
+            Messestand drei Antworten geben: wer du bist, was du anbietest und
+            wem es nützt. Alles andere ist Dekoration.
+          </p>
+          <p>
+            Darum gestalten wir Stände wie grosse Plakate: eine Botschaft, die
+            aus ein paar Metern trägt, wenige grosse Elemente, hohe Kontraste
+            und eine klare Hierarchie. Was jemand erst am Stehtisch versteht,
+            gehört in den <a href="/flyer-gestalten-lassen/">Flyer</a>, nicht
+            an die Wand.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Konzept von uns, Konstruktion vom Messebauer</h2>
+        <div class="lp-text">
+          <p>
+            Unser Teil ist das Handwerk, das wir beherrschen: Konzept,
+            Gestaltung von Wänden, Theke und Sujets in deinem
+            <a href="/corporate-design/">Corporate Design</a>, druckfertige
+            Daten für den Messebauer und die Koordination des Aufbaus. So passt
+            der Stand zur restlichen Marke, von der Website bis zu deinen
+            Drucksachen.
+          </p>
+          <p>
+            Der Teil des Messebauers, ehrlich gesagt: Statik, Konstruktion,
+            Transport und Aufbau sind ein eigenes Gewerk mit eigener
+            Verantwortung. Das machen Messebau-Partner, mit denen wir die
+            technischen Details direkt absprechen. Du hast trotzdem nur einen
+            Ansprechpartner für die Gestaltung.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* ZOM-Box (Fakten belegt) */}
+  <section class="section">
+    <div class="container">
+      <div class="zom-box" data-reveal>
+        <h2>Die ZOM in Wetzikon</h2>
+        <p>
+          Die Fakten: 2. bis 6. September 2026 in Wetzikon, 200 Aussteller,
+          30 000 Besucher, die 52. Durchführung, Veranstalter ist die ZOM Event
+          GmbH. Wer 2027 selbst ausstellen will, sollte früh planen: Standplatz,
+          Konzept, Design und Produktion brauchen ihren Vorlauf.
+        </p>
+        <Button href="/kontakt/" variant="blue">Für die ZOM 2027 planen</Button>
+      </div>
+    </div>
+  </section>
+
+  {/* Ablauf + Praxis-Case */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Praxis aus der Region, ehrlich erzählt</h2>
+        <div class="lp-text">
+          <p>
+            Wir verantworten eine regionale Gewerbeschau mit rund 60 Betrieben:
+            Konzept, Festführer in einer Auflage von 5500 Stück, Blachen,
+            Website und Video. Dort sehen wir jedes Jahr, welche Stände
+            funktionieren: Die Betriebe mit einer klaren Botschaft holen die
+            Besucher an ihren Stand.
+          </p>
+          <p>
+            Und ein Messeauftritt steht nie allein:
+            <a href="/plakatwerbung/">Plakatwerbung</a> und andere
+            <a href="/aussenwerbung/">Aussenwerbung</a> stimmen die Region
+            vorab auf den Anlass ein, gute
+            <a href="/werbeartikel/">Werbeartikel</a> sorgen dafür, dass man
+            dich nach der Messe noch findet. Wie alles zusammenspielt, planen
+            wir im
+            <a href="/grafikdesign-zuercher-oberland/">Grafikdesign</a> aus
+            einer Hand.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Messestand</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Welche Messe soll für dich arbeiten?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, an welchem Anlass du ausstellst und was der Stand leisten
+        soll. Du bekommst eine ehrliche Einschätzung und ein transparentes
+        Angebot für Konzept und Design.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .zom-box {
+    background: var(--color-yellow); padding: clamp(1.75rem, 4vw, 3rem);
+    display: flex; flex-direction: column; align-items: flex-start; gap: 1rem;
+  }
+  .zom-box h2 { margin: 0; }
+  .zom-box p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin: 0; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+</style>

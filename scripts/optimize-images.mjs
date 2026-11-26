@@ -12,6 +12,11 @@
  * Qualitaet ~78, kein Upscale: Zielbreiten >= Originalbreite werden ausgelassen.
  * Originale bleiben unveraendert (Fallback im <img> + Sicherheit).
  *
+ * 2026-11-15: neben public/projekte jetzt auch public/team, public/kunden und
+ * public/news (Portraits, Kundenlogos, News-Bilder; dort jeweils nur 480/960,
+ * keine Galerie-Variante). Der Galerie-Zusatz 1440 gilt weiterhin nur fuer
+ * projekte-Unterordner.
+ *
  * Die Varianten liegen bewusst NEBEN den Originalen (kein Asset-Umzug):
  * Die Pfade in src/data/projects.ts / projectDetails.ts bleiben unveraendert,
  * src/utils/img.ts leitet die webp-Pfade zur Laufzeit vom Originalpfad ab.
@@ -30,11 +35,15 @@ import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const SRC = path.join(ROOT, "public", "projekte");
+// Basis-Ordner: projekte (Karten + Galerien) und seit 2026-11-15 auch
+// team/kunden/news (Portraits, Logos, News-Bilder).
+const SRC_DIRS = ["projekte", "team", "kunden", "news"].map((d) =>
+  path.join(ROOT, "public", d)
+);
 const MANIFEST = path.join(ROOT, "src", "data", "imgVariants.json");
 
 const WIDTHS_BASE = [480, 960]; // alle Bilder (Karten/Grids)
-const WIDTH_GALLERY = 1440; // zusaetzlich fuer Unterordner-Bilder (grosse Galerie/Story)
+const WIDTH_GALLERY = 1440; // zusaetzlich fuer projekte-Unterordner-Bilder (grosse Galerie/Story)
 const QUALITY = 78;
 const FORCE = process.argv.includes("--force");
 
@@ -49,8 +58,8 @@ async function collectJpgs(dir) {
   return out;
 }
 
-const files = (await collectJpgs(SRC)).sort();
-console.log(`${files.length} JPGs unter public/projekte gefunden${FORCE ? " (--force)" : ""}`);
+const files = (await Promise.all(SRC_DIRS.map(collectJpgs))).flat().sort();
+console.log(`${files.length} JPGs in ${SRC_DIRS.length} Ordnern gefunden${FORCE ? " (--force)" : ""}`);
 
 const manifest = {};
 let created = 0;
@@ -62,7 +71,11 @@ for (const [i, file] of files.entries()) {
   // Oeffentlicher URL-Pfad, exakt wie in den Daten-Dateien referenziert.
   const rel = path.relative(path.join(ROOT, "public"), file).split(path.sep).join("/");
   const url = "/" + rel;
-  const inSubdir = path.dirname(path.relative(SRC, file)) !== ".";
+  // Galerie-Variante (1440) nur fuer Bilder in projekte-Unterordnern
+  const projekteRoot = path.join(ROOT, "public", "projekte");
+  const inSubdir =
+    file.startsWith(projekteRoot + path.sep) &&
+    path.dirname(path.relative(projekteRoot, file)) !== ".";
   const targets = inSubdir ? [...WIDTHS_BASE, WIDTH_GALLERY] : WIDTHS_BASE;
 
   const img = sharp(file);

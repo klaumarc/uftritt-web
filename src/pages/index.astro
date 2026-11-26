@@ -63,7 +63,7 @@ const disciplines = [
         <h1
           data-reveal
           class="hero-h1"
-          aria-label="Wir machen Marken wirkungsvoll, vertrauenswürdig, dynamisch, schlagkräftig und konstant"
+          aria-label="Wir machen Marken wirkungsvoll, glaubwürdig, dynamisch, schlagkräftig und konstant"
         >
           Wir machen Marken<br />
           <span class="rotator" aria-hidden="true">
@@ -80,6 +80,36 @@ const disciplines = [
           <Button href="/agentur/" variant="blue">Lern eus känne</Button>
           <Button href="/projekte/" variant="text">Alli Projekt aluege</Button>
         </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------- GRATIS-TOOL: WEBSITE-CHECK ---------- */}
+  <section class="section wcheck-band">
+    <div class="container">
+      <div class="wcheck-inner" data-reveal>
+        <div class="wcheck-text">
+          <span class="eyebrow">Kostenlose Analyse</span>
+          <h2>Wie fit ist deine Website?</h2>
+          <p class="wcheck-lead">
+            Unser Website-Check analysiert deine Seite in 60 Sekunden: Note,
+            über 45 Kriterien von Technik bis Textqualität, ehrliches Fazit.
+            Gratis und ohne Anmeldung.
+          </p>
+        </div>
+        <form class="wcheck-form" action="/website-check/" method="get">
+          <label class="sr-only" for="wcheck-url">Deine Website-Adresse</label>
+          <input
+            id="wcheck-url"
+            name="url"
+            type="text"
+            inputmode="url"
+            autocomplete="url"
+            placeholder="www.deine-firma.ch"
+            required
+          />
+          <button type="submit">Jetzt prüfen</button>
+        </form>
       </div>
     </div>
   </section>
@@ -246,7 +276,7 @@ const disciplines = [
   // damit die H1 fuer Crawler sauber bleibt (SEO).
   const WORDS = [
     ["wirkungsvoll", "fx-impact"],
-    ["vertrauenswürdig", "fx-calm"],
+    ["glaubwürdig", "fx-calm"],
     ["dynamisch", "fx-dynamic"],
     ["schlagkräftig", "fx-punch"],
     ["konstant", "fx-constant"],
@@ -557,6 +587,90 @@ const disciplines = [
   .hero-text {
     /* breiter, damit die H1 mehr ausläuft, Revision Jeffrey */
     max-width: min(1180px, 100%);
+  }
+
+  /* ---------- Website-Check-Band (Gratis-Tool, 2026-11-11) ---------- */
+  .wcheck-band {
+    padding-block: clamp(2.5rem, 4vw, 3.5rem);
+  }
+  .wcheck-inner {
+    background: var(--color-blue);
+    color: #fff;
+    padding: clamp(1.75rem, 4vw, 3rem);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    align-items: center;
+  }
+  .wcheck-text .eyebrow {
+    color: var(--color-yellow);
+  }
+  .wcheck-text h2 {
+    color: #fff;
+    margin: 0.25rem 0 0.75rem;
+  }
+  .wcheck-lead {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    line-height: 1.55;
+  }
+  .wcheck-form {
+    display: flex;
+    gap: 0.6rem;
+  }
+  .wcheck-form input {
+    flex: 1;
+    min-width: 0;
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 0.85rem 1rem;
+    border: 2px solid transparent;
+    border-radius: 0;
+  }
+  .wcheck-form input:focus-visible {
+    outline: 3px solid var(--color-yellow);
+    outline-offset: 2px;
+  }
+  .wcheck-form button {
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.85rem 1.4rem;
+    background: var(--color-yellow);
+    color: var(--color-blue);
+    border: 0;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background 0.3s var(--ease);
+    white-space: nowrap;
+  }
+  .wcheck-form button:hover {
+    background: #fff;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  @media (max-width: 860px) {
+    .wcheck-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 480px) {
+    .wcheck-form {
+      flex-direction: column;
+    }
+    .wcheck-form button {
+      align-self: flex-start;
+    }
   }
   /* Keine Silbentrennung in der Startseiten-H1: «Marken» darf mobil nicht
      als «Mar-ken» brechen (Feedback Marcel 2026-08-28). Globale Mobile-
@@ -886,7 +1000,7 @@ const disciplines = [
     100% { opacity: 1; color: var(--color-blue); }
   }
 
-  /* vertrauenswürdig, ruhig, weich, unaufgeregt scharfstellen */
+  /* glaubwürdig, ruhig, weich, unaufgeregt scharfstellen */
   .rotator-word.fx-calm.is-active {
     animation: fx-calm 0.95s var(--ease) both;
   }

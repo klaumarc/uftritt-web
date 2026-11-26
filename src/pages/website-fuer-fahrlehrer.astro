@@ -1,0 +1,322 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects
+  .filter((p) =>
+    ["fahrschule-schweiz", "peter-ott", "garage-frei"].includes(p.slug)
+  )
+  .slice(0, 3);
+
+const grundbedarf = [
+  {
+    title: "Kurse und Preise auf einen Blick",
+    note: "Auto, Motorrad, Lastwagen oder Taxi: Lernende wollen sofort wissen, welche Kategorien du anbietest und was das kostet, vom Grundkurs bis zum Nothelferkurs.",
+  },
+  {
+    title: "Anmeldung ohne Telefon",
+    note: "Formular für Schnupperlektion und Kursanmeldung: Wer sich abends auf dem Sofa entscheidet, soll nicht bis zum nächsten Morgen warten müssen.",
+  },
+  {
+    title: "Bewertungen als Vertrauensbeweis",
+    note: "Bestandene Prüfungen feiern Lernende öffentlich: Google-Bewertungen und Stimmen von Absolventen gehören sichtbar auf die Seite, nicht nur ins Profil.",
+  },
+  {
+    title: "Team und Fahrzeuge zeigen",
+    note: "Lernende sitzen bald stundenlang neben dir: Fotos vom Fahrlehrer-Team und den Schulungsfahrzeugen nehmen die erste Hemmschwelle, bevor es ins Auto geht.",
+  },
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: Was soll die Seite bringen, welche Kurse und Kategorien bietest du an",
+  "Struktur und Konzept: Kurse, Preise, Team und Anmeldung am richtigen Platz",
+  "Inhalte: Wir schreiben und ordnen ein, du lieferst Fotos von Team und Fahrzeugen",
+  "Bau und Feinschliff: mobil zuerst, schnell ladend, mit deinem Feedback",
+  "Online und betreut: Für CHF 33 pro Monat bleiben wir auch nach dem Launch dran",
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Website für eine Fahrschule?",
+    a: "Das hängt vom Umfang ab: Eine schlanke Seite mit Kursen, Preisen und Anmeldeformular kostet deutlich weniger als ein grosser Auftritt mit vielen Bereichen. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit klarem Preis. Grössenordnungen aus Schweizer Quellen findest du auf unserer Seite <a href=\"/website-kosten/\">Website-Kosten</a>. Danach bleibt die Seite für CHF 33 pro Monat betreut.",
+  },
+  {
+    q: "Können sich Lernende direkt über die Website anmelden?",
+    a: "Ja, und genau dafür bauen wir: Formulare für die Schnupperlektion, die Kursanmeldung oder den Nothelferkurs, mit allen Angaben, die du brauchst. Die Anmeldungen landen direkt bei dir, nicht in irgendeinem Postfach-Dschungel. So beantwortest du weniger Telefonate und verlierst keine Anmeldung mehr, die abends um zehn reinkommt.",
+  },
+  {
+    q: "Wie werde ich bei «Fahrschule» plus Ortsname besser gefunden?",
+    a: "Mit sauberem Local SEO: klarer Seitenstruktur, den richtigen Ortsangaben, einem gepflegten Google-Unternehmensprofil und aktiven <a href=\"/google-bewertungen/\">Google-Bewertungen</a>. Lernende googeln fast nie eine bestimmte Fahrschule, sondern die Fahrschule in ihrem Ort. Wie wir das angehen, zeigen wir auf unserer Seite zu <a href=\"/local-seo/\">Local SEO</a>.",
+  },
+  {
+    q: "Ich bin Einzelkämpfer mit einem Auto. Lohnt sich eine eigene Website?",
+    a: "Ehrlich gesagt: Wenn du einen Baukasten hast, den du zuverlässig pflegst, reicht der fürs Erste. Unser Teil beginnt dort, wo die Seite mehr leisten soll: mehrere Kategorien und Kurse sauber strukturiert, Anmeldungen ohne Rückfragen, ein Team, das wächst. Im kostenlosen Erstgespräch sagen wir dir offen, was für deine Fahrschule sinnvoll ist und was nicht.",
+  },
+  {
+    q: "Kann ich Kursdaten und Preise selbst aktualisieren?",
+    a: "Ja, ohne Programmierkenntnisse: Kursdaten, Preise, Fotos und News pflegst du über eine einfache Oberfläche. Neue Saison, neuer Preis, neues Schulungsfahrzeug: Das ist in Minuten erledigt. Und wenn du gar nicht selbst pflegen willst, übernehmen wir das in der <a href=\"/website-betreuung/\">Website-Betreuung</a> für CHF 33 pro Monat.",
+  },
+  {
+    q: "Brauche ich zusätzlich Instagram und TikTok?",
+    a: "Die Website bleibt deine Heimat, Social Media bringt die Leute dorthin: Kurze Videos aus dem Fahrschulalltag, Tipps fürs Lernen und die Freude nach der bestandenen Prüfung funktionieren auf diesen Kanälen stark. Wie solche <a href=\"/social-media-video/\">Social-Media-Videos</a> entstehen, zeigen wir dir gerne. Beides zusammen schlägt jedes einzelne Profil.",
+  },
+];
+---
+
+<Layout
+  title="Website für Fahrlehrer und Fahrschulen - Uftritt"
+  description="Website für deine Fahrschule: Kurse, Preise und Anmeldung, die Lernende auf dem Handy finden. Mit Bewertungen, Team und betreut für CHF 33 pro Monat."
+>
+  <PageHero
+    eyebrow="Für Fahrschulen und Fahrlehrer"
+    title={"Website für\nFahrlehrer und Fahrschulen"}
+    lead="Die kurze Antwort: Eine Fahrschul-Website muss auf dem Handy überzeugen: Kurse und Preise sofort sichtbar, Anmeldung in zwei Minuten, Bewertungen als Vertrauensbeweis. Wir bauen sie so, dass Lernende und Eltern alles finden, ohne anzurufen, und dass du bei «Fahrschule» plus Ort bei Google vorne dabei bist."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Website für Fahrlehrer"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Was die Seite braucht */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Das Fundament</span>
+        <h2>Was eine Fahrschul-Website können muss</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          grundbedarf.map((g) => (
+            <article class="karte">
+              <h3>{g.title}</h3>
+              <p class="karte-note">{g.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Local SEO und Ehrlichkeit */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gefunden, wenn Lernende googeln</h2>
+        <div class="lp-text">
+          <p>
+            Kaum jemand sucht nach dem Namen deiner Fahrschule: Gesucht wird
+            «Fahrschule» plus Ortsname, meistens auf dem Handy, oft noch am
+            gleichen Abend vor der Anmeldung. Wer dort vorne steht, bekommt die
+            Anfrage, alle anderen bekommen sie nicht.
+          </p>
+          <p>
+            Darum bauen wir Fahrschul-Websites von Anfang an für
+            <a href="/local-seo/">Local SEO</a>: klare Struktur pro Kategorie
+            und Ort, saubere technische Basis und ein Zusammenspiel mit deinem
+            Google-Unternehmensprofil und seinen Bewertungen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ehrlich, auch beim eigenen Angebot</h2>
+        <div class="lp-text">
+          <p>
+            Eine kleine Fahrschule mit einem Fahrzeug und vollem Auftragsbuch
+            braucht keinen grossen Auftritt: Ein gepflegter Baukasten reicht da
+            oft, und wir sagen dir das auch so, statt dir etwas zu verkaufen.
+          </p>
+          <p>
+            Unser Teil beginnt dort, wo die Website Arbeit abnehmen soll:
+            Anmeldungen ohne Rückfragen, Kurse und Preise, die jeder sofort
+            versteht, und ein Auftritt, der zu einer wachsenden Fahrschule
+            passt, vom ersten bis zum zehnten Schulungsfahrzeug.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Fahrschul-Cases und Video */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Zwei Fahrschulen kennen wir von innen</h2>
+        <div class="lp-text">
+          <p>
+            Für die <a href="/projekte/fahrschule-schweiz/">Fahrschule Schweiz</a>
+            sind wir im Web, in der Grafik und hinter der Kamera unterwegs:
+            Website, Gestaltung und Videos kommen dort aus einer Hand und sehen
+            darum aus wie aus einem Guss.
+          </p>
+          <p>
+            Und bei der <a href="/projekte/peter-ott/">Fahrschule Peter Ott</a>
+            waren wir bisher hinter der Kamera: Imagefilm und kurze Formate für
+            Social Media. Ehrlich gesagt: Ein Website-Projekt steht dort noch
+            aus, aber genau so fängt gute Zusammenarbeit oft an, vom Imagefilm
+            zur Website.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Video passt zu Fahrschulen wie der Blinker zum Abbiegen</h2>
+        <div class="lp-text">
+          <p>
+            Fahrschulen leben von Vertrauen, und nichts baut das schneller auf
+            als echte Bilder: Kurze <a href="/social-media-video/">Social-Media-Videos</a>
+            aus dem Fahrschulalltag, Tipps fürs Lernen oder die Freude nach der
+            bestandenen Prüfung zeigen, wer du bist, bevor jemand anruft.
+          </p>
+          <p>
+            Führst du Schnupperanlässe oder Sicherheitstrainings durch, hält ein
+            <a href="/eventvideo/">Eventvideo</a> die Stimmung fest und macht
+            daraus Material für Website und Social Media. Alles, was auf der
+            Website wirkt, arbeitet danach auf den Kanälen weiter.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf und Betreuung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Nach dem Launch bleiben wir dran</h2>
+        <div class="lp-text">
+          <p>
+            Kursdaten ändern sich, Preise werden angepasst, ein neuer Fahrlehrer
+            stösst zum Team: Mit der <a href="/website-betreuung/">Website-Betreuung</a>
+            für CHF 33 pro Monat kümmern wir uns um Hosting, Updates und deine
+            Änderungen, damit die Seite nie veraltet wirkt.
+          </p>
+          <p>
+            Übrigens: Für andere Branchen aus der Region bauen wir mit demselben
+            Anspruch, etwa <a href="/website-fuer-vereine/">Websites für Vereine</a>
+            oder im Rahmen unseres <a href="/webdesign-zuercher-oberland/">Webdesigns
+            im Zürcher Oberland</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen von Fahrlehrern</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p set:html={f.a} />
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Zeit für eine Website, die Lernende überzeugt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns in einem kostenlosen Erstgespräch, was deine Fahrschule
+        braucht. Wir sagen dir ehrlich, was eine Website bringen kann und was
+        sie kostet.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a.replace(/<[^>]*>/g, "") },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

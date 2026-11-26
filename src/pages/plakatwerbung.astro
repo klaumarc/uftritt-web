@@ -1,0 +1,301 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["100pro-openair-2024", "dtb-redesign", "emotion-hinwil"].includes(p.slug)
+);
+
+const prozess = [
+  "Erstgespräch: Ziel, Zielregion, Laufzeit und Budget klären",
+  "Selektion: Format und Standorte wählen, Buchung beim Vermarkter begleiten",
+  "Design: Sujet-Entwurf mit deinen Korrekturrunden, bis die Botschaft sitzt",
+  "Druckdaten: Reinzeichnung exakt nach den technischen Vorgaben von APG|SGA",
+  "Produktion: Druck und Aufhängen durch den Vermarkter, wir bleiben dran",
+];
+
+const faq = [
+  {
+    q: "Was kostet Plakatwerbung in der Schweiz?",
+    a: "Das setzt sich aus zwei Teilen zusammen. Der erste ist die Flächenmiete: Sie hängt von Format, Lage und Laufzeit ab und wird durch den Vermarkter offeriert, in der Schweiz praktisch flächendeckend APG|SGA. Der zweite Teil sind wir: Konzept, Gestaltung des Sujets und die Planung der Kampagne, von der Formatwahl bis zur Selektion der Standorte. Dafür bekommst du nach dem kostenlosen Erstgespräch ein transparentes Angebot mit klarem Preis.",
+  },
+  {
+    q: "Gibt es eine Mindestbuchungsdauer?",
+    a: "Beim klassischen F4 City-Plakat liegt die Mindestbelegung bei einer Woche, danach rechnet sich der Preis einfach: Wochenpreis mal Anzahl Wochen. Für KMU gibt es mit dem Self-Service «APG|SGA easy» sogar einen Weg zur Direktbuchung ohne Agentur dazwischen. Wir begleiten dich bei der Auswahl von Format, Dauer und Standorten, damit du nicht mehr Wochen buchst, als deinem Ziel dient.",
+  },
+  {
+    q: "Kann ich einzelne Orte oder Regionen wählen?",
+    a: "Ja, und genau das ist eine Stärke des Mediums: Die Flächen lassen sich einzeln selektieren, bis runter auf den einzelnen Standort. So buchst du nur die Region, in der deine Kundschaft wirklich unterwegs ist, statt die ganze Schweiz zu bezahlen. Ehrlich eingeordnet: Im Zürcher Oberland ist das F4-Inventar dünn, dort ist Buswerbung auf den VZO-Linien oft die stärkere regionale Fläche. Wir prüfen für dich, was in deiner Zielregion realistisch verfügbar ist.",
+  },
+  {
+    q: "Plakat oder Online-Werbung, was bringt mehr?",
+    a: "Das eine ersetzt das andere nicht, die beiden spielen unterschiedlich: Das Plakat steht physisch im Alltag deiner Region, wirkt auf alle, die vorbeikommen, und lässt sich nicht wegklicken. Online-Anzeigen lassen sich dagegen fein steuern und direkt messen. Für lokale Kampagnen funktioniert oft die Kombination am besten: das Plakat für die Präsenz im Ort, die Online-Anzeigen für die gezielte Ansprache. Im Erstgespräch schauen wir, was zu deinem Budget und deinem Ziel passt.",
+  },
+  {
+    q: "Brauche ich für ein Plakat eine Bewilligung?",
+    a: "Auf den Flächen von APG|SGA nicht: Du mietest die Fläche, und der Vermarkter produziert das Plakat und hängt es auf. Anders sieht es bei eigener temporärer Werbung im öffentlichen Raum aus, etwa bei Blachen an Gemeindestrassen: Dafür ist in der Regel eine Bewilligung der Gemeinde nötig. Für eine regionale Gewerbeschau haben wir genau solche Bewilligungen für temporäre Strassenreklame eingeholt und kennen den Prozess aus eigener Erfahrung.",
+  },
+  {
+    q: "Wer gestaltet das Plakat, und wer druckt es?",
+    a: "Die Gestaltung ist unser Teil: Wir entwerfen das Sujet so, dass es auf Distanz und im Vorbeigehen funktioniert, und liefern druckfertige Daten exakt nach den technischen Vorgaben des Vermarkters. Druck und Aufhängen laufen dann über APG|SGA. Damit hast du für Design, Daten und Buchung einen einzigen Ansprechpartner, und die Kampagne hängt termingerecht.",
+  },
+];
+---
+
+<Layout
+  title="Plakatwerbung gestalten und buchen lassen - Uftritt"
+  description="Plakatwerbung in der Schweiz: Wir gestalten dein Plakat mit einer klaren Botschaft, liefern druckfertige Daten und begleiten die Buchung bei APG|SGA."
+>
+  <PageHero
+    eyebrow="Aussenwerbung · Plakat"
+    title={"Plakatwerbung,\ndie auf Distanz wirkt"}
+    lead="Deine Plakatwerbung gestalten wir so, dass sie auf Distanz funktioniert: eine Botschaft, wenige grosse Elemente, hohe Kontraste. Du bekommst druckfertige Daten nach den Vorgaben des Vermarkters, und wir begleiten die Buchung bei APG|SGA, von der Formatwahl bis zur Selektion der Standorte. Aufgehängt wird auf den Flächen des Vermarkters."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Plakatwerbung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Kosten: ehrlich eingeordnet, ohne Listenpreise */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet Plakatwerbung?</h2>
+        <div class="lp-text">
+          <p>
+            Zwei Posten gehören zusammen: die Flächenmiete und die Kampagne.
+            Die Flächenmiete hängt von Format, Lage und Laufzeit ab und wird
+            durch den Vermarkter offeriert, in der Schweiz praktisch
+            flächendeckend durch APG|SGA. Ein City-Plakat in einer kleinen
+            Gemeinde spielt in einer anderen Liga als eine Grossfläche an
+            der Zürcher Langstrasse.
+          </p>
+          <p>
+            Unser Teil ist die Kampagne: Konzept, Gestaltung des Sujets und
+            die Planung von Formaten, Standorten und Laufzeit. Wir führen
+            dich durch die ganze Kampagne, vom ersten Entwurf bis zum
+            aufgehängten Plakat, und offerieren das nach dem kostenlosen
+            Erstgespräch transparent.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Design-Substanz */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Eine Botschaft, lesbar auf Distanz</h2>
+        <div class="lp-text">
+          <p>
+            Ein Plakat wird im Vorbeigehen gelesen: Fussgänger, Velofahrer und
+            Autofahrer geben dir nur einen kurzen Moment. Darum gestalten wir
+            Plakate nach einer einfachen Disziplin: eine Botschaft, eine
+            Bildwelt, ein klarer Absender. Wenige, grosse Elemente, hohe
+            Kontraste und eine Schriftgrösse, die auch aus zehn Metern noch
+            funktioniert.
+          </p>
+          <p>
+            Damit die Kampagne als Teil deiner Marke erkennbar ist, gestalten
+            wir das Sujet auf Basis deines
+            <a href="/corporate-design/">Corporate Designs</a>: dieselben
+            Farben, Schriften und Bildsprache wie auf deiner Website und deinen
+            <a href="/flyer-gestalten-lassen/">Flyern</a>. So wirkt das Plakat
+            nicht wie ein Fremdkörper, sondern wie deine Marke im öffentlichen
+            Raum.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Vom Festival-Plakat bis zur Strassenreklame</h2>
+        <div class="lp-text">
+          <p>
+            Praxisbeispiel aus der Region: Für das
+            <a href="/projekte/100pro-openair-2024/">100Pro Openair 2024</a>
+            in Bauma haben wir die Festival-Bewerbung mit einer Plakatkampagne
+            gestaltet, vom Sujet bis zu den druckfertigen Daten.
+          </p>
+          <p>
+            Auch abseits der klassischen Plakatflächen kennen wir den Prozess:
+            Für eine regionale Gewerbeschau haben wir
+            <a href="/baugeruest-werbung/">Werbeblachen</a> gestaltet und die
+            Bewilligung für die temporäre Strassenreklame bei der Gemeinde
+            eingeholt. Du musst also nicht selbst herausfinden, welche Stelle
+            was bewilligt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Aufgabenteilung, ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Unser Teil: Sujet, Daten, Buchungsbegleitung</h2>
+        <div class="lp-text">
+          <p>
+            Wir entwerfen dein Plakat im bewährten
+            <a href="/grafikdesign-zuercher-oberland/">Grafikdesign</a>-Prozess:
+            Briefing, Sujet-Entwurf und deine Korrekturrunden, bis die
+            Botschaft sitzt.
+          </p>
+          <p>
+            Danach liefern wir druckfertige Daten exakt nach den technischen
+            Vorgaben des Vermarkters und begleiten die Buchung: Formatwahl,
+            Selektion der Standorte und Abstimmung mit APG|SGA. Du hast einen
+            Ansprechpartner für Gestaltung und Abwicklung.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Teil des Vermarkters, ehrlich gesagt</h2>
+        <div class="lp-text">
+          <p>
+            Die Plakatflächen gehören dem Vermarkter, in der Schweiz praktisch
+            flächendeckend APG|SGA. Er produziert die Plakate und hängt sie
+            auf den gebuchten Flächen auf.
+          </p>
+          <p>
+            Und noch ehrlicher: Brauchst du nur eine Woche F4 in einer
+            einzelnen Stadt, kannst du das über den Self-Service
+            «APG|SGA easy» auch direkt buchen. Unser Teil beginnt dort, wo das
+            Sujet zur Marke passen soll und die Kampagne mehr braucht als eine
+            Standardfläche.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + regionale Einordnung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Regional wirken, ehrlich eingeordnet</h2>
+        <div class="lp-text">
+          <p>
+            Die regionale Selektion ist eine Stärke des Plakats: Du buchst
+            einzelne Orte gezielt, bis runter auf den einzelnen Standort, und
+            bezahlst nur die Region, in der deine Kundschaft unterwegs ist.
+          </p>
+          <p>
+            Ehrlich gesagt: Im Zürcher Oberland ist das F4-Inventar dünn. Wer
+            dort regional wirken will, fährt oft besser mit
+            <a href="/buswerbung/">Buswerbung</a> auf den VZO-Linien, mit einer
+            <a href="/fahrzeugbeschriftung-gestalten/">Beschriftung des eigenen Fahrzeugs</a>
+            oder einem Mix aus mehreren Kanälen der
+            <a href="/aussenwerbung/">Aussenwerbung</a>. Im Erstgespräch sagen
+            wir dir, welche Fläche in deiner Region realistisch verfügbar ist.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Plakatwerbung</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Welche Botschaft soll deine Region sehen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, wo du mit Plakatwerbung sichtbar werden willst und was an
+        Gestaltung schon vorhanden ist. Du bekommst eine ehrliche Einschätzung
+        zur Region und ein transparentes Angebot für Sujet und Daten.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+</style>

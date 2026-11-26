@@ -4,6 +4,8 @@ import PageHero from "../components/PageHero.astro";
 import Button from "../components/Button.astro";
 import LocalTrust from "../components/LocalTrust.astro";
 import OfferLink from "../components/OfferLink.astro";
+import TeamSection from "../components/TeamSection.astro";
+import Reviews from "../components/Reviews.astro";
 import { projects } from "../data/projects";
 
 const cases = projects.filter((p) =>
@@ -107,6 +109,17 @@ const faq = [
     </div>
   </PageHero>
 
+  {/* Hinweis auf die neue Linie Uftakt */}
+  <div class="et-hinweis-band">
+    <div class="container">
+      <p class="et-hinweis" data-reveal>
+        <strong>Neu: Uftakt.</strong> Logo und Webseite zum Fixpreis für
+        kleine Firmen und Startups, inklusive Betreuung im Abo.
+        <a href="/uftakt/">Zur Linie Uftakt</a>
+      </p>
+    </div>
+  </div>
+
   <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
 
   {/* Pakete */}
@@ -209,6 +222,8 @@ const faq = [
     </div>
   </section>
 
+  <TeamSection />
+
   {/* FAQ */}
   <section class="section">
     <div class="container faq-wrap">
@@ -230,6 +245,12 @@ const faq = [
   </section>
 
   <LocalTrust />
+
+  <section class="section">
+    <div class="container">
+      <Reviews />
+    </div>
+  </section>
 
   <section class="section section--yellow">
     <div class="container lp-cta" data-reveal>
@@ -257,6 +278,11 @@ const faq = [
 </Layout>
 
 <style>
+  .et-hinweis-band { background: var(--color-blue); padding: 1.1rem 0; }
+  .et-hinweis { color: #fff; font-size: 1.05rem; line-height: 1.5; margin: 0; }
+  .et-hinweis a { color: var(--color-yellow); font-weight: 700; }
+  .et-hinweis a:hover { text-decoration: underline; }
+
   .pakete { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); align-items: stretch; }
   .paket {
     display: flex; flex-direction: column; gap: 0.5rem;

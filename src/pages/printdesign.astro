@@ -1,0 +1,379 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects
+  .filter((p) =>
+    ["dt-baeretswil", "youngstars-broschuere", "stahel-koeng"].includes(p.slug)
+  )
+  .slice(0, 3);
+
+const arten = [
+  {
+    name: "Flyer",
+    wann: "Ein Blatt, viele Anlässe",
+    note: "Aktionen, Einladungen und Events: schnell gestaltet, leicht verteilt, direkt verstanden.",
+    href: "/flyer-gestalten-lassen/",
+  },
+  {
+    name: "Broschüren",
+    wann: "Mehr Seiten, mehr Substanz",
+    note: "Image, Angebot oder das Vereinsjahr: wenn ein Blatt zu wenig Platz für deine Geschichte hat.",
+    href: "/broschuere-erstellen-lassen/",
+  },
+  {
+    name: "Geschäftsdrucksachen",
+    wann: "Der Alltag deiner Marke",
+    note: "Visitenkarte, Briefpapier und Couvert im gleichen Look wie Website und Logo.",
+    href: "/geschaeftsdrucksachen/",
+  },
+  {
+    name: "Plakate",
+    wann: "Gross und unübersehbar",
+    note: "Für Aussenflächen, Anlässe und Kampagnen im öffentlichen Raum, lesbar auf Distanz.",
+    href: "/plakatwerbung/",
+  },
+  {
+    name: "Inserate",
+    wann: "Bezahlt in der Zeitung",
+    note: "Anzeigen in Regionalzeitungen und Zeitschriften, vom einmaligen Inserat bis zur Serie.",
+    href: "/inserat-gestalten-lassen/",
+  },
+  {
+    name: "Kataloge",
+    wann: "Das Sortiment im Heft",
+    note: "Produkte und Preise übersichtlich aufbereitet, für Kundschaft und Vertrieb.",
+    href: "/katalog-gestalten-lassen/",
+  },
+  {
+    name: "Verpackungen",
+    wann: "Dein Produkt im Regal",
+    note: "Etiketten und Verpackungen, die auffallen, informieren und zur Marke passen.",
+    href: "/verpackungsdesign/",
+  },
+  {
+    name: "Speisekarten",
+    wann: "Die Karte zum Anfassen",
+    note: "Für Gastrobetriebe: übersichtlich gestaltet und aufs tägliche Blättern ausgelegt.",
+    href: "/speisekarte-erstellen-lassen/",
+  },
+];
+
+const prozess = [
+  "Erstgespräch: Ziel, Zielgruppe und was an Gestaltung schon vorhanden ist",
+  "Konzept: Layoutrichtung mit Beispielseiten, Typografie und Bildwelt",
+  "Feinschliff: Deine Korrekturrunden, bis Inhalt und Gestaltung sitzen",
+  "Reinzeichnung: Druckfertige Daten mit Beschnitt, CMYK und eingebetteten Schriften",
+  "Druckabwicklung: Offerte, Belegkontrolle und Lieferung über die Partnerdruckerei",
+];
+
+const faq = [
+  {
+    q: "Was kostet Printdesign bei einer Agentur?",
+    a: "Das hängt von der Drucksache ab: Ein einseitiger Flyer ist ein anderes Projekt als eine Broschüre mit 24 Seiten oder ein Katalog mit laufender Pflege. Entscheidend sind Umfang, deine Vorarbeit und die Zahl der Korrekturrunden. Nach dem Erstgespräch bekommst du von uns ein transparentes Angebot, in dem Gestaltung, Reinzeichnung und Druckabwicklung sauber getrennt sind. Die Druckkosten offeriert die Druckerei separat und direkt auf deine Auflage zugeschnitten.",
+  },
+  {
+    q: "Druckt ihr auch selbst?",
+    a: "Nein, und das ist bewusst so: Drucken ist ein eigenes Handwerk mit Maschinenpark, Papierlager und Finishing. Unser Teil ist die Gestaltung, die druckfertige Reinzeichnung und die komplette Abwicklung: Wir holen Offerten ein, klären Papier und Auflage, prüfen den Beleg und bleiben bis zur Lieferung dran. Gedruckt wird bei Partnerdruckereien, mit denen wir die technischen Details direkt absprechen. Für dich bleibt es ein Ansprechpartner.",
+  },
+  {
+    q: "Welche Drucksachen gestaltet ihr alles?",
+    a: "Vom einseitigen Flyer über Broschüren, Kataloge und Plakate bis zu Inseraten, Verpackungen und Geschäftsdrucksachen wie Visitenkarten und Briefpapier. Dazu kommen Sonderformen wie Speisekarten, Einladungen oder Magazinlayouts. Wenn du unsicher bist, welche Form zu deinem Ziel passt, ist das genau die Frage fürs Erstgespräch: Manchmal reicht das einfache Blatt, manchmal lohnt sich das Heft.",
+  },
+  {
+    q: "Ich habe schon etwas in Word oder Canva gebaut, könnt ihr damit arbeiten?",
+    a: "Gerne: Ein vorhandener Entwurf ist als Skizze willkommen und zeigt oft klar, wohin es gehen soll. Druckfertig ist er meist nicht: Es fehlen Beschnitt, eingebettete Schriften, saubere CMYK-Farben und aufgelöste Bilder. Wir überführen deine Vorlage in ein sauberes Layout und liefern Daten, mit denen jede Druckerei arbeiten kann.",
+  },
+  {
+    q: "Wie lange dauert ein Printprojekt?",
+    a: "Ein Flyer ist je nach Vorlage in wenigen Tagen gestaltet, eine Broschüre mit mehreren Korrekturrunden braucht eher mehrere Wochen. Dazu kommt die Druckzeit der Druckerei, die je nach Produkt und Ausstattung variiert. Hast du einen festen Termin wie einen Anlass oder eine Messe, sag ihn uns gleich zu Beginn: Wir planen rückwärts und sagen dir ehrlich, was bis dahin realistisch ist.",
+  },
+  {
+    q: "Gehören mir am Schluss die Daten?",
+    a: "Das druckfertige PDF gehört dir auf jeden Fall: Du kannst damit jederzeit nachdrucken lassen, bei uns oder bei jeder anderen Druckerei. Offene Bearbeitungsdateien geben wir auf Wunsch ebenfalls heraus. Was genau übergeben wird, halten wir transparent im Angebot fest. So bleibst du unabhängig, und deine Drucksachen gehören wirklich dir.",
+  },
+];
+---
+
+<Layout
+  title="Printdesign Agentur im Zürcher Oberland - Uftritt"
+  description="Printdesign Agentur im Zürcher Oberland: Flyer, Broschüren, Plakate, Inserate und Verpackungen aus einem Guss. Gestaltung, Reinzeichnung und Druckabwicklung."
+>
+  <PageHero
+    eyebrow="Printdesign · Zürcher Oberland"
+    title={"Printdesign von\ndeiner Agentur im Zürcher Oberland"}
+    lead="Flyer, Broschüren, Plakate, Inserate, Verpackungen: Wir gestalten deine Drucksachen als Teil deines Erscheinungsbilds, reinzeichnen sie druckfertig und wickeln den Druck über Partnerdruckereien aus der Region ab. Du bekommst Gestaltung, Daten und Druckabwicklung aus einer Hand, von der ersten Idee bis zum fertigen Stapel Papier in deinem Eingang."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Printdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Hub: Überblick der Print-Arten */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Der Überblick</span>
+        <h2>Welche Drucksache brauchst du?</h2>
+      </header>
+      <div class="arten" data-reveal>
+        {
+          arten.map((a) => (
+            <a href={a.href} class="art-card">
+              <h3>{a.name}</h3>
+              <p class="art-wann">{a.wann}</p>
+              <p class="art-note">{a.note}</p>
+              <span class="art-more">Mehr dazu</span>
+            </a>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Nicht sicher, welche Form passt? Im Erstgespräch ordnen wir gemeinsam
+        ein, was sich für dein Ziel lohnt, und was du dir getrost sparen
+        kannst.
+      </p>
+    </div>
+  </section>
+
+  {/* Ehrlicher Vergleich + CD-Kontext */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Reichweite zuerst oder gleich in die Tiefe?</h2>
+        <div class="lp-text">
+          <p>
+            Plakat, Inserat und Flyer arbeiten auf die erste Sekunde: Sie
+            erreichen Leute, die dich noch nicht kennen, auf der Strasse, in
+            der Zeitung, im Briefkasten. Broschüre, Katalog und Verpackung
+            arbeiten in die Tiefe: Dort blättert jemand, der schon Interesse
+            hat, und entscheidet im Detail.
+          </p>
+          <p>
+            Darum ist «einfach etwas drucken» selten die richtige Frage.
+            Besser: Wo steht deine Zielgruppe, und was soll sie als Nächstes
+            tun? Wer neu ins Dorf zieht, sieht das Plakat an der
+            Bushaltestelle. Wer schon am Tisch sitzt, will die Broschüre in
+            die Hand nehmen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ein Erscheinungsbild statt lauter Einzelblätter</h2>
+        <div class="lp-text">
+          <p>
+            Jede Drucksache ist ein Kontaktpunkt mit deiner Marke. Sieht der
+            Flyer anders aus als die Visitenkarte und die Broschüre wieder
+            ganz anders, entsteht kein Bild im Kopf, sondern Rauschen.
+          </p>
+          <p>
+            Wir gestalten Print deshalb als Teil deines
+            <a href="/corporate-design/">Corporate Designs</a>: dieselben
+            Farben, Schriften und Regeln wie auf deiner Website, den
+            <a href="/geschaeftsdrucksachen/">Geschäftsdrucksachen</a> und der
+            <a href="/fahrzeugbeschriftung-gestalten/">Fahrzeugbeschriftung</a>.
+            So erkennt dich deine Kundschaft auf jedem Träger sofort wieder,
+            vom Plakat bis zum Couvert.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Aufgabenteilung, ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gestaltung und Daten von uns</h2>
+        <div class="lp-text">
+          <p>
+            Unser Teil beginnt beim Briefing und endet beim druckfertigen
+            PDF: Konzept, Layout, Satz und Reinzeichnung mit Beschnitt,
+            CMYK-Farben und eingebetteten Schriften. Du gibst am Bildschirm
+            frei, wir bereiten so vor, dass jede Druckerei ohne Rückfragen
+            produzieren kann.
+          </p>
+          <p>
+            Gestaltet wird mit derselben Sorgfalt wie alles andere im
+            <a href="/grafikdesign-zuercher-oberland/">Grafikdesign</a>: keine
+            Vorlage von der Stange, sondern ein Layout, das zu deiner Marke
+            und deinem Inhalt passt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Gedruckt wird bei der Druckerei</h2>
+        <div class="lp-text">
+          <p>
+            Drucken ist ein eigenes Handwerk: Papierauswahl, Auflage,
+            Veredelung und Versand. Das machen Partnerdruckereien, mit denen
+            wir die technischen Details direkt absprechen. Wir holen die
+            Offerten ein, klären Papier und Grammatur, kontrollieren den
+            Beleg und bleiben bis zur Lieferung dran.
+          </p>
+          <p>
+            Du hast trotzdem nur einen Ansprechpartner. Und das druckfertige
+            PDF gehört am Schluss dir: Nachdrucken kannst du damit, wo du
+            willst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Cases */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Drei Beispiele aus der Region</h2>
+        <div class="lp-text">
+          <p>
+            Das Vereinsheft von <a href="/projekte/dt-baeretswil/">DT
+            Bäretswil</a> erscheint jede Saison neu: Chronik, Teamporträts,
+            Interviews und Sponsorenseiten, von uns konzipiert, gesetzt und
+            bis ins druckfertige PDF begleitet.
+          </p>
+          <p>
+            Für <a href="/projekte/youngstars-broschuere/">Youngstars
+            International</a> gestalten wir Broschüren und Mailings auf
+            Deutsch und Englisch, inklusive Abwicklung des Drucks über die
+            Partnerdruckerei.
+          </p>
+          <p>
+            Und zum 125-Jahr-Jubiläum von
+            <a href="/projekte/stahel-koeng/">Stahel + Köng</a> in Hinwil
+            entstanden das Jubiläumslogo in mehreren Varianten sowie die
+            Gestaltung einer gravierten Edelstahlflasche als
+            Jubiläumsgeschenk.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Printdesign</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Was soll bei dir aufs Papier?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du drucken lassen willst und was an Gestaltung schon
+        vorhanden ist. Du bekommst eine ehrliche Einschätzung, welche
+        Drucksache sich für dein Ziel lohnt, und ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .arten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .art-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    text-decoration: none; color: inherit;
+    transition: border-color 0.3s var(--ease);
+  }
+  .art-card:hover { border-color: var(--color-pink); }
+  .art-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .art-wann { font-weight: 700; font-size: 0.95rem; color: var(--color-pink); margin: 0; }
+  .art-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .art-more { margin-top: auto; padding-top: 0.35rem; font-weight: 700; font-size: 0.95rem; color: var(--color-blue); }
+  .art-card:hover .art-more { color: var(--color-pink); }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .arten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .arten { grid-template-columns: 1fr; }
+  }
+</style>

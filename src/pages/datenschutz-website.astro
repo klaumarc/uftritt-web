@@ -1,0 +1,370 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["physio-rothe", "smart-navigator", "garage-frei"].includes(p.slug)
+);
+
+const pflichten = [
+  {
+    datum: "Art. 19 bis 21 nDSG",
+    title: "Datenschutzerklärung",
+    note: "Pflicht für praktisch jede Website: Sobald du Personendaten bearbeitest, musst du informieren. Ein Kontaktformular oder eine Newsletter-Anmeldung reicht dafür schon.",
+  },
+  {
+    datum: "Art. 12 nDSG",
+    title: "Bearbeitungsverzeichnis",
+    note: "Eine interne Übersicht aller Datenbearbeitungen. Firmen unter 250 Mitarbeitenden sind befreit, ausser die Bearbeitung ist risikoreich, etwa ausgedehntes Tracking im Newsletter.",
+  },
+  {
+    datum: "Art. 24 nDSG",
+    title: "Datenpannen-Meldung",
+    note: "Ein Datenleck mit hohem Risiko muss so rasch als möglich dem Eidgenössischen Datenschutz- und Öffentlichkeitsbeauftragten (EDÖB) und den Betroffenen gemeldet werden.",
+  },
+  {
+    datum: "Bis CHF 250000",
+    title: "Busse, persönlich",
+    note: "Verstösse gegen das nDSG werden mit Bussen geahndet. Getroffen wird dabei die verantwortliche Person, nicht die Firma. Als Inhaberin oder Inhaber bist du das selbst.",
+  },
+];
+
+const inhalt = [
+  { t: "Wer verantwortlich ist", d: "Name, Adresse und Kontaktangaben deiner Firma" },
+  { t: "Welche Daten du bearbeitest", d: "Kontaktformular, Newsletter, Statistik, Shop" },
+  { t: "Zu welchem Zweck", d: "was du mit den Daten machst und warum" },
+  { t: "An wen Daten gehen", d: "Empfänger und Dienstleister, etwa Hosting oder E-Mail-Versand" },
+  { t: "Ins Ausland", d: "ob Daten das Land verlassen, wohin und unter welchen Garantien" },
+  { t: "Welche Rechte Besucher haben", d: "Auskunft, Berichtigung, Löschung und Datenherausgabe" },
+];
+
+const prozess = [
+  "Ist-Analyse: Welche Daten deine Website heute bearbeitet und welche Tools laufen",
+  "Erklärung: Datenschutzerklärung in verständlicher Sprache, abgestimmt auf deine Abläufe",
+  "Verzeichnis: Bearbeitungsverzeichnis als schlanke Übersicht, die mit deinem Betrieb mitwächst",
+  "Setup: Hosting in der Schweiz und Statistik ohne Cookies, wo es passt",
+  "Pflege: Erklärung und Verzeichnis aktuell halten, wenn neue Tools dazukommen",
+];
+
+const faq = [
+  {
+    q: "Brauche ich wirklich eine Datenschutzerklärung?",
+    a: "Ja, praktisch sicher: Seit dem 1. September 2023 gilt in der Schweiz das revidierte Datenschutzgesetz. Es verlangt, dass du informierst, sobald du Personendaten bearbeitest. Auf einer Website passiert das fast immer, mit Kontaktformular, Newsletter-Anmeldung, Statistik, eingebetteten Videos oder einem Shop. Wer keine dieser Funktionen hat, ist die Ausnahme. Üblich ist ein gut sichtbarer Link im Footer deiner Website.",
+  },
+  {
+    q: "Was kostet eine Datenschutzerklärung für meine Website?",
+    a: "Das hängt davon ab, was deine Website alles tut: Eine schlanke Firmensite mit Kontaktformular ist schnell erfasst, ein Shop mit Newsletter, Buchungstool und Tracking braucht mehr Sorgfalt. Wir schauen uns deine Website zuerst an und sagen dir dann ehrlich, was nötig ist. Nach dem kostenlosen Erstgespräch bekommst du ein transparentes Angebot, ohne Pauschalversprechen vorab.",
+  },
+  {
+    q: "Brauche ich ein Cookie-Banner?",
+    a: "In der Schweiz nicht automatisch: Hier gilt eine Informationspflicht (FMG Art. 45c), du musst Besucher über Cookies und deren Zweck aufklären, ein vorheriges Opt-in ist nicht vorgeschrieben. Erreichst du gezielt Kunden in der EU, wird eine Einwilligung vor nicht notwendigen Cookies Pflicht. Unser eigener Weg: Wir messen mit Matomo cookielos, ganz ohne Analyse-Cookies. Darum kommt unsere Website ohne Cookie-Banner aus, und wir bauen Kundenwebsites auf Wunsch genauso.",
+  },
+  {
+    q: "Was droht, wenn ich den Datenschutz ignoriere?",
+    a: "Das Gesetz sieht Bussen bis CHF 250000 vor. Die Busse trifft nicht die Firma, sondern die verantwortliche Person, also dich als Inhaberin oder Inhaber. Dazu kommt bei einem Datenleck mit hohem Risiko die Pflicht, die Panne dem EDÖB und den Betroffenen zu melden. Probleme entstehen dabei selten aus bösem Willen, sondern meist, weil das Setup niemand pflegt.",
+  },
+  {
+    q: "Was ist der Unterschied zwischen nDSG und DSGVO?",
+    a: "Das nDSG ist das Schweizer Gesetz, die DSGVO das europäische. Für deine Schweizer Firma gilt grundsätzlich das nDSG. Sprichst du aber gezielt Kunden in der EU an, etwa mit einem Shop, der dorthin liefert, kommt die DSGVO zusätzlich dazu. Sie ist in einzelnen Punkten strenger, etwa beim Cookie-Opt-in. Im Erstgespräch klären wir, welche Situation auf dich zutrifft.",
+  },
+  {
+    q: "Ist das hier eine Rechtsberatung?",
+    a: "Nein, und das sagen wir offen: Wir sind eine Kommunikationsagentur, keine Anwälte. Was wir können, ist dein Setup sauber bauen: Hosting in der Schweiz, sparsame Datenhaltung, eine verständliche Datenschutzerklärung und ein Bearbeitungsverzeichnis. Für heikle Fragen, etwa Gesundheitsdaten oder Datenflüsse ins Ausland, empfehlen wir einen Fachanwalt und arbeiten auf Wunsch direkt mit ihm zusammen.",
+  },
+];
+---
+
+<Layout
+  title="Datenschutzerklärung für die Website - Uftritt"
+  description="Datenschutz für die Website: Was das nDSG seit 2023 verlangt, was in die Datenschutzerklärung gehört und wie Hosting und Statistik datensparsam werden."
+>
+  <PageHero
+    eyebrow="Datenschutz · nDSG Schweiz"
+    title={"Daten­schutz­er­klä­rung erstellen:\nWas deine Website braucht"}
+    lead="Ja, deine Website braucht eine Datenschutzerklärung: Seit dem 1. September 2023 gilt in der Schweiz das revidierte Datenschutzgesetz, und praktisch jede Website bearbeitet Personendaten, schon mit Kontaktformular, Newsletter oder Statistik. Wir zeigen dir, was rein muss, und bauen Websites so, dass Datenschutz von Anfang an stimmt."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Datenschutz auf der Website"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Rechtslage */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Die Rechtslage</span>
+        <h2>Was das Gesetz verlangt</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          pflichten.map((p) => (
+            <article class="karte">
+              <p class="karte-datum">{p.datum}</p>
+              <h3>{p.title}</h3>
+              <p class="karte-note">{p.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Quellen: revidiertes Datenschutzgesetz (nDSG, in
+        Kraft seit 1. September 2023), FMG Art. 45c und DSGVO. Diese Seite
+        ersetzt keine Rechtsberatung.
+      </p>
+    </div>
+  </section>
+
+  {/* Inhalt der Erklärung + Verzeichnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was in die Erklärung muss</h2>
+        <div class="lp-text">
+          <p>
+            Die Artikel 19 bis 21 des nDSG sagen im Kern: Besucher deiner
+            Website müssen verstehen können, was mit ihren Daten passiert.
+            Konkret gehört in jede Datenschutzerklärung:
+          </p>
+          <ul class="modul-liste">
+            {inhalt.map((i) => <li><strong>{i.t}:</strong> {i.d}</li>)}
+          </ul>
+          <p>
+            Wichtig ist die Wahrheit: Die Erklärung muss beschreiben, was
+            deine Website wirklich tut, nicht was gut klingt. Ein Textbaustein
+            aus dem Internet, der eingesetzte Tools verschweigt, schützt dich
+            nicht.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Das Bearbeitungsverzeichnis, deine Landkarte</h2>
+        <div class="lp-text">
+          <p>
+            Weniger bekannt, aber genauso Teil des Gesetzes: das
+            Bearbeitungsverzeichnis. Es ist deine interne Übersicht aller
+            Datenbearbeitungen, vom Kundenkontakt über den Newsletter bis zur
+            Statistik. Firmen unter 250 Mitarbeitenden sind davon grundsätzlich
+            befreit, ausser die Bearbeitung ist risikoreich, und ausgedehntes
+            Tracking kann genau das sein.
+          </p>
+          <p>
+            Für die meisten KMU reicht eine schlanke, einseitige Übersicht. Sie
+            hilft vor allem dir selbst: Wer weiss, welche Daten wo liegen,
+            beantwortet Auskunftsanfragen gelassen und merkt sofort, wenn ein
+            neues Tool dazukommt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Cookies + Setup */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Cookies und Tracking, ehrlich eingeordnet</h2>
+        <div class="lp-text">
+          <p>
+            In der Schweiz gilt für Cookies eine Informationspflicht (FMG
+            Art. 45c): Du musst Besucher über Cookies und deren Zweck
+            aufklären, ein vorheriges Opt-in ist nicht vorgeschrieben. Anders
+            in der EU: Wer dort gezielt Kunden anspricht, braucht eine
+            Einwilligung, bevor nicht notwendige Cookies gesetzt werden.
+          </p>
+          <p>
+            Darum ist die entspannteste Lösung oft die technische: Was gar
+            keine Cookies setzt, braucht auch kein Banner. Genau so arbeiten
+            wir selbst.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Unser Setup: Daten bleiben im Land</h2>
+        <div class="lp-text">
+          <p>
+            Gehostet werden unsere Websites in der Schweiz, bei Kreativ Media:
+            Deine Daten bleiben im Land, und wir kümmern uns um den technischen
+            Betrieb. Das ist Teil der <a href="/website-betreuung/">Website-Betreuung</a>
+            für fix CHF 33 pro Monat.
+          </p>
+          <p>
+            Für die Besucherstatistik setzen wir Matomo ein, cookielos und auf
+            eigener Infrastruktur betrieben: Es werden keine Analyse-Cookies
+            gesetzt und keine Daten an Dritte weitergegeben. Wie das in der
+            Praxis aussieht, kannst du in unserer eigenen
+            <a href="/datenschutz/">Datenschutzerklärung</a> nachlesen. Auf
+            Wunsch bauen wir deine Website genauso.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Eine Datenschutzerklärung, die zu deinen Abläufen passt, ein
+            Bearbeitungsverzeichnis als schlanke Übersicht und ein Setup, das
+            sparsam mit Daten umgeht. Kurz: Du weisst, was gilt, und deine
+            Website hält sich daran.
+          </p>
+          <p>
+            Planst du ohnehin eine neue Website? Dann denk Datenschutz gleich
+            von Anfang an mit, das kostet fast nichts extra. Ein Gefühl für die
+            Grössenordnung gibt dir unsere Seite zu den
+            <a href="/website-kosten/">Website-Kosten</a>. Und wenn du wissen
+            willst, was beim zweiten grossen Rechtsthema gilt: Hier ist unser
+            Ratgeber zur <a href="/barrierefreie-website/">barrierefreien Website</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ehrlichkeit: keine Rechtsberatung */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Keine Rechtsberatung, ehrlich gesagt</h2>
+        <div class="lp-text">
+          <p>
+            Wir sind eine Kommunikationsagentur, keine Anwälte. Diese Seite
+            ordnet ein, was das nDSG für typische KMU-Websites bedeutet,
+            ersetzt aber keine Rechtsberatung im Einzelfall.
+          </p>
+          <p>
+            Für heikle Fälle, etwa besonders schützenswerte Daten, grosse Shops
+            oder komplexe Datenflüsse ins Ausland, empfehlen wir dir einen
+            Fachanwalt für Datenschutzrecht. Auf Wunsch arbeiten wir direkt mit
+            ihm zusammen, damit Technik und Recht zusammenpassen.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu Datenschutz auf der Website</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Ist der Datenschutz auf deiner Website geregelt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns kurz, was deine Website kann und welche Tools du nutzt. Du
+        bekommst eine ehrliche Einschätzung, was fürs nDSG nötig ist, und auf
+        Wunsch ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte-datum { font-weight: 700; font-size: 0.95rem; color: var(--color-pink); margin: 0; text-transform: uppercase; letter-spacing: 0.04em; }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0 0 1rem; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

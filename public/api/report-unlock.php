@@ -16,6 +16,11 @@ require __DIR__ . '/_lib/stripe.php';
 
 uc_cleanup_maybe();
 
+// Bezahlter Report darf mehr Zeit bekommen: PSI-Labormessung (~20 s) + LLM-Volltext
+// (~30 s) sprengen zusammen das Gratis-Budget. FPM-Terminate liegt bei 120 s.
+$GLOBALS['UC']['budget_extra'] = 25.0;
+@set_time_limit(75);
+
 // Claim-Handle + Pfad für den atomaren Unlock-Claim (gebraucht im catch)
 $claimed = null;
 $unlockPath = '';
@@ -103,7 +108,7 @@ try {
         }
     }
     if ($analysis === null) {
-        $analysis = uc_analyze($norm, false, 'none');
+        $analysis = uc_analyze($norm, true, 'none');
         if (isset($analysis['error'])) {
             // Fehlgeschlagen: Claim freigeben, damit ein erneuter Versuch möglich bleibt
             fclose($claimed);
@@ -120,13 +125,20 @@ try {
             (array)$analysis['scores'],
             (array)$analysis['overall'],
             (array)$analysis['findings'],
-            (string)($analysis['text_excerpt'] ?? '')
+            (string)($analysis['text_excerpt'] ?? ''),
+            [
+                'industry' => $analysis['industry'] ?? null,
+                'brand' => (array)($analysis['brand'] ?? []),
+                'palette' => (array)($analysis['palette'] ?? []),
+            ]
         );
         if ($full !== null) {
             $analysis['llm']['full'] = $full['full'];
             if (empty($analysis['llm']['teaser'])) {
                 $analysis['llm']['teaser'] = $full['teaser'];
             }
+            $analysis['llm']['leseprobe'] = $full['leseprobe'] ?? null;
+            $analysis['llm']['farbeindruck'] = $full['farbeindruck'] ?? null;
             $analysis['llm_used'] = true;
         } else {
             $fb = uc_llm_fallback(
@@ -159,6 +171,9 @@ try {
         'llm_used' => (bool)($analysis['llm_used'] ?? false),
         'pages_crawled' => (int)($analysis['pages_crawled'] ?? 1),
         'psi' => $analysis['psi'] ?? null,
+        'industry' => $analysis['industry'] ?? null,
+        'brand' => $analysis['brand'] ?? null,
+        'palette' => $analysis['palette'] ?? null,
         'paid' => true,
     ];
     uc_report_save($reportId, $report);

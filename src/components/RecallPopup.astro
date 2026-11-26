@@ -13,7 +13,7 @@
 
   <div class="recall-body" data-recall-form>
     <div class="recall-head">
-      <img class="recall-avatar" src="/team/marcel.jpg" alt="Marcel Klausberger" width="88" height="88" loading="lazy" />
+      <img class="recall-avatar" src="/team/marcel-klausberger-portrait.jpg" alt="Marcel Klausberger" width="88" height="88" loading="lazy" />
       <div class="recall-head-text">
         <h3>Sollen wir uns bei dir melden?</h3>
         <span class="recall-person">Marcel meldet sich persönlich bei dir</span>
@@ -40,7 +40,7 @@
 
   <div class="recall-done" data-recall-done hidden>
     <div class="recall-head">
-      <img class="recall-avatar" src="/team/marcel.jpg" alt="Marcel Klausberger" width="88" height="88" loading="lazy" />
+      <img class="recall-avatar" src="/team/marcel-klausberger-portrait.jpg" alt="Marcel Klausberger" width="88" height="88" loading="lazy" />
       <div class="recall-head-text">
         <h3>Merci! 🎉</h3>
         <span class="recall-person">- Marcel</span>
@@ -92,6 +92,7 @@
         el.querySelector<HTMLElement>("[data-recall-form]")!.hidden = true;
         el.querySelector<HTMLElement>("[data-recall-done]")!.hidden = false;
         (window as any)._paq?.push(["trackEvent", "Lead", "Rückruf gesendet"]);
+        (window as any).oaiq?.("measure", "lead_created", { type: "customer_action" });
         sessionStorage.setItem(KEY, "1");
         window.setTimeout(close, 3500);
       } catch {

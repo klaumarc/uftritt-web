@@ -1,0 +1,271 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import TeamSection from "../components/TeamSection.astro";
+import Reviews from "../components/Reviews.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["sam-focus", "emotion-hinwil", "dtb-redesign"].includes(p.slug)
+);
+
+const prozess = [
+  "Erstgespräch: Was du brauchst, was schon da ist und wo es hingehen soll, kostenlos und unverbindlich",
+  "Konzept und Entwurf: Wir gestalten erste Varianten und zeigen sie dir früh, nicht erst am Schluss",
+  "Korrekturrunden: Dein Feedback fliesst ein, bis Logo, Layout und Farbwelt sitzen",
+  "Reinzeichnung: Saubere, druckfertige Daten für Druckerei, Web und Social Media",
+  "Produktion: Auf Wunsch koordinieren wir Druck und Umsetzung mit unseren Partnern",
+];
+
+const faq = [
+  {
+    q: "Arbeitet ihr auch für Betriebe aus Winterthur?",
+    a: "Ja, gerne. Unser Büro steht zwar nicht in Winterthur, sondern in Saland im Zürcher Oberland, aber die S26 bringt uns ohne Umsteigen an deinen Bahnhof, und mit dem Auto sind wir in einer guten halben Stunde bei dir, ob in der Altstadt, in Oberwinterthur oder in Wülflingen. Besprechungen machen wir bei dir im Betrieb, bei uns in Saland oder per Video-Call.",
+  },
+  {
+    q: "Was kostet Grafikdesign bei euch?",
+    a: "Das hängt vom Umfang ab: Ein einzelner Flyer kostet weniger als ein komplettes Erscheinungsbild mit Logo, Farbwelt und Drucksachen. Pauschalpreise von der Stange wären unseriös. Darum bekommst du nach einem kostenlosen Erstgespräch ein transparentes Angebot mit allen Leistungen und einem klaren Preis, ohne versteckte Kosten.",
+  },
+  {
+    q: "Geht das auch remote, oder kommt ihr vor Ort vorbei?",
+    a: "Beides. Die Gestaltung selbst läuft ohnehin digital: Du bekommst Entwürfe und Korrekturstände bequem per Link oder Mail und gibst Feedback in deinem Tempo. Fürs Erstgespräch und wichtige Etappen kommen wir aber gerne persönlich zu dir nach Winterthur, gerade am Anfang ist das direkte Gespräch viel wert.",
+  },
+  {
+    q: "Welche Referenzen habt ihr im Grafikdesign?",
+    a: "Ein paar Beispiele: Für SAM Global aus Winterthur gestalten wir das Mitgliedermagazin SAM focus laufend, Redaktion und Gestaltung aus einer Hand. Dazu kommen das pinke Erscheinungsbild des Unihockeyvereins emotion Hinwil mit Logo, Corporate Design Manual und Social-Media-Vorlagen, das Branding des Unihockeyclubs DT Bäretswil und die laufende Gestaltung von Drucksachen und Plakaten für den Coiffeur- und Beauty-Salon Arte Bellezza in Wetzikon. Weitere Beispiele zeigen wir dir gerne im Erstgespräch.",
+  },
+  {
+    q: "Gestaltet ihr auch nur einen einzelnen Flyer oder eine Broschüre?",
+    a: "Klar. Es muss nicht immer das komplette Branding sein: Wir gestalten einzelne Drucksachen genauso sorgfältig wie ganze Auftritte, vom Gutschein über die Speisekarte bis zum Plakat. Und falls dabei mehr werden soll, hast du mit uns schon den richtigen Partner.",
+  },
+  {
+    q: "Wir haben schon ein Logo, lohnt sich das trotzdem?",
+    a: "Oft ja. Wir können dein bestehendes Logo behutsam modernisieren oder das fehlende Drumherum ergänzen: eine klare Farbwelt, passende Schriften, Vorlagen für Briefschaft und Social Media, Drucksachen im einheitlichen Look. So wird aus einem losen Logo ein Erscheinungsbild, das überall zusammenpasst.",
+  },
+];
+---
+
+<Layout
+  title="Grafikdesign Winterthur - Uftritt"
+  description="Grafikdesign für Winterthur: Logo, Corporate Design, Broschüren und Flyer von Uftritt, der Kommunikationsagentur aus Saland. Kostenloses Erstgespräch."
+>
+  <PageHero
+    eyebrow="Grafikdesign · Winterthur"
+    title={"Grafik­design für\nWinterthur"}
+    lead="Du suchst Grafikdesign in Winterthur? Uftritt ist die Kommunikationsagentur aus Saland im Zürcher Oberland, nur eine S26-Fahrt von dir entfernt: Wir gestalten Logo, Corporate Design und Drucksachen für KMU aus der Region Winterthur, vom ersten Entwurf bis zur fertigen Drucksache, persönlich und ohne Agentur-Umwege."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Grafikdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Für die Stadt am Ausgang des Tösstals</h2>
+        <div class="lp-text">
+          <p>
+            Winterthur ist mit rund 120 000 Einwohnerinnen und Einwohnern (Stand
+            Ende 2024) die sechstgrösste Stadt der Schweiz und die zweitgrösste
+            im Kanton Zürich. Aus der Industriestadt von Sulzer, Rieter und SLM
+            ist ein Dienstleistungs-, Bildungs- und Kulturzentrum geworden, mit
+            16 Museen, der ZHAW und sieben Stadtkreisen mit ausgeprägtem
+            Eigenleben, von der Altstadt über Oberwinterthur bis Wülflingen.
+            Mit den Nachbargemeinden bildet die Stadt eine Agglomeration mit
+            knapp 150 000 Menschen.
+          </p>
+          <p>
+            In so einer Stadt wird gestaltet oder übersehen: Flyer, Plakate,
+            Gutscheine, Speisekarten und Schaufenster werden täglich
+            tausendfach gesehen, und was lieblos aussieht, wirkt gegen den
+            Betrieb. Gleichzeitig liegt Winterthur am Ausgang des oberen
+            Tösstals, genau da kommen wir her. Kurze Wege, Besprechungen bei
+            dir im Betrieb und ein Gegenüber, das die Region zwischen Tösstal
+            und Eulachstadt kennt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ehrlich gesagt: Unser Büro ist nicht in Winterthur</h2>
+        <div class="lp-text">
+          <p>
+            Unser Büro steht in Saland im Zürcher Oberland, nicht an der
+            Marktgasse, und das sagen wir offen, statt mit falschem Lokalbezug
+            zu werben. Aus Winterthur selbst kommt unser Kunde
+            <a href="/projekte/sam-focus/">SAM Global</a>: Für das Hilfswerk
+            gestalten wir das Mitgliedermagazin SAM focus laufend, Redaktion
+            und Gestaltung aus einer Hand. Dazu kommt Gestaltungsarbeit für
+            Betriebe und Vereine aus der Region: Das pinke Erscheinungsbild des
+            Unihockeyvereins <a href="/projekte/emotion-hinwil/">emotion
+            Hinwil</a> kommt von uns, das Branding des Unihockeyclubs
+            <a href="/projekte/dtb-redesign/">DT Bäretswil</a> aus Bäretswil
+            ebenso, und für den Coiffeur- und Beauty-Salon
+            <a href="/projekte/arte-bellezza/">Arte Bellezza</a> in Wetzikon
+            gestalten wir laufend Drucksachen und Plakate.
+          </p>
+          <p>
+            Für dich heisst das: Du bekommst keine anonyme Grossagentur,
+            sondern ein Team, das anpackt, persönlich bleibt und dir ehrlich
+            sagt, was sich lohnt und was nicht. Mehr über unsere
+            Gestaltungsarbeit in der Heimatregion erfährst du auf unserer Seite
+            zum <a href="/grafikdesign-zuercher-oberland/">Grafikdesign im
+            Zürcher Oberland</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Vom Logo bis zur fertigen Drucksache</h2>
+        <div class="lp-text">
+          <p>
+            Bei uns bekommst du das ganze Handwerk aus einer Hand:
+            <a href="/logo-erstellen-lassen/">dein Logo</a>, das komplette
+            <a href="/corporate-design/">Corporate Design</a> mit Farbwelt und
+            Typografie, <a href="/geschaeftsdrucksachen/">Geschäftsdrucksachen</a>
+            von der Visitenkarte bis zur Briefschaft, dazu
+            <a href="/flyer-gestalten-lassen/">Flyer</a>,
+            <a href="/broschuere-erstellen-lassen/">Broschüren</a>, Plakate und
+            Gutscheine.
+          </p>
+          <p>
+            Und weil wir auch Websites, Fotografie und Video selbst machen,
+            bleibt dein Auftritt über alle Kanäle konsistent, ohne
+            Schnittstellenchaos zwischen fünf Ansprechpersonen. Das passende
+            <a href="/webdesign-winterthur/">Webdesign für Winterthur</a> gibt
+            es gleich aus demselben Haus dazu.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In fünf Schritten zum fertigen Design</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet Grafikdesign?</h2>
+        <div class="lp-text">
+          <p>
+            Die ehrliche Antwort: Es kommt darauf an, was du brauchst. Ein
+            einzelner Flyer kostet weniger als ein komplettes Erscheinungsbild,
+            und eine behutsame Logo-Modernisierung weniger als ein neues
+            Branding von Grund auf. Pauschalpreise von der Stange wären
+            unseriös.
+          </p>
+          <p>
+            Was wir stattdessen anbieten: Nach dem kostenlosen Erstgespräch
+            erhältst du ein transparentes Angebot mit allen Leistungen und
+            einem klaren Preis. Und wir sagen es auch, wenn weniger genügt,
+            etwa wenn aus deiner bestehenden Vorlage einfach druckfertige
+            Daten werden sollen.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <TeamSection />
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu Grafikdesign in Winterthur</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section">
+    <div class="container">
+      <Reviews />
+    </div>
+  </section>
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Wie soll dein Betrieb in Winterthur aussehen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du gestalten lassen willst, ob einzelner Flyer oder
+        kompletter Auftritt. Du bekommst eine ehrliche Einschätzung und ein
+        transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+</style>

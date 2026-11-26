@@ -1,0 +1,329 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects
+  .filter((p) =>
+    ["garage-frei", "fahrschule-schweiz", "aas-freight"].includes(p.slug)
+  )
+  .slice(0, 3);
+
+const grundbedarf = [
+  {
+    title: "Fahrzeugbestand immer aktuell",
+    note: "Occasionen mit Fotos, Ausstattung und Preis: Wer ein Auto sucht, will den aktuellen Bestand sehen. Verkaufte Fahrzeuge verschwinden oder stehen klar als verkauft drin, ohne Frust für Kaufinteressenten.",
+  },
+  {
+    title: "Einmal erfassen, überall drin",
+    note: "Fahrzeuge auf der Website und auf AutoScout24 doppelt zu pflegen kostet Stunden. Eine Synchronisation spart die Doppelspur und verhindert Fehler zwischen den Plattformen.",
+  },
+  {
+    title: "Ankauf und Probefahrt rund um die Uhr",
+    note: "Formular für den Fahrzeugankauf mit Marke, Modell und Kilometern, Probefahrt direkt beim Inserat angefragt: So kommen Anfragen auch dann rein, wenn dein Platz geschlossen ist.",
+  },
+  {
+    title: "Im Umkreis gefunden werden",
+    note: "Wer «Autohändler» plus Ortsname googelt, sucht jemanden in der Nähe. Lokale Sichtbarkeit und gepflegte Bewertungen bringen die Leute auf deinen Platz statt zum Mitbewerber.",
+  },
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: Welche Fahrzeuge, welche Systeme, was ist schon da",
+  "Konzept und Struktur: Bestand, Ankauf, Probefahrt und Kontakt am richtigen Platz",
+  "Inhalte: Wir bauen die Fahrzeugseiten auf, du lieferst Fotos und Fahrzeugdaten",
+  "Bau und Schnittstelle: mobil zuerst, mit AutoScout24-Anbindung wo sinnvoll",
+  "Online und betreut: Für CHF 33 pro Monat bleiben wir auch nach dem Launch dran",
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Website für einen Autohändler?",
+    a: "Das hängt vom Umfang ab: Eine schlanke Seite mit Firmenporträt, Ankauf-Formular und ein paar Occasionen kostet deutlich weniger als ein Auftritt mit grossem Fahrzeugbestand und AutoScout24-Anbindung. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit klarem Preis. Grössenordnungen aus Schweizer Quellen findest du auf unserer Seite <a href=\"/website-kosten/\">Website-Kosten</a>. Danach bleibt die Seite für CHF 33 pro Monat betreut.",
+  },
+  {
+    q: "Können wir Fahrzeuge selbst einstellen und wieder rausnehmen?",
+    a: "Ja, genau dafür bauen wir: Neue Occasionen mit Fotos, Ausstattung und Preis erfasst du ohne Programmierkenntnisse über eine einfache Oberfläche, verkaufte Fahrzeuge nimmst du mit wenigen Klicks raus. Und wenn du lieber gar nicht selbst pflegen willst, übernehmen wir das in der Betreuung: Du schickst uns die Fahrzeugdaten, wir stellen das Inserat online.",
+  },
+  {
+    q: "Funktioniert die Website zusammen mit AutoScout24?",
+    a: "Ja. Der Bestand muss nicht doppelt gepflegt werden: Über eine Schnittstelle synchronisieren sich die Fahrzeuge zwischen deinem Inserate-System und der Website. Für einen Premium-Autohändler aus der Region haben wir genau so eine AutoScout24-Anbindung gebaut. Was bei dir möglich ist, hängt davon ab, mit welchem System du inserierst. Das schauen wir im Erstgespräch an.",
+  },
+  {
+    q: "Wir inserieren schon auf AutoScout24. Wozu noch eine eigene Website?",
+    a: "Die Inserateplattform bringt Reichweite fürs einzelne Fahrzeug, aber sie gehört nicht dir: Deine Marke, dein Ankauf, deine Werkstatt und deine Bewertungen brauchen eine Heimat. Wer «Autohändler» plus deinen Ort googelt, soll bei dir landen, nicht auf einem Portal zwischen deinen Mitbewerbern. Am stärksten wirkt das Zusammenspiel: Das Portal bringt die Leute, die Website macht daraus deine Kunden.",
+  },
+  {
+    q: "Was passiert mit verkauften Fahrzeugen auf der Website?",
+    a: "Sie kommen raus oder stehen klar als verkauft drin: Nichts frustriert Kaufinteressenten mehr als Inserate für Autos, die längst weg sind. Wir richten die Seite so ein, dass der Bestand mit wenig Aufwand aktuell bleibt, und in der Betreuung halten wir ihn auf Wunsch gleich selbst sauber.",
+  },
+  {
+    q: "Wir sind ein kleiner Handel neben der Werkstatt. Lohnt sich das?",
+    a: "Meistens ja, gerade klein: Mit wenigen Occasionen braucht es keinen grossen Katalog, sondern eine saubere Seite mit aktuellem Bestand, Ankauf-Formular und dem Weg zu deiner Werkstatt. Wir bauen schlank und aufs Wesentliche konzentriert. Und falls die Werkstatt bei dir im Zentrum steht, schau auch unsere Seite <a href=\"/website-fuer-automechaniker/\">Website für Automechaniker</a> an.",
+  },
+];
+---
+
+<Layout
+  title="Website für Autohändler - Uftritt"
+  description="Website für Autohändler: Fahrzeugbestand online, AutoScout24-Sync, Ankauf-Formular und Probefahrt-Anfragen. Mobil zuerst, betreut nach dem Launch."
+>
+  <PageHero
+    eyebrow="Für Autohändler und Occasionshändler"
+    title={"Website für\nAutohändler"}
+    lead="Die kurze Antwort: Eine Website für Autohändler muss den Fahrzeugbestand aktuell zeigen, Inserate mit AutoScout24 synchronisieren und Ankauf-Anfragen sowie Probefahrten ohne Telefon ermöglichen. Wir bauen sie mobil zuerst, mit Schnittstellen nach Mass und Betreuung nach dem Launch, damit du dich um die Autos kümmerst statt um die Technik."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Website für Autohändler"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Was die Seite braucht */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Das Fundament</span>
+        <h2>Was eine Autohändler-Website können muss</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          grundbedarf.map((g) => (
+            <article class="karte">
+              <h3>{g.title}</h3>
+              <p class="karte-note">{g.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Bestand und Schnittstelle */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Fahrzeugbestand ist die Website</h2>
+        <div class="lp-text">
+          <p>
+            Beim Autohandel ist die Startseite fast Nebensache: Entscheidend
+            sind die Fahrzeugseiten. Grosse Fotos von aussen und innen, die
+            wichtigen Daten auf einen Blick, der Preis, und direkt daneben die
+            Möglichkeit, eine Probefahrt oder Besichtigung anzufragen.
+          </p>
+          <p>
+            Dazu gehört eine Übersicht, in der Besucher filtern können: Marke,
+            Preis, Treibstoff, Getriebe. Wer zwanzig Occasionen auf dem Platz
+            hat, will nicht, dass Interessenten sich durch eine endlose Liste
+            scrollen, sondern in zwei Klicks beim passenden Auto landen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Einmal erfassen, überall drin</h2>
+        <div class="lp-text">
+          <p>
+            Die Doppelpflege ist der grösste Zeitfresser im Autohandel: Fahrzeug
+            auf AutoScout24 einstellen, dasselbe Fahrzeug nochmals auf der
+            eigenen Website, bei jedem Preis-Update zwei Mal anfassen. Mit einer
+            Schnittstelle fliesst der Bestand automatisch auf deine Website, und
+            was verkauft ist, verschwindet überall.
+          </p>
+          <p>
+            Genau das haben wir für einen Premium-Autohändler aus der Region
+            gebaut: die AutoScout24-Synchronisation direkt in seine Website.
+            Solche Anbindungen sind <a href="/individuelle-software/">individuelle Software</a>:
+            Im Erstgespräch schauen wir, welches System du nutzt und was sich
+            anbinden lässt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Rund um den Auftritt und Cases */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Mehr als die Website: Broschüre und Beschriftung</h2>
+        <div class="lp-text">
+          <p>
+            Ein Autohaus lebt vom Eindruck: hochwertige Fahrzeugfotos, ein
+            gepflegter Platz, ein Auftritt, der zum Preisniveau passt. Darum
+            bleibt es bei uns nicht bei der Website. Für denselben
+            Premium-Autohändler aus der Region haben wir auch eine
+            Imagebroschüre gestaltet, vom Konzept bis zum Druck.
+          </p>
+          <p>
+            Und die Vorführwagen und Occasionen auf dem Platz? Auch die
+            <a href="/fahrzeugbeschriftung-gestalten/">Fahrzeugbeschriftung</a>
+            kam von uns: Design und druckfertige Daten von uns, die Folierung
+            machen Partnerbetriebe. So zieht sich ein Erscheinungsbild durch
+            alles, von der Website bis zum Auto vor der Tür.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Autogewerbe kennen wir aus eigener Arbeit</h2>
+        <div class="lp-text">
+          <p>
+            Öffentlich sichtbar: Die Website der
+            <a href="/projekte/garage-frei/">Autogarage Frei</a> stammt von uns.
+            Auch für die <a href="/projekte/fahrschule-schweiz/">Fahrschule Schweiz</a>
+            und die <a href="/projekte/aas-freight/">AAS Freight AG</a> haben wir
+            Webauftritte gebaut, dazu Video und Grafik rund ums Fahrzeug.
+          </p>
+          <p>
+            Und weil Werkstatt und Handel oft zusammengehören: Auch die
+            Anforderungen von Automechanikern kennen wir, mehr dazu auf der
+            Seite <a href="/website-fuer-automechaniker/">Website für Automechaniker</a>.
+            Websites fürs Gewerbe in unserer Region findest du unter
+            <a href="/webdesign-zuercher-oberland/">Webdesign im Zürcher Oberland</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf und Betreuung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Nach dem Launch bleiben wir dran</h2>
+        <div class="lp-text">
+          <p>
+            Im Autohandel ändert sich die Website ständig: neue Fahrzeuge rein,
+            verkaufte raus, Preise angepasst. Mit der
+            <a href="/website-betreuung/">Website-Betreuung</a> für
+            CHF 33 pro Monat kümmern wir uns um Hosting, Updates und deine
+            Änderungen, vom neuen Inserat bis zum Teamfoto.
+          </p>
+          <p>
+            Übrigens: Für andere Branchen bauen wir mit demselben Anspruch, etwa
+            <a href="/website-fuer-aerzte/">Websites für Arztpraxen</a>
+            oder <a href="/webdesign-fuer-handwerker/">Webdesign für Handwerker</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen von Autohändlern</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p set:html={f.a} />
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Zeit für eine Website, die deine Fahrzeuge ins beste Licht rückt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns in einem kostenlosen Erstgespräch, wie dein Handel läuft und
+        welche Systeme du nutzt. Wir sagen dir ehrlich, was eine Website bringen
+        kann und was sie kostet.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a.replace(/<[^>]*>/g, "") },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--3, .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--3, .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

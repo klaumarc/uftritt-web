@@ -1,0 +1,150 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import RefStrip from "../components/RefStrip.astro";
+import { projects } from "../data/projects";
+
+// Reine Ads-Landingpage (ChatGPT-Ads Pilot): schlank, Mobile-First, noindex.
+// Haupt-CTA oeffnet das ContactModal (Delegation auf .hero-ctas a[href="/kontakt/"]).
+const portfolio = projects
+  .filter((p) => p.categories.includes("Webdesign"))
+  .slice(0, 3);
+
+const leistungen = [
+  {
+    title: "Alles aus einer Hand",
+    text: "Konzept, Design, Texte, Fotos und Programmierung kommen von uns. Du hast eine Ansprechperson statt fünf Lieferanten.",
+  },
+  {
+    title: "Klickbarer Prototyp",
+    text: "Du siehst und testest deine neue Website, bevor sie programmiert wird. Keine Überraschungen, keine teuren Korrekturen am Schluss.",
+  },
+  {
+    title: "Gefunden werden",
+    text: "Klare Struktur, schnelle Ladezeiten und SEO-Grundlagen sind eingebaut, damit dich Kundinnen und Kunden in der Region finden.",
+  },
+  {
+    title: "Betreut nach dem Launch",
+    text: "Hosting auf Schweizer Server, tägliche Backups, alle Updates und Wartung für CHF 33 pro Monat. Deine Daten bleiben im Land.",
+  },
+];
+
+const faq = [
+  {
+    q: "Was kostet die neue Website?",
+    a: "Ein Onepager kostet CHF 3000 bis 5000, eine KMU-Website CHF 5000 bis 15 000, ein Webshop ab rund CHF 10 000. Nach dem kostenlosen Erstgespräch erhältst du eine transparente Offerte mit allen Leistungen, klar und auf dich zugeschnitten.",
+  },
+  {
+    q: "Wie lange dauert das Projekt?",
+    a: "Je nach Umfang 4 bis 12 Wochen. Den klickbaren Prototyp siehst du schon früh, danach geht es Schritt für Schritt Richtung Liveschaltung.",
+  },
+  {
+    q: "Muss ich aus der Region kommen?",
+    a: "Nein. Wir sind in Saland im Zürcher Oberland zuhause und arbeiten für KMU aus der ganzen Deutschschweiz, am liebsten persönlich erreichbar.",
+  },
+];
+---
+
+<Layout
+  title="Deine neue Website, sauber gemacht | Uftritt"
+  description="Website neu bauen lassen: Design, Texte, Fotos und Technik aus einer Hand. Onepager ab CHF 3000, KMU-Website ab CHF 5000. Kostenloses Erstgespräch."
+  noindex={true}
+>
+  <PageHero
+    eyebrow="Webdesign aus dem Zürcher Oberland"
+    title={"Deine neue Website.\nSauber gemacht."}
+    lead="Wir bauen deine Website komplett neu: Design, Texte, Fotos und Technik aus einer Hand, von der Agentur in Saland. Onepager ab CHF 3000, KMU-Website ab CHF 5000, Betreuung mit Hosting und Updates für CHF 33 pro Monat."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/website-check/" variant="text">Gratis Website-Check</Button>
+    </div>
+  </PageHero>
+
+  {/* Leistungen kompakt */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Das bekommst du</span>
+        <h2>Eine Website, die für dich arbeitet</h2>
+      </header>
+      <div class="cards">
+        {
+          leistungen.map((l) => (
+            <article class="card" data-reveal>
+              <h3>{l.title}</h3>
+              <p>{l.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Referenzen */}
+  <RefStrip title="Webprojekte aus unserem Portfolio" projects={portfolio} />
+
+  {/* Mini-FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Kurz und ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Schluss-CTA */}
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deine neue Website?</h2>
+      <div class="hero-ctas">
+        <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      </div>
+      <p class="cta-note">Oder ruf uns direkt an: <a href="tel:+41445002955">044 500 29 55</a></p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .section-head { margin-bottom: clamp(1.75rem, 4vw, 2.5rem); }
+
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.25rem, 2.5vw, 2rem); }
+  .card { background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.5rem, 2.5vw, 2rem); }
+  .card h3 { color: var(--color-blue); margin-bottom: 0.5rem; }
+  .card p { color: var(--color-blue); line-height: 1.6; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .cta-note { color: var(--color-blue); }
+  .cta-note a { color: var(--color-blue); font-weight: 700; }
+  .cta-note a:hover { color: var(--color-pink); }
+
+  @media (max-width: 700px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>

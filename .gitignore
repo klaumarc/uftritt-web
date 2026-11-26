@@ -30,3 +30,6 @@ Thumbs.db
 !.vscode/extensions.json
 # weitere Deploy-Manifeste (z. B. Produktion uftritt.ch-neu)
 .deploy-manifest-*.txt
+
+# MapLibre-Worker: wird per prebuild aus node_modules kopiert (scripts/copy-maplibre-worker.mjs)
+public/_astro/

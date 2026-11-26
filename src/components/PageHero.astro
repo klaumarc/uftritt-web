@@ -27,6 +27,7 @@ const { eyebrow, title, lead, compact = false, tall = false, light = false, lott
 >
   <div class="container page-hero-inner">
     <div class="page-hero-text">
+      <slot name="hero-top" />
       {eyebrow && <span class="eyebrow" data-reveal>{eyebrow}</span>}
       <h1 data-reveal>
         {title.split("\n").map((line, i) => (

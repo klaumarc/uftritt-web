@@ -1,0 +1,345 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects
+  .filter((p) => ["garage-frei", "physio-rothe", "aweso"].includes(p.slug))
+  .slice(0, 3);
+
+const stats = [
+  {
+    zahl: "97 %",
+    note: "der Konsumenten lesen Bewertungen, bevor sie sich für einen lokalen Betrieb entscheiden.",
+  },
+  {
+    zahl: "74 %",
+    note: "zählen nur Bewertungen, die jünger als drei Monate sind. Der Strom darf nicht abreissen.",
+  },
+  {
+    zahl: "47 %",
+    note: "meiden Betriebe mit weniger als 20 Bewertungen.",
+  },
+  {
+    zahl: "81 %",
+    note: "erwarten eine Antwort auf ihre Bewertung innert einer Woche.",
+  },
+];
+
+const schreiben = [
+  "Deine Kunden brauchen ein Google-Konto und suchen deinen Betrieb bei Google oder in Google Maps",
+  "Im Profil tippen sie auf «Bewertungen» und wählen die Sterne",
+  "Ein paar ehrliche Sätze dazu schreiben und absenden, fertig",
+  "Noch einfacher mit dem direkten Bewertungslink aus deinem Profil: Er öffnet das Bewertungsfenster sofort, ohne Suche",
+];
+
+const faq = [
+  {
+    q: "Wie bekomme ich mehr Google Bewertungen?",
+    a: "Indem du fragst, und zwar systematisch: Der beste Moment ist direkt nach einem gelungenen Auftrag oder einem dankbaren Kundengespräch. Schick den direkten Bewertungslink aus deinem Google-Profil persönlich per Nachricht oder E-Mail, am Point of Sale funktioniert ein QR-Code. Wichtig ist der Rhythmus: Bitte laufend einzelne Kunden statt einmal im Jahr alle auf einmal, denn plötzliche Bewertungsschübe wirken auf Google verdächtig und können gefiltert werden. Zehn echte Bewertungen pro Quartal schlagen hundert auf einen Schlag.",
+  },
+  {
+    q: "Darf ich Bewertungen kaufen oder Kunden dafür belohnen?",
+    a: "Nein, beides verstösst gegen die Google-Richtlinien: gekaufte oder erfundene Bewertungen ebenso wie Rabatte, Gutscheine oder Lose gegen eine Bewertung. Google kann solche Bewertungen löschen und Profile bestrafen, und irreführende Werbung ist auch in der Schweiz verboten. Dazu kommt: Kunden merken es, wenn ein kleiner Betrieb plötzlich hunderte Fünf-Sterne-Bewertungen hat. Der ehrliche Weg, zufriedene Kunden persönlich zu fragen, ist langsamer, aber der einzige, der hält.",
+  },
+  {
+    q: "Kann ich eine schlechte Google Bewertung löschen lassen?",
+    a: "Nur wenn sie gegen die Richtlinien von Google verstösst: Fake-Bewertungen, Beleidigungen, Werbung, Interessenkonflikte oder Bewertungen, die offensichtlich ein anderes Unternehmen meinen. Eine echte, auch unfaire Meinung bleibt in der Regel stehen. Melde die Bewertung im Profil mit kurzer Begründung, die Prüfung dauert meist einige Tage bis Wochen, bei Ablehnung ist ein Einspruch möglich. Antworte parallel sachlich auf die Bewertung, denn Mitlesende beurteilen dich nach deiner Reaktion, nicht nach dem einzelnen Stern.",
+  },
+  {
+    q: "Wie antworte ich am besten auf eine negative Bewertung?",
+    a: "Schnell, sachlich und ohne Gegenangriff: Bedanke dich fürs Feedback, nimm den Kern der Kritik ernst, entschuldige dich, wo etwas schiefgelaufen ist, und biete eine Lösung oder ein direktes Gespräch ausserhalb von Google an. Schreib kurz und verzichte auf Rechtfertigungen im Schlagabtausch. Bedenke, wer mitliest: Deine Antwort richtet sich weniger an den Kritiker als an alle künftigen Kunden, die genau hinschauen, wie ein Betrieb mit Kritik umgeht.",
+  },
+  {
+    q: "Wie schreibt man überhaupt eine Google Bewertung?",
+    a: "Deine Kunden brauchen ein Google-Konto und suchen deinen Betrieb bei Google oder in Google Maps. Im Profil tippen sie auf «Bewertungen», wählen die Sterne, schreiben ein paar ehrliche Sätze und senden ab. Noch einfacher geht es mit dem direkten Bewertungslink aus deinem Profil: Er öffnet das Bewertungsfenster sofort, ohne Suche. Schick den Link zufriedenen Kunden persönlich oder drucke ihn als QR-Code auf Rechnung oder Visitenkarte.",
+  },
+  {
+    q: "Übernehmt ihr das Bewertungsmanagement für uns?",
+    a: "Ja, gemeinsam: Den Prozess richten wir komplett für dich ein, Bewertungslink, QR-Code, Textbausteine für die Anfrage und Antworten, plus ein Monitoring, damit keine Bewertung unbeantwortet bleibt. Das persönliche Fragen bleibt bewusst bei dir, weil es aus dem Kundenkontakt heraus am ehrlichsten wirkt. Im Rahmen unserer Marketingbegleitung oder der Local-SEO-Betreuung kümmern wir uns laufend um Antworten, Meldungen und Auswertung. Im kostenlosen Erstgespräch sagen wir dir, was für deinen Betrieb sinnvoll ist.",
+  },
+];
+---
+
+<Layout
+  title="Google Bewertungen: bekommen, verwalten, löschen - Uftritt"
+  description="Google Bewertungen bekommen, beantworten und löschen lassen: der ehrliche Ratgeber für KMU. Mit Zahlen, klaren Leitplanken und Anleitung zum Weitergeben."
+>
+  <PageHero
+    eyebrow="Ratgeber · Lokale Sichtbarkeit"
+    title={"Google Be­wer­tun­gen,\ndie Vertrauen schaffen"}
+    lead="Google Bewertungen entscheiden, ob Kunden dich anrufen oder zur Konkurrenz gehen: Fast alle lesen sie, und die meisten achten auf Menge, Aktualität und deine Antworten. Hier lernst du, wie du laufend echte Bewertungen bekommst, souverän auf alle antwortest und gegen ungerechtfertigte Bewertungen richtig vorgehst, ohne gegen die Regeln zu verstossen."
+    lottie="/lottie/marketingbegleitung.json"
+    lottieLabel="Google Bewertungen"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/marketingbegleitung/" label="Marketingbegleitung" lottie="/lottie/marketingbegleitung.json" projects={cases} />
+
+  {/* Zahlen */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Warum es sich lohnt</span>
+        <h2>Was Bewertungen bei Kunden bewirken</h2>
+      </header>
+      <div class="stats" data-reveal>
+        {
+          stats.map((s) => (
+            <article class="stat-card">
+              <p class="stat-zahl">{s.zahl}</p>
+              <p class="stat-note">{s.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Zahlen aus der Local Consumer Review Survey von BrightLocal zum
+        Suchverhalten bei lokalen Betrieben. Knapp jeder dritte Konsument
+        erwartet dabei 4.5 Sterne oder mehr, und in den lokalen
+        Ranking-Faktoren von Whitespark machen die Signale rund ums
+        Google-Profil etwa einen Drittel des Gewichts aus.
+      </p>
+    </div>
+  </section>
+
+  {/* Bewertungen bekommen + Leitplanken */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>So bekommst du laufend echte Bewertungen</h2>
+        <div class="lp-text">
+          <p>
+            Der wirksamste Hebel ist erstaunlich einfach: fragen. Der beste
+            Moment dafür ist direkt nach einem gelungenen Auftrag, einer
+            gelösten Reklamation oder einem dankbaren Telefonat, also genau
+            dann, wenn der Kunde es ohnehin gerade lobt. Mach die Anfrage
+            zu einem fixen Schritt in deinem Projektabschluss, nicht zur
+            Gelegenheitsaktion.
+          </p>
+          <p>
+            Wichtig ist der Rhythmus: Ein stetiger Fluss einzelner
+            Bewertungen schlägt jede Sammelaktion. Plötzliche Schübe wirken
+            auf Google verdächtig und werden eher gefiltert, und deine
+            Kunden achten ohnehin auf Frische: Fast drei Viertel zählen nur
+            Bewertungen, die jünger als drei Monate sind. Darum gilt: lieber
+            jeden Monat zwei echte als einmal im Jahr dreissig auf einmal.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Die Leitplanken, an die wir uns halten</h2>
+        <div class="lp-text">
+          <p>
+            Keine gekauften Bewertungen, keine erfundenen Bewertungen von
+            Familie, Freunden oder Zweitprofilen und keine Belohnung wie
+            Rabatte oder Gutscheine gegen eine Bewertung. All das verstösst
+            gegen die Richtlinien von Google: Solche Bewertungen können
+            gelöscht werden, und dein Profil riskiert eine Bestrafung.
+          </p>
+          <p>
+            Irreführende Werbung ist zudem auch in der Schweiz verboten.
+            Und ehrlich: Kunden merken es, wenn ein kleiner Betrieb
+            plötzlich hunderte Fünf-Sterne-Bewertungen hat. Der ehrliche
+            Weg ist langsamer, aber er hält, und er ist der einzige, bei dem
+            wir mitmachen.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Antworten + Löschen */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Auf jede Bewertung antworten</h2>
+        <div class="lp-text">
+          <p>
+            Jede Bewertung verdient eine Antwort, die guten wie die
+            kritischen. Bei Lob reicht eine kurze, persönliche Zeile mit
+            Bezug zum konkreten Erlebnis, kein Standardtext unter allem.
+            Bei Kritik gilt: innert ein bis zwei Tagen reagieren, sachlich
+            bleiben, den Kern ernst nehmen und eine Lösung oder ein direktes
+            Gespräch anbieten.
+          </p>
+          <p>
+            Schreib dabei nie für den Kritiker allein: Die eigentlichen
+            Leser sind deine künftigen Kunden, die genau hinschauen, wie du
+            mit Kritik umgehst. Eine ruhige, lösungsorientierte Antwort
+            unter einer schlechten Bewertung gewinnt mehr Vertrauen als die
+            zwanzigste Fünf-Sterne-Bewertung ohne Kommentar.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wann sich eine Bewertung löschen lässt</h2>
+        <div class="lp-text">
+          <p>
+            Löschen lässt sich, was gegen die Richtlinien von Google
+            verstösst: Fake-Bewertungen und Spam, Beleidigungen, Werbung,
+            Bewertungen mit Interessenkonflikt oder Texte, die offensichtlich
+            ein anderes Unternehmen meinen. Eine echte, auch unfaire Meinung
+            eines echten Kunden bleibt in der Regel stehen, das muss man
+            ehrlich so sagen.
+          </p>
+          <p>
+            Der Weg: Bewertung im Profil melden und kurz begründen, dann
+            heisst es warten, meist einige Tage bis Wochen. Wird die Meldung
+            abgelehnt, ist ein Einspruch möglich. Antworte parallel sachlich
+            auf die Bewertung, damit sie nicht kommentarlos stehen bleibt.
+            Eine Garantie auf Löschung gibt es nie, auch nicht mit Agentur.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Schreiben-Anleitung + Gesamtzusammenhang */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>So schreiben deine Kunden eine Bewertung</h2>
+        <div class="lp-text">
+          <p>
+            Viele zufriedene Kunden bewerten nicht, weil sie nicht wissen,
+            wie es geht. Diese Anleitung darfst du gerne weitergeben:
+          </p>
+          <ul class="modul-liste">
+            {schreiben.map((s, i) => <li><span class="modul-nr">{i + 1}</span>{s}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Bewertungen sind ein Baustein, nicht das Ganze</h2>
+        <div class="lp-text">
+          <p>
+            Bewertungen wirken am stärksten im Verbund: mit einem
+            vollständig gepflegten <a href="/google-business-profile/">Google
+            Business Profile</a>, konsistenten Firmendaten und einer Website,
+            die rankt. Genau darum kümmern wir uns in der
+            <a href="/local-seo/">Local-SEO-Betreuung</a>, bei der das
+            Bewertungsmanagement ein fester Baustein ist.
+          </p>
+          <p>
+            Und wenn du schneller sichtbar sein willst, als es organisch
+            geht, ergänzen viele KMU mit Google Ads: Was das kostet, steht
+            in unserem Guide zu den <a href="/google-ads-kosten/">Google Ads
+            Kosten</a>, wie wir Kampagnen betreuen, auf der Seite zur
+            <a href="/google-ads-betreuung/">Google Ads Betreuung</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu Google Bewertungen</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Wie sieht es bei deinen Bewertungen aus?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, wo du stehst: Wir schauen dein Profil und deine
+        Bewertungen an, sagen dir ehrlich, was es braucht, und richten dir
+        auf Wunsch den ganzen Prozess ein.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .stat-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .stat-zahl { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .stat-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .stats { grid-template-columns: 1fr; }
+  }
+</style>

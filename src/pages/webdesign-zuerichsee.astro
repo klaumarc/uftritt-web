@@ -1,0 +1,290 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["regan", "smart-navigator", "ripa-immobilien"].includes(p.slug)
+);
+
+const orte = [
+  { name: "Zürcher Oberland", href: "/webdesign-zuercher-oberland/", note: "unsere Heimregion, hier sind wir zuhause" },
+  { name: "Zürich", href: "/webdesign-zuerich/", note: "die Stadt am oberen Ende des Sees" },
+  { name: "Winterthur", href: "/webdesign-winterthur/", note: "zweitgrösste Stadt des Kantons" },
+  { name: "Pfäffikon", href: "/webdesign-pfaeffikon/", note: "am Pfäffikersee, Richtung Oberland" },
+];
+
+const weitere = ["Stäfa", "Männedorf", "Uetikon am See", "Meilen", "Erlenbach", "Herrliberg", "Küsnacht", "Zollikon", "Thalwil", "Horgen", "Wädenswil", "Rapperswil-Jona"];
+
+const faq = [
+  { q: "Seid ihr überhaupt am Zürichsee?", a: "Nein, und das sagen wir offen: Unser Büro steht in Saland im Zürcher Oberland, nicht an der Seestrasse. Am Zürichsee sind wir trotzdem aktiv: Besprechungen machen wir gerne bei dir im Betrieb, egal ob in Küsnacht, Meilen, Stäfa oder Rapperswil, oder per Video-Call. Dass Zusammenarbeit über Distanz funktioniert, beweisen wir täglich: Für das Ferienhaus Regan in Obersaxen in Graubünden betreuen wir die Website laufend, da ist der Zürichsee vergleichsweise vor der Haustüre." },
+  { q: "Was kostet eine Website für einen Betrieb am Zürichsee?", a: "Das hängt vom Umfang ab, vom schlanken Onepager bis zur Plattform mit Shop. Der Preis richtet sich nach deinem Projekt, nicht nach deiner Adresse: Du bezahlst bei uns keine Goldküsten- oder Grossstadt-Overheads mit. Nach einem kostenlosen Erstgespräch erhältst du ein transparentes Angebot mit klarem Preis, ohne Kleingedrucktes." },
+  { q: "Werde ich als Betrieb am Zürichsee bei Google überhaupt gefunden?", a: "Entlang des Sees ist die Konkurrenz gross und die Ansprüche des Publikums sind hoch. Eine Website allein reicht nicht, aber sie ist die Basis: Wir liefern jede Seite mit sauberer SEO-Grundlage aus, also klarer Struktur, schnellen Ladezeiten und Meta-Texten. Dazu gehört auf Wunsch ein gepflegtes Google-Unternehmensprofil, damit du in deinem Ort und am ganzen See gefunden wirst, auch auf der Karte." },
+  { q: "Wir haben schon eine Website, lohnt sich ein Relaunch?", a: "Oft ja: Wenn die Seite älter als vier, fünf Jahre ist, auf dem Handy hakt oder bei Google abrutscht, bringt ein Neubau mehr als Flickwerk. Wir schauen uns deine Seite kostenlos an und sagen dir ehrlich, ob sich ein Relaunch lohnt, oder ob es auch ein gezieltes Update tut." },
+  { q: "Wie lange dauert ein Website-Projekt?", a: "Je nach Umfang 4 bis 12 Wochen. Du siehst früh einen klickbaren Prototypen und bleibst durchgehend im Bild, egal, ob wir uns dazwischen bei dir am See treffen oder per Video-Call abstimmen." },
+  { q: "Wer kümmert sich nach dem Launch um die Website?", a: "Auf Wunsch wir: Updates, Backups, kleine Anpassungen und laufende Betreuung, damit die Seite sicher bleibt und wächst. Oder wir zeigen dir, wie du die Inhalte selbst pflegst. Du hast die Wahl." },
+  { q: "Macht ihr auch mehr als Websites?", a: "Ja: Logo, Corporate Design, Broschüren, Fotografie und Video kommen bei uns aus demselben Haus. So entsteht dein Auftritt aus einem Guss, vom Erscheinungsbild bis zur fertigen Website, ohne dass du fünf Agenturen koordinieren musst." },
+];
+---
+
+<Layout
+  title="Webdesign Zürichsee: Websites für KMU am See - Uftritt"
+  description="Webdesign am Zürichsee: Websites für KMU in Meilen, Stäfa, Männedorf, Küsnacht bis Rapperswil. Persönlich, ohne Template und ehrlich beraten."
+  noindex={true}
+>
+  <PageHero
+    eyebrow="Webdesign · Zürichsee"
+    title={"Webdesign\nZürichsee"}
+    lead="Du suchst Webdesign am Zürichsee? Uftritt ist die Kommunikationsagentur aus Saland im Zürcher Oberland: Wir entwickeln Websites und Erscheinungsbilder für KMU von Küsnacht über Meilen und Stäfa bis Rapperswil, persönlich, ohne Template und mit ehrlicher Beratung. Kein Büro am See, aber am Zürichsee aktiv, Besprechungen bei dir oder per Video-Call."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Webdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Für die Region zwischen Goldküste und Obersee</h2>
+        <div class="lp-text">
+          <p>
+            Der Zürichsee verbindet zwei Welten: das rechte Ufer, die sogenannte
+            Goldküste von Küsnacht über Herrliberg, Meilen und Uetikon am See bis
+            Stäfa und Männedorf, mit begehrten Wohnlagen und vielen KMU, Praxen
+            und Beratungsfirmen. Und das linke Ufer von Zollikon über Thalwil und
+            Horgen bis Wädenswil, dicht besiedelt und wirtschaftlich stark an die
+            Stadt angebunden. Am oberen Ende liegt Rapperswil-Jona, das Tor Richtung
+            Obersee und Ostschweiz.
+          </p>
+          <p>
+            Was diese Orte eint: Wer hier einen Betrieb führt, hat ein anspruchsvolles
+            Publikum und starke Konkurrenz gleich nebenan. Gesucht wird fast alles
+            zuerst online, vom Steuerberater in Meilen bis zum Coiffeur in Stäfa.
+            Genau dafür braucht es eine Website, die nicht von der Stange kommt,
+            und einen Auftritt, der zu deinem Betrieb passt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ehrlich gesagt: Unser Büro steht nicht am Zürichsee</h2>
+        <div class="lp-text">
+          <p>
+            Unser Büro steht in Saland im Zürcher Oberland, nicht an der Seestrasse.
+            Mit dem Auto sind wir trotzdem in unter einer Stunde bei dir, egal ob
+            in Küsnacht, Meilen oder Rapperswil, und auf Wunsch läuft alles per
+            Video-Call. Wir werben nicht mit falschem Lokalbezug, sondern mit
+            geleisteter Arbeit: Für das Ferienhaus
+            <a href="/projekte/regan/">Regan in Obersaxen</a> in Graubünden haben
+            wir die Website konzipiert und betreuen sie seither laufend. Wenn das
+            über eine solche Distanz funktioniert, dann erst recht am Zürichsee.
+          </p>
+          <p>
+            Was du von uns bekommst, zeigt auch der
+            <a href="/projekte/smart-navigator/">smart navigator</a>: Für den
+            Berater Hans-Peter Bareth haben wir Name, Logo und Website von Grund
+            auf entwickelt, alles aus einer Hand. Und für
+            <a href="/projekte/ripa-immobilien/">RIPA Immobilien</a> kommen Website
+            und Erscheinungsbild von uns. Für dich heisst das: Agenturarbeit auf
+            hohem Niveau, ohne den Overhead und die Preise einer Adresse mit
+            Seeblick.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Webseite erstellen lassen, in einem Markt mit hohen Ansprüchen</h2>
+        <div class="lp-text">
+          <p>
+            Was muss eine Website für einen Betrieb am Zürichsee leisten? Zuerst
+            das Einfachste: Wer nach dir sucht, findet dich, mit Leistungen,
+            Öffnungszeiten und Kontakt auf einen Blick, auf dem Handy genauso wie
+            am Computer. Dann das Schwierigere: Wer noch nicht nach dir sucht,
+            soll dich über Google entdecken können. Darum bekommt jede Website bei
+            uns die SEO-Basis gleich mitgeliefert, und auf Wunsch richten wir dein
+            <a href="/google-business-profile/">Google-Unternehmensprofil</a> so
+            ein, dass du in deinem Ort sichtbar wirst, auch auf der Karte.
+          </p>
+          <p>
+            Egal, ob du eine neue Homepage brauchst oder eine komplette
+            <a href="/website-erstellen-lassen/">Webseite erstellen lassen</a>
+            willst: Uftritt ist mehr als eine Webagentur. Als Werbeagentur liefern
+            wir auch, was um die Website herum entsteht, Logo und Erscheinungsbild,
+            Printwerbung, Fotografie und Video. Ein Partner für alles, statt fünf
+            Ansprechpersonen in fünf Büros.
+          </p>
+          <p>
+            Und wir sagen es auch, wenn weniger genügt: Für viele Betriebe ist ein
+            gut gemachter Onepager die richtige Lösung, kein Grossprojekt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>In vier Schritten zur neuen Website</h2>
+        <div class="lp-text">
+          <p>
+            <strong>1. Erstgespräch bei dir.</strong> Kostenlos und unverbindlich,
+            am liebsten bei dir am See, auf Wunsch bei uns in Saland oder per
+            Video-Call. Wir hören zu, fragen nach und beraten ehrlich.
+          </p>
+          <p>
+            <strong>2. Konzept und Prototyp.</strong> Du bekommst früh einen
+            klickbaren Entwurf zu sehen, nicht erst am Ende. So gibt es keine
+            Überraschungen.
+          </p>
+          <p>
+            <strong>3. Umsetzung.</strong> Wir bauen die Seite, schreiben auf Wunsch
+            die Texte und organisieren Fotografie, alles aus einer Hand.
+          </p>
+          <p>
+            <strong>4. Launch und Betreuung.</strong> Nach dem Go-Live lassen wir
+            dich nicht im Stich: <a href="/website-betreuung/">Betreuung und
+            Wartung</a>, <a href="/seo-betreuung/">SEO-Begleitung</a> oder Schulung,
+            damit du die Seite selbst pflegen kannst. Du hast schon eine ältere
+            Website? Dann ist ein <a href="/website-relaunch/">Relaunch</a> der
+            richtige Einstieg.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet das?</h2>
+        <div class="lp-text">
+          <p>
+            Die ehrliche Antwort: Es kommt darauf an, was du brauchst, ein Onepager
+            für dein Gewerbe kostet weniger als eine Plattform mit Shop. Den Preis
+            bestimmen Umfang, Funktionen und Inhalte: Wie viele Seiten braucht es?
+            Schreiben wir die Texte, oder lieferst du sie? Pauschalpreise von der
+            Stange wären unseriös. Was wir stattdessen anbieten: Nach dem kostenlosen
+            Erstgespräch erhältst du ein transparentes Angebot mit allen Leistungen
+            und einem klaren Preis.
+          </p>
+          <p>
+            Zur Orientierung vorab: In unserem <a href="/website-kosten/">Guide zu
+            Website-Kosten</a> zeigen wir ehrlich eingeordnet, was eine Website
+            in der Schweiz kosten darf, bevor du mit uns oder einer anderen
+            Agentur sprichst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">In deiner Nähe</span>
+        <h2>Webdesign in deiner Region</h2>
+      </header>
+      <div class="orte" data-reveal>
+        {
+          orte.map((o) => (
+            <a class="ort-card" href={o.href}>
+              <span class="ort-name">{o.name}</span>
+              <span class="ort-note">{o.note}</span>
+            </a>
+          ))
+        }
+      </div>
+      <p class="orte-note" data-reveal>
+        Und am Zürichsee natürlich auch in: {weitere.join(", ")}, kurzum: entlang
+        des ganzen Sees, von der Goldküste bis zum Obersee.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Die wichtigsten Fragen, ehrlich beantwortet</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deinen neuen Webauftritt am Zürichsee?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was dein Betrieb braucht und wo du am See zuhause bist. Du
+        bekommst eine ehrliche Einschätzung und ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .orte { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .ort-card {
+    display: flex; flex-direction: column; gap: 0.3rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .ort-card:hover { border-color: var(--color-blue); transform: translateY(-2px); }
+  .ort-name { font-weight: 700; font-size: 1.25rem; color: var(--color-blue); }
+  .ort-note { color: var(--color-blue); opacity: 0.8; font-size: 0.95rem; }
+  .orte-note { margin-top: 1.5rem; color: var(--color-blue); line-height: 1.7; max-width: 75ch; }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .orte { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .orte { grid-template-columns: 1fr; }
+  }
+</style>

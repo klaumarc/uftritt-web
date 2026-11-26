@@ -1,0 +1,336 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "it-stall", "seatalytics"].includes(p.slug)
+);
+
+const bausteine = [
+  {
+    name: "Website und Sichtbarkeit",
+    note: "Deine Website ist die Basis: gefunden werden, Vertrauen aufbauen, Anfragen bekommen. Erst wenn sie trägt, lohnt sich alles Weitere.",
+  },
+  {
+    name: "Prozesse und Automatisierung",
+    note: "Wiederkehrende Handgriffe wie Anmeldungen, Offerten oder Rechnungen laufen digital und teils automatisch, statt jedes Mal von Hand.",
+  },
+  {
+    name: "Software, die zu dir passt",
+    note: "Standardtools, wo sie reichen. Individuelle Lösungen, wo sie Zeit und Geld sparen: Webapps, Schnittstellen und kleine Werkzeuge für deinen Alltag.",
+  },
+  {
+    name: "Marketing auf eigenen Beinen",
+    note: "Newsletter, Social Media und Suchmaschinen systematisch betreut, damit Anfragen planbar kommen statt zufällig.",
+  },
+];
+
+const prozess = [
+  "Erstgespräch: Was läuft heute wie, wo geht Zeit verloren, was nervt",
+  "Bestandsaufnahme: Prozesse, Tools und Daten, kurz und ohne Bürokratie",
+  "Roadmap: Massnahmen nach Wirkung und Aufwand sortiert, mit ehrlicher Empfehlung",
+  "Umsetzung Schritt für Schritt: zuerst, was schnell Wirkung bringt",
+  "Betrieb und Betreuung: wir bleiben dran, damit es im Alltag hält",
+];
+
+const faq = [
+  {
+    q: "Was bedeutet Digitalisierung für ein KMU konkret?",
+    a: "Weniger Grossprojekt, mehr gesunder Menschenverstand: Wir schauen, wo in deinem Betrieb Zeit und Geld verloren geht, etwa bei Anfragen, Offerten, Rechnungen oder Terminen. Dann digitalisieren wir genau diese Stellen, mit Werkzeugen, die zu deiner Grösse passen. Dazu gehören meist die Website, digitale Prozesse, passende Software und ein Marketing, das regelmässig Anfragen bringt.",
+  },
+  {
+    q: "Wo fangen wir am besten an?",
+    a: "Dort, wo es am meisten weh tut: Im Erstgespräch gehen wir deinen Alltag durch und finden die Stellen, an denen Handarbeit und Medienbrüche die meiste Zeit kosten. Daraus entsteht eine Roadmap nach Wirkung und Aufwand. Oft ist das Erste, was sich lohnt, erstaunlich klein: ein Formular, eine automatische Bestätigung, eine Website, die Anfragen sauber annimmt.",
+  },
+  {
+    q: "Gibt es Förderbeiträge für Digitalisierungsprojekte in der Schweiz?",
+    a: "Je nach Vorhaben ja: Innovationsprojekte mit Partnern können über Innosuisse gefördert werden, und einige Kantone sowie regionale Wirtschaftsförderungen unterstützen Digitalisierungsvorhaben von KMU. Ehrlich gesagt: Die Antragsarbeit lohnt sich nicht bei jedem Projekt. Wir sagen dir im Gespräch offen, ob Förderung für dein Vorhaben realistisch ist und sich der Aufwand rechnet.",
+  },
+  {
+    q: "Brauchen wir dafür neue Software?",
+    a: "Oft weniger als gedacht: Zuerst verstehen wir deine Prozesse, dann schauen wir, was deine vorhandenen Werkzeuge schon können. Wo Standardsoftware reicht, nutzen wir sie. Erst wenn eine Lücke bleibt, die dich täglich Zeit kostet, bauen wir etwas Eigenes, etwa eine Webapp oder eine Schnittstelle zwischen zwei Systemen. So bleibt die Investition klein und die Wirkung gross.",
+  },
+  {
+    q: "Was kostet die Digitalisierung eines KMU?",
+    a: "Das hängt davon ab, wo du startest und wie weit du willst. Darum arbeiten wir nicht mit einem Paketpreis von der Stange, sondern mit einer priorisierten Roadmap: Du siehst pro Schritt, was er bringt und was er kostet, bevor du dich entscheidest. Nach dem Erstgespräch bekommst du ein transparentes Angebot für den ersten Schritt, ohne Verpflichtung für den Rest.",
+  },
+  {
+    q: "Können wir das nicht selbst machen?",
+    a: "Teilweise unbedingt, und wir sagen dir auch ehrlich welche Teile: Ein Formular einbauen oder ein Tool einführen schaffen viele selbst. Wo es sich lohnt, uns beizuziehen, ist die Reihenfolge und das Zusammenspiel: welche Massnahme zuerst Wirkung bringt, wie Website, Prozesse und Marketing ineinandergreifen und wie du nicht an fünf verschiedene Lieferanten gerätst. Genau da sparen KMU mit uns am meisten Zeit.",
+  },
+];
+---
+
+<Layout
+  title="Digitalisierung für KMU: Beratung und Umsetzung - Uftritt"
+  description="Digitalisierung für dein KMU: Website, Prozesse und Software aus einer Hand. Ehrliche Beratung, machbare Schritte, Betreuung aus dem Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="Digitalisierung · KMU Schweiz"
+    title={"Digitali­sierung,\ndie dein KMU weiterbringt"}
+    lead="Wir digitalisieren dein KMU dort, wo es sich lohnt: Website und Sichtbarkeit, wiederkehrende Prozesse, passende Software statt Excel-Chaos. Kein Grossprojekt, sondern machbare Schritte mit ehrlicher Priorisierung: Was Wirkung bringt, kommt zuerst. Beratung, Umsetzung und Betreuung aus einer Hand, im Zürcher Oberland und remote in der ganzen Schweiz."
+    lottie="/lottie/applikationsentwicklung.json"
+    lottieLabel="Digitalisierung für KMU"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/applikationsentwicklung/" label="Applikationsentwicklung" lottie="/lottie/applikationsentwicklung.json" projects={cases} />
+
+  {/* Bausteine */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Bausteine</span>
+        <h2>Wo Digitalisierung im KMU ansetzt</h2>
+      </header>
+      <div class="bausteine" data-reveal>
+        {
+          bausteine.map((b) => (
+            <article class="baustein-card">
+              <h3>{b.name}</h3>
+              <p class="baustein-note">{b.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Nicht jeder Baustein passt zu jedem Betrieb: Im Erstgespräch sortieren
+        wir gemeinsam, was für dich an erster Stelle Wirkung bringt.
+      </p>
+    </div>
+  </section>
+
+  {/* Haltung + Ansprechpartner */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Digitalisierung heisst bei uns kein Grossprojekt</h2>
+        <div class="lp-text">
+          <p>
+            Viele KMU schieben das Thema, weil es nach Beraterschwadrone,
+            monatelangen Projekten und grossen Rechnungen klingt. Unser Ansatz
+            ist das Gegenteil: Wir schauen zuerst, wo in deinem Alltag Zeit
+            verloren geht, und beginnen mit dem Schritt, der am schnellsten
+            Wirkung zeigt.
+          </p>
+          <p>
+            Dazu gehört auch eine ehrliche Einschätzung, was du gar nicht
+            brauchst. Wo künstliche Intelligenz konkret hilft, sagen wir es dir
+            im Rahmen unserer <a href="/ki-beratung/">KI-Beratung</a>. Und wenn
+            dir für Marketing einfach die Zeit fehlt, kannst du sie an uns
+            <a href="/marketing-auslagern/">auslagern</a>, statt alles selbst
+            aufbauen zu müssen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ein Ansprechpartner statt fünf Lieferanten</h2>
+        <div class="lp-text">
+          <p>
+            Digitalisierung scheitert im KMU selten an der Technik, sondern an
+            der Koordination: Der Webhoster hier, der Treuhänder dort, dazu
+            ein Software-Anbieter, der niemanden kennt. Bei uns hängt alles
+            zusammen, von der <a href="/website-erstellen-lassen/">Website</a>
+            über <a href="/individuelle-software/">individuelle Software</a>
+            und <a href="/webapp-entwickeln-lassen/">Webapps</a> bis zum
+            laufenden Betrieb.
+          </p>
+          <p>
+            Und wenn aus einem digitalen Prozess einmal ein grösseres
+            Vorhaben wird, etwa eine eigene App für Kunden oder Mitglieder,
+            begleiten wir dich auch dort als
+            <a href="/app-agentur/">App-Agentur</a> weiter, ohne dass du neu
+            anfangen musst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Cases, ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Zwei Betriebe, zwei Wege</h2>
+        <div class="lp-text">
+          <p>
+            Die <a href="/projekte/aweso/">Aweso AG</a> in Wetzikon ist ein
+            Familienunternehmen im Glas- und Metallbau, das seit rund 100
+            Jahren Beschläge und Montagesysteme für Verglasungen baut. Wir
+            haben den traditionellen Betrieb Schritt für Schritt digital
+            aufgestellt: neue Website, Newsletter, LinkedIn-Auftritt und
+            laufende digitale Betreuung, ohne die Wurzeln der Firma zu
+            verlieren.
+          </p>
+          <p>
+            Beim IT-Dienstleister <a href="/projekte/it-stall/">it-stall</a>
+            ging es um den anderen Pol: ein Ein-Mann-Unternehmen, das von
+            Anfang an digital professionell auftreten wollte. Branding,
+            Website und Texte kamen von uns, damit aus einem einzelnen
+            Dienstleister ein Anbieter mit Auftritt wurde.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Und wo es still passiert, zählt es doppelt</h2>
+        <div class="lp-text">
+          <p>
+            Digitalisierung zeigt sich nicht immer auf den ersten Blick: Ein
+            regionaler Sportclub wickelte Anmeldungen und Rechnungen früher
+            per E-Mail und von Hand ab. Heute laufen Anmeldung, Bestätigung
+            und Rechnungsstellung automatisch zwischen Website und
+            Buchhaltung, und das Sekretariat schaut nur noch hin, wenn etwas
+            hakt.
+          </p>
+          <p>
+            Solche stillen Automatismen sind oft die grösste Erleichterung,
+            weil sie jede Woche Stunden zurückgeben. Genau danach suchen wir
+            auch bei dir: die Handgriffe, die sich jede Woche wiederholen und
+            niemand vermissen würde.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Einen Betrieb, in dem Routineaufgaben von selbst laufen: Anfragen
+            kommen sauber über die Website rein, Rechnungen schreibt das
+            System, und du weisst, welcher nächste digitale Schritt sich
+            lohnt und welcher nicht.
+          </p>
+          <p>
+            Und du hast einen Partner, der die Übersicht behält: Statt bei
+            jeder Frage neu zu suchen, rufst du bei uns an, weil wir deine
+            Website, deine Prozesse und dein Marketing kennen.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Digitalisierung im KMU</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Wo drückt dich der Alltag am meisten?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, wo in deinem Betrieb Zeit liegen bleibt. Du bekommst eine
+        ehrliche Einschätzung, welcher digitale Schritt sich zuerst lohnt,
+        und ein transparentes Angebot dafür.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .bausteine { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .baustein-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .baustein-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .baustein-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .bausteine { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .bausteine { grid-template-columns: 1fr; }
+  }
+</style>

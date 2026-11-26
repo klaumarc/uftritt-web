@@ -1,0 +1,334 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects
+  .filter((p) =>
+    ["youngstars-broschuere", "dt-baeretswil", "arte-bellezza"].includes(p.slug)
+  )
+  .slice(0, 3);
+
+const treiber = [
+  {
+    name: "Umfang der Karte",
+    note: "Eine einseitige Tageskarte ist schnell gestaltet, eine mehrseitige Karte mit Vorspeisen, Weinen und Desserts ist ein eigenes Heft. Seitenzahl und Anzahl Varianten bestimmen den Aufwand.",
+  },
+  {
+    name: "Was du mitbringst",
+    note: "Gibt es Texte, Fotos und ein Logo in brauchbarer Qualität? Je mehr davon vorhanden ist, desto weniger Konzept- und Redaktionsarbeit steckt im Projekt.",
+  },
+  {
+    name: "Wechselrhythmus",
+    note: "Eine fixe Karte wird einmal gebaut und bleibt jahrelang. Wechselst du saisonal oder wöchentlich, bauen wir ein System mit Template, das du selbst pflegen kannst.",
+  },
+  {
+    name: "Daten oder Druck",
+    note: "Du bekommst von uns druckfertige Daten. Ob du damit zu deiner Stammdruckerei gehst oder wir den Druck über eine Partnerdruckerei organisieren, entscheidest du.",
+  },
+];
+
+const prozess = [
+  "Erstgespräch: Welche Karten du brauchst, was an Texten und Bildern vorhanden ist",
+  "Konzept: Gestaltungsrichtung, gezeigt an echten Auszügen deiner Karte",
+  "Feinschliff: Deine Korrekturrunden, bis Hierarchie, Schrift und Bilder sitzen",
+  "Reinzeichnung: Druckfertige Daten, plus editierbares Template für Tagesangebote",
+  "Druck und Abnahme: Koordination mit der Druckerei, Kontrolle vor der Produktion",
+];
+
+const faq = [
+  {
+    q: "Was kostet es, eine Speisekarte erstellen zu lassen?",
+    a: "Das hängt von vier Dingen ab: dem Umfang (einseitige Tageskarte oder mehrseitige Karte mit Weinteil), davon, was du an Texten, Fotos und Logo mitbringst, davon, ob die Karte fix bleibt oder saisonal wechselt, und davon, ob du nur die druckfertigen Daten brauchst oder auch die Druckabwicklung. Darum gibt es keinen seriösen Pauschalpreis ohne Briefing. Nach dem kostenlosen Erstgespräch bekommst du von uns ein transparentes Angebot, in dem jede Position drinsteht.",
+  },
+  {
+    q: "Habt ihr schon Speisekarten für Restaurants gestaltet?",
+    a: "Ehrliche Antwort: Eine Speisekarte ist in unserem öffentlichen Portfolio noch nicht dabei, und wir erfinden darum auch kein Gastro-Referenzprojekt. Was du oben an Projekten siehst, ist unser Print-Handwerk aus anderen Aufträgen: Broschüren, Hefte und Drucksachen mit derselben Sorgfalt in Typografie, Hierarchie und Reinzeichnung. Genau dieses Handwerk bringen wir auf deine Karte.",
+  },
+  {
+    q: "Druckt ihr die Speisekarte auch?",
+    a: "Nein, und das ist Absicht: Drucken ist ein eigenes Handwerk mit Papier, Veredelung und Auflage. Unser Teil ist die Gestaltung, die Reinzeichnung und die druckfertigen Daten. Den Druck organisieren wir auf Wunsch über eine Partnerdruckerei der Region, mit der wir Papier und Finish direkt absprechen. Du kannst die Daten aber auch zu deiner Stammdruckerei nehmen, sie gehören dir.",
+  },
+  {
+    q: "Kann ich Tagesangebote später selbst anpassen?",
+    a: "Ja, genau dafür bauen wir die Tageskarte als editierbares Template: Schriften, Abstände und Layout sind fixiert, du tauschst nur noch die Texte und Preise des Tages. So sieht die Tageskarte jeden Tag aus wie ein Teil der Hauptkarte, ohne dass du für jede Änderung jemanden beauftragen musst.",
+  },
+  {
+    q: "Wie lange dauert es bis zur fertigen Speisekarte?",
+    a: "Fürs Design rechnen wir je nach Umfang mit ein bis drei Wochen vom Briefing bis zur Freigabe, inklusive Korrekturrunden. Danach hängt es an der Druckerei: Eine einfache Karte ist meist in wenigen Tagen produziert, Veredelungen oder Sonderpapiere brauchen länger. Wir koordinieren den Ablauf, damit die Karte rechtzeitig auf deinen Tischen liegt.",
+  },
+  {
+    q: "Kann ich die Speisekarte mit KI entwerfen lassen?",
+    a: "Als Ideensammlung gerne: Ein KI-Bild zeigt schnell, in welche Richtung es gehen könnte. Produktionsreif ist das Ergebnis aber nie: KI erfindet Schriften, die es nicht gibt, verhaspelt sich an Umlauten und liefert Pixelbilder ohne saubere Reinzeichnung. Bring deinen Entwurf mit, wir machen daraus eine Karte, mit der die Druckerei wirklich arbeiten kann.",
+  },
+];
+---
+
+<Layout
+  title="Speisekarte erstellen lassen - Uftritt"
+  description="Speisekarte erstellen lassen: Gestaltung passend zu deinem Betrieb, von der Tageskarte bis zur Weinkarte. Druckfertige Daten, Druck auf Wunsch via Partner."
+>
+  <PageHero
+    eyebrow="Printdesign · Zürcher Oberland"
+    title={"Speisekarte erstellen lassen,\ndie Lust aufs Bestellen macht"}
+    lead="Deine Speisekarte erstellen wir so, dass sie zu deinem Betrieb passt: klare Hierarchie, appetitliche Typografie und ein Format, das im Alltag funktioniert. Von der einseitigen Tageskarte bis zur mehrseitigen Karte mit Weinen. Du bekommst druckfertige Daten, den Druck organisieren wir auf Wunsch über eine Partnerdruckerei."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Speisekarte erstellen lassen"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Aufwandstreiber statt erfundener Preise */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Einordnung</span>
+        <h2>Was bestimmt den Aufwand für deine Speisekarte?</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          treiber.map((t) => (
+            <article class="range-card">
+              <h3>{t.name}</h3>
+              <p class="range-note">{t.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Weil jede Karte anders ist, gibt es bei uns keinen Pauschalpreis aus dem
+        Regal: Nach dem kostenlosen Erstgespräch bekommst du ein transparentes
+        Angebot, in dem jede Position drinsteht.
+      </p>
+    </div>
+  </section>
+
+  {/* Design-Substanz */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gestaltet für den Gastraum, nicht fürs Wartezimmer</h2>
+        <div class="lp-text">
+          <p>
+            Eine Speisekarte wird unter schwierigen Bedingungen gelesen: bei
+            gedimmtem Licht, am kleinen Tisch, von Gästen mit und ohne Brille.
+            Darum gestalten wir für genau diese Situation: eine Schrift, die
+            bei Kerzenlicht lesbar bleibt, Zeilenabstände mit Luft und eine
+            Preisspalte, die man nicht suchen muss.
+          </p>
+          <p>
+            Die Hierarchie folgt dem Bestellmoment: Die Gäste finden auf den
+            ersten Blick, wonach sie suchen, und deine Signaturgerichte stehen
+            dort, wo das Auge zuerst hinfällt. Dazu gehört auch Zurückhaltung:
+            Eine Karte, die alles ankreuzt, empfiehlt am Ende nichts.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Eine Karte oder ein ganzes System</h2>
+        <div class="lp-text">
+          <p>
+            Selten ist es nur eine Karte: Tageskarte, Saisonkarte, Weinkarte,
+            Dessertkarte und die Karte fürs Bankett sollen aussehen wie aus
+            einem Guss. Wir bauen darum ein Gestaltungssystem, in dem jede neue
+            Variante schnell abgeleitet ist, statt jedes Mal bei null zu
+            starten.
+          </p>
+          <p>
+            Damit das trägt, denken wir die Karte als Teil deines
+            <a href="/corporate-design/">Corporate Designs</a>: dieselben
+            Farben, Schriften und Regeln wie auf Website, Briefschaft und
+            <a href="/geschaeftsdrucksachen/">Geschäftsdrucksachen</a>. Und
+            fürs Tagesangebot am Eingang oder in der Auslage gestalten wir
+            passend dazu <a href="/flyer-gestalten-lassen/">Flyer und
+            Aushänge</a> im selben Stil.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Aufgabenteilung, ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Unser Teil: Gestaltung, Daten, Abnahme</h2>
+        <div class="lp-text">
+          <p>
+            Wir gestalten deine Speisekarte mit derselben Sorgfalt wie alles
+            im <a href="/grafikdesign-zuercher-oberland/">Grafikdesign</a> und
+            <a href="/printdesign/">Printdesign</a>: Briefing, Entwurf an
+            echten Auszügen deiner Karte, Korrekturrunden, bis es sitzt.
+          </p>
+          <p>
+            Am Schluss bekommst du ein komplettes Datenpaket: druckfertige
+            PDFs mit Beschnitt, eingebetteten Schriften und definierten
+            Farben, dazu auf Wunsch ein editierbares Template für die
+            Tageskarte. Die finale Abnahme machst du am Korrekturauszug,
+            bevor irgendetwas in den Druck geht.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Teil der Druckerei, ehrlich gesagt</h2>
+        <div class="lp-text">
+          <p>
+            Drucken ist ein eigenes Handwerk: Papierwahl, Auflage, Laminat
+            für die abwaschbare Tageskarte oder Veredelung für die Weinkarte.
+            Das machen Partnerdruckereien aus der Region, mit denen wir die
+            technischen Details direkt absprechen.
+          </p>
+          <p>
+            Und noch ehrlicher: Brauchst du nur eine schlichte Wochenkarte
+            ohne Gestaltungsanspruch, reicht oft auch eine saubere Vorlage im
+            Textprogramm. Unser Teil beginnt dort, wo die Karte wie ein Teil
+            deines Betriebs aussehen soll. Hast du schon einen KI-Entwurf?
+            Bring ihn mit, wir machen ihn produktionsreif.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Eine Speisekarte, die zu deinem Betrieb passt und im Alltag
+            funktioniert, plus ein Datenpaket, mit dem jede professionelle
+            Druckerei sofort arbeiten kann. Du bleibst unabhängig: Die Daten
+            gehören dir, und du druckst dort, wo du willst.
+          </p>
+          <p>
+            Und wenn dein Betrieb weitergeht, geht das System mit: Die nächste
+            Saisonkarte ist dann keine neue Gestaltungsfrage mehr, sondern ein
+            Update im bestehenden Layout, und die Weinkarte fügt sich ein,
+            sobald sie an der Reihe ist.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Speisekarte</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Was soll deine Karte über deinen Betrieb erzählen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, welche Karten du brauchst und was an Texten und Bildern
+        schon da ist. Du bekommst eine ehrliche Einschätzung und ein
+        transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges { grid-template-columns: 1fr; }
+  }
+</style>

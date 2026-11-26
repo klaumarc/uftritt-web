@@ -4,6 +4,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/textqual.php';
+
 // ---- Finding- und HTML-Helfer ----
 function uc_f(string $category, string $id, string $status, string $title, string $detail, string $impact, string $effort): array
 {
@@ -120,6 +122,7 @@ function uc_crawl(string $url): array
     $batch = [
         'robots' => $origin . '/robots.txt',
         'sitemap' => $origin . '/sitemap.xml',
+        'llms' => $origin . '/llms.txt',
         'brprobe' => $base,
         'http' => 'http://' . $baseHost . '/',
     ];
@@ -130,7 +133,7 @@ function uc_crawl(string $url): array
     $results = uc_fetch_multi($batch, 8, ['head_keys' => ['brprobe']]);
 
     // 3xx-Antworten validiert nachführen (multi folgt nicht selbst)
-    foreach (['robots', 'sitemap', 'http', 'sub0', 'sub1'] as $k) {
+    foreach (['robots', 'sitemap', 'llms', 'http', 'sub0', 'sub1'] as $k) {
         if (!isset($results[$k]) || empty($results[$k]['ok']) || uc_deadline_close(10)) {
             continue;
         }
@@ -228,6 +231,7 @@ function uc_crawl(string $url): array
         'sub_docs' => $subDocs,
         'robots' => is_array($robots) ? $robots : null,
         'sitemap' => is_array($sitemap) ? $sitemap : null,
+        'llms' => isset($results['llms']) && is_array($results['llms']) ? $results['llms'] : null,
         'http_probe' => is_array($http) ? $http : null,
         'br_probe' => $results['brprobe'] ?? null,
         'broken_links' => $broken,
@@ -460,6 +464,56 @@ function uc_checks_seo(array $crawl): array
         ? uc_f('seo', 'lang', 'ok', 'Sprache deklariert', 'Die Seite nennt ihre Sprache («' . $lang . '»). So müssen Suchmaschinen und Vorlese-Programme nicht raten.', 'low', 'low')
         : uc_f('seo', 'lang', 'warn', 'Sprache nicht deklariert', 'Der Seite fehlt die Sprachangabe (lang-Attribut). Suchmaschinen und Vorlese-Programme für Blinde müssen die Sprache sonst raten.', 'low', 'low');
 
+    // hreflang: fuer mehrsprachige Sites (in der Schweiz oft relevant)
+    $hl = [];
+    foreach (uc_nodes($xp, '//link[@hreflang]/@hreflang') as $l) {
+        $v = trim((string)$l->nodeValue);
+        if ($v !== '') {
+            $hl[$v] = true;
+        }
+    }
+    $out[] = $hl !== []
+        ? uc_f('seo', 'hreflang', 'ok', 'Sprachversionen verknüpft', 'Die Seite verweist per hreflang auf ihre Sprachversionen (' . implode(', ', array_keys($hl)) . '). Google zeigt so jeder Besucherin die richtige Sprache.', 'medium', 'medium')
+        : uc_f('seo', 'hreflang', 'info', 'Keine Sprachversionen verknüpft', 'hreflang-Angaben fehlen. Das ist nur relevant, wenn die Website mehrsprachig ist: Ohne sie kann Google die Sprachversionen durcheinanderbringen.', 'medium', 'medium');
+
+    // KI-Sichtbarkeit: blockiert robots.txt bekannte KI-Crawler? Gibt es llms.txt?
+    // robots.txt gruppenweise auswerten (User-agent-Bloecke), nicht per Einzelregex
+    $aiBlocked = false;
+    $robotsR = $crawl['robots'] ?? null;
+    if (is_array($robotsR) && !empty($robotsR['ok']) && (int)($robotsR['status'] ?? 0) === 200) {
+        $agents = [];
+        foreach (preg_split('/\r?\n/', (string)($robotsR['body'] ?? '')) as $line) {
+            $line = trim((string)preg_replace('/#.*$/', '', $line));
+            if ($line === '') {
+                $agents = []; // Leerzeile trennt robots.txt-Gruppen
+                continue;
+            }
+            if (preg_match('/^user-agent:\s*(.+)$/i', $line, $m)) {
+                $agents[] = mb_strtolower(trim($m[1]));
+                continue;
+            }
+            if (preg_match('/^disallow:\s*(\S*)$/i', $line, $m) && trim($m[1]) === '/') {
+                foreach ($agents as $a) {
+                    if (preg_match('/gptbot|chatgpt-user|claudebot|anthropic|perplexitybot|ccbot|google-extended/i', $a)) {
+                        $aiBlocked = true;
+                        break 2;
+                    }
+                }
+            } elseif (preg_match('/^disallow:/i', $line) === 0 && !preg_match('/^(allow|sitemap|crawl-delay|user-agent):/i', $line)) {
+                $agents = []; // Fremdzeile beendet die Gruppe
+            }
+        }
+    }
+    $llmsR = $crawl['llms'] ?? null;
+    $llmsOk = is_array($llmsR) && !empty($llmsR['ok']) && (int)($llmsR['status'] ?? 0) === 200 && trim((string)($llmsR['body'] ?? '')) !== '';
+    if ($aiBlocked) {
+        $out[] = uc_f('seo', 'ai_visibility', 'warn', 'KI-Assistenten scheinbar blockiert', 'Die robots.txt sperrt bekannte KI-Crawler (z. B. von ChatGPT oder Perplexity). Immer mehr Kunden fragen KI-Assistenten statt Google: Wer blockiert, wird dort unsichtbar.', 'medium', 'low');
+    } elseif ($llmsOk) {
+        $out[] = uc_f('seo', 'ai_visibility', 'ok', 'Für KI-Assistenten vorbereitet', 'Die Seite hat eine llms.txt und blockiert keine KI-Crawler. KI-Assistenten können die Inhalte lesen und dich nennen.', 'medium', 'low');
+    } else {
+        $out[] = uc_f('seo', 'ai_visibility', 'info', 'KI-Sichtbarkeit ungeplant', 'KI-Assistenten dürfen die Seite lesen, aber eine llms.txt (Steuerdatei, die KI gezielt auf deine wichtigsten Inhalte zeigt) fehlt. Neues Thema, kein Muss, aber ein Vorsprung.', 'low', 'low');
+    }
+
     return $out;
 }
 
@@ -550,11 +604,24 @@ function uc_checks_performance(array $crawl): array
     $modern = 0;
     foreach (uc_nodes($xp, '//img') as $img) {
         $src = strtolower($img->getAttribute('src') . ' ' . $img->getAttribute('srcset') . ' ' . $img->getAttribute('data-src'));
-        if (preg_match('/\.(jpe?g|png|gif)(\?| |$)/', $src)) {
-            $raster++;
+        // <picture>-Varianten desselben Bildes mitbewerten (WebP/AVIF via <source>).
+        // Achtung: libxml parst <source> nicht als Void-Element, das <img> landet als
+        // Kind von <source>, darum die Vorfahren-Kette nach <picture> durchsuchen.
+        $node = $img->parentNode;
+        while ($node instanceof DOMElement) {
+            if (strtolower($node->nodeName) === 'picture') {
+                foreach ($node->getElementsByTagName('source') as $source) {
+                    $src .= ' ' . strtolower($source->getAttribute('type') . ' ' . $source->getAttribute('srcset'));
+                }
+                break;
+            }
+            $node = $node->parentNode;
         }
-        if (preg_match('/\.(webp|avif)(\?| |$)/', $src)) {
+        // modern gewinnt bei gemischtem Markup (jpg-Fallback + WebP-Source zählt als modern)
+        if (preg_match('/\.(webp|avif)(\?| |$)|image\/(webp|avif)/', $src)) {
             $modern++;
+        } elseif (preg_match('/\.(jpe?g|png|gif)(\?| |$)/', $src)) {
+            $raster++;
         }
     }
     $total = $raster + $modern;
@@ -577,6 +644,101 @@ function uc_checks_performance(array $crawl): array
     $out[] = $hasCache
         ? uc_f('performance', 'cache_headers', 'ok', 'Zwischenspeicher aktiv', 'Die Seite darf im Browser zwischengespeichert werden (Cache-Control: ' . $cc . '). Wiederkehrende Besucher laden so deutlich schneller.', 'low', 'low')
         : uc_f('performance', 'cache_headers', 'warn', 'Kein Zwischenspeicher für die Seite', 'Ohne Cache-Control lädt der Browser die Seite bei jedem Besuch komplett neu. Ein Zwischenspeicher würde wiederkehrenden Besuchern Ladezeit sparen.', 'low', 'low');
+
+    // Bildgewicht: Stichprobe bis 4 Bilder per HEAD (Deadline beachten)
+    if ($xp instanceof DOMXPath && !uc_deadline_close(6)) {
+        $imgUrls = [];
+        $base = (string)$home['url'];
+        foreach (uc_nodes($xp, '//img') as $img) {
+            $src = trim((string)$img->getAttribute('src'));
+            if ($src === '') {
+                $srcset = trim((string)$img->getAttribute('srcset'));
+                if ($srcset !== '') {
+                    $src = trim((string)preg_split('/,/', $srcset)[0]);
+                    $src = trim((string)preg_split('/\s+/', $src)[0]);
+                }
+            }
+            if ($src === '' || str_starts_with($src, 'data:')) {
+                continue;
+            }
+            $abs = uc_resolve_relative($base, $src);
+            if ($abs !== null) {
+                $imgUrls[$abs] = true;
+            }
+            if (count($imgUrls) >= 4) {
+                break;
+            }
+        }
+        if ($imgUrls !== []) {
+            $res = uc_fetch_multi(array_combine(array_keys($imgUrls), array_keys($imgUrls)), 6, ['head_all' => true]);
+            $known = 0;
+            $worst = 0;
+            $worstKb = 0;
+            foreach ($res as $u => $r) {
+                if (empty($r['ok'])) {
+                    continue;
+                }
+                $len = (int)(uc_h((array)$r['headers'], 'content-length') ?? 0);
+                if ($len <= 0) {
+                    continue;
+                }
+                $known++;
+                if ($len > $worst) {
+                    $worst = $len;
+                    $worstKb = (int)round($len / 1024);
+                }
+            }
+            if ($known === 0) {
+                $out[] = uc_f('performance', 'image_weight', 'info', 'Bildgewicht nicht messbar', 'Die Server-Antworten verraten nicht, wie schwer die Bilder sind. Die Prüfung des Bildgewichts entfällt daher.', 'high', 'low');
+            } elseif ($worst >= 1500000) {
+                $out[] = uc_f('performance', 'image_weight', 'bad', 'Überschweres Bild', 'Das schwerste getestete Bild wiegt ' . number_format($worstKb / 1024, 1, ',', '') . ' MB (Stichprobe von ' . $known . ' Bildern). Solche Brocken bremsen die Seite massiv, gerade auf dem Handy unterwegs. Verkleinern und als WebP speichern wirkt sofort.', 'high', 'low');
+            } elseif ($worst >= 500000) {
+                $out[] = uc_f('performance', 'image_weight', 'warn', 'Schweres Bild gefunden', 'Das schwerste getestete Bild wiegt ' . $worstKb . ' KB (Stichprobe von ' . $known . ' Bildern). Als Faustregel gilt: kaum ein Bild braucht mehr als 300 KB. Verkleinern spart spürbar Ladezeit.', 'high', 'low');
+            } else {
+                $out[] = uc_f('performance', 'image_weight', 'ok', 'Bilder schlank', 'Das schwerste getestete Bild wiegt ' . $worstKb . ' KB (Stichprobe von ' . $known . ' Bildern). Das ist vorbildlich.', 'high', 'low');
+            }
+        }
+    }
+
+    // Echte Ladezeit-Daten (Chrome UX Report), wenn ein Google-Key konfiguriert ist
+    if (!uc_deadline_close(4)) {
+        $cwv = uc_crux_fetch((string)$home['url']);
+        if (is_array($cwv) && ($cwv['lcp_ms'] !== null || $cwv['inp_ms'] !== null)) {
+            $parts = [];
+            $worstStatus = 'ok';
+            if ($cwv['lcp_ms'] !== null) {
+                $lcpS = number_format($cwv['lcp_ms'] / 1000, 1, ',', '');
+                $parts[] = 'Hauptinhalt sichtbar nach ' . $lcpS . ' s';
+                if ($cwv['lcp_ms'] > 4000) {
+                    $worstStatus = 'bad';
+                } elseif ($cwv['lcp_ms'] > 2500) {
+                    $worstStatus = 'warn';
+                }
+            }
+            if ($cwv['inp_ms'] !== null) {
+                $parts[] = 'Reaktion auf Klicks nach ' . (int)round($cwv['inp_ms']) . ' ms';
+                if ($cwv['inp_ms'] > 500) {
+                    $worstStatus = 'bad';
+                } elseif ($cwv['inp_ms'] > 200 && $worstStatus === 'ok') {
+                    $worstStatus = 'warn';
+                }
+            }
+            if ($cwv['cls'] !== null) {
+                $parts[] = 'Layout-Sprünge ' . number_format($cwv['cls'], 2, ',', '');
+                if ($cwv['cls'] > 0.25) {
+                    $worstStatus = 'bad';
+                } elseif ($cwv['cls'] > 0.1 && $worstStatus === 'ok') {
+                    $worstStatus = 'warn';
+                }
+            }
+            $detail = 'Gemessen bei echten Besuchern (Google Chrome-Daten, 28 Tage): ' . implode(', ', $parts) . '.';
+            $out[] = match ($worstStatus) {
+                'bad' => uc_f('performance', 'cwv_field', 'bad', 'Echte Besucher warten zu lange', $detail . ' Diese Werte kommen nicht aus dem Labor, sondern aus dem echten Leben: Google stuft sie als zu schwach ein.', 'high', 'medium'),
+                'warn' => uc_f('performance', 'cwv_field', 'warn', 'Echte Besucher spüren Wartezeit', $detail . ' Diese Werte kommen von echten Besuchern, nicht aus dem Labor. Da ist noch spürbar Luft nach oben.', 'high', 'medium'),
+                default => uc_f('performance', 'cwv_field', 'ok', 'Echte Besucher laden schnell', $detail . ' Gemessen an echten Besuchern, nicht im Labor: Das ist ein stärkeres Qualitätszeichen als jeder synthetische Test.', 'high', 'medium'),
+            };
+        }
+    }
 
     return $out;
 }
@@ -673,6 +835,141 @@ function uc_checks_inhalt(array $crawl): array
         $out[] = uc_f('inhalt', 'freshness', 'info', 'Keine Jahreszahlen gefunden', 'Keine Datumsangaben im Text. Das ist weder positiv noch negativ auffällig.', 'medium', 'low');
     }
 
+    // ---- Textqualitaet (V2): Lesbarkeit, Keyword-Stuffing, Floskeln ----
+    $textParts = [];
+    foreach (uc_nodes($xp, '//body//text()[not(ancestor::script) and not(ancestor::style) and not(ancestor::noscript)]') as $tn) {
+        $tv = trim((string)$tn->nodeValue);
+        if ($tv !== '') {
+            $textParts[] = $tv;
+        }
+    }
+    $ts = uc_text_stats($text, $textParts);
+    if ($ts['words'] < 80) {
+        $out[] = uc_f('inhalt', 'readability', 'info', 'Lesbarkeit kaum messbar', 'Zu wenig Fliesstext für eine verlässliche Lesbarkeits-Messung.', 'high', 'medium');
+    } else {
+        $fre = $ts['fre'];
+        $aslTxt = number_format($ts['asl'], 1, ',', '');
+        // Ehrliche Begruendung: Treiber nennen (Satzlänge vs. Wortlänge)
+        $driver = [];
+        if ($ts['asl'] > 16) {
+            $driver[] = 'lange Schachtelsätze (Ø ' . $aslTxt . ' Wörter pro Satz)';
+        }
+        if ($ts['asw'] > 1.85) {
+            $driver[] = 'viele lange Wörter (Ø ' . number_format($ts['asw'], 1, ',', '') . ' Silben pro Wort)';
+        }
+        if ($driver === []) {
+            $driver[] = 'verschachtelte Formulierungen';
+        }
+        $driverTxt = implode(' und ', $driver);
+        if ($fre >= 60) {
+            $out[] = uc_f('inhalt', 'readability', 'ok', 'Gut lesbare Texte', 'Die Texte sind angenehm lesbar (Ø ' . $aslTxt . ' Wörter pro Satz, Lesbarkeits-Index ' . (int)round($fre) . ' nach der Amstad-Formel). So liest man bis zum Schluss.', 'high', 'medium');
+        } elseif ($fre >= 45) {
+            $out[] = uc_f('inhalt', 'readability', 'warn', 'Texte sind zäh zu lesen', 'Auffällig sind ' . $driverTxt . ' (Lesbarkeits-Index ' . (int)round($fre) . ', ideal ab 60). Kürzere Sätze und einfachere Wörter bringen mehr Leser bis zum Kontakt-Button.', 'high', 'medium');
+        } else {
+            $out[] = uc_f('inhalt', 'readability', 'bad', 'Texte sind schwer lesbar', 'Die Texte verlangen viel: ' . $driverTxt . ' (Lesbarkeits-Index ' . (int)round($fre) . ', ideal ab 60). Die meisten Besucher brechen solche Texte ab, bevor sie anfragen.', 'high', 'medium');
+        }
+
+        // Keyword-Stuffing: ein Begriff dominiert unnatuerlich, oder Text wirkt repetitiv
+        $stuffReasons = [];
+        if ($ts['top_density'] >= 0.06) {
+            $stuffReasons[] = 'bad';
+        } elseif ($ts['top_density'] >= 0.035) {
+            $stuffReasons[] = 'warn';
+        }
+        if ($ts['lexdiv'] < 0.30 && $ts['words'] >= 250) {
+            $stuffReasons[] = 'warn';
+        }
+        if ($stuffReasons === []) {
+            $out[] = uc_f('inhalt', 'keyword_balance', 'ok', 'Natürliche Sprache', 'Kein Begriff wird unnatürlich oft wiederholt, und der Wortschatz ist abwechslungsreich. Der Text liest sich wie für Menschen geschrieben.', 'high', 'medium');
+        } else {
+            $topPct = number_format($ts['top_density'] * 100, 1, ',', '');
+            $bad = in_array('bad', $stuffReasons, true);
+            $out[] = uc_f('inhalt', 'keyword_balance', $bad ? 'bad' : 'warn', $bad ? 'Für Suchmaschinen statt für Menschen geschrieben' : 'Sprache wirkt für Suchmaschinen optimiert',
+                'Das Wort «' . $ts['top_term'] . '» macht ' . $topPct . ' % des Textes aus' . ($ts['lexdiv'] < 0.30 && $ts['words'] >= 250 ? ', und der Text wiederholt sich insgesamt viel' : '') . '. Texte, die vor allem Google füttern sollen, lesen Kunden nicht mehr. Google straft das inzwischen sogar ab.',
+                'high', 'medium');
+        }
+
+        // Floskeln vs. Konkretheit
+        $fh = $ts['floskel_hits'];
+        if (count($fh) >= 6) {
+            $out[] = uc_f('inhalt', 'floskeln', 'bad', 'Viele Floskeln, wenig Substanz', 'Gefunden: «' . implode('», «', array_slice($fh, 0, 4)) . '» und weitere. Solche Allerweltsphrasen sagen nichts über deinen Betrieb aus. Zahlen, echte Beispiele und konkrete Angebote überzeugen stattdessen.', 'medium', 'medium');
+        } elseif (count($fh) >= 3) {
+            $out[] = uc_f('inhalt', 'floskeln', 'warn', 'Floskeln im Text', 'Gefunden: «' . implode('», «', array_slice($fh, 0, 3)) . '». Solche Phrasen stehen auf tausend Websites. Konkrete Zahlen und Beispiele aus deinem Betrieb wären überzeugender.', 'medium', 'medium');
+        } elseif (count($fh) === 0 && $ts['concrete'] >= 3) {
+            $out[] = uc_f('inhalt', 'floskeln', 'ok', 'Konkrete, eigene Sprache', 'Keine leeren Werbephrasen gefunden, dafür echte Zahlen und Fakten. Genau so wirkt ein KMU-Text glaubwürdig.', 'medium', 'low');
+        } else {
+            $out[] = uc_f('inhalt', 'floskeln', 'ok', 'Wenig Phrasen', 'Kaum Werbefloskeln gefunden. Der Text klingt nach dir, nicht nach Werbetexter.', 'medium', 'low');
+        }
+    }
+
+    // ---- Vertrauen & Recht (CH): Impressum/UWG, Datenschutz (nDSG) ----
+    $subDocs = (array)($crawl['sub_docs'] ?? []);
+    $hasImprintPage = false;
+    foreach (array_keys($subDocs) as $su) {
+        if (preg_match('/impressum|imprint/i', (string)$su)) {
+            $hasImprintPage = true;
+        }
+    }
+    // Alle gecrawlten Seiten nach Adresse + Kontaktmoeglichkeit durchsuchen
+    $addrFound = false;
+    $mailOrTel = false;
+    $allDocs = array_merge(['__home' => $crawl['home_doc']], $subDocs);
+    foreach ($allDocs as $d) {
+        $px = $d['xpath'] ?? null;
+        if (!$px instanceof DOMXPath) {
+            continue;
+        }
+        if (uc_count($px, "//a[starts-with(@href,'mailto:')]") > 0 || uc_count($px, "//a[starts-with(@href,'tel:')]") > 0) {
+            $mailOrTel = true;
+        }
+        $t = uc_visible_text($px);
+        if (preg_match('/\b[1-9]\d{3}\s+[A-ZÄÖÜ][\p{L}äöüéàè\-]+/u', $t)) {
+            $addrFound = true;
+        }
+    }
+    if ($hasImprintPage && $addrFound && $mailOrTel) {
+        $out[] = uc_f('inhalt', 'impressum', 'ok', 'Impressum mit vollständigen Angaben', 'Ein Impressum mit Adresse und direkter Kontaktmöglichkeit ist vorhanden. Das erwartet das Gesetz für kommerzielle Angebote (UWG), und es schafft Vertrauen.', 'high', 'low');
+    } elseif ($addrFound && $mailOrTel) {
+        $out[] = uc_f('inhalt', 'impressum', 'warn', 'Kein eigenes Impressum', 'Adresse und Kontaktmöglichkeit sind auffindbar, aber ein eigenes Impressum fehlt. Für kommerzielle Angebote erwartet das Gesetz (UWG) klare Angaben zu Identität und Kontakt, und Besucher suchen genau danach.', 'high', 'low');
+    } else {
+        $out[] = uc_f('inhalt', 'impressum', 'warn', 'Adresse und Kontakt schwer auffindbar', 'Wir haben weder eine vollständige Adresse noch eine direkte Kontaktmöglichkeit (E-Mail oder Telefon) gefunden. Das wirkt auf Besucher misstrauenserregend, und auch das Gesetz (UWG) erwartet: klare Angaben zu Identität und Kontakt gehören gut sichtbar auf die Seite.', 'high', 'low');
+    }
+
+    $dsFound = false;
+    foreach ($allDocs as $d) {
+        $px = $d['xpath'] ?? null;
+        if (!$px instanceof DOMXPath) {
+            continue;
+        }
+        foreach (uc_nodes($px, '//a[@href]') as $a) {
+            $h = mb_strtolower((string)$a->getAttribute('href') . ' ' . (string)$a->textContent);
+            if (preg_match('/datenschutz|privacy|confidentialit/i', $h)) {
+                $dsFound = true;
+                break 2;
+            }
+        }
+    }
+    $out[] = $dsFound
+        ? uc_f('inhalt', 'datenschutz', 'ok', 'Datenschutzerklärung verlinkt', 'Eine Datenschutzerklärung ist verlinkt. Das schafft die Transparenz, die das Schweizer Datenschutzgesetz (nDSG) erwartet.', 'medium', 'low')
+        : uc_f('inhalt', 'datenschutz', 'warn', 'Keine Datenschutzerklärung gefunden', 'Wir haben keinen Link zu einer Datenschutzerklärung gefunden. Das nDSG erwartet Transparenz über die Datenbearbeitung, und viele Besucher schauen gezielt danach. Meist eine Sache von einer halben Stunde.', 'medium', 'low');
+
+    // ---- Stockfotos: authentisches Bildmaterial zaehlt fuer KMU-Vertrauen ----
+    $stockHosts = 'istockphoto|shutterstock|stock\.adobe|adobestock|fotolia|dreamstime|gettyimages|123rf|depositphotos|unsplash|pixabay|pexels';
+    $stockN = 0;
+    $imgTotal = 0;
+    foreach (uc_nodes($xp, '//img') as $img) {
+        $imgTotal++;
+        $srcs = mb_strtolower((string)$img->getAttribute('src') . ' ' . (string)$img->getAttribute('srcset') . ' ' . (string)$img->getAttribute('data-src'));
+        if (preg_match('/' . $stockHosts . '/', $srcs)) {
+            $stockN++;
+        }
+    }
+    if ($stockN > 0) {
+        $out[] = uc_f('inhalt', 'stock_photos', 'warn', 'Stockfotos erkannt', $stockN . ' Bild(er) stammen von Bilddatenbanken. Gestellte Stockbilder erkennen Besucher sofort: Echte Fotos aus deinem Betrieb schaffen mehr Vertrauen und unterscheiden dich von der Konkurrenz.', 'medium', 'medium');
+    } elseif ($imgTotal >= 3) {
+        $out[] = uc_f('inhalt', 'stock_photos', 'ok', 'Eigenes Bildmaterial', 'Keine Stockfotos von Bilddatenbanken gefunden. Eigenes Material wirkt echt und baut Vertrauen auf.', 'medium', 'medium');
+    }
+
     return $out;
 }
 
@@ -704,6 +1001,22 @@ function uc_checks_ux(array $crawl): array
         foreach ($imgs as $img) {
             if ($img->hasAttribute('srcset')) {
                 $sr++;
+                continue;
+            }
+            // <picture><source srcset> gilt ebenfalls als geräteabhängige Grösse
+            // (Vorfahren-Suche: libxml parst das <img> als Kind von <source>)
+            $node = $img->parentNode;
+            while ($node instanceof DOMElement) {
+                if (strtolower($node->nodeName) === 'picture') {
+                    foreach ($node->getElementsByTagName('source') as $source) {
+                        if (trim((string)$source->getAttribute('srcset')) !== '') {
+                            $sr++;
+                            break;
+                        }
+                    }
+                    break;
+                }
+                $node = $node->parentNode;
             }
         }
         $q = $sr / $n;
@@ -814,19 +1127,30 @@ function uc_analyze(string $url, bool $withPsi = false, string $llmMode = 'tease
     $domain = (string)(parse_url((string)$crawl['home']['url'], PHP_URL_HOST) ?: parse_url($url, PHP_URL_HOST));
     $domain = preg_replace('/^www\./', '', strtolower($domain));
 
+    // Kontext fuer Texte und Report: Branche, Marke/Ort, Farbpalette (V2)
+    $industry = uc_detect_industry($crawl);
+    $brand = uc_detect_brand($crawl);
+    $palette = uc_palette_from_crawl($crawl);
+    $ctx = ['industry' => $industry, 'brand' => $brand, 'palette' => $palette];
+
     // LLM-Texte je nach Phase: 'teaser' (Free-Check, kurzer Output = schnell),
     // 'full' (Report: Teaser + Volltext), 'none' (nur Befunde, Text kommt später).
     // Fehlgeschlagener LLM-Call -> Fallback-Templates (Determinismus bleibt).
-    $llm = ['teaser' => null, 'full' => null];
+    $llm = ['teaser' => null, 'full' => null, 'leseprobe' => null, 'farbeindruck' => null];
     $llmUsed = false;
     if ($llmMode === 'full') {
-        $res = uc_llm_full_analysis($domain, $scores, $overall, $findings, (string)$crawl['text_excerpt']);
+        $res = uc_llm_full_analysis($domain, $scores, $overall, $findings, (string)$crawl['text_excerpt'], $ctx);
         if ($res !== null) {
-            $llm = ['teaser' => $res['teaser'], 'full' => $res['full']];
+            $llm = [
+                'teaser' => $res['teaser'],
+                'full' => $res['full'],
+                'leseprobe' => $res['leseprobe'] ?? null,
+                'farbeindruck' => $res['farbeindruck'] ?? null,
+            ];
             $llmUsed = true;
         }
     } elseif ($llmMode === 'teaser') {
-        $t = uc_llm_teaser($domain, $scores, $overall, $findings, (string)$crawl['text_excerpt']);
+        $t = uc_llm_teaser($domain, $scores, $overall, $findings, (string)$crawl['text_excerpt'], $ctx);
         if ($t !== null) {
             $llm['teaser'] = $t;
             $llmUsed = true;
@@ -851,13 +1175,16 @@ function uc_analyze(string $url, bool $withPsi = false, string $llmMode = 'tease
         'llm_used' => $llmUsed,
         'pages_crawled' => (int)$crawl['pages_crawled'],
         'text_excerpt' => (string)$crawl['text_excerpt'],
+        'industry' => $industry,
+        'brand' => $brand,
+        'palette' => $palette,
         'analyzed_at' => date('c'),
     ];
 
-    if ($withPsi && !uc_deadline_close(20)) {
-        $psi = uc_psi_fetch((string)$crawl['home']['url']);
+    if ($withPsi && !uc_deadline_close(22)) {
+        $psi = uc_psi_fetch((string)$crawl['home']['url'], true);
         if ($psi !== null) {
-            $analysis['psi'] = $psi; // als Info-Finding ergänzt, fliesst nicht in die Note ein
+            $analysis['psi'] = $psi; // Labormessung (Lighthouse): separater Block im Report, nicht in der Note
         }
     }
 

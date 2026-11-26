@@ -1,0 +1,337 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects
+  .filter((p) =>
+    ["youngstars-magazin", "dt-baeretswil", "sam-focus"].includes(p.slug)
+  )
+  .slice(0, 3);
+
+const druckThemen = [
+  {
+    name: "Auflage und Druckverfahren",
+    note: "Von der Kleinauflage bis zu mehreren tausend Exemplaren: Je nach Auflage, Seitenzahl und Termin wählen wir mit der Druckerei das passende Verfahren, digital für kleine Mengen, offset für grosse.",
+  },
+  {
+    name: "Papier",
+    note: "Bilderdruck matt oder glänzend, Naturpapier mit Charakter: Wir empfehlen Grammaturen für Innenteil und Umschlag und besorgen dir Papiermuster, bevor du dich entscheidest.",
+  },
+  {
+    name: "Bindung",
+    note: "Klebebindung, Rückstichheftung, Fadenheftung oder Wire-O: Was zu deiner Seitenzahl und zum Charakter des Magazins passt, besprechen wir mit dir und der Druckerei.",
+  },
+  {
+    name: "Veredelung und Extras",
+    note: "Partieller Lack, Prägung oder ein offener Rücken für den hochwertigen Auftritt: Wo eine Veredelung Wirkung bringt und wo sie nur teuer ist, sagen wir dir ehrlich.",
+  },
+];
+
+const ablauf = [
+  "Erstgespräch: Umfang, Auflage, Seitenzahl und Wunschtermin klären",
+  "Offerte: transparent ausgewiesen, mit Vorschlag für Papier und Bindung",
+  "Reinzeichnung: druckfertige Daten mit Beschnitt, Korrektur bis zu deiner Freigabe",
+  "Druck: Abstimmung mit der Druckerei, Druckbegleitung und Kontrolle vor der Produktion",
+  "Lieferung: die ganze Auflage bei dir oder verteilt auf mehrere Adressen",
+];
+
+const faq = [
+  {
+    q: "Was kostet es, ein Magazin drucken zu lassen?",
+    a: "Das hängt von vier Dingen ab: Auflage, Seitenzahl, Papier und Bindung. Grundsätzlich gilt: Je höher die Auflage, desto tiefer der Stückpreis, weil sich die Fixkosten der Produktion verteilen. Nach dem kostenlosen Erstgespräch bekommst du eine transparente Offerte, aus der genau hervorgeht, was die Produktion kostet und was darin enthalten ist.",
+  },
+  {
+    q: "Lohnt sich der Druck auch für eine Kleinauflage?",
+    a: "Ja, dank Digitaldruck sind heute auch kleine Auflagen in guter Qualität möglich, ohne dass der Stückpreis explodiert. Ehrlich gesagt: Bei wenigen Dutzend Exemplaren prüfen wir mit dir, ob Print das richtige Medium ist oder ob eine digitale Ausgabe vorerst mehr bringt. Das klären wir im Erstgespräch, auch wenn die Antwort heisst: noch nicht drucken.",
+  },
+  {
+    q: "Druckt ihr die Magazine selbst?",
+    a: "Nein, und das ist Absicht: Drucken ist ein eigenes Handwerk mit Maschinen, Papierlager und Erfahrung. Unser Teil ist die Reinzeichnung, die Abstimmung mit der Druckerei, die Druckbegleitung und die Abnahme der Qualität. Gedruckt wird bei Partnerdruckereien in der Schweiz. Du hast trotzdem nur einen Ansprechpartner und bekommst am Schluss die fertige Auflage geliefert.",
+  },
+  {
+    q: "Welche Daten muss ich liefern?",
+    a: "Im Idealfall ein druckfertiges PDF. Wenn du nur ein Word-Dokument, ein Layout oder einen groben Entwurf hast, ist das auch gut: Wir reinzeichnen dein Magazin, bis die Druckerei damit arbeiten kann, inklusive Beschnitt, sauberen Farben und eingebetteten Schriften. Vor dem Druck bekommst du die Daten zur Freigabe, erst dann geht es in die Produktion.",
+  },
+  {
+    q: "Könnt ihr auch Inhalt und Gestaltung übernehmen?",
+    a: "Ja. Diese Seite dreht sich um die Druckabwicklung. Wenn du Konzept, Redaktion, Text und Layout ebenfalls aus einer Hand willst, schau dir unsere Seite zum Magazin erstellen lassen an: Dort begleiten wir dich von der ersten Idee bis zur fertigen Ausgabe, gedruckt und digital.",
+  },
+  {
+    q: "Wie lange dauert es von der Freigabe bis zur Lieferung?",
+    a: "Das hängt vom Druckverfahren und der Auflage ab: Digitaldruck ist schneller produziert als Offset, und Veredelungen brauchen zusätzliche Zeit. Konkrete Termine nennen wir dir in der Offerte, und wir planen die Produktion mit Puffer, damit dein Magazin rechtzeitig da ist, etwa vor einem Fest, einer Generalversammlung oder einer Kampagne.",
+  },
+];
+---
+
+<Layout
+  title="Magazin drucken lassen in der Schweiz - Uftritt"
+  description="Magazin drucken lassen: Papier, Bindung und Auflage sauber abgewickelt bis zum fertigen Exemplar. Reinzeichnung und Druckbegleitung, auch für Kleinauflagen."
+>
+  <PageHero
+    eyebrow="Druckabwicklung · ganze Schweiz"
+    title={"Magazin\ndrucken lassen"}
+    lead="Du willst dein Magazin drucken lassen? Wir wickeln die Produktion ab: Auflage, Papier, Bindung und Reinzeichnung, bis das fertige Exemplar bei dir liegt. Gedruckt wird bei unseren Partnerdruckereien in der Schweiz, wir bleiben dein Ansprechpartner für Termine, Qualität und Budget. Auch für Kleinauflagen."
+    lottie="/lottie/magazinbetreuung.json"
+    lottieLabel="Magazin drucken lassen"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/magazinbetreuung/" label="Magazinbetreuung" lottie="/lottie/magazinbetreuung.json" projects={cases} />
+
+  {/* Druck-Themen */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Druckabwicklung</span>
+        <h2>Was wir für dich abwickeln</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          druckThemen.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Die konkrete Auswahl besprechen wir im Erstgespräch. Papiermuster
+        bekommst du vor der Entscheidung auf den Tisch, und gedruckt wird
+        erst nach deiner Freigabe.
+      </p>
+    </div>
+  </section>
+
+  {/* Auflage + Dedupe */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Von der Kleinauflage bis zur Grossauflage</h2>
+        <div class="lp-text">
+          <p>
+            Kleine Auflagen drucken wir digital, grosse im Offsetverfahren:
+            Was sich wann lohnt, rechnen wir mit der Druckerei für dich durch.
+            So trägt sich auch ein Magazin für einen Verein oder einen
+            kleinen Kundenkreis, und bei grossen Auflagen sinkt der
+            Stückpreis spürbar.
+          </p>
+          <p>
+            Dass beides funktioniert, zeigen unsere Projekte: Zuletzt haben
+            wir einen Festführer in einer Auflage von 5500 Stück mit 60
+            Seiten durch die Produktion begleitet. Und das periodische Heft
+            von <a href="/projekte/dt-baeretswil/">DT Bäretswil</a>
+            gestalten und produzieren wir laufend, Ausgabe für Ausgabe.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Du hast noch keine druckfertigen Daten?</h2>
+        <div class="lp-text">
+          <p>
+            Diese Seite dreht sich um die Druckabwicklung. Fehlt dir noch
+            Konzept, Redaktion oder Gestaltung, startest du am besten beim
+            <a href="/magazin-erstellen-lassen/">Magazin erstellen lassen</a>:
+            Dort begleiten wir dich von der Idee über Text und Layout bis zur
+            fertigen Ausgabe.
+          </p>
+          <p>
+            Je nach Zielgruppe lohnt auch ein Blick auf die Schwesterthemen:
+            das <a href="/kundenmagazin/">Kundenmagazin</a> für die externe
+            Kundenbindung, das
+            <a href="/mitarbeitermagazin/">Mitarbeitermagazin</a> für die
+            interne Kommunikation oder das
+            <a href="/jubilaeumsmagazin/">Jubiläumsmagazin</a> für den
+            einmaligen grossen Anlass.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Reinzeichnung + Partner, ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Reinzeichnung: Daten, die die Druckerei versteht</h2>
+        <div class="lp-text">
+          <p>
+            Die meisten Druckprobleme entstehen nicht an der Maschine,
+            sondern in den Daten: fehlender Beschnitt, falsch angelegte
+            Farben, Schriften, die nicht eingebettet sind. Darum reinzeichnen
+            wir dein Magazin sauber, egal ob du ein Layout lieferst oder wir
+            es im <a href="/printdesign/">Printdesign</a> für dich erstellt
+            haben.
+          </p>
+          <p>
+            Vor der Produktion bekommst du die druckfertigen Daten zur
+            Freigabe. Erst wenn du gutheisst, was gedruckt wird, geht der
+            Auftrag an die Druckerei. So gibt es keine Überraschungen in
+            der gelieferten Auflage.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Gedruckt bei Partnerdruckereien, ehrlich gesagt</h2>
+        <div class="lp-text">
+          <p>
+            Wir sind keine Druckerei und wollen auch keine sein: Drucken ist
+            ein eigenes Handwerk. Darum produzieren wir mit Partnerdruckereien
+            in der Schweiz, deren Qualität wir kennen, und sprechen die
+            technischen Details direkt mit ihnen ab.
+          </p>
+          <p>
+            Für dich ändert das nichts am Komfort: Du hast einen
+            Ansprechpartner, eine Offerte und einen Termin. Und wenn dein
+            Magazin Teil eines grösseren Auftritts ist, stimmen wir Papier
+            und Haptik auf deine
+            <a href="/geschaeftsdrucksachen/">Geschäftsdrucksachen</a> ab,
+            damit alles aus einem Guss wirkt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Dein Magazin, fertig gedruckt und geliefert: die ganze Auflage
+            bei dir oder verteilt auf mehrere Adressen, etwa direkt an
+            Filialen, Vereinsmitglieder oder Kunden. Auf Wunsch legen wir die
+            digitale Ausgabe als optimiertes PDF dazu.
+          </p>
+          <p>
+            Und für die nächste Ausgabe liegt alles bereit: Papier, Bindung
+            und Druckerei sind definiert, die Daten bleiben bei dir. Ein
+            Nachdruck oder die nächste Nummer ist dann kein neues Projekt
+            mehr, sondern eine Nachbestellung.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Magazindruck</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit, dein Magazin in die Hände zu nehmen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, welches Magazin du drucken willst: ungefähre Auflage,
+        Seitenzahl und Wunschtermin genügen für den Anfang. Du bekommst eine
+        ehrliche Einschätzung und eine transparente Offerte.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges { grid-template-columns: 1fr; }
+  }
+</style>

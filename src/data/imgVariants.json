@@ -1,4 +1,268 @@
 {
+  "/kunden/0_zollikhair.jpg": [
+    480,
+    960
+  ],
+  "/kunden/10_it-stall.jpg": [
+    480,
+    960
+  ],
+  "/kunden/11_heusser-holzbau.jpg": [
+    480,
+    960
+  ],
+  "/kunden/12_gro-wetzikon.jpg": [
+    480,
+    960
+  ],
+  "/kunden/13_felix-kran.jpg": [
+    480,
+    960
+  ],
+  "/kunden/14_frei-autogarage.jpg": [
+    480,
+    960
+  ],
+  "/kunden/15_peter-ott-fahrschule.jpg": [
+    480,
+    960
+  ],
+  "/kunden/16_fahrschule-schweiz.jpg": [
+    480,
+    960
+  ],
+  "/kunden/17_electra-ag.jpg": [
+    480,
+    960
+  ],
+  "/kunden/18_cva-global.jpg": [
+    480,
+    960
+  ],
+  "/kunden/19_beat-brugger.jpg": [
+    480,
+    960
+  ],
+  "/kunden/1_youngstarsInt-logo_color-large.jpg": [
+    480,
+    960
+  ],
+  "/kunden/20_architekturmacher.jpg": [
+    480,
+    960
+  ],
+  "/kunden/21_aas-freight.jpg": [
+    480,
+    960
+  ],
+  "/kunden/22_100pro-openair.jpg": [
+    480,
+    960
+  ],
+  "/kunden/23_empower.jpg": [
+    480,
+    960
+  ],
+  "/kunden/24_haenseler.jpg": [
+    480,
+    960
+  ],
+  "/kunden/25_youngstarsInt.jpg": [
+    480,
+    960
+  ],
+  "/kunden/26_emotion-hinwil.jpg": [
+    480,
+    960
+  ],
+  "/kunden/27_cynterim.jpg": [
+    480,
+    960
+  ],
+  "/kunden/28_dt-baeretswil.jpg": [
+    480,
+    960
+  ],
+  "/kunden/29_crossfit-zug.jpg": [
+    480,
+    960
+  ],
+  "/kunden/2_x-med.jpg": [
+    480,
+    960
+  ],
+  "/kunden/3_smart-navigator.jpg": [
+    480,
+    960
+  ],
+  "/kunden/4_tenini-sport.jpg": [
+    480,
+    960
+  ],
+  "/kunden/5_seatalytics.jpg": [
+    480,
+    960
+  ],
+  "/kunden/6_ripa-immobilien.jpg": [
+    480,
+    960
+  ],
+  "/kunden/7_regan-ferienhaus.jpg": [
+    480,
+    960
+  ],
+  "/kunden/8_good-tone.jpg": [
+    480,
+    960
+  ],
+  "/kunden/9_patientenstiftung-di-gallo.jpg": [
+    480,
+    960
+  ],
+  "/news/architekturmacher.jpg": [
+    480,
+    960
+  ],
+  "/news/baumerziitig.jpg": [
+    480,
+    960
+  ],
+  "/news/christian.jpg": [
+    480,
+    960
+  ],
+  "/news/cynterim.jpg": [
+    480,
+    960
+  ],
+  "/news/dt-baeretswil.jpg": [
+    480,
+    960
+  ],
+  "/news/ein-verband-viele-betriebe-eine-plattform-2.jpg": [
+    480,
+    960
+  ],
+  "/news/ein-verband-viele-betriebe-eine-plattform-3.jpg": [
+    480,
+    960
+  ],
+  "/news/ein-verband-viele-betriebe-eine-plattform-4.jpg": [
+    480,
+    960
+  ],
+  "/news/ein-verband-viele-betriebe-eine-plattform-5.jpg": [
+    480,
+    960
+  ],
+  "/news/ein-verband-viele-betriebe-eine-plattform-6.jpg": [
+    480,
+    960
+  ],
+  "/news/ein-verband-viele-betriebe-eine-plattform-7.jpg": [
+    480,
+    960
+  ],
+  "/news/ein-verband-viele-betriebe-eine-plattform.jpg": [
+    480,
+    960
+  ],
+  "/news/emotion-hinwil.jpg": [
+    480,
+    960
+  ],
+  "/news/empower.jpg": [
+    480,
+    960
+  ],
+  "/news/fahrschule-schweiz.jpg": [
+    480,
+    960
+  ],
+  "/news/fahrschule.jpg": [
+    480,
+    960
+  ],
+  "/news/gruendung.jpg": [
+    480,
+    960
+  ],
+  "/news/it-stall.jpg": [
+    480,
+    960
+  ],
+  "/news/ki.jpg": [
+    480,
+    960
+  ],
+  "/news/natuerli-kaesemarkt.jpg": [
+    480,
+    960
+  ],
+  "/news/physio-rothe.jpg": [
+    480,
+    960
+  ],
+  "/news/podcast-selbststaendigkeit.jpg": [
+    480,
+    960
+  ],
+  "/news/ratsam.jpg": [
+    480,
+    960
+  ],
+  "/news/regan.jpg": [
+    480,
+    960
+  ],
+  "/news/ripa.jpg": [
+    480,
+    960
+  ],
+  "/news/sam-focus.jpg": [
+    480,
+    960
+  ],
+  "/news/servus.jpg": [
+    480,
+    960
+  ],
+  "/news/smart-navigator.jpg": [
+    480,
+    960
+  ],
+  "/news/spinnereiplatz.jpg": [
+    480,
+    960
+  ],
+  "/news/stahel-koeng.jpg": [
+    480,
+    960
+  ],
+  "/news/standortfoerderung.jpg": [
+    480,
+    960
+  ],
+  "/news/tamara.jpg": [
+    480,
+    960
+  ],
+  "/news/team.jpg": [
+    480,
+    960
+  ],
+  "/news/umzug-saland.jpg": [
+    480,
+    960
+  ],
+  "/news/w-rs.jpg": [
+    480,
+    960
+  ],
+  "/news/yi-broschuere.jpg": [
+    480,
+    960
+  ],
   "/projekte/100pro-openair-2024/100Pro_Openair_2024_01.jpg": [
     480,
     960,
@@ -25,6 +289,30 @@
     1440
   ],
   "/projekte/100pro-openair-2024/100Pro_Openair_2024_06.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/100pro-openair-2026.jpg": [
+    480,
+    960
+  ],
+  "/projekte/100pro-openair-2026/haengekarton.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/100pro-openair-2026/hero.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/100pro-openair-2026/rollup.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/100pro-openair-2026/social.jpg": [
     480,
     960,
     1440
@@ -268,6 +556,48 @@
     960,
     1440
   ],
+  "/projekte/egli-jona.jpg": [
+    480,
+    960
+  ],
+  "/projekte/egli-jona/hero.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/egli-jona/hinten.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/egli-jona/seite.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/ehc-wetzikon-sihf.jpg": [
+    480,
+    960
+  ],
+  "/projekte/ehc-wetzikon-sihf/grafik.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/ehc-wetzikon-sihf/hero.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/ehc-wetzikon.jpg": [
+    480,
+    960
+  ],
+  "/projekte/ehc-wetzikon/hero.jpg": [
+    480,
+    960,
+    1440
+  ],
   "/projekte/emotion-hinwil.jpg": [
     480,
     960
@@ -369,6 +699,93 @@
     960,
     1440
   ],
+  "/projekte/gewerbe-bewegt.jpg": [
+    480,
+    960
+  ],
+  "/projekte/gewerbe-bewegt/event-1.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/gewerbe-bewegt/event-2.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/gewerbe-bewegt/event-3.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/gewerbe-bewegt/festfuehrer-1.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/gewerbe-bewegt/festfuehrer-2.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/gewerbe-bewegt/festfuehrer-3.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/gewerbe-bewegt/hero.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/gewerbe-bewegt/plan.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/gewerbe-bewegt/social-media.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/gewerbe-bewegt/website.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/goodtone-pickups.jpg": [
+    480,
+    960
+  ],
+  "/projekte/goodtone-pickups/hero.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/goodtone-pickups/produktbilder.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/goodtone-pickups/tremolo.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/gzo-video-podcast.jpg": [
+    480,
+    960
+  ],
+  "/projekte/gzo-video-podcast/hero.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/gzo-video-podcast/youtube.jpg": [
+    480,
+    960,
+    1440
+  ],
   "/projekte/heusser-holzbau.jpg": [
     480,
     960
@@ -418,6 +835,49 @@
     1440
   ],
   "/projekte/it-stall/it-stal_1500x1000px_04.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/metallfaktur.jpg": [
+    480,
+    960
+  ],
+  "/projekte/metallfaktur/hero.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/metallfaktur/icons.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/metallfaktur/produkt.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/palimed.jpg": [
+    480,
+    960
+  ],
+  "/projekte/palimed/farben.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/palimed/hero.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/palimed/karte.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/palimed/website.jpg": [
     480,
     960,
     1440
@@ -551,6 +1011,29 @@
     960,
     1440
   ],
+  "/projekte/schoener-feiern.jpg": [
+    480,
+    960
+  ],
+  "/projekte/schoener-feiern/hero.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/schoener-feiern/signet.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/schoener-feiern/typo.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/schoener-feiern/website.jpg": [
+    480,
+    960
+  ],
   "/projekte/seatalytics.jpg": [
     480,
     960
@@ -585,6 +1068,25 @@
     1440
   ],
   "/projekte/smart-navigator/smart_navigator_1500x1000_5.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/sos-concept.jpg": [
+    480,
+    960
+  ],
+  "/projekte/sos-concept/briefbogen.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/sos-concept/hero.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/sos-concept/visitenkarte.jpg": [
     480,
     960,
     1440
@@ -642,6 +1144,20 @@
     960,
     1440
   ],
+  "/projekte/tenini-webshop.jpg": [
+    480,
+    960
+  ],
+  "/projekte/tenini-webshop/hero.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/tenini-webshop/white-label.jpg": [
+    480,
+    960,
+    1440
+  ],
   "/projekte/youngstars-broschuere.jpg": [
     480,
     960
@@ -662,6 +1178,49 @@
     1440
   ],
   "/projekte/youngstars-broschuere/YI_Broschuere_1500x1000px_04.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/youngstars-hub.jpg": [
+    480,
+    960
+  ],
+  "/projekte/youngstars-hub/grafik.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/youngstars-hub/hero.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/youngstars-magazin.jpg": [
+    480,
+    960
+  ],
+  "/projekte/youngstars-magazin/hero.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/youngstars-magazin/news-2.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/youngstars-magazin/news-3.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/youngstars-magazin/news-4.jpg": [
+    480,
+    960,
+    1440
+  ],
+  "/projekte/youngstars-magazin/news-5.jpg": [
     480,
     960,
     1440
@@ -689,5 +1248,37 @@
     480,
     960,
     1440
+  ],
+  "/team/christian-angst-portrait.jpg": [
+    480,
+    960
+  ],
+  "/team/jeffrey-meier-portrait-lightbox.jpg": [
+    480,
+    960
+  ],
+  "/team/jeffrey-meier-portrait.jpg": [
+    480,
+    960
+  ],
+  "/team/marcel-klausberger-portrait-lightbox.jpg": [
+    480,
+    960
+  ],
+  "/team/marcel-klausberger-portrait.jpg": [
+    480,
+    960
+  ],
+  "/team/sam-urech-portrait.jpg": [
+    480,
+    960
+  ],
+  "/team/sarah-link-portrait-lightbox.jpg": [
+    480,
+    960
+  ],
+  "/team/sarah-link-portrait.jpg": [
+    480,
+    960
   ]
 }

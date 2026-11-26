@@ -1,0 +1,324 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "it-stall", "cynterim"].includes(p.slug)
+);
+
+const kontingent = [
+  {
+    title: "Landingpages und neue Seiten",
+    note: "Neue Angebote, Kampagnen-Seiten oder ganze Bereiche: Wir konzipieren, gestalten und bauen sie direkt aus dem Kontingent.",
+  },
+  {
+    title: "Inhalte pflegen",
+    note: "Texte, Bilder, News, Team-Seiten oder Stelleninserate: Du lieferst die Rohstoffe, wir bringen sie sauber auf deine Site.",
+  },
+  {
+    title: "Weiterentwicklung",
+    note: "Anpassungen an Struktur und Gestaltung, kleinere neue Funktionen und laufende Verbesserungen aus unseren Empfehlungen.",
+  },
+  {
+    title: "Schulung deines Teams",
+    note: "Wir zeigen deinem Team, wie es Inhalte selbst pflegt, und bleiben für alles da, das über das Tagesgeschäft hinausgeht.",
+  },
+];
+
+const ablauf = [
+  "Kostenloses Erstgespräch: Wir schauen uns deine Website und deine Ziele an",
+  "Kontingent festlegen: Gemeinsam bestimmen wir, wie viele Stunden pro Monat sinnvoll sind",
+  "Transparentes Angebot: Du weisst vor dem Start, was das Abo kostet und was es umfasst",
+  "Laufende Umsetzung: Wir arbeiten das Kontingent mit dir ab, priorisiert nach Wirkung",
+  "Regelmässiger Austausch: Wir melden uns aktiv, wenn Stunden frei sind oder etwas ansteht",
+];
+
+const faq = [
+  {
+    q: "Was ist der Unterschied zwischen Betreuung und Wartungsabo?",
+    a: "Die Website-Betreuung für CHF 33 pro Monat ist die technische Basis: Hosting in der Schweiz, Wartung, tägliche Backups und alle Updates. Sie hält deine Site sicher und aktuell, entwickelt sie aber nicht weiter. Das Wartungsabo baut genau darauf auf: Du buchst ein monatliches Stundenkontingent, mit dem wir Inhalte pflegen, neue Seiten bauen und deine Website laufend verbessern. Kurz gesagt: Die Betreuung hält deine Site sicher, das Wartungsabo bringt sie weiter.",
+  },
+  {
+    q: "Verfällt mein Kontingent am Ende des Monats?",
+    a: "Unser Ziel ist, dass sich diese Frage gar nicht stellt: Wir planen die anstehenden Arbeiten mit dir und melden uns aktiv, wenn Stunden ungenutzt zu bleiben drohen, mit konkreten Vorschlägen, was damit sinnvoll wäre. Wie wir mit allfälligen Reststunden umgehen, halten wir transparent in deinem Angebot fest, bevor das Abo startet.",
+  },
+  {
+    q: "Was kostet ein Website-Wartungsabo?",
+    a: "Das hängt vom Kontingent ab, das zu deinem Bedarf passt, darum gibt es keinen Listenpreis. Im kostenlosen Erstgespräch schauen wir uns deine Website und deine Pläne an und machen dir danach ein transparentes Angebot. Fest steht nur die Basis: Die technische Betreuung für CHF 33 pro Monat bleibt Voraussetzung, damit wir auf einer sauber gewarteten Site weiterbauen können.",
+  },
+  {
+    q: "Wie schnell kann ich das Abo wieder kündigen?",
+    a: "Das besprechen wir offen, bevor irgendetwas läuft: Laufzeit und Konditionen legen wir gemeinsam fest und halten sie schriftlich in deinem Angebot fest. Uns ist wichtig, dass die Zusammenarbeit für beide Seiten passt, und du erlebst bei uns keine Überraschungen im Kleingedruckten.",
+  },
+  {
+    q: "Für wen lohnt sich ein Wartungsabo?",
+    a: "Für alle, deren Website mit dem Geschäft mitwachsen soll: neue Angebote, frische Inhalte, Landingpages für Kampagnen oder ein Team, das im Umgang mit der Site geschult werden will. Hast du nur ab und zu eine Kleinigkeit, reichen die Basis-Betreuung oder ein Einzelauftrag völlig aus. Das sagen wir dir im Erstgespräch auch ehrlich, wenn das Abo für dich zu gross ist.",
+  },
+  {
+    q: "Übernehmt ihr auch Websites, die ihr nicht gebaut habt?",
+    a: "In den meisten Fällen ja. Wir schauen uns deine Website zuerst in einem kostenlosen Gespräch an: welche Technik dahintersteckt, wo sie gehostet ist und in welchem Zustand sie ist. Danach sagen wir dir ehrlich, ob und wie wir sie betreuen und weiterentwickeln können und was eine allfällige Übernahme braucht.",
+  },
+];
+---
+
+<Layout
+  title="Website-Wartungsabo mit Stundenkontingent - Uftritt"
+  description="Website-Wartungsabo mit monatlichem Stundenkontingent: neue Inhalte, Landingpages und Weiterentwicklung deiner Website. Basis: Betreuung für CHF 33 pro Monat."
+>
+  <PageHero
+    eyebrow="Website-Betreuung · Plus"
+    title={"Website-Wartungsabo,\ndas deinen Auftritt weiterbringt"}
+    lead="Ein Website-Wartungsabo heisst bei uns: monatliches Stundenkontingent für alles, was deine Website weiterbringt. Neue Landingpages, frische Inhalte, Anpassungen am Angebot oder die Schulung deines Teams. Voraussetzung ist die technische Betreuung für CHF 33 pro Monat, die deine Site sicher und aktuell hält."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Website-Wartungsabo"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Positionierung: Betreuung vs. Wartungsabo */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Betreuung hält die Site sicher, das Abo bringt sie weiter</h2>
+        <div class="lp-text">
+          <p>
+            Die Website-Betreuung für CHF 33 pro Monat ist die Basis: Hosting in
+            der Schweiz, Wartung, tägliche Backups und alle Updates. Sie hält
+            deine Site sicher und aktuell, und ehrlich gesagt: mehr auch nicht.
+            Ein Wachstumsinstrument ist sie bewusst nicht.
+          </p>
+          <p>
+            Das Wartungsabo setzt genau dort an: Du buchst ein monatliches
+            Stundenkontingent, mit dem wir deine Website laufend
+            weiterentwickeln. Manche nennen so ein Modell Wartungsvertrag oder
+            Retainer. Voraussetzung bleibt die
+            <a href="/website-betreuung/">Website-Betreuung</a>, weil
+            Weiterbauen nur auf einer sauber gewarteten Site sinnvoll ist.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Das Vorbild: ein Sportwagen-Händler aus der Region</h2>
+        <div class="lp-text">
+          <p>
+            Wie das in der Praxis aussieht, zeigt ein langjähriger Kunde: ein
+            Sportwagen-Händler aus der Region, dessen Website wir seit Jahren
+            mit einem Stundenkontingent weiterentwickeln. Seine Site steht nie
+            still, sie wächst mit dem Geschäft, Monat für Monat.
+          </p>
+          <p>
+            Der Vorteil für ihn: Es braucht nicht für jede Änderung ein eigenes
+            Projekt mit separater Offerte. Die Arbeiten laufen über das
+            Kontingent, priorisiert nach dem, was gerade am meisten bringt.
+            Genau dieses Modell bekommst du mit unserem Wartungsabo.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Was ins Kontingent fällt */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Stundenkontingent</span>
+        <h2>Was ins monatliche Kontingent fällt</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          kontingent.map((k) => (
+            <article class="karte">
+              <h3>{k.title}</h3>
+              <p class="karte-note">{k.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Was nicht drin ist + Ablauf */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Ehrlich gesagt: Das fällt nicht ins Kontingent</h2>
+        <div class="lp-text">
+          <p>
+            Das Kontingent ist für laufende Arbeiten gedacht, nicht für
+            Grossprojekte: ein kompletter Relaunch, ein neuer Webshop oder eine
+            grössere Entwicklung sprengen jedes monatliche Stundenbudget.
+            Solche Vorhaben offerieren wir transparent als eigenes Projekt.
+          </p>
+          <p>
+            Und brauchst du nur einmalig eine einzelne Seite, etwa für eine
+            Kampagne? Dann ist eine einzelne
+            <a href="/landingpage-erstellen-lassen/">Landingpage</a> ohne Abo
+            die passendere Lösung. Wir sagen dir im Erstgespräch ehrlich,
+            welches Modell zu deinem Bedarf passt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>So läuft die Zusammenarbeit</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Für wen + wenn mehr ansteht */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Für wen sich das Abo lohnt</h2>
+        <div class="lp-text">
+          <p>
+            Für Betriebe, deren Website mit dem Geschäft mitwachsen soll: neue
+            Angebote, saisonale Kampagnen, Stelleninserate oder Referenzen, die
+            sonst liegen bleiben. Wenn bei dir regelmässig Dinge anstehen, die
+            auf die Site gehören, ist das Kontingent die einfachere Lösung als
+            lauter Einzelaufträge mit je eigener Offerte.
+          </p>
+          <p>
+            Und wenn du merkst, dass es generell mehr braucht als nur die
+            Website: Schau dir an, wie du
+            <a href="/marketing-auslagern/">Marketing auslagern</a> kannst,
+            oder was laufende <a href="/seo-betreuung/">SEO-Betreuung</a>
+            bringt. Beides lässt sich mit dem Wartungsabo kombinieren.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Und wenn mal mehr ansteht?</h2>
+        <div class="lp-text">
+          <p>
+            Manchmal ist mehr nötig, als ein Kontingent trägt: ein
+            <a href="/website-relaunch/">Website-Relaunch</a> etwa oder eine
+            neue Funktion, die ein eigenes Projekt braucht. Dann bekommst du
+            dafür ein transparentes Angebot, und das Abo läuft parallel einfach
+            weiter.
+          </p>
+          <p>
+            Umgekehrt gilt dasselbe: Merken wir, dass dein Kontingent dauerhaft
+            zu gross oder zu klein ist, sprechen wir es an und passen es
+            gemeinsam an. Das Abo soll zu deinem Bedarf passen, nicht umgekehrt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Website-Wartungsabo</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Soll deine Website weiterkommen statt stillstehen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was bei dir regelmässig ansteht. Wir sagen dir ehrlich, ob
+        sich ein Wartungsabo für dich lohnt und wie gross das Kontingent sein
+        sollte.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

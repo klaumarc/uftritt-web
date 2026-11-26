@@ -1,5 +1,6 @@
 ---
 // Freigeschaltete Kundenlogos mit Links. Graustufen → bei Hover farbig, kein Rahmen.
+import { webpSrcSet } from "../utils/img";
 interface Client {
   name: string;
   logo: string;
@@ -23,17 +24,27 @@ const clients: Client[] = [
 
 <ul class="clients-grid">
   {
-    clients.map((c) => (
+    clients.map((c) => {
+      const srcset = webpSrcSet(c.logo);
+      return (
       <li>
         <a class="client" href={c.url} target="_blank" rel="noopener" aria-label={c.name}>
-          <img src={c.logo} alt={c.name} loading="lazy" />
+          <picture>
+            {srcset && <source type="image/webp" srcset={srcset} sizes="(max-width: 700px) 30vw, 180px" />}
+            <img src={c.logo} alt={c.name} loading="lazy" />
+          </picture>
         </a>
       </li>
-    ))
+      );
+    })
   }
 </ul>
 
 <style>
+  /* picture-Wrapper (webp/srcset): keine eigene Box, img bleibt layout-seitig gleich */
+  picture {
+    display: contents;
+  }
   .clients-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);

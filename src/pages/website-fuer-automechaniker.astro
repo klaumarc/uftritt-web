@@ -1,0 +1,330 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects
+  .filter((p) =>
+    ["garage-frei", "stahel-koeng", "it-stall"].includes(p.slug)
+  )
+  .slice(0, 3);
+
+const grundbedarf = [
+  {
+    title: "Terminanfragen ohne Telefonklingeln",
+    note: "Service, Reifenwechsel oder Klimacheck: Kundinnen und Kunden schicken die Anfrage mit Marke, Modell und Kilometerstand übers Formular. Du rufst zurück, wenn es in die Werkstattplanung passt.",
+  },
+  {
+    title: "Leistungen, die Vertrauen schaffen",
+    note: "Service und Reparatur, MFK-Vorbereitung, Klimaanlage, Pneu und Rädereinlagerung: Was deine Garage anbietet, steht klar auf der Seite, in verständlicher Sprache statt Fachchinesisch.",
+  },
+  {
+    title: "Saisonale Aktionen rechtzeitig online",
+    note: "Reifenwechsel im Frühling und Herbst, Klimaservice vor den Ferien: Aktionen müssen zum richtigen Zeitpunkt auf der Seite stehen, nicht drei Wochen zu spät.",
+  },
+  {
+    title: "Team und Werkstatt zeigen",
+    note: "In einer Garage geht es ums Vertrauen: Fotos von Team, Hebebühne und Werkalltag wirken echter als austauschbare Bilder und senken die Hemmschwelle für neue Kundschaft.",
+  },
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: Was deine Garage braucht, was schon da ist",
+  "Struktur und Konzept: Leistungen, Terminanfrage, Team und Kontakt am richtigen Platz",
+  "Inhalte: Wir schreiben die Texte, du lieferst Fotos aus der Werkstatt",
+  "Bau und Feinschliff: mobil zuerst, schnell ladend, mit deinem Feedback",
+  "Online und betreut: Für CHF 33 pro Monat bleiben wir auch nach dem Launch dran",
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Website für eine Garage?",
+    a: "Das hängt vom Umfang ab: Eine schlanke Seite mit Leistungen, Team und Terminanfrage kostet deutlich weniger als ein grosser Auftritt mit vielen Bereichen. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit klarem Preis. Grössenordnungen aus Schweizer Quellen findest du auf unserer Seite <a href=\"/website-kosten/\">Website-Kosten</a>. Danach bleibt die Seite für CHF 33 pro Monat betreut.",
+  },
+  {
+    q: "Ich habe eine kleine Werkstatt. Lohnt sich eine eigene Website überhaupt?",
+    a: "Ehrlich gesagt: Die Basis ist ein gepflegtes <a href=\"/google-business-profile/\">Google Business Profile</a> mit Öffnungszeiten, Telefonnummer und Bewertungen, das ist kostenlos. Eine eigene Website wird dann wichtig, wenn du Terminanfragen ohne Telefonklingeln willst, deine Leistungen sauber zeigen und bei Suchanfragen in deiner Region sichtbar sein willst. Im Erstgespräch sagen wir dir offen, was sich für deine Werkstatt lohnt und was nicht.",
+  },
+  {
+    q: "Können Kundinnen und Kunden Service-Termine online buchen?",
+    a: "Ja, und wir empfehlen bewusst die einfache Variante: ein Terminanfrage-Formular, das Marke, Modell, Kilometerstand und Anliegen abfragt. Du bestätigst den Termin, wenn er in die Planung passt. Ein vollautomatisches Buchungssystem mit Kalender ist für die meisten Garagen überdimensioniert und teuer im Unterhalt. Was sich für dich lohnt, schauen wir gemeinsam an.",
+  },
+  {
+    q: "Wie werde ich gefunden, wenn jemand «Garage in der Nähe» sucht?",
+    a: "Über lokale Suchmaschinenoptimierung: die richtigen Ortsangaben auf der Website, ein sauber gepflegtes Google-Profil und Inhalte, die zu dem passen, was Menschen in deiner Region suchen, von der MFK-Vorbereitung bis zur Pannenhilfe. Wie wir das angehen, steht auf unserer Seite zu <a href=\"/local-seo/\">Local SEO</a>.",
+  },
+  {
+    q: "Kann ich meine Google-Bewertungen auf der Website zeigen?",
+    a: "Ja, und gerade für Garagen ist das wertvoll: Wer sein Auto abgibt, will sich auf die Werkstatt verlassen können, und echte Bewertungen schaffen dieses Vertrauen besser als jeder Werbetext. Wie du mehr gute Bewertungen bekommst und sie sichtbar nutzt, zeigen wir auf unserer Seite zu <a href=\"/google-bewertungen/\">Google-Bewertungen</a>.",
+  },
+  {
+    q: "Wer pflegt die Seite, wenn Reifenwechsel-Saison ist?",
+    a: "Genau dann hast du in der Werkstatt alle Hände voll zu tun. Mit der <a href=\"/website-betreuung/\">Website-Betreuung</a> für CHF 33 pro Monat schalten wir deine saisonalen Aktionen pünktlich auf, passen Öffnungszeiten und Betriebsferien an und halten die Seite technisch aktuell. Du schreibst uns kurz, wir erledigen den Rest.",
+  },
+  {
+    q: "Wir verkaufen auch Occasionen. Passt das auf dieselbe Website?",
+    a: "Ein paar Fahrzeuge neben dem Werkstattbetrieb lassen sich gut auf der Garagen-Website zeigen. Wird der Handel zum eigenen Standbein mit grösserem Bestand, gelten eigene Anforderungen, etwa Fahrzeuglisten mit aktuellen Inseraten. Dafür haben wir eine eigene Seite: <a href=\"/website-fuer-autohandler/\">Website für Autohändler</a>.",
+  },
+];
+---
+
+<Layout
+  title="Website für Automechaniker und Garagen - Uftritt"
+  description="Website für Automechaniker und Garagen: Terminanfragen, Leistungen und Google-Sichtbarkeit. Schlank gebaut, selbst pflegbar, betreut für CHF 33 pro Monat."
+>
+  <PageHero
+    eyebrow="Für Automechaniker und Garagenbetriebe"
+    title={"Website für\nAutomechaniker und Garagen"}
+    lead="Die kurze Antwort: Eine Website für deine Garage muss drei Dinge können: Terminanfragen ohne Telefonklingeln, deine Leistungen klar zeigen und bei «Garage in der Nähe» bei Google auftauchen. Wir bauen sie schlank, mobil zuerst und so, dass du sie selbst pflegen kannst, mit Betreuung für CHF 33 pro Monat."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Website für Automechaniker"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Was die Seite braucht */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Das Fundament</span>
+        <h2>Was eine Garagen-Website können muss</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          grundbedarf.map((g) => (
+            <article class="karte">
+              <h3>{g.title}</h3>
+              <p class="karte-note">{g.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Gefunden werden und Vertrauen */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gefunden werden, wenn es dringend ist</h2>
+        <div class="lp-text">
+          <p>
+            Niemand sucht eine Garage zum Spass: Das Auto streikt, die MFK steht
+            an oder das Service-Lämpchen leuchtet. Gesucht wird dann am Handy,
+            nach «Garage in der Nähe» oder «Autowerkstatt» plus deinem Ort.
+            Wer dort nicht auftaucht, bekommt den Auftrag nicht.
+          </p>
+          <p>
+            Darum gehören lokale Sichtbarkeit und Website zusammen: richtige
+            Ortsangaben, aktuelle Öffnungszeiten und ein gepflegtes
+            <a href="/google-business-profile/">Google Business Profile</a> als
+            Basis, dazu <a href="/local-seo/">Local SEO</a> auf der Seite selbst.
+            So landet die dringende Anfrage bei dir und nicht beim nächsten
+            Betrieb.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Vertrauen ist dein wichtigstes Ersatzteil</h2>
+        <div class="lp-text">
+          <p>
+            In der Werkstattbranche zählt Vertrauen mehr als in fast jeder
+            anderen: Kundinnen und Kunden können schlecht prüfen, ob ein
+            Wechsel wirklich nötig war. Deine Website muss dieses Vertrauen
+            aufbauen, mit ehrlichen Leistungsbeschrieben, Gesichtern aus der
+            Werkstatt und echten <a href="/google-bewertungen/">Google-Bewertungen</a>.
+          </p>
+          <p>
+            Ehrlich gesagt: Für die ganz kleine Werkstatt mit treuer Stammkundschaft
+            reicht manchmal ein gut gepflegtes Google-Profil plus eine schlanke
+            Seite. Wir sagen dir im Erstgespräch offen, welcher Umfang für deinen
+            Betrieb sinnvoll ist.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Case und Umfeld */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Eine Garagen-Website von uns</h2>
+        <div class="lp-text">
+          <p>
+            Die Website der <a href="/projekte/garage-frei/">Autogarage Frei</a>
+            stammt von uns. Klick dich durch und schau, wie Leistungen, Team und
+            Kontakt dort aufgebaut sind. So ungefähr könnte auch deine Seite
+            aussehen, natürlich in deinem Erscheinungsbild und mit deinen
+            Schwerpunkten.
+          </p>
+          <p>
+            Weitere Projekte aus der Region findest du in unserem
+            <a href="/projekte/">Portfolio</a>, von Webdesign über Grafik bis
+            Video. Viele unserer Kundinnen und Kunden betreuen wir im Rahmen
+            unseres <a href="/webdesign-zuercher-oberland/">Webdesigns im Zürcher Oberland</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Mehr als die Website</h2>
+        <div class="lp-text">
+          <p>
+            Dein Werkstattwagen ist jeden Tag auf der Strasse: Mit einer sauber
+            gestalteten <a href="/fahrzeugbeschriftung-gestalten/">Fahrzeugbeschriftung</a>
+            wird er zur rollenden Werbefläche, die zu deiner Website passt,
+            von Hol- und Bringservice bis Ersatzwagen.
+          </p>
+          <p>
+            Und falls der Handel mit Occasionen bei dir ein eigenes Standbein
+            ist oder werden soll: Für Autohäuser mit Fahrzeugbestand haben wir
+            eine eigene Seite, die <a href="/website-fuer-autohandler/">Website für
+            Autohändler</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf und Betreuung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Nach dem Launch bleiben wir dran</h2>
+        <div class="lp-text">
+          <p>
+            In der Werkstatt hast du Wichtigeres zu tun, als die Website zu
+            pflegen. Mit der <a href="/website-betreuung/">Website-Betreuung</a>
+            für CHF 33 pro Monat kümmern wir uns um Hosting, Updates und deine
+            Änderungen, von der Reifenwechsel-Aktion bis zu den Betriebsferien.
+          </p>
+          <p>
+            Übrigens: Für andere Branchen rund ums Auto bauen wir mit demselben
+            Anspruch, etwa <a href="/website-fuer-autohandler/">Websites für
+            Autohändler</a>. Und wer die eigene Beschriftung plant, findet alles
+            Wichtige auf unserer Seite zur
+            <a href="/fahrzeugbeschriftung-gestalten/">Fahrzeugbeschriftung</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen von Garagenbetrieben</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p set:html={f.a} />
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Zeit für eine Website, die Termine bringt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns in einem kostenlosen Erstgespräch, was deine Garage braucht.
+        Wir sagen dir ehrlich, was eine Website bringen kann und was sie kostet.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a.replace(/<[^>]*>/g, "") },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

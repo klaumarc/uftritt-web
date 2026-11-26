@@ -1,0 +1,270 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["100pro-openair-2024", "peter-ott", "youngstars"].includes(p.slug)
+);
+
+const prozess = [
+  "Erstgespräch: Welcher Anlass, welches Ziel, wo das Video nachher wirken soll",
+  "Konzept: Ablaufplan fürs Filmen, Shotliste und Musikrichtung, abgestimmt auf dein Programm",
+  "Dreh: Unauffällig mitten im Geschehen, mit Interviews, Stimmung und auf Wunsch Drohnenaufnahmen",
+  "Schnitt: Eventfilm, Teaser und Social-Clips aus demselben Material, mit deiner Korrekturrunde",
+  "Auslieferung: Alle Versionen in den Formaten für Website, Social Media und Präsentation",
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Eventvideo?",
+    a: "Das hängt von vier Dingen ab: wie lange wir filmen, wie gross das Team ist, wie viele Filme du am Schluss bekommst und ob Drohne oder ein Express-Schnitt dazukommen. Ein halbtägiger Dreh mit einem Eventfilm ist etwas anderes als ein mehrtägiges Festival mit Teasern und Social-Clips. Darum gibt es bei uns keine Pauschale: Nach dem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit allen Leistungen und einem klaren Preis. Was Videoproduktion allgemein kostet, zeigen wir auf unserer Seite zu den Imagefilm-Kosten.",
+  },
+  {
+    q: "Wie schnell ist das Video nach dem Event fertig?",
+    a: "Damit die Stimmung frisch bleibt, bekommst du die erste Schnittversion des Eventfilms in der Regel innert ein bis zwei Wochen nach dem Anlass. Sollen Teaser oder ein kurzer Recap-Clip besonders schnell online gehen, planen wir das von Anfang an ein und priorisieren diese Versionen im Schnitt.",
+  },
+  {
+    q: "Bekommen wir aus einem Dreh mehrere Videos?",
+    a: "Ja, und genau so planen wir es: der Eventfilm im Querformat für die Website, dazu Teaser und kurze Clips im Hochformat für Social Media, alles aus demselben Material. Beim Film für die Fahrschule Peter Ott haben wir zum Beispiel den Hauptfilm plus Hochformat-Version für Social Media ausgeliefert. Du zahlst den Dreh einmal und verwertest ihn mehrfach.",
+  },
+  {
+    q: "Filmt ihr auch mit der Drohne?",
+    a: "Ja, wenn es der Anlass hergibt und die rechtlichen Rahmenbedingungen stimmen. Gerade bei Openair-Anlässen, Festgeländen und Sportevents bringen Drohnenaufnahmen die Grösse des Events ins Bild, die eine Kamera am Boden nicht einfängt. Wir klären vorab ab, ob und wo geflogen werden darf.",
+  },
+  {
+    q: "Stört das Filmteam unseren Anlass?",
+    a: "Nein, wir filmen als Reportage: kleines Team, keine gestellten Szenen, keine Anweisungen an deine Gäste. Die Schlüsselmomente fixieren wir vorab in einer Shotliste, den Rest fangen wir mitten im Geschehen ein. Interviews mit Gästen oder Organisatoren sprechen wir kurz an und führen sie am Rand, ohne das Programm zu unterbrechen.",
+  },
+  {
+    q: "Wem gehören die Videos, und was ist mit der Musik?",
+    a: "Die fertigen Filme gehören dir und dürfen auf all deinen Kanälen laufen: Website, Social Media, Messestand, interne Präsentationen. Die Musik verwenden wir lizenziert, damit du keine urheberrechtlichen Probleme bekommst. Das Rohmaterial archivieren wir, sodass daraus später weitere Videos entstehen können, etwa der Teaser fürs nächste Jahr.",
+  },
+  {
+    q: "Lohnt sich ein Eventvideo auch für kleine Anlässe?",
+    a: "Wenn du den Anlass ohnehin organisierst, ja: Der Dreh kommt dazu, dein Programm bleibt gleich. Firmenjubiläen, Vereinsfeste und Eröffnungen passieren nur einmal, und das Video wird später zur Werbung fürs nächste Jahr oder zur Erinnerung fürs Team. Ehrlich gesagt: Für den internen Apéro mit zwanzig Leuten reicht das Handy. Im Erstgespräch sagen wir dir offen, ab wann sich der professionelle Dreh lohnt.",
+  },
+];
+---
+
+<Layout
+  title="Eventvideo erstellen lassen - Uftritt"
+  description="Eventvideo erstellen lassen: Eventfilm, Aftermovie und Social-Clips für Firmenanlass, Festival oder Messe. Konzept, Dreh und Schnitt aus einer Hand."
+>
+  <PageHero
+    eyebrow="Eventvideo · Zürcher Oberland"
+    title={"Event­video,\ndas deinen Anlass\nweiterleben lässt"}
+    lead="Wir filmen deinen Anlass und machen daraus ein Eventvideo, das weiterwirkt: den Eventfilm fürs Nachleben, Teaser fürs nächste Jahr und kurze Clips für Social Media. Konzept, Dreh und Schnitt kommen bei uns aus einer Hand, im Zürcher Oberland und der ganzen Schweiz. Was dein Eventvideo kostet, hängt von Dauer, Team und Anzahl Filme ab."
+    lottie="/lottie/videoproduktion.json"
+    lottieLabel="Eventvideo"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/videoproduktion/" label="Videoproduktion" lottie="/lottie/videoproduktion.json" projects={cases} />
+
+  {/* Substanz: was ein Eventvideo ist */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Ein Anlass, viele Filme</h2>
+        <div class="lp-text">
+          <p>
+            Ein Eventvideo ist mehr als der Film, der am Schlussabend läuft.
+            Aus einem Dreh entstehen der Eventfilm fürs Nachleben, der Teaser
+            fürs nächste Jahr und kurze Clips für Social Media. So arbeitet
+            dein Anlass weiter, lange nachdem die Bühne abgebaut ist.
+          </p>
+          <p>
+            So haben wir es beim
+            <a href="/projekte/100pro-openair-2024/">100Pro Openair</a>
+            gemacht: Für das mehrtägige Musik-Openair im Zürcher Oberland
+            haben wir Eventfilm und Teaser produziert, dazu das Erscheinungsbild
+            rundherum. Und für eine regionale Gewerbeschau haben wir das
+            Recap-Video gedreht.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Geplant ums Programm, gefilmt ohne zu stören</h2>
+        <div class="lp-text">
+          <p>
+            Ein Event läuft genau einmal. Darum planen wir den Dreh um deinen
+            Ablauf herum: Shotliste vorab, Schlüsselmomente fixiert, der Rest
+            Reportage. Wir filmen mitten im Geschehen und trotzdem unauffällig,
+            ohne Statisten und ohne dein Programm zu unterbrechen.
+          </p>
+          <p>
+            Dazu gehört die Technik, die zum Anlass passt: Interviews mit
+            Gästen und Organisatoren, Stimmungsbilder, auf Wunsch
+            Drohnenaufnahmen übers Festgelände. Und wenn statt dem Anlass dein
+            Unternehmen in der Hauptrolle stehen soll, ist der
+            <a href="/imagefilm-erstellen-lassen/">Imagefilm</a> das richtige
+            Format.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Kostenfrage, ehrlich ohne Pauschale */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet ein Eventvideo?</h2>
+        <div class="lp-text">
+          <p>
+            Eine pauschale Zahl wäre unehrlich, weil kein Anlass dem anderen
+            gleicht. Was Videoproduktion allgemein kostet, haben wir auf
+            unserer Seite zu den <a href="/imagefilm-kosten/">Imagefilm-Kosten</a>
+            zusammengestellt, die Werte gelten sinngemäss auch für Eventvideos.
+          </p>
+          <p>
+            Der effektivste Hebel ist die Planung: Ein gut vorbereiteter
+            Drehtag liefert Material für den Film, die Teaser und die Clips
+            zugleich. Nach dem kostenlosen Erstgespräch bekommst du ein
+            transparentes Angebot mit allen Leistungen und einem klaren Preis,
+            ohne Überraschungen auf der Rechnung.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Vier Schrauben am Preis</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            <li><span class="modul-nr">1</span>Drehdauer und Team: ein halber Tag mit einer Person oder das ganze Wochenende mit mehreren Kameras</li>
+            <li><span class="modul-nr">2</span>Anzahl Filme: nur der Eventfilm oder dazu Teaser und eine Serie Social-Clips</li>
+            <li><span class="modul-nr">3</span>Technik und Musik: Drohne, zusätzliche Kameraperspektiven, lizenzierte Musik</li>
+            <li><span class="modul-nr">4</span>Tempo: wie schnell die erste Version nach dem Anlass online sein soll</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Den Eventfilm für Website und Präsentationen, dazu die vereinbarten
+            Teaser und Social-Clips, jeweils im passenden Format. Alle Dateien
+            gehören dir, die Musik ist für deine Kanäle lizenziert, und das
+            Rohmaterial bleibt archiviert für spätere Videos.
+          </p>
+          <p>
+            Und das Eventvideo arbeitet weiter: Am
+            <a href="/messestand-gestalten-lassen/">Messestand</a> läuft der
+            Film in der Schlaufe, und die Teaser bewerben die nächste Ausgabe.
+            Mehr zu unserer Arbeitsweise findest du auf der Seite zur
+            <a href="/videoproduktion-zuercher-oberland/">Videoproduktion im Zürcher Oberland</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Eventvideo</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Welcher Anlass soll weiterleben?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deinem Event: was passiert, wann, und wo das Video
+        nachher wirken soll. Du bekommst eine ehrliche Einschätzung und ein
+        transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+</style>

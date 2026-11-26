@@ -1,0 +1,359 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "smart-navigator", "regan"].includes(p.slug)
+);
+
+const cpc = [
+  {
+    name: "Die meisten KMU-Branchen",
+    price: "CHF 1 bis 5",
+    note: "Der grosse Mittelfeld-Wert: Lokale Dienstleistungen, Detailhandel und die meisten Gewerbe bewegen sich in diesem Bereich pro Klick.",
+  },
+  {
+    name: "Handwerk und Bau",
+    price: "CHF 1 bis 4",
+    note: "Planbar und bezahlbar. Ausnahme sind Notdienst-Keywords, die bis rund CHF 4.50 pro Klick gehen.",
+  },
+  {
+    name: "E-Commerce und Online-Shops",
+    price: "CHF 0.50 bis 1.50",
+    note: "Der günstigste Bereich, dafür mit viel Konkurrenz um kleine Margen pro Bestellung.",
+  },
+  {
+    name: "Coaching, Beratung, Treuhand",
+    price: "CHF 2 bis 5",
+    note: "Spezialisierte Begriffe mit wenig Suchvolumen gehen bis rund CHF 10 pro Klick.",
+  },
+  {
+    name: "Gesundheit und Zahnmedizin",
+    price: "CHF 3 bis 8",
+    note: "Spitzenreiter im Alltag: «Zahnarzt Zürich» kostet CHF 12 bis 15 pro Klick.",
+  },
+  {
+    name: "IT, Software, SaaS",
+    price: "CHF 4 bis 12",
+    note: "Hohe Kundenwerte treiben die Gebote, die Konkurrenz ist international aufgestellt.",
+  },
+  {
+    name: "Finanzen und Versicherungen",
+    price: "CHF 5 bis 12",
+    note: "Klassisch umkämpfter Markt mit entsprechend teuren Klicks.",
+  },
+  {
+    name: "Rechtsberatung",
+    price: "CHF 5 bis 30",
+    note: "Die teure Referenz: Ein einzelner Fall rechtfertigt hohe Klickpreise.",
+  },
+];
+
+const kostenbloecke = [
+  {
+    name: "Mediabudget an Google",
+    price: "CHF 1000 bis 3000",
+    note: "Typisches KMU-Budget pro Monat, geht vollständig an Google. Zum Testen gilt CHF 500 als Minimum, unter CHF 300 kommt zu wenig Daten zusammen. Empfohlener Start: mindestens CHF 1500, besser drei Monate à 1500 als sechs à 500.",
+  },
+  {
+    name: "Setup, einmalig",
+    price: "CHF 1500 bis 5000",
+    note: "Kontostruktur, Kampagnenaufbau und Conversion-Tracking. Das Tracking allein macht davon CHF 500 bis 2000 aus und ist der wichtigste Teil des Setups.",
+  },
+  {
+    name: "Betreuung, monatlich",
+    price: "CHF 500 bis 3000",
+    note: "Kernrange CHF 800 bis 2500. Alternativ üblich: 10 bis 20 Prozent vom Adspend oder ein Stundensatz von CHF 120 bis 200.",
+  },
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Klick bei Google Ads in der Schweiz?",
+    a: "In den meisten KMU-Branchen zwischen CHF 1 und 5. Günstiger sind Online-Shops mit CHF 0.50 bis 1.50 pro Klick, teurer IT und Software mit CHF 4 bis 12 sowie Finanzen und Versicherungen mit CHF 5 bis 12. Am oberen Ende liegt Rechtsberatung mit CHF 5 bis 30. Dazu kommt der Regionalfaktor: In Zürich und Agglomeration zahlst du 20 bis 40 Prozent mehr als im Schweizer Schnitt, auf dem Land 10 bis 30 Prozent weniger..",
+  },
+  {
+    q: "Was kostet Google Ads insgesamt pro Monat?",
+    a: "Für ein typisches KMU: CHF 1000 bis 3000 Mediabudget, das vollständig an Google geht. Kommt eine Agentur dazu, liegt deren Honorar bei CHF 500 bis 3000 pro Monat, im Kern bei CHF 800 bis 2500. Unter CHF 300 Mediabudget kommt zu wenig Daten zusammen, als sinnvolles Minimum zum Testen gilt CHF 500..",
+  },
+  {
+    q: "Was kostet eine Google Ads Agentur?",
+    a: "Zwei Posten: das einmalige Setup mit CHF 1500 bis 5000, davon entfallen CHF 500 bis 2000 aufs Conversion-Tracking, und die laufende Betreuung mit CHF 500 bis 3000 pro Monat, im Kern CHF 800 bis 2500. Manche Agenturen rechnen mit 10 bis 20 Prozent vom Adspend oder einem Stundensatz von CHF 120 bis 200. Vorsicht unter CHF 500 pro Monat: Das ist meist «Einrichten und vergessen», keine Betreuung..",
+  },
+  {
+    q: "Ab welchem Budget lohnt sich eine Agentur?",
+    a: "Als Faustregel: Unter CHF 1000 Adspend pro Monat machst du es besser selbst oder kaufst einmalig ein Setup und betreibst die Kampagne danach selbst, weil das Honorar sonst die Wirkung auffrisst. Beispiel: Bei CHF 500 Adspend und CHF 800 Honorar gehen 62 Prozent des Gesamtbudgets an die Agentur statt an Google. Ab CHF 1000 bis 1500 lohnt sich eine Agentur, ab CHF 2000 ist professionelle Betreuung fast immer sinnvoll.",
+  },
+  {
+    q: "Gibt es offizielle Preislisten von Google?",
+    a: "Nein. Google verkauft Klicks in einer Auktion, der Preis entsteht aus Konkurrenz, Qualität der Anzeige und Qualität der Zielseite. Offizielle Schweizer CPC-Tabellen veröffentlicht Google nicht. Alle Zahlen auf dieser Seite sind darum übereinstimmende Marktschätzungen aus Schweizer Agentur-Guides, keine Studien und keine Angaben von Google..",
+  },
+  {
+    q: "Reichen CHF 500 pro Monat für den Start?",
+    a: "Zum Testen ja, CHF 500 gilt als sinnvolles Minimum. Unter CHF 300 sammelt Google zu wenig Daten für eine sinnvolle Optimierung. Empfohlen wird ein Startbudget von mindestens CHF 1500 pro Monat: Besser drei Monate à 1500 als sechs Monate à 500, weil die Kampagne so schneller genug Daten bekommt, um sich einzuspielen.",
+  },
+  {
+    q: "Was sollte vor der ersten Kampagne stehen?",
+    a: "Zwei Dinge, bevor ein Franken an Google fliesst: ein sauberes Conversion-Tracking, das Anfragen und Anrufe misst statt nur Klicks zu zählen, und eine brauchbare Landingpage, die das Versprechen der Anzeige einlöst. Ohne beides zahlst du für Klicks, aus denen keine Anfrage wird. Das Tracking ist mit CHF 500 bis 2000 auch der wertvollste Teil des Setups.",
+  },
+];
+---
+
+<Layout
+  title="Google Ads Kosten in der Schweiz - Uftritt"
+  description="Was kostet Google Ads in der Schweiz? Klickpreise nach Branche, Mediabudget und Agentur-Honorare im Überblick. Ehrlich eingeordnet."
+>
+  <PageHero
+    eyebrow="Kosten-Guide · Suchmaschinenwerbung"
+    title={"Google Ads Kosten,\nehrlich eingeordnet"}
+    lead="Google Ads kosten immer zwei Dinge: das Mediabudget, das direkt an Google geht, und je nach Weg die Betreuung. Pro Klick zahlen Schweizer KMU meist CHF 1 bis 5, ein sinnvolles Monatsbudget startet bei CHF 1000 bis 3000. Hier bekommst du alle Zahlen ehrlich eingeordnet."
+    lottie="/lottie/marketingbegleitung.json"
+    lottieLabel="Google Ads Kosten"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/marketingbegleitung/" label="Marketingbegleitung" lottie="/lottie/marketingbegleitung.json" projects={cases} />
+
+  {/* CPC-Ranges nach Branche */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Klickpreise</span>
+        <h2>Was kostet ein Klick bei Google Ads?</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          cpc.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Regional macht es einen Unterschied: In Zürich und Agglomeration liegen
+        Klickpreise 20 bis 40 Prozent über dem Schweizer Schnitt, in ländlichen
+        Regionen 10 bis 30 Prozent darunter.
+      </p>
+      <p class="quellen" data-reveal>
+        Google veröffentlicht keine offiziellen Schweizer CPC-Tabellen. Alle
+        Zahlen auf dieser Seite sind übereinstimmende Marktschätzungen aus
+        Schweizer Agentur-Guides, keine Studien.
+      </p>
+    </div>
+  </section>
+
+  {/* Die drei Kostenblöcke */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Gesamtkosten</span>
+        <h2>Drei Posten ergeben die Google Ads Kosten</h2>
+      </header>
+      <div class="ranges ranges--3" data-reveal>
+        {
+          kostenbloecke.map((r) => (
+            <article class="range-card">
+              <h3>{r.name}</h3>
+              <p class="range-price">{r.price}</p>
+              <p class="range-note">{r.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Warnung vor dem Billigsegment: Unter CHF 500 pro Monat bekommst du
+        meist «Einrichten und vergessen», keine Betreuung.
+      </p>
+    </div>
+  </section>
+
+  {/* Selbst machen vs. Agentur */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Unter CHF 1000 Adspend: selbst machen</h2>
+        <div class="lp-text">
+          <p>
+            Bei kleinem Budget frisst das Honorar die Wirkung: Schaltest du
+            für CHF 500 und zahlst CHF 800 Betreuung, gehen 62 Prozent des
+            Gesamtbudgets an die Agentur statt an Google. Darum die ehrliche
+            Faustregel: Unter CHF 1000 Adspend pro Monat machst du es besser
+            selbst oder kaufst einmalig ein sauberes Setup und betreibst die
+            Kampagne danach selbst.
+          </p>
+          <p>
+            Wichtig in jedem Fall: Richte zuerst das Conversion-Tracking ein
+            und sorge für eine brauchbare Zielseite. Was eine solche Seite
+            leisten muss, zeigen wir unter
+            <a href="/landingpage-erstellen-lassen/">Landingpage erstellen lassen</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ab CHF 1000 bis 1500: Agentur lohnt sich</h2>
+        <div class="lp-text">
+          <p>
+            Ab diesem Budget kippt die Rechnung: Die Optimierung spart mehr
+            Streuverlust, als sie kostet, und du gewinnst Zeit für dein
+            Geschäft. Ab CHF 2000 Adspend ist professionelle Betreuung fast
+            immer sinnvoll, weil jeder Prozentpunkt bessere Ausspielung
+            richtig Geld ist.
+          </p>
+          <p>
+            Wie wir die
+            <a href="/google-ads-betreuung/">Google Ads Betreuung</a> angehen,
+            mit sauberem Setup, laufender Optimierung und Reporting in
+            Klartext, liest du auf der Schwesterseite. Dort sagen wir dir auch
+            ehrlich, wann SEO die bessere erste Investition ist.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ehrlichkeit + Schwester-Guides */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Warum es keine Preisliste gibt</h2>
+        <div class="lp-text">
+          <p>
+            Google verkauft Klicks in einer Auktion: Der Preis entsteht aus
+            Konkurrenz, Qualität der Anzeige und Qualität der Zielseite, jeden
+            Tag neu. Offizielle Schweizer CPC-Tabellen gibt es von Google
+            nicht, und jede Agentur, die dir exakte Klickpreise verspricht,
+            schätzt ebenfalls nur.
+          </p>
+          <p>
+            Darum steht auf dieser Seite bei jeder Zahl dabei, woher sie
+            kommt: übereinstimmende Marktschätzungen mehrerer Schweizer
+            Agenturen. Für deine Branche kann es
+            günstiger oder teurer sein, das zeigt erst ein Test mit sauberem
+            Tracking.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was der Rest des Marketings kostet</h2>
+        <div class="lp-text">
+          <p>
+            Google Ads ist nur ein Baustein. Die Schwester-Guides rechnen die
+            anderen Posten mit demselben ehrlichen Ansatz:
+            <a href="/seo-kosten/">SEO-Kosten</a> für die nachhaltige
+            Sichtbarkeit und <a href="/website-kosten/">Website-Kosten</a>
+            für das Fundament, auf dem deine Anzeigen landen.
+          </p>
+          <p>
+            Für viele Betriebe ist die Kombination die Antwort: Ads für den
+            schnellen Bedarf und die Saison, SEO fürs Fundament, das bleibt,
+            wenn du einen Monat nichts investierst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu den Google Ads Kosten</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Was kosten Klicks in deinem Markt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du anbietest und in welcher Region. Wir sagen dir
+        ehrlich, ob sich Google Ads für dich lohnt und mit welchem Budget du
+        realistisch startest, kostenlos und unverbindlich.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .ranges--3 { grid-template-columns: repeat(3, 1fr); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+  .quellen + .quellen { margin-top: 0.75rem; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges, .ranges--3 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges, .ranges--3 { grid-template-columns: 1fr; }
+  }
+</style>

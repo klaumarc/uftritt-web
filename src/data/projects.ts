@@ -8,7 +8,21 @@ export interface Project {
 
 // Kategorien/Tags von der aktuellen Website uftritt.ch übernommen.
 export const projects: Project[] = [
+  { title: "Eishockey-Club Wetzikon", slug: "ehc-wetzikon", categories: ["Webdesign"], image: "/projekte/ehc-wetzikon.jpg", website: "https://www.ehcw.ch/" },
   { title: "Aweso AG", slug: "aweso", categories: ["Marketingbegleitung", "Grafikdesign", "Webdesign"], image: "/projekte/aweso.jpg" },
+  { title: "Youngstars International, Hub", slug: "youngstars-hub", categories: ["Applikationsentwicklung"], image: "/projekte/youngstars-hub.jpg" },
+  { title: "GZO Spital Wetzikon, Video-Podcast", slug: "gzo-video-podcast", categories: ["Videoproduktion"], image: "/projekte/gzo-video-podcast.jpg" },
+  { title: "Metallfaktur", slug: "metallfaktur", categories: ["Webdesign"], image: "/projekte/metallfaktur.jpg", website: "https://metallfaktur.ch/" },
+  { title: "Good Tone Pickups", slug: "goodtone-pickups", categories: ["Webdesign"], image: "/projekte/goodtone-pickups.jpg", website: "https://goodtone-pickups.ch/" },
+  { title: "Palimed", slug: "palimed", categories: ["Grafikdesign", "Webdesign"], image: "/projekte/palimed.jpg", website: "https://palimed.ch/" },
+  { title: "SOS Concept", slug: "sos-concept", categories: ["Grafikdesign"], image: "/projekte/sos-concept.jpg" },
+  { title: "Youngstars International, Magazin", slug: "youngstars-magazin", categories: ["Magazinbetreuung"], image: "/projekte/youngstars-magazin.jpg" },
+  { title: "Gewerbe bewegt 2026, Gewerbeschau Bubikon Wolfhausen", slug: "gewerbe-bewegt", categories: ["Marketingbegleitung", "Videoproduktion", "Grafikdesign", "Webdesign"], image: "/projekte/gewerbe-bewegt.jpg", website: "https://gewerbebewegt.ch/" },
+  { title: "Eishockey-Club Wetzikon, Schnittstelle", slug: "ehc-wetzikon-sihf", categories: ["Applikationsentwicklung"], image: "/projekte/ehc-wetzikon-sihf.jpg", website: "https://www.ehcw.ch/" },
+  { title: "Tenini Sport AG", slug: "tenini-webshop", categories: ["Applikationsentwicklung"], image: "/projekte/tenini-webshop.jpg", website: "https://fcw-onlineshop.ch/" },
+  { title: "Schöner Feiern", slug: "schoener-feiern", categories: ["Grafikdesign", "Webdesign"], image: "/projekte/schoener-feiern.jpg", website: "https://xn--schner-feiern-kmb.ch/" },
+  { title: "100Pro Openair 2026", slug: "100pro-openair-2026", categories: ["Marketingbegleitung", "Videoproduktion", "Grafikdesign", "Webdesign"], image: "/projekte/100pro-openair-2026.jpg", website: "https://100proopenair.ch/" },
+  { title: "Egli Jona", slug: "egli-jona", categories: ["Grafikdesign"], image: "/projekte/egli-jona.jpg", website: "https://eglijona.ch/" },
   { title: "RIPA Immobilien GmbH", slug: "ripa-immobilien", categories: ["Grafikdesign", "Webdesign"], image: "/projekte/ripa.jpg", website: "https://ripa-immobilien.ch/" },
   { title: "Regan", slug: "regan", categories: ["Webdesign"], image: "/projekte/regan.jpg", website: "https://regan.swiss/" },
   { title: "Fahrschule Schweiz", slug: "fahrschule-schweiz", categories: ["Videoproduktion", "Grafikdesign", "Webdesign"], image: "/projekte/fahrschule-schweiz.jpg" },

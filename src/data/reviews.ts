@@ -10,7 +10,7 @@ export interface Review {
 // eigenen Seite oder später via Google Places API automatisch ergänzt werden.
 export const reviewsMeta = {
   average: 5.0,
-  count: 14,
+  count: 15,
   source: "Google",
   placeholder: false,
 };

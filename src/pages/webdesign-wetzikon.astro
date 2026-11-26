@@ -4,6 +4,8 @@ import PageHero from "../components/PageHero.astro";
 import Button from "../components/Button.astro";
 import LocalTrust from "../components/LocalTrust.astro";
 import OfferLink from "../components/OfferLink.astro";
+import TeamSection from "../components/TeamSection.astro";
+import Reviews from "../components/Reviews.astro";
 import { projects } from "../data/projects";
 
 const cases = projects.filter((p) =>
@@ -217,6 +219,8 @@ const faq = [
     </div>
   </section>
 
+  <TeamSection />
+
   <section class="section">
     <div class="container faq-wrap">
       <header class="section-head" data-reveal>
@@ -237,6 +241,12 @@ const faq = [
   </section>
 
   <LocalTrust />
+
+  <section class="section">
+    <div class="container">
+      <Reviews />
+    </div>
+  </section>
 
   <section class="section section--yellow">
     <div class="container lp-cta" data-reveal>

@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import SubHero from "../components/SubHero.astro";
+import { TURNSTILE_SITEKEY } from "../data/turnstile";
 ---
 
 <Layout
@@ -83,6 +84,10 @@ import SubHero from "../components/SubHero.astro";
             <span>Bemerkung (optional)</span>
             <textarea name="bemerkung" rows="3"></textarea>
           </label>
+          <input type="hidden" name="f_ts" value="" />
+          {TURNSTILE_SITEKEY !== "" && (
+            <div class="cf-turnstile" data-sitekey={TURNSTILE_SITEKEY} data-theme="light"></div>
+          )}
           <button type="submit" class="besprechung-submit">
             <span class="bs-arrow" aria-hidden="true"><i></i></span>
             <span>Afragä schickä</span>
@@ -91,6 +96,9 @@ import SubHero from "../components/SubHero.astro";
       </div>
     </div>
   </section>
+  {TURNSTILE_SITEKEY !== "" && (
+    <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  )}
 </Layout>
 
 <script>
@@ -105,6 +113,9 @@ import SubHero from "../components/SubHero.astro";
   if (domain && websiteInput instanceof HTMLInputElement) {
     websiteInput.value = domain;
   }
+  // Botguard: Lade-Zeitpunkt hinterlegen (Server verwirft Sendungen unter ~2,5 s)
+  const tsField = document.querySelector<HTMLInputElement>('form.besprechung-form input[name="f_ts"]');
+  if (tsField) tsField.value = String(Date.now());
 </script>
 
 <style>

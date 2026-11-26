@@ -1,0 +1,280 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["dtb-redesign", "dt-baeretswil", "youngstars-broschuere"].includes(p.slug)
+);
+
+const prozess = [
+  "Erstgespräch: Welche Artikel, welche Auflage, welcher Anlass, was an Gestaltung schon vorhanden ist",
+  "Auswahl: Artikel und Veredelungsverfahren, abgestimmt auf Budget, Zielgruppe und Einsatz",
+  "Design und Reinzeichnung: Motiv im Corporate Design, druckfertig als Vektordaten mit Farbdefinition",
+  "E-Proof: Deine Freigabe der digitalen Vorschau auf dem Artikel, bevor produziert wird",
+  "Produktion und Lieferung: Koordination mit dem Partnerbetrieb, damit die Auflage rechtzeitig bei dir ist",
+];
+
+const faq = [
+  {
+    q: "Ab welcher Menge lohnen sich Werbeartikel?",
+    a: "Die Mindestmengen liegen je nach Artikel und Druckverfahren typischerweise bei 50 bis 250 Stück, Full-Service-Anbieter steigen bei rund 100 Stück ein. Darunter wird es schnell unattraktiv, weil die Fixkosten der Auflage auf wenige Artikel verteilt werden. Ehrlich gesagt: Brauchst du nur eine Handvoll Präsente für Einzelne, ist ein hochwertiger Artikel ohne Aufdruck oft die bessere Lösung. Wir sagen dir im Erstgespräch, ab welcher Menge sich dein Vorhaben trägt.",
+  },
+  {
+    q: "Was kosten Werbeartikel mit Aufdruck?",
+    a: "Das hängt von Artikel, Veredelungsverfahren und Auflage ab. Das Verfahren treibt den Preis: Tampondruck ist günstig, Siebdruck der Standard für Textilien, Lasergravur die hochwertige Variante. Und je grösser die Auflage, desto kleiner der Anteil der Fixkosten pro Stück. Dazu kommt bei uns nur der Gestaltungsteil mit Reinzeichnung: Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit klarem Preis.",
+  },
+  {
+    q: "Wie lange dauert es bis zur Lieferung?",
+    a: "Für die Produktion rechnen Anbieter mit 3 bis 6 Wochen Lieferzeit, je nach Artikel, Verfahren und Auflage. Davor liegt die Gestaltung mit Entwurf, Korrekturrunden und Reinzeichnung, deren Dauer vom Umfang abhängt. Mit dem E-Proof gibst du das Sujet digital frei, bevor auch nur ein Artikel bedruckt wird. Wer für einen festen Termin wie einen Messeauftritt bestellt, sollte früh genug starten.",
+  },
+  {
+    q: "Kann ich eigene Artikel mitbringen?",
+    a: "Ja, grundsätzlich schon: Wenn du Artikel schon gekauft hast oder eine bestimmte Idee im Kopf hast, klären wir mit dem Partnerbetrieb, ob sich das Stück veredeln lässt. Entscheidend sind Material, bedruckbare Fläche und das passende Verfahren, und nicht jeder Artikel aus dem Eigenbedarf ist dafür gemacht. Oft ist es am einfachsten, den Artikel direkt aus dem Sortiment des Produzenten zu wählen, weil dort Verfahren und Qualität aufeinander abgestimmt sind. Bring deine Idee mit, wir finden den passenden Weg.",
+  },
+  {
+    q: "Wie nachhaltig sind Werbeartikel?",
+    a: "Der ehrlichste Hebel ist die Lebensdauer: Ein Artikel, der jahrelang in Gebrauch bleibt, schlägt jede breite Streuaktion, deren Beute nach einer Woche im Abfall landet. Darum empfehlen wir lieber eine kleinere Auflage eines Artikels, den man wirklich braucht, vom soliden Schreibgerät bis zur Baumwolltasche, und ein Verfahren, das zum Material passt. Was darüber hinaus an Material- und Herkunftsfragen wichtig ist, klären wir direkt mit dem Produktionspartner für dein konkretes Projekt.",
+  },
+  {
+    q: "Gehören mir die Druckdaten?",
+    a: "Ja. Du bekommst die Reinzeichnung als saubere, druckfertige Daten und kannst damit bestellen, wo du willst: beim Partnerbetrieb, mit dem wir koordinieren, oder bei einem Anbieter deiner Wahl. Das zahlt sich bei der Nachbestellung aus: Das Sujet liegt fertig vor, und die nächste Auflage ist eine reine Bestellfrage statt ein neues Gestaltungsprojekt.",
+  },
+];
+---
+
+<Layout
+  title="Werbeartikel gestalten lassen - Uftritt"
+  description="Werbeartikel gestalten lassen: Design, Reinzeichnung und Produktion über Partner. Qualität statt Masse, vom Kugelschreiber bis zum Textil."
+>
+  <PageHero
+    eyebrow="Werbematerial"
+    title={"Werbeartikel,\ndie in Gebrauch bleiben"}
+    lead="Deine Werbeartikel gestalten wir als Teil deiner Marke: vom Kugelschreiber über Textilien bis zum Technikartikel, mit sauberer Reinzeichnung und druckfertigen Daten. Die Produktion machen spezialisierte Partnerbetriebe, wir koordinieren. Und wir sagen dir ehrlich, wann ein billiger Streuartikel deiner Marke mehr schadet als nützt."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Werbeartikel"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Qualität + Sortiment */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Qualität schlägt Masse, ehrlich gesagt</h2>
+        <div class="lp-text">
+          <p>
+            Ein Werbeartikel ist deine Marke zum Anfassen: Kein anderer
+            Werbekanal bleibt so lange physisch in Reichweite deiner Kunden.
+            Genau darum wirkt ein billiger Streuartikel gegen dich, wenn der
+            Kugelschreiber nach einer Woche nicht mehr schreibt oder das Shirt
+            nach der ersten Wäsche aus der Form ist. Was du verschenkst, sagt
+            etwas darüber aus, wie du arbeitest.
+          </p>
+          <p>
+            Unsere Empfehlung ist darum fast immer dieselbe: lieber eine
+            kleinere Auflage eines Artikels, der wirklich in Gebrauch bleibt,
+            als die grosse Streumenge. Das gilt besonders für Give-aways am
+            <a href="/messestand-gestalten-lassen/">Messestand</a>, wo du mit
+            einem soliden Artikel bei den richtigen Leuten mehr erreichst als
+            mit der vollen Schachtel für alle.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Vom Stift bis zum Vereins-Shirt</h2>
+        <div class="lp-text">
+          <p>
+            Das Sortiment lässt sich grob in drei Welten teilen: Papier- und
+            Schreibartikel für die breite Streuung, Textilien für Teams,
+            Vereine und Kunden, die deine Marke sichtbar tragen, und
+            Technikartikel als hochwertigere Präsente. Pro Welt gelten andere
+            Mindestmengen und andere Verfahren, vom günstigen Tampondruck über
+            Siebdruck auf Textil bis zur Lasergravur.
+          </p>
+          <p>
+            Beim <a href="/projekte/dtb-redesign/">DT Bäretswil</a> gehören
+            bedruckte Trainingsshirts als Vereins-Merch zum Erscheinungsbild,
+            das wir fürs Club-Branding entwickelt haben. Und wo bedrucktes
+            Papier gefragt ist, arbeiten wir in derselben Gestaltungslogik,
+            von der <a href="/projekte/youngstars-broschuere/">Broschüre</a>
+            bis zu den <a href="/geschaeftsdrucksachen/">Geschäftsdrucksachen</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Aufgabenteilung, ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Unser Teil: Design, Daten, Koordination</h2>
+        <div class="lp-text">
+          <p>
+            Wir gestalten Werbeartikel mit derselben Sorgfalt wie alles andere
+            im <a href="/grafikdesign-zuercher-oberland/">Grafikdesign</a>:
+            Briefing, Entwurf im
+            <a href="/corporate-design/">Corporate Design</a>, Korrekturrunden,
+            bis das Motiv auf dem Artikel sitzt. Ein Logo, das auf der Website
+            wirkt, funktioniert auf dem schmalen Clip eines Stifts nicht eins
+            zu eins, darum denken wir das Motiv pro Artikel neu.
+          </p>
+          <p>
+            Am Schluss bekommt der Produzent ein komplettes Datenpaket:
+            Vektordaten des Motivs, definierte Farben und die Platzierung auf
+            dem Artikel. Du gibst das Sujet per E-Proof frei, als digitale
+            Vorschau auf dem echten Artikel, bevor die Produktion startet.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Teil der Produktionspartner, ehrlich gesagt</h2>
+        <div class="lp-text">
+          <p>
+            Bedrucken, Besticken und Gravieren ist ein eigenes Handwerk mit
+            Spezialmaschinen. Das machen Partnerbetriebe, mit denen wir
+            Artikel, Verfahren und Termine direkt absprechen. Du hast trotzdem
+            nur einen Ansprechpartner für die Gestaltung und musst nicht
+            selbst zwischen Druckverfahren wählen.
+          </p>
+          <p>
+            Und noch ehrlicher: Suchst du nur die billigstmögliche Streuware
+            ohne Gestaltungsanspruch, bist du beim reinen Online-Druckshop
+            schneller und günstiger bedient. Unser Teil beginnt dort, wo der
+            Werbeartikel wie ein Teil deiner Marke aussehen und in Gebrauch
+            bleiben soll.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Werbeartikel, die zu deiner Marke passen und in Gebrauch bleiben,
+            plus ein Datenpaket, mit dem jeder professionelle Produzent
+            arbeiten kann. Die Druckdaten gehören dir: Nachbestellungen sind
+            damit eine reine Bestellfrage, egal bei wem.
+          </p>
+          <p>
+            Und sie passen ins Gesamtbild: Dasselbe Erscheinungsbild läuft
+            über <a href="/geschaeftsdrucksachen/">Geschäftsdrucksachen</a>,
+            <a href="/aussenwerbung/">Aussenwerbung</a> und Website mit,
+            damit dein Auftritt aus einem Guss wirkt, vom Kugelschreiber bis
+            zur Plakatwand.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu Werbeartikeln</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Was soll bei deinen Kunden in Gebrauch bleiben?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, welche Artikel du im Kopf hast und wofür sie gedacht
+        sind. Du bekommst eine ehrliche Einschätzung zu Auflage, Verfahren und
+        Budget und ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+</style>

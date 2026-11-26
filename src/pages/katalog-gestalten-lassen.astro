@@ -1,0 +1,327 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["dt-baeretswil", "stahel-koeng", "sam-focus"].includes(p.slug)
+);
+
+const arten = [
+  {
+    name: "Produktkatalog",
+    note: "Dein Sortiment als Verkaufsinstrument: Artikelbilder, Beschrieb und Artikelnummern in einer Ordnung, die Kunden sofort verstehen und dein Verkaufsteam gerne in die Hand nimmt.",
+  },
+  {
+    name: "Imagekatalog",
+    note: "Mehr Marke als Liste: zeigt, wofür du stehst, mit grossen Bildern und ruhigen Seiten. So wie die Imagebroschüre, die wir für einen Sportwagen-Händler gestaltet haben.",
+  },
+  {
+    name: "Periodisches Heft",
+    note: "Jahreskatalog, Kundenmagazin oder Vereinsheft mit festem Raster: einmal aufgebaut, erscheint jede Ausgabe im gleichen System, ohne dass du wieder bei null beginnst.",
+  },
+  {
+    name: "Preisliste und Übersicht",
+    note: "Der schlanke Bruder des Katalogs: wenige Seiten, klare Tabellen, schnell aktualisiert, wenn sich Sortiment oder Preise ändern.",
+  },
+];
+
+const prozess = [
+  "Erstgespräch: Sortiment, Zielgruppe, Umfang - und was an Texten und Bildern schon da ist",
+  "Konzept: Kapitelstruktur und Seitenarchitektur, bevor eine einzige Seite gestaltet wird",
+  "Gestaltung: Grundseiten und Musterseiten als Entwurf, mit deinen Korrekturrunden",
+  "Satz und Reinzeichnung: alle Seiten gesetzt, Korrektur gelesen und druckfertig aufbereitet",
+  "Druckabwicklung: Abstimmung mit der Partnerdruckerei bis zum fertigen Katalog",
+];
+
+const faq = [
+  {
+    q: "Was kostet es, einen Katalog gestalten zu lassen?",
+    a: "Das hängt vor allem am Umfang: Seitenzahl, Anzahl Produkte und wie sauber deine Daten sind. Ein schlanker Imagekatalog mit gepflegtem Bildmaterial ist überschaubar, ein Sortiment mit Hunderten Artikeln und ungeordneten Texten ist ein echtes Projekt. Darum bekommst du von uns keine Zahl von der Stange, sondern nach dem Erstgespräch ein transparentes Festangebot, in dem jeder Posten drinsteht.",
+  },
+  {
+    q: "Druckt ihr den Katalog auch selbst?",
+    a: "Nein, und das ist Absicht: Drucken ist ein eigenes Handwerk. Wir gestalten, reinzeichnen und liefern druckfertige Daten, produziert wird bei Partnerdruckereien. Wir beraten dich zu Papier, Auflage und Bindung, sprechen die technischen Details direkt mit der Druckerei ab und kontrollieren das Ergebnis, bevor die Auflage läuft. Du hast trotzdem nur einen Ansprechpartner für die Gestaltung.",
+  },
+  {
+    q: "Was braucht ihr von uns, um starten zu können?",
+    a: "Am wichtigsten sind deine Produktdaten: Texte, Artikelnummern, Preise und vor allem brauchbare Bilder. Dazu dein Erscheinungsbild, falls vorhanden. Je sauberer diese Basis, desto schneller geht es, und desto mehr Budget bleibt fürs Gestalten statt fürs Aufräumen. Wo etwas fehlt, sagen wir es im Erstgespräch offen und planen die Lücke mit ein.",
+  },
+  {
+    q: "Wie lange dauert es, bis der Katalog fertig ist?",
+    a: "Ein kompakter Katalog mit sauberen Daten geht in wenigen Wochen, ein grosses Sortiment entsprechend länger. Der Aufwand sitzt fast immer in den Inhalten, nicht im Layout. Wir planen rückwärts ab deinem Wunschtermin, etwa einer Messe oder dem Saisonstart. Und weil wir Kataloge als System bauen, geht jede Folgeausgabe deutlich schneller als die erste.",
+  },
+  {
+    q: "Lohnt sich ein gedruckter Katalog heute noch?",
+    a: "Im Verkaufsgespräch, an der Messe und überall dort, wo Kunden blättern statt suchen: ja. Ein Katalog liegt auf dem Tisch, wenn die Website längst geschlossen ist. Ehrlich gesagt ersetzt er die Online-Präsenz nicht: Eine reine Preisliste, die sich wöchentlich ändert, gehört ins Web. Der Katalog gewinnt dort, wo Auswahl und Marke zusammen wirken sollen.",
+  },
+  {
+    q: "Können wir den Katalog später selbst aktualisieren?",
+    a: "Teilweise: Die Daten gehören dir, und mit dem angelegten System aus Raster und Stilen kann eine geübte Person Preise oder einzelne Produkte selbst anpassen. Für eine neue Ausgabe mit sauberem Satz und Korrektur lohnt sich aber meist der Profi. Periodische Hefte pflegen wir auf Wunsch laufend, wie das Vereinsheft des DT Bäretswil zeigt.",
+  },
+];
+---
+
+<Layout
+  title="Katalog gestalten lassen - Uftritt"
+  description="Katalog gestalten lassen: Produktkataloge und Imagekataloge für KMU - Konzept, Gestaltung und druckfertige Daten, Druck über Partnerdruckereien."
+>
+  <PageHero
+    eyebrow="Kataloggestaltung · Zürcher Oberland"
+    title={"Katalog gestalten lassen,\nder dein Sortiment verkauft"}
+    lead="Du willst einen Katalog gestalten lassen? Wir entwickeln Produktkataloge, Sortimentsübersichten und Imagekataloge für KMU: Konzept, Struktur, Gestaltung und druckfertige Daten aus einer Hand. Der Druck läuft über Partnerdruckereien, du hast nur einen Ansprechpartner. Damit dein Katalog nicht im Altpapier landet, sondern beim Kunden auf dem Tisch."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Kataloggestaltung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Katalog-Arten */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Formate</span>
+        <h2>Welchen Katalog brauchst du?</h2>
+      </header>
+      <div class="arten" data-reveal>
+        {
+          arten.map((a) => (
+            <article class="art-card">
+              <h3>{a.name}</h3>
+              <p class="art-note">{a.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Design-Substanz */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Ordnung ist das Design</h2>
+        <div class="lp-text">
+          <p>
+            Ein Katalog wird nicht gelesen, er wird durchsucht: Kunden blättern,
+            scannen Zwischentitel und springen direkt zu dem, was sie suchen.
+            Darum beginnt Kataloggestaltung nicht mit Farben, sondern mit
+            Struktur: Kapitel, die der Logik deines Sortiments folgen, Einträge,
+            die immer gleich aufgebaut sind, und ein Raster, das auch Hunderte
+            Produkte ruhig aussehen lässt.
+          </p>
+          <p>
+            Erst wenn die Ordnung steht, kommt die Gestaltung: Bildwelt,
+            Typografie und Farben aus deinem Erscheinungsbild. Das Ergebnis sieht
+            nach dir aus und funktioniert wie ein Nachschlagewerk, vom
+            <a href="/broschuere-erstellen-lassen/">schlanken Prospekt</a> bis
+            zum dicken Sortiment.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ein System, keine Einzelseiten</h2>
+        <div class="lp-text">
+          <p>
+            Der teuerste Katalog ist der, den du nächstes Jahr wieder von null
+            beginnst. Wir bauen Kataloge als System: Seitenraster, Stile und
+            Musterseiten, in die sich neue Produkte einfach einsetzen lassen. Die
+            Folgeausgabe wird damit zur Aktualisierung statt zum Neuprojekt.
+          </p>
+          <p>
+            Damit das trägt, denken wir den Katalog als Teil deines
+            <a href="/corporate-design/">Corporate Designs</a>: dieselben
+            Schriften und Regeln wie auf Website, Verpackung und
+            Geschäftsdrucksachen. Wenn
+            <a href="/verpackungsdesign/">Verpackung</a> und Katalog aus demselben
+            System kommen, wirkt dein Sortiment an jedem Berührungspunkt wie eine
+            Firma.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Aufgabenteilung, ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Unser Teil: Konzept, Gestaltung, Daten</h2>
+        <div class="lp-text">
+          <p>
+            Wir übernehmen den Katalog von der ersten Struktur bis zur
+            druckfertigen Datei: Konzept, Seitenarchitektur, Gestaltung, Satz und
+            Reinzeichnung. Wo Inhalte fehlen, etwa Produkttexte oder brauchbare
+            Bilder, sagen wir es früh und planen sie mit ein, statt sie am Ende
+            als Lücke zu verkleiden.
+          </p>
+          <p>
+            Am Schluss bekommst du offene, sauber aufgebaute Daten: Die Dateien
+            gehören dir, und jede professionelle Druckerei kann damit arbeiten.
+            Alles Weitere rund ums Gedruckte findest du unter
+            <a href="/printdesign/">Printdesign</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Druck läuft über Partner</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlich gesagt: Wir sind keine Druckerei. Produziert wird bei
+            Partnerdruckereien, mit denen wir Papier, Bindung und Auflage direkt
+            absprechen. Du bekommst von uns eine Empfehlung, was zu deinem
+            Katalog passt, und wir begleiten den Druck bis zur Auslieferung.
+          </p>
+          <p>
+            Und noch ehrlicher: Nicht jedes Sortiment braucht einen dicken
+            Katalog. Wenn eine gepflegte Online-Übersicht oder ein schlankes Heft
+            dein Ziel schneller erreicht, sagen wir das im Erstgespräch. Für
+            periodische Formate lohnt sich auch ein Blick auf
+            <a href="/magazin-erstellen-lassen/">Magazin erstellen lassen</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Einen Katalog, der im Verkaufsgespräch funktioniert und nach deiner
+            Marke aussieht, als gedrucktes Stück und auf Wunsch als PDF fürs Web,
+            aus denselben Daten. Dazu die offenen Arbeitsdateien, damit du nie
+            wieder bei null anfängst.
+          </p>
+          <p>
+            Und weil das System steht, wird die nächste Ausgabe einfacher: Neue
+            Produkte rein, hinausgefallene raus, fertig. Beim
+            <a href="/projekte/dt-baeretswil/">Vereinsheft des DT Bäretswil</a>
+            funktioniert genau das periodisch, Ausgabe für Ausgabe.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Katalog gestalten lassen</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Was sollen deine Kunden durchblättern?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deinem Sortiment und was an Material schon da ist. Du
+        bekommst eine ehrliche Einschätzung, welcher Katalog sich lohnt, und ein
+        transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .arten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .art-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .art-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .art-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .arten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .arten { grid-template-columns: 1fr; }
+  }
+</style>

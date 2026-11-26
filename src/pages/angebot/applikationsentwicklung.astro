@@ -8,9 +8,8 @@ import Button from "../../components/Button.astro";
 import { projects } from "../../data/projects";
 
 const bySlug = (slug: string) => projects.find((p) => p.slug === slug)!;
-// Noch keine echten App-Entwicklungs-Referenzen, Sektion bleibt ausgeblendet,
-// bis wir passende Projekte erstellt haben.
-const portfolio: typeof projects = [];
+// Erste echte App-Referenz (2026-09-10): Tenini White-Label-Webshop.
+const portfolio = [bySlug("tenini-webshop"), bySlug("ehc-wetzikon-sihf"), bySlug("youngstars-hub")];
 
 const blocks = [
   {

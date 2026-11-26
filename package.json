@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/copy-maplibre-worker.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
@@ -13,8 +14,8 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",
     "astro": "^5.1.0",
-    "leaflet": "^1.9.4",
-    "lottie-web": "^5.13.0"
+    "lottie-web": "^5.13.0",
+    "maplibre-gl": "^6.11.2"
   },
   "devDependencies": {
     "netlify-cli": "^26.1.0",

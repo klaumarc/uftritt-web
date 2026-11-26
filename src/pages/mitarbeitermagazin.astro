@@ -1,0 +1,333 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["sam-focus", "dt-baeretswil", "youngstars-broschuere"].includes(p.slug)
+);
+
+const leistungen = [
+  {
+    title: "Information, die ankommt",
+    note: "Strategie, Zahlen und Entscheide verständlich erklärt, in einer Form, die nicht im Posteingang untergeht wie die hundertste Rundmail.",
+  },
+  {
+    title: "Zugehörigkeit stärken",
+    note: "Porträts, Jubiläen und Geschichten machen die Menschen hinter der Arbeit sichtbar. Wer sich gesehen fühlt, identifiziert sich stärker mit dem Betrieb.",
+  },
+  {
+    title: "Ein Kanal für alle",
+    note: "Werkstatt, Aussendienst, Homeoffice: Nicht jede Belegschaft sitzt am Bildschirm. Ein Heft erreicht auch die, die kein Intranet nutzen.",
+  },
+  {
+    title: "Einmal produziert, mehrfach genutzt",
+    note: "Artikel aus dem Magazin leben weiter: als Intranet-Beitrag, im Newsletter oder als Inhalt für Social Media.",
+  },
+];
+
+const ablauf = [
+  "Erstgespräch und Konzept: Ziele, Leserschaft, Rubriken und Erscheinungsrhythmus",
+  "Redaktionsplan: Themen und Termine pro Ausgabe klar geplant",
+  "Redaktion: Wir führen Interviews und schreiben, deine Leute investieren nur Zeit für Gespräche",
+  "Gestaltung: Editorial Design im Look deiner Marke",
+  "Korrektur und Freigabe: Ohne dein Ja geht keine Ausgabe raus",
+  "Produktion und Verteilung: Druck, interne Zustellung und digitale Ausgabe",
+];
+
+const faq = [
+  {
+    q: "Was ist ein Mitarbeitermagazin?",
+    a: "Ein Mitarbeitermagazin ist das eigene Magazin deines Unternehmens für die Leute, die darin arbeiten: Es erklärt Entscheide, zeigt Menschen und Projekte und hält alle auf demselben Stand, egal ob im Büro, in der Werkstatt oder im Aussendienst. Anders als eine interne Rundmail hat ein Magazin Format und Rhythmus: Es erscheint regelmässig, sieht nach etwas aus und wird darum gelesen statt weggeklickt.",
+  },
+  {
+    q: "Gedruckt oder digital: Was funktioniert besser?",
+    a: "Das kommt auf deinen Alltag an. Gedruckt erreicht das Magazin auch Leute ohne Bildschirmarbeitsplatz: Es liegt im Pausenraum und wird durchgeblättert. Digital ist es schneller verteilt, verlinkbar und ohne Druckkosten. In der Praxis gewinnt meist die Kombination: Inhalte einmal produzieren und als Heft und als digitale Ausgabe verteilen. Wir beraten dich ehrlich, was zu deiner Belegschaft passt.",
+  },
+  {
+    q: "Welche Inhalte gehören ins Mitarbeitermagazin?",
+    a: "Ein Mix aus Substanz und Mensch: Interviews mit der Geschäftsleitung, Porträts von Teams und neuen Mitarbeitenden, Jubiläen, Blicke hinter die Kulissen laufender Projekte, verständlich erklärte Zahlen und Ziele, Aus- und Weiterbildung, Termine. Faustregel: Jede Ausgabe braucht mindestens eine Geschichte, die es nur bei euch gibt. Rubriken und Format legen wir gemeinsam im Konzept fest.",
+  },
+  {
+    q: "Wer schreibt die Texte fürs Magazin?",
+    a: "Auf Wunsch wir: Wir führen die Interviews, schreiben die Artikel und überarbeiten, bis es stimmt. Deine Leute investieren nur die Zeit fürs Gespräch und fürs Gegenlesen ihrer eigenen Zitate. Wenn bei dir jemand gerne schreibt, geht auch Mischbetrieb: Ihr liefert Inhalte, wir sorgen für Konsistenz, Stil und Korrektur. Ohne deine Freigabe geht nichts in Produktion.",
+  },
+  {
+    q: "Wie oft sollte das Magazin erscheinen?",
+    a: "So oft, wie du es inhaltlich füllen kannst, nicht öfter. Für die meisten KMU funktionieren zwei bis vier Ausgaben pro Jahr gut: vierteljährlich, wenn viel passiert, halbjährlich als ruhiger Rhythmus. Wichtiger als die Frequenz ist die Verlässlichkeit, ein Magazin, das pünktlich erscheint, wird zur Institution. Ein Redaktionsplan hält den Rhythmus realistisch.",
+  },
+  {
+    q: "Was kostet ein Mitarbeitermagazin?",
+    a: "Das hängt stark vom Umfang ab: Seitenzahl und Auflage bestimmen den Druck, und bei den Inhalten macht es einen grossen Unterschied, ob du Texte und Bilder lieferst oder wir recherchieren, interviewen und schreiben. Zwischen dem schlanken Heft mit gelieferten Inhalten und dem Magazin mit eigener Redaktion liegen Welten, darum nennen wir keine Ranges. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit klarem Preis.",
+  },
+];
+---
+
+<Layout
+  title="Mitarbeitermagazin erstellen lassen - Uftritt"
+  description="Mitarbeitermagazin erstellen lassen: Konzept, Redaktion und Gestaltung für interne Kommunikation, die gelesen wird. Gedruckt oder digital, aus einer Hand."
+>
+  <PageHero
+    eyebrow="Interne Kommunikation"
+    title={"Mit­ar­bei­ter­ma­ga­zin,\ndas gelesen wird"}
+    lead="Die kurze Antwort: Ein Mitarbeitermagazin lohnt sich, wenn du deine Leute regelmässig, ehrlich und auf einem Kanal erreichen willst, der im Alltag nicht untergeht. Wir entwickeln Konzept, Redaktion und Gestaltung deines internen Magazins, gedruckt, digital oder hybrid, bis zur fertigen Ausgabe."
+    lottie="/lottie/magazinbetreuung.json"
+    lottieLabel="Mitarbeitermagazin"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/magazinbetreuung/" label="Magazinbetreuung" lottie="/lottie/magazinbetreuung.json" projects={cases} />
+
+  {/* Interne Kommunikation */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Interne Kommunikation</span>
+        <h2>Was ein Mitarbeitermagazin leistet</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          leistungen.map((l) => (
+            <article class="karte">
+              <h3>{l.title}</h3>
+              <p class="karte-note">{l.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Inhalte + Print/digital */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was gehört ins Mitarbeitermagazin</h2>
+        <div class="lp-text">
+          <p>
+            Die besten Rubriken sind die, die nur dein Unternehmen schreiben
+            kann: ein ehrliches Interview mit der Geschäftsleitung zu einem
+            aktuellen Entscheid, Porträts von Teams und Menschen, neue
+            Mitarbeitende und Jubiläen, ein Blick hinter die Kulissen laufender
+            Projekte.
+          </p>
+          <p>
+            Dazu gehören die Themen, die sonst im Flurfunk hängen bleiben:
+            Zahlen und Ziele verständlich erklärt, Aus- und Weiterbildung,
+            Termine und Anlässe. Wichtig ist der Mix aus Substanz und Mensch:
+            Wer nur Bilanzzahlen abdruckt, wird nicht gelesen, und wer nur
+            Kuchenfotos zeigt, wird nicht ernst genommen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Gedruckt, digital oder beides</h2>
+        <div class="lp-text">
+          <p>
+            Gedruckt funktioniert das Magazin dort, wo der Bildschirm fehlt:
+            im Pausenraum, in der Werkstatt, an der Rezeption. Ein Heft liegt,
+            wird durchgeblättert und mitgenommen, ohne Login und ohne
+            Push-Nachricht.
+          </p>
+          <p>
+            Digital ist es als PDF oder Web-Ausgabe schnell verteilt und
+            verlinkbar, etwa im Intranet oder in der internen E-Mail. Am
+            stärksten wirkt das Magazin zweigleisig: Print fürs Blättern,
+            digital fürs Teilen. Die Inhalte entstehen einmal und werden
+            zweimal verwertet, und alles bleibt im selben Look wie deine
+            übrigen <a href="/geschaeftsdrucksachen/">Geschäftsdrucksachen</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in sechs Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {ablauf.map((a, i) => <li><span class="modul-nr">{i + 1}</span>{a}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Ein Magazinkonzept, das zur Grösse deines Unternehmens passt, und
+            eine Ausgabe, die deine Leute wirklich lesen: gestaltet in deinem
+            <a href="/corporate-design/">Corporate Design</a> statt aus der
+            Vorlagenkiste. Alle Daten gehören dir, Layout, Texte und Bilder
+            kannst du für Intranet, Newsletter oder Social Media
+            weiterverwenden.
+          </p>
+          <p>
+            Und mit jeder Ausgabe wird es einfacher: Rubriken und
+            Gestaltungsraster stehen nach der ersten Nummer, der Aufwand pro
+            Ausgabe sinkt. Auf Wunsch übernehmen wir die laufende Arbeit
+            komplett, du gibst jede Ausgabe frei.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Abgrenzung + Handwerk */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Mitarbeitermagazin oder Kundenmagazin?</h2>
+        <div class="lp-text">
+          <p>
+            Der Unterschied liegt im Publikum: Das Mitarbeitermagazin spricht
+            nach innen, zu deinen Leuten. Das
+            <a href="/kundenmagazin/">Kundenmagazin</a> spricht nach aussen,
+            zu Kunden und Partnern. Inhalt, Ton und Themen folgen daraus:
+            Nach innen darfst du offener und konkreter werden, nach aussen
+            zählt der Nutzen für die Leserschaft.
+          </p>
+          <p>
+            Das Produktionshandwerk ist bei beiden dasselbe. Den detaillierten
+            Weg von der Idee bis zur fertigen Ausgabe zeigen wir auf der Seite
+            <a href="/magazin-erstellen-lassen/">Magazin erstellen lassen</a>.
+            Viele Unternehmen fahren übrigens zweigleisig: ein Heft für
+            innen, eines für aussen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Heft-Handwerk aus eigener Produktion</h2>
+        <div class="lp-text">
+          <p>
+            Mitarbeitermagazine zeigen wir hier aus naheliegendem Grund nicht
+            öffentlich: Sie enthalten Firmeninterna, die nicht ins Netz
+            gehören. Wie solche Projekte konkret laufen, erzählen wir dir
+            gerne im Erstgespräch.
+          </p>
+          <p>
+            Dass wir das Heft-Handwerk beherrschen, siehst du an öffentlichen
+            Projekten: Der Saison Guide des Unihockeyvereins
+            <a href="/projekte/dt-baeretswil/">DT Bäretswil</a> erscheint
+            jede Saison mit Rückblick, Ausblick und Spielplan. Sein Layout
+            haben wir lesefreundlicher und leichter gestaltet, mit klaren
+            Text-Bild-Strukturen. Dasselbe Handwerk steckt in deinem
+            Mitarbeitermagazin.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Mitarbeitermagazin</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Wie gut erreichst du deine Leute heute?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, wie gross dein Team ist und was du mit interner
+        Kommunikation erreichen willst. Wir sagen dir ehrlich, ob sich ein
+        Mitarbeitermagazin lohnt, und machen dir ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

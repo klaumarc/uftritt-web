@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import SubHero from "../components/SubHero.astro";
-import TeamGrid from "../components/TeamGrid.astro";
+import TeamSection from "../components/TeamSection.astro";
 import Spiel from "../components/Spiel.astro";
 ---
 
@@ -48,15 +48,7 @@ import Spiel from "../components/Spiel.astro";
     </div>
   </section>
 
-  <section class="section section--soft">
-    <div class="container">
-      <header class="section-head" data-reveal>
-        <span class="eyebrow">Unser Team</span>
-        <h2>Köpfe voller kreativer Ideen</h2>
-      </header>
-      <TeamGrid carousel={true} />
-    </div>
-  </section>
+  <TeamSection />
 
   {/* ---------- SPIEL (Abschluss + CTA) ---------- */}
   <Spiel />

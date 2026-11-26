@@ -1,0 +1,304 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["100pro-openair-2024", "dtb-redesign", "emotion-hinwil"].includes(p.slug)
+);
+
+const prozess = [
+  "Erstgespräch: Was du bewerben willst, in welcher Region und mit welchem Budget",
+  "Offerte: Format, Dauer und Region wählen, wir begleiten die Anfrage beim Vermarkter",
+  "Sujet-Design: Entwurf fürs gebuchte Format, mit Korrekturrunden bis es sitzt",
+  "Reinzeichnung: druckfertige Daten nach den Vorgaben von APG|SGA",
+  "Produktion und Montage: laufen über den Vermarkter, dann fährt deine Werbung",
+];
+
+const faq = [
+  {
+    q: "Was kostet Buswerbung in der Schweiz?",
+    a: "Das setzt sich aus zwei Teilen zusammen. Der erste ist die Flächenmiete: Sie hängt von Format, Laufzeit und Region ab und wird durch den Vermarkter offeriert, in der Schweiz praktisch flächendeckend APG|SGA. Dazu kommt die Montage durch den Vermarkter. Der zweite Teil sind wir: Konzept, Gestaltung des Sujets und die Planung der Kampagne, von der Formatwahl bis zur Laufzeit. Dafür bekommst du nach dem kostenlosen Erstgespräch ein transparentes Angebot mit klarem Preis.",
+  },
+  {
+    q: "Wie lange läuft eine Buskampagne?",
+    a: "Die Buchungsperioden sind fix: F12 und F200 Traffic laufen 21 Tage, das City TrafficBoard 28 Tage. Brauchst du mehr Präsenz, buchst du Folgeperioden dazu, so bleibt dein Sujet auch über Monate auf der Strasse. Wichtig ist der Vorlauf: Offerte, Sujet-Design, Produktion und Montage brauchen ihre Zeit, darum lohnt es sich, vor dem gewünschten Start mit uns zu sprechen.",
+  },
+  {
+    q: "Kann ich die Region wählen, in der die Busse fahren?",
+    a: "Ja, die Region wählst du bei der Offerte zusammen mit Format und Dauer. Fürs Zürcher Oberland und die Region Zürichsee heisst das: die Linien der VZO mit 54 Linien plus 9 Nachtlinien und 447 Haltestellen. Gebucht wird dabei die Region, nicht die einzelne Linie.",
+  },
+  {
+    q: "Wer produziert die Folien und montiert sie am Bus?",
+    a: "Produktion und Montage laufen über APG|SGA, den Vermarkter der Buswerbeflächen. Unser Teil ist das Sujet: Wir gestalten es fürs gebuchte Format und liefern die druckfertigen Daten nach den Vorgaben des Vermarkters. Du hast so einen Ansprechpartner fürs Design und einen für Fläche, Druck und Montage.",
+  },
+  {
+    q: "Buswerbung oder Plakat: Was passt besser?",
+    a: "Das Plakat steht fest an einem Ort, der Bus bewegt sich durch die ganze Region. Ehrlich eingeordnet: Im Zürcher Oberland gibt es wenig F4-Inventar, die regionale Stärke liegt dort bei der Buswerbung auf den VZO-Linien. Wir beraten dich, welcher Kanal zu deinem Budget passt, und gestalten die Sujete für beide.",
+  },
+  {
+    q: "Was ist der Unterschied zwischen Buswerbung und Fahrzeugbeschriftung?",
+    a: "Bei der Buswerbung mietest du eine fremde Werbefläche für eine befristete Laufzeit, die Buchung läuft über den Vermarkter. Die Fahrzeugbeschriftung gehört dir: Dein eigenes Firmenfahrzeug wird einmal gestaltet und foliert und wirbt dann jahrelang ohne laufende Kosten. Beides gestalten wir, auf unserer Seite zur Fahrzeugbeschriftung findest du Ablauf und Beispiele.",
+  },
+];
+---
+
+<Layout
+  title="Buswerbung buchen und gestalten lassen - Uftritt"
+  description="Buswerbung buchen und gestalten lassen: Sujet-Design für Heck, Seite und TrafficBoard, Buchung über APG|SGA. Formate und Ablauf im Überblick."
+>
+  <PageHero
+    eyebrow="Aussenwerbung · Bus"
+    title={"Buswerbung,\ndie durch deine Region fährt"}
+    lead="Buswerbung bringt deine Marke auf die Linienbusse der Region: Gebucht wird die Fläche beim Vermarkter APG|SGA, wir gestalten das Sujet, das im Verkehr funktioniert, und liefern die druckfertigen Daten. Fürs Zürcher Oberland sind die Busse der VZO die regionale Werbefläche schlechthin."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Buswerbung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Kosten: ehrlich eingeordnet, ohne Listenpreise */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was kostet Buswerbung?</h2>
+        <div class="lp-text">
+          <p>
+            Zwei Posten gehören zusammen: die Flächenmiete und die Kampagne.
+            Die Flächenmiete hängt von Format, Laufzeit und Region ab und wird
+            durch den Vermarkter offeriert, in der Schweiz praktisch
+            flächendeckend durch APG|SGA. Gebucht wird in fixen Perioden:
+            21 Tage für die klassischen Formate, 28 Tage für die XXL-Fläche
+            auf der Busseite, dazu kommt die Montage durch den Vermarkter.
+          </p>
+          <p>
+            Unser Teil ist die Kampagne: Konzept, Gestaltung des Sujets und
+            die Planung von Format, Laufzeit und Region. Wir führen dich
+            durch die ganze Kampagne, vom ersten Entwurf bis zum Sujet auf
+            der Strasse, und offerieren das nach dem kostenlosen Erstgespräch
+            transparent.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Design-Substanz + Dedupe */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gestaltet für Bewegung, nicht fürs Wartezimmer</h2>
+        <div class="lp-text">
+          <p>
+            Ein Bussujet hat nur einen Moment: Niemand steht still und studiert
+            die Seite eines vorbeifahrenden Busses. Darum gestalten wir für
+            Tempo und Distanz: eine Botschaft, wenige grosse Elemente, hohe
+            Kontraste und eine Schrift, die auch auf der Überlandstrasse lesbar
+            bleibt.
+          </p>
+          <p>
+            Die Hierarchie folgt dem Blick im Verkehr: zuerst wer du bist, dann
+            was du anbietest, dann wie man dich erreicht. Es ist dieselbe Logik
+            wie bei der <a href="/fahrzeugbeschriftung-gestalten/">Fahrzeugbeschriftung</a>,
+            mit einem Unterschied: Die Fläche ist grösser, die Laufzeit
+            befristet und das Format gibt der Vermarkter vor. Wir gestalten
+            Bussujete mit derselben Sorgfalt wie alles andere im
+            <a href="/grafikdesign-zuercher-oberland/">Grafikdesign</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Gemietete Fläche oder eigenes Fahrzeug?</h2>
+        <div class="lp-text">
+          <p>
+            Buswerbung heisst: Du mietest eine Werbefläche auf fremden Bussen
+            für eine begrenzte Laufzeit. Die Buchung läuft über den Vermarkter,
+            nach Ablauf verschwindet dein Sujet wieder. Das passt für
+            Kampagnen, Anlässe und alles, was zeitnah in der Region sichtbar
+            sein soll.
+          </p>
+          <p>
+            Willst du dagegen dein eigenes Firmenfahrzeug als Dauerwerbung
+            gestalten, ist die
+            <a href="/fahrzeugbeschriftung-gestalten/">Fahrzeugbeschriftung</a>
+            der richtige Weg: einmal gestaltet und foliert, wirbt dein Fahrzeug
+            jahrelang ohne laufende Miete. Beides gestalten wir, und beides
+            kann sich ergänzen.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* VZO + Vermarkter */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Die Fläche: die Busse der VZO</h2>
+        <div class="lp-text">
+          <p>
+            Im Zürcher Oberland und am Zürichsee gehören die Busse der VZO zum
+            Alltagsbild: Die Verkehrsbetriebe Zürichsee und Oberland fahren mit
+            104 Bussen auf 54 Linien plus 9 Nachtlinien, mit 447 Haltestellen
+            und einem Streckennetz von 279 Kilometern. Die Depots stehen in
+            Grüningen, Rüti, Wetzikon und Meilen (Netzdaten: Wikipedia, Stand
+            2024).
+          </p>
+          <p>
+            Rund 26,5 Millionen Fahrgäste pro Jahr sitzen in diesen Bussen,
+            dazu kommt jeder, der ihnen im Strassenverkehr begegnet. Für eine
+            regionale Kampagne ist das eine Fläche, die täglich genau dort
+            unterwegs ist, wo deine Kundschaft lebt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Gebucht wird über APG|SGA</h2>
+        <div class="lp-text">
+          <p>
+            Die Werbeflächen auf Schweizer Bussen vermarktet praktisch
+            flächendeckend APG|SGA Transport Advertising in Winterthur, auch
+            die VZO verweist auf ihrer Website dorthin. Du buchst also nicht
+            bei der VZO und nicht bei uns, sondern beim Vermarkter: Format,
+            Dauer und Region wählen, Offerte anfordern, Sujet liefern.
+          </p>
+          <p>
+            Produktion und Montage übernimmt APG|SGA. Unser Teil ist das Sujet:
+            Wir gestalten es so, dass es auf dem gebuchten Format funktioniert,
+            und liefern die druckfertigen Daten nach den Vorgaben des
+            Vermarkters. Wie Buswerbung im Vergleich zu
+            <a href="/plakatwerbung/">Plakat</a> und anderen Kanälen der
+            <a href="/aussenwerbung/">Aussenwerbung</a> abschneidet, zeigen wir
+            im Überblick.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Ein Sujet, das im Verkehr funktioniert, druckfertig fürs gebuchte
+            Format, und eine Kampagne, die termingerecht auf die Strasse
+            kommt. Die Daten gehören dir: Läuft die Kampagne gut, ist die
+            nächste Buchung nur noch eine Offerte beim Vermarkter.
+          </p>
+          <p>
+            Und wenn Buswerbung Teil eines grösseren Plans ist: Wir gestalten
+            die passenden Plakate, Inserate und Landingpages gleich mit, damit
+            die Kampagne aus einem Guss wirkt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Buswerbung</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Soll deine Marke durch die Region fahren?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du bewerben willst und in welcher Region. Du bekommst
+        eine ehrliche Einschätzung, ob Buswerbung passt, und ein transparentes
+        Angebot fürs Sujet.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+</style>

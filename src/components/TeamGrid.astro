@@ -1,5 +1,6 @@
 ---
 import { team } from "../data/team";
+import { webpSrcSet } from "../utils/img";
 
 interface Props {
   carousel?: boolean;
@@ -10,7 +11,9 @@ const { carousel = false } = Astro.props;
 <div class:list={["team-slider", { "is-carousel": carousel }]}>
   <ul class:list={["team-track", { "is-carousel": carousel }]}>
     {
-      team.map((m) => (
+      team.map((m) => {
+        const srcset = webpSrcSet(m.photo);
+        return (
         <li class="team-item">
           <button
             class="team-member"
@@ -21,10 +24,14 @@ const { carousel = false } = Astro.props;
             data-bio={m.bio}
             data-email={m.email}
             data-photo={m.photo}
+            data-photo-large={m.photoLarge}
             data-partner={m.partner ? "true" : undefined}
           >
             <span class="team-photo">
-              <img src={m.photo} alt={m.name} loading="lazy" />
+              <picture>
+                {srcset && <source type="image/webp" srcset={srcset} sizes="(max-width: 640px) 75vw, 320px" />}
+                <img src={m.photo} alt={m.name} loading="lazy" />
+              </picture>
               <span class="team-caption">
                 {m.partner && <span class="team-badge">Partner</span>}
                 <span class="team-name">{m.name}</span>
@@ -34,7 +41,8 @@ const { carousel = false } = Astro.props;
             </span>
           </button>
         </li>
-      ))
+        );
+      })
     }
   </ul>
 
@@ -75,6 +83,10 @@ const { carousel = false } = Astro.props;
 </div>
 
 <style>
+  /* picture-Wrapper (webp/srcset): keine eigene Box, img bleibt layout-seitig gleich */
+  picture {
+    display: contents;
+  }
   .team-slider {
     position: relative;
   }
@@ -512,7 +524,7 @@ const { carousel = false } = Astro.props;
     lastTrigger = btn;
     const d = btn.dataset;
     if (els.photo) {
-      els.photo.src = d.photo || "";
+      els.photo.src = d.photoLarge || d.photo || "";
       els.photo.alt = d.name || "";
     }
     if (els.badge) els.badge.hidden = d.partner !== "true";

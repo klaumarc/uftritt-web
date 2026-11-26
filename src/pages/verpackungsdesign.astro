@@ -1,0 +1,328 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects
+  .filter((p) => ["stahel-koeng", "arte-bellezza", "dtb-redesign"].includes(p.slug))
+  .slice(0, 3);
+
+const arten = [
+  {
+    name: "Etiketten und Banderolen",
+    note: "Produktetiketten für Gläser, Flaschen und Dosen oder Banderolen für Broschüren und Bundles: gestaltet im Look deiner Marke, mit sauberer Hierarchie für Sorte, Inhalt und Pflichtangaben.",
+  },
+  {
+    name: "Faltschachteln und Kartonagen",
+    note: "Gestaltung direkt auf dem Stanzriss: eine Vorderseite, die auffällt, Seiten, die informieren, und eine Innenseite, die beim Öffnen überrascht. Auf Wunsch inklusive Farb- und Materialberatung.",
+  },
+  {
+    name: "Flaschen, Dosen und Gravuren",
+    note: "Direkt auf dem Produkt statt auf dem Papier: Motive für Bedruckung, Lasergravur oder Prägung, als Daten aufbereitet, die der Produzent eins zu eins verarbeiten kann.",
+  },
+  {
+    name: "Sondereditionen und Geschenke",
+    note: "Jubiläumseditionen, limitierte Serien und Kundengeschenke, bei denen die Verpackung selbst zum Erlebnis wird und dein Produkt zur Botschaft.",
+  },
+];
+
+const prozess = [
+  "Erstgespräch: Produkt, Zielgruppe, Verkaufskanal und was an Gestaltung schon vorhanden ist",
+  "Konzept: Entwurf auf dem Stanzriss oder der Form deiner Verpackung, mit Varianten zur Auswahl",
+  "Feinschliff: Deine Korrekturrunden, bis Bildwelt, Schriften und Pflichtangaben sitzen",
+  "Reinzeichnung: Druckfertige Daten mit Farbdefinitionen und allen technischen Angaben",
+  "Übergabe: Koordination mit Druckerei oder Produzent und Abnahme anhand eines Proofs",
+];
+
+const faq = [
+  {
+    q: "Was kostet Verpackungsdesign?",
+    a: "Das hängt vom Umfang ab: Ein einzelnes Etikett ist ein überschaubares Projekt, eine ganze Produktelinie mit System und Varianten ein grösseres. Klar ist: Das Design ist ein einmaliger Aufwand, danach druckst du so oft du willst. Nach dem Erstgespräch bekommst du von uns ein transparentes Angebot mit allen Posten, bevor irgendetwas gestaltet wird.",
+  },
+  {
+    q: "Druckt ihr die Verpackungen auch selbst?",
+    a: "Nein, und das ist Absicht: Verpackungsdruck ist ein eigenes Handwerk mit Maschinen, Materialien und Stanzwerkzeugen. Unser Teil ist Konzept, Design und druckfertige Daten, dazu die Abstimmung mit der Druckerei oder dem Produzenten deiner Wahl. Auf Wunsch holen wir Offerten ein und begleiten die Produktion bis zum Proof.",
+  },
+  {
+    q: "Gestaltet ihr auch nur ein einzelnes Etikett?",
+    a: "Ja, das Etikett ist oft der Einstieg: ein Produkt, ein Glas, eine Flasche. Wir gestalten es mit derselben Sorgfalt wie eine ganze Linie und legen es gleich so an, dass spätere Sorten oder Grössen ohne neuen Entwurf ableitbar sind. So muss das erste Etikett nicht neu erfunden werden, sobald dein Sortiment wächst.",
+  },
+  {
+    q: "Was braucht ihr von uns für den Start?",
+    a: "Am besten vorhanden: Masse oder Stanzriss deiner Verpackung vom Hersteller, dein Logo und allfällige Farb- und Schriftvorgaben, die Texte und die gesetzlichen Pflichtangaben wie Zutaten, Inhalt oder Herkunft. Fehlt davon etwas, kein Problem: Wir fragen es beim Hersteller an oder erstellen den Stanzriss mit dem Partnerbetrieb.",
+  },
+  {
+    q: "Kann ich meine Verpackung mit KI entwerfen lassen?",
+    a: "Als Ideensammlung gerne: Ein KI-Bild zeigt schnell, in welche Richtung es gehen könnte. Produktionsreif ist das Ergebnis aber nie: KI liefert Pixel ohne Masstreue, erfindet Schriften, die es nicht gibt, und kennt weder Stanzriss noch Druckfarben. Bring deinen Entwurf mit, wir machen daraus ein Design, das die Druckerei wirklich verarbeiten kann.",
+  },
+  {
+    q: "Wie lange dauert ein Verpackungsdesign?",
+    a: "Fürs Design rechnen wir je nach Umfang mit ein bis drei Wochen vom Briefing bis zur Freigabe, inklusive Korrekturrunden. Danach kommt die Produktionszeit der Druckerei dazu, bei neuen Stanzformen oder Sonderfarben etwas mehr. Plane für ein neues Produkt lieber einen Monat Puffer ein als eine Woche zu wenig.",
+  },
+];
+---
+
+<Layout
+  title="Verpackungsdesign Agentur Zürcher Oberland - Uftritt"
+  description="Verpackungsdesign von deiner Agentur im Zürcher Oberland: Etiketten, Faltschachteln und Sondereditionen vom Konzept bis zu den druckfertigen Daten."
+>
+  <PageHero
+    eyebrow="Verpackung und Etikette · Zürcher Oberland"
+    title={"Ver­pa­ckungs­de­sign,\ndas im Regal wirkt"}
+    lead="Deine Verpackung gestalten wir als Teil deiner Marke: vom Etikett über die Faltschachtel bis zur Sonderedition. Du bekommst Konzept, Design und druckfertige Daten aus einer Hand, produziert wird über Partnerdruckereien. Als Agentur im Zürcher Oberland sind wir nah dran, an dir und an deinem Produkt."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Verpackungsdesign"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Leistungsarten */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Leistungen</span>
+        <h2>Verpackungsdesign von der Etikette bis zur Sonderedition</h2>
+      </header>
+      <div class="arten" data-reveal>
+        {
+          arten.map((a) => (
+            <article class="art-card">
+              <h3>{a.name}</h3>
+              <p class="art-note">{a.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Design-Substanz */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gestaltet fürs Regal, nicht fürs Büro</h2>
+        <div class="lp-text">
+          <p>
+            Eine Verpackung hat im Regal drei Sekunden: Niemand nimmt jede
+            Schachtel in die Hand, um sie zu studieren. Darum gestalten wir für
+            Distanz und Vergleich: eine klare Hierarchie aus Marke, Produkt und
+            Nutzen, eine Bildwelt, die aus der Reihe springt, und eine Schrift,
+            die auch auf Armeslänge lesbar bleibt.
+          </p>
+          <p>
+            Verpackungsdesign ist für uns ein Teil des
+            <a href="/printdesign/">Printdesigns</a>: Es folgt denselben Regeln
+            wie Plakat oder Broschüre, nur in drei Dimensionen und mit Material,
+            Lack und Prägung als zusätzlichen Gestaltungsmitteln. Und es folgt
+            deinem <a href="/corporate-design/">Corporate Design</a>, damit
+            Regal, Website und Briefschaft dieselbe Sprache sprechen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Vom einzelnen Etikett zur ganzen Linie</h2>
+        <div class="lp-text">
+          <p>
+            Oft beginnt es mit einem Etikett: ein Produkt, ein Glas, eine
+            Flasche. Sobald Sorten dazukommen, lohnt sich ein System: gleiche
+            Grundstruktur, klare Farb- oder Bildlogik pro Sorte, damit die Linie
+            im Regal zusammengehört und jede Neuheit schnell gestaltet ist.
+          </p>
+          <p>
+            So arbeiten wir im
+            <a href="/grafikdesign-zuercher-oberland/">Grafikdesign im Zürcher Oberland</a>
+            seit Jahren für Firmen aus der Region: nicht als reine Kreativbude,
+            sondern mit dem Blick fürs Machbare. Und damit dein Produkt auch
+            nach dem Design überzeugt, denken wir gleich an den nächsten Schritt,
+            etwa den <a href="/katalog-gestalten-lassen/">Produktkatalog</a>, in
+            dem deine Linie gross rauskommt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Aufgabenteilung, ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Unser Teil: Konzept, Design und Daten</h2>
+        <div class="lp-text">
+          <p>
+            Wir gestalten deine Verpackung vom Briefing bis zur Reinzeichnung:
+            Entwurf auf dem Stanzriss oder der Form deiner Verpackung, Varianten
+            zum Vergleichen, Korrekturrunden, bis alles sitzt. Am Schluss bekommt
+            die Druckerei ein komplettes, druckfertiges Datenpaket.
+          </p>
+          <p>
+            Ein Beispiel: Für <a href="/projekte/stahel-koeng/">Stahel + Köng</a>
+            aus Hinwil haben wir zum 125-Jahre-Jubiläum eine gravierte
+            Edelstahl-Flasche gestaltet, eine Serie à 200 Stück plus 31
+            Exemplare, personalisiert mit Vornamen. Vom Mockup bis zur Vorlage
+            für die Lasergravur: echte Produktgestaltung statt nur Dekoration.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Produktion über Partner, ehrlich gesagt</h2>
+        <div class="lp-text">
+          <p>
+            Wir drucken und produzieren nicht selbst, und das ist Absicht:
+            Verpackungsdruck ist ein eigenes Handwerk mit Maschinen, Material
+            und Zuschnitt. Den machen Partnerdruckereien und Produzenten, mit
+            denen wir die technischen Details direkt absprechen. Du hast
+            trotzdem nur einen Ansprechpartner fürs Design.
+          </p>
+          <p>
+            Und noch ehrlicher: Brauchst du nur ein schlichtes Etikett mit Logo
+            und Adresse, macht das deine Druckerei oft selbst. Unser Teil beginnt
+            dort, wo die Verpackung verkaufen soll. Feiert die neue Verpackung
+            übrigens an einem Anlass Premiere, gestalten wir dir auf Wunsch
+            gleich den <a href="/messestand-gestalten-lassen/">Messestand</a>
+            dazu.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Ein Verpackungsdesign, das zu deiner Marke passt und im Verkauf
+            funktioniert, plus ein Datenpaket, mit dem jede professionelle
+            Druckerei sofort arbeiten kann. Die Daten gehören dir: Du bestellst
+            den Druck dort, wo du willst, und bleibst unabhängig.
+          </p>
+          <p>
+            Und wenn dein Sortiment wächst, wächst das System mit: Die nächste
+            Sorte ist dann keine neue Gestaltungsfrage mehr, sondern eine
+            Ableitung auf Basis des bestehenden Konzepts.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Verpackungsdesign</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Was soll deine Verpackung über dein Produkt erzählen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, welches Produkt du verpacken willst und was an Gestaltung
+        schon da ist. Du bekommst eine ehrliche Einschätzung und ein
+        transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .arten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .art-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .art-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .art-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .arten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .arten { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,330 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "smart-navigator", "seatalytics"].includes(p.slug)
+);
+
+const themen = [
+  {
+    name: "Standort und Roadmap",
+    note: "Wo steht dein Betrieb heute, wo bringt KI am schnellsten etwas, in welcher Reihenfolge gehst du es an. Am Ende steht ein Plan mit Prioritäten statt einer Ideenliste.",
+  },
+  {
+    name: "Toolwahl ohne Hype",
+    note: "Wir empfehlen nur Werkzeuge, die wir selbst kennen und die zu deinen Abläufen und deinem Datenschutz-Anspruch passen. Keine Provision, keine Tool-Verkäufe.",
+  },
+  {
+    name: "Prozesse und Automatisierung",
+    note: "Wiederkehrende Arbeit finden und verschlanken: Texte, Auswertungen, Absprachen, Datenpflege. Erst wenn der Prozess steht, lohnt das Tool.",
+  },
+  {
+    name: "Regeln fürs Team",
+    note: "Klare Leitplanken: was in ein KI-Tool darf und was nie, wer Ergebnisse prüft, wie ihr den Umgang dokumentiert. Damit aus Experimenten ein sauberer Betrieb wird.",
+  },
+];
+
+const prozess = [
+  "Erstgespräch: Was ihr heute macht, wo es hakt, was ihr euch von KI erhofft",
+  "Bestandesaufnahme: Abläufe, Daten und vorhandene Tools anschauen, schnelle Chancen von Luftschlössern trennen",
+  "Roadmap: priorisierte Massnahmen mit Reihenfolge, grobem Aufwand und Verantwortung",
+  "Umsetzung: Tools einrichten, Prozesse bauen, dein Team an Bord holen",
+  "Begleitung: nachjustieren, Ergebnisse prüfen und weiterentwickeln, so lange es sich lohnt",
+];
+
+const faq = [
+  {
+    q: "Was bringt eine KI-Beratung konkret?",
+    a: "Klarheit in drei Fragen: Wo lohnt sich KI in deinem Betrieb, welche Werkzeuge passen dazu und in welcher Reihenfolge gehst du es an. Am Ende steht eine Roadmap mit Prioritäten, grobem Aufwand und Verantwortung, kein Strategiepapier fürs Regal. Und weil wir selbst KI-gestützt arbeiten, beruht jede Empfehlung auf eigener Praxis statt auf Folien aus Konferenzen.",
+  },
+  {
+    q: "Woran erkenne ich, ob sich KI für meinen Betrieb lohnt?",
+    a: "Ein guter Indikator ist wiederkehrende Arbeit mit Texten, Zahlen oder Absprachen: Offerten schreiben, Protokolle zusammenfassen, Daten pflegen, Standardfragen beantworten. Dort spart KI spürbar Zeit. Ehrlich heisst aber auch: Ein einmaliger komplexer Vorgang, den niemand zweimal braucht, lohnt sich selten. Genau diese Abwägung ist der Kern der Beratung.",
+  },
+  {
+    q: "Was ist der Unterschied zwischen KI-Beratung und KI-Schulung?",
+    a: "Die Beratung klärt Strategie, Roadmap und Toolwahl, also das Was und Warum. Die KI-Schulung klärt das Wie: Dein Team lernt am eigenen Laptop, die Werkzeuge sicher und wirksam einzusetzen, inklusive Datenschutz und Haftung. In der Praxis ergänzen sich beide: Erst die Roadmap, dann die Schulung dazu. Beides gibt es bei uns auch einzeln.",
+  },
+  {
+    q: "Müssen wir für KI unsere Firmendaten aus der Hand geben?",
+    a: "Nein, nicht pauschal. Bei der Toolwahl achten wir darauf, welche Daten wohin fliessen: Firmenkonten statt privater Logins, passende Einstellungen und klare Regeln, was in ein KI-Tool darf und was nie, etwa Kundendaten oder Personalakten. Dazu gehört KI-Kompetenz im Team, die der EU AI Act seit Februar 2025 von Anbietern und Betreibern fordert. Die Beratung liefert dir ein Regelwerk, das sich jede Person merken kann.",
+  },
+  {
+    q: "Arbeitet ihr selbst mit KI?",
+    a: "Ja, täglich: bei Recherchen und Textentwürfen, bei Auswertungen und bei der Automatisierung interner Abläufe. Genau darum beraten wir aus eigener Erfahrung, auch aus den Fällen, in denen KI versagt hat oder mehr gekostet als gebracht hätte. Was wir dir empfehlen, kennen wir aus dem eigenen Betrieb.",
+  },
+  {
+    q: "Was kostet eine KI-Beratung?",
+    a: "Das hängt vom Umfang ab: Eine kompakte Standortbestimmung mit Roadmap ist etwas anderes als die Begleitung über mehrere Monate mit Umsetzung und Schulung. Nach dem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit klarem Preis, ohne versteckte Kosten. So weisst du vor dem ersten Franken, woran du bist.",
+  },
+];
+---
+
+<Layout
+  title="KI-Beratung für KMU und Mittelstand - Uftritt"
+  description="KI-Beratung für KMU und Mittelstand: Wir prüfen, wo sich KI in deinem Betrieb lohnt, und bauen mit dir Roadmap, Toolwahl und Prozesse. Ehrlich statt Hype."
+>
+  <PageHero
+    eyebrow="KI-Strategie · Zürcher Oberland"
+    title={"KI-Beratung,\ndie bei deinen Prozessen anfängt"}
+    lead="Eine KI-Beratung bei Uftritt beginnt nicht bei Tools, sondern bei deinen Abläufen: Wir schauen, wo sich KI in deinem Betrieb wirklich lohnt, wählen passende Werkzeuge und bauen eine Roadmap, die dein Team mitträgt. Wir arbeiten selbst täglich KI-gestützt und sagen dir ehrlich, was sich nicht lohnt."
+    lottie="/lottie/applikationsentwicklung.json"
+    lottieLabel="KI-Beratung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/applikationsentwicklung/" label="Applikationsentwicklung" lottie="/lottie/applikationsentwicklung.json" projects={cases} />
+
+  {/* Themen der Beratung */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Leistungen</span>
+        <h2>Wobei dich die KI-Beratung unterstützt</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          themen.map((t) => (
+            <article class="range-card">
+              <h3>{t.name}</h3>
+              <p class="range-note">{t.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Strategie + Abgrenzung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Strategie, die bei deinen Prozessen anfängt</h2>
+        <div class="lp-text">
+          <p>
+            Viele KMU starten mit KI umgekehrt: Erst wird ein Tool gekauft, dann
+            ein Problem dafür gesucht. Wir drehen das um. Im Erstgespräch schauen
+            wir deine Abläufe an: Wo geht jeden Tag Zeit für Arbeit drauf, die
+            immer gleich abläuft? Wo sitzt Wissen nur in Köpfen? Wo warten
+            Kunden auf Antworten?
+          </p>
+          <p>
+            Daraus wird eine Roadmap mit ehrlichen Prioritäten: was sofort
+            Wirkung hat, was Vorbereitung braucht und was du getrost sein lassen
+            kannst. Geht es danach ans Bauen, übernimmt unsere Seite
+            <a href="/ki-automatisierung/">KI-Automatisierung</a> die Umsetzung.
+            Und wenn KI nur ein Baustein einer grösseren digitalen Aufstellung
+            ist, passt <a href="/digitalisierung-kmu/">Digitalisierung für KMU</a>
+            dazu.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Beratung, Schulung, Sichtbarkeit: ehrlich abgegrenzt</h2>
+        <div class="lp-text">
+          <p>
+            Drei Dinge werden gern vermischt. Die Beratung auf dieser Seite
+            klärt das Was und Warum: Strategie, Roadmap, Toolwahl, Prozesse. Die
+            <a href="/ki-schulung/">KI-Schulung</a> klärt das Wie im Team: Deine
+            Leute lernen am eigenen Laptop, die Werkzeuge sicher und wirksam zu
+            nutzen.
+          </p>
+          <p>
+            Und dann gibt es die Frage, ob dich KI-Systeme wie ChatGPT überhaupt
+            kennen und zitieren. Das ist kein Beratungsthema, sondern ein
+            Sichtbarkeitsthema: Unsere Seite zur
+            <a href="/ki-sichtbarkeit/">KI-Sichtbarkeit</a> zeigt, wie wir das
+            messen und verbessern. Oft kommt alles zusammen, aber wir verkaufen
+            dir nie das ganze Paket, wenn du nur einen Teil brauchst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Beleg + Ehrlichkeit */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Unser Beleg: Wir arbeiten selbst KI-gestützt</h2>
+        <div class="lp-text">
+          <p>
+            Wir beraten nicht von der Tribüne: Bei Uftritt läuft KI im Alltag
+            mit, bei Recherchen und Textentwürfen, bei Auswertungen und bei der
+            Automatisierung interner Abläufe. Was wir dir empfehlen, haben wir
+            vorher an uns selbst getestet, inklusive der Frustmomente.
+          </p>
+          <p>
+            Und wir kennen die Betriebe, für die sich das lohnt: Bei der
+            <a href="/projekte/aweso/">Aweso AG</a> in Wetzikon begleiten wir
+            einen Familienbetrieb mit rund hundert Jahren Geschichte von der
+            Markenanalyse über den Website-Relaunch bis in die laufende digitale
+            Betreuung. Genau in solchen Traditionsbetrieben steckt am meisten
+            ungenutztes Potenzial, und genau dort braucht es eine Roadmap, die
+            zur Firmenkultur passt statt dagegen.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was eine KI-Beratung nicht ist</h2>
+        <div class="lp-text">
+          <p>
+            Keine 80-seitige Strategiebroschüre fürs Regal und kein Vortrag über
+            die Zukunft der Menschheit. Und auch kein Ersatz für Führung: Die
+            Entscheidungen triffst du, wir liefern die saubere Grundlage dafür.
+          </p>
+          <p>
+            Und noch ehrlicher: Nicht jeder Betrieb braucht zuerst KI. Wenn bei
+            dir die Website hinkt, Anfragen in Mails versanden oder niemand fürs
+            Marketing zuständig ist, bringt eine
+            <a href="/marketing-auslagern/">Marketing-Auslagerung</a> oft mehr
+            als jede KI-Roadmap. Das sagen wir dir im Erstgespräch genau so.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Eine Roadmap, die dein Team versteht und mitträgt: welche
+            KI-Anwendungen ihr in welcher Reihenfolge angeht, mit welchen
+            Werkzeugen und mit welchen Regeln. Dazu ein Tool-Setup, das zu
+            eurem Datenschutz-Anspruch passt, und Leitplanken, die sich jede
+            Person merken kann.
+          </p>
+          <p>
+            Und du bleibst unabhängig: Die Roadmap gehört dir, die
+            eingerichteten Abläufe laufen in deinen Konten und unter deinem
+            Dach. Wenn du uns danach nicht mehr brauchst, ist das ein Erfolg,
+            kein Verlust.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur KI-Beratung</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Wo steht dein Betrieb mit KI?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du heute machst und wo es hakt. Du bekommst eine
+        ehrliche Einschätzung, ob sich KI für dich lohnt und wo du am besten
+        anfängst.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges { grid-template-columns: 1fr; }
+  }
+</style>

@@ -105,6 +105,15 @@
 </IfModule>
 
 # ============================================================
+#  .mjs als JavaScript ausliefern (MapLibre-Web-Worker der
+#  Kontakt-Karte): sonst kommt text/plain + nosniff und der
+#  Browser blockiert den Modul-Worker.
+# ============================================================
+<IfModule mod_mime.c>
+  AddType application/javascript .mjs
+</IfModule>
+
+# ============================================================
 #  Uftritt – Security-Header (Plesk / Apache)
 #  Wird von Astro aus public/ nach dist/ kopiert und liegt dann
 #  im Web-Root. Wirkt nur, wenn Apache .htaccess auswertet
@@ -133,7 +142,7 @@ SetEnvIf Host "mklkreativ\.ch$" UFTRITT_NOINDEX=1
 
   # --- Nicht genutzte Browser-Features sperren ---
   #     (Fullscreen/Autoplay bleiben frei -> YouTube-Embed funktioniert)
-  Header always set Permissions-Policy "geolocation=(), camera=(), microphone=(), payment=(), usb=()"
+  Header always set Permissions-Policy "geolocation=(self), camera=(), microphone=(), payment=(), usb=()"
 
   # --- HTTPS erzwingen (NUR wenn ein gültiges SSL-Zertifikat aktiv ist!) ---
   #     includeSubDomains bewusst weggelassen (Dev-Domain-Rücksicht);
@@ -155,8 +164,10 @@ SetEnvIf Host "mklkreativ\.ch$" UFTRITT_NOINDEX=1
   #      auskommentieren und die "scharfe" Zeile aktivieren.
   # ============================================================
   # Report-Only wurde getestet (keine Verstösse) -> jetzt scharf geschaltet.
-  # Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' https://analytics.mklkreativ.ch; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.basemaps.cartocdn.com https://analytics.mklkreativ.ch; font-src 'self'; connect-src 'self' https://analytics.mklkreativ.ch; frame-src https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://analytics.mklkreativ.ch; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.basemaps.cartocdn.com https://analytics.mklkreativ.ch; font-src 'self'; connect-src 'self' https://analytics.mklkreativ.ch; frame-src https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+  # 2026-11-15: Turnstile (challenges.cloudflare.com) und oaiq-Pixel
+  # (bzrcdn.openai.com) ergänzt, beide liefen sonst in die CSP-Sperre.
+  # Header always set Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' 'unsafe-inline' https://analytics.mklkreativ.ch; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tiles.openfreemap.org https://analytics.mklkreativ.ch; font-src 'self'; connect-src 'self' https://tiles.openfreemap.org https://router.project-osrm.org https://analytics.mklkreativ.ch; frame-src https://www.youtube-nocookie.com https://www.youtube.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://analytics.mklkreativ.ch https://challenges.cloudflare.com https://bzrcdn.openai.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tiles.openfreemap.org https://analytics.mklkreativ.ch; font-src 'self'; connect-src 'self' https://tiles.openfreemap.org https://router.project-osrm.org https://analytics.mklkreativ.ch https://challenges.cloudflare.com https://*.openai.com; frame-src https://www.youtube-nocookie.com https://www.youtube.com https://challenges.cloudflare.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
 </IfModule>
 
 # ============================================================

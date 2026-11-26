@@ -1,0 +1,369 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["beat-brugger", "100pro-openair-2024", "regan"].includes(p.slug)
+);
+
+const termine = [
+  {
+    name: "Kantonsratswahlen Kanton Zürich",
+    price: "Februar 2027",
+    note: "Wer für den Zürcher Kantonsrat antritt, startet die Kommunikation typischerweise 6 bis 12 Monate vorher. Der beste Zeitpunkt für deinen Auftritt ist jetzt.",
+  },
+  {
+    name: "Bundeswahlen",
+    price: "Oktober 2027",
+    note: "Auch auf Bundesebene starten Kandidierende 6 bis 12 Monate vor der Wahl. Der Wettbewerb um Aufmerksamkeit ist dort noch grösser, der Vorlauf entsprechend wertvoll.",
+  },
+  {
+    name: "Empfohlener Vorlauf",
+    price: "6 bis 12 Monate",
+    note: "Damit Website, Bildwelt, Print und Social reif sind, bevor die heisse Phase beginnt. Ein später Einstieg ist möglich, dann wird die Auswahl kleiner.",
+  },
+];
+
+const prozess = [
+  "Erstgespräch: Welches Amt, welche Ziele, welcher Zeitplan und was an Material schon vorhanden ist",
+  "Konzept: Botschaften, Bildwelt und Auftritt, die deine Werte sichtbar machen",
+  "Umsetzung: Kandidaten-Website, Flyer, Plakate, Inserate und Social-Vorlagen",
+  "Feinschliff: Deine Korrekturrunden, bis jedes Wort und jedes Bild sitzt",
+  "Begleitung: Updates und weiteres Material nach Bedarf bis zum Wahlsonntag",
+];
+
+const faq = [
+  {
+    q: "Macht ihr auch Parteiarbeit?",
+    a: "Nein. Wir arbeiten für Personen, nicht für Parteien: keine politischen Aussagen, keine inhaltliche Kampagnenführung, kein Parteibuch. Unser Teil ist das Handwerk: deine Website, deine Bildwelt, dein Print und dein Social-Auftritt. Die Inhalte bestimmst du, wir sorgen dafür, dass sie ankommen. So bleiben wir glaubwürdig, und du bleibst frei.",
+  },
+  {
+    q: "Was kostet eine Kandidaten-Website?",
+    a: "Das hängt vom Umfang ab: Eine schlanke Website für die Gemeindewahl ist etwas anderes als ein kompletter Auftritt mit Print und Social für den Kantonsrat. Darum bekommst du nach dem kostenlosen Erstgespräch ein transparentes Angebot mit allen Posten, ohne versteckte Kosten. Die laufende Betreuung der Website während und nach dem Wahlkampf übernimmt unsere Website-Betreuung ab CHF 33 im Monat.",
+  },
+  {
+    q: "Wie früh sollte ich anfangen?",
+    a: "Erfahrungsgemäss 6 bis 12 Monate vor der Wahl. Für die Kantonsratswahlen im Kanton Zürich im Februar 2027 heisst das: jetzt. Je früher Website, Bildwelt und Material stehen, desto ruhiger läuft die heisse Phase. Ein später Einstieg ist trotzdem möglich, dann priorisieren wir gemeinsam, was bis zum Wahlsonntag realistisch fertig wird.",
+  },
+  {
+    q: "Bleibt die Zusammenarbeit diskret?",
+    a: "Ja. Wir kommunizieren Mandate grundsätzlich nicht nach aussen, solange du das nicht freigibst. Gerade im Wahlkampf gilt: Nichts erscheint in unseren Kanälen oder Referenzen, bevor dein Auftritt offiziell lanciert ist, und auch danach nur mit deinem Einverständnis.",
+  },
+  {
+    q: "Wer schreibt die Texte für Website und Flyer?",
+    a: "Deine Positionen und deine Sprache kennst du am besten: Du lieferst Themen, Stichworte oder erste Entwürfe, wir strukturieren und schärfen sie, bis sie auf der Website, im Flyer und im Inserat wirken. Was du selber schreiben willst, schreibst du selber. Wir füllen die Lücken und halten den roten Faden über alle Kanäle.",
+  },
+  {
+    q: "Kann ich Teile selber machen?",
+    a: "Gerne. Viele Kandidierende bringen Freunde und Bekannte mit ein, die helfen: Fotos vom Smartphone, eigene Social-Kanäle, ein bestehendes Logo. Wir schauen im Erstgespräch ehrlich an, was davon trägt und wo professionelles Material den Unterschied macht. So bleibt das Budget dort, wo es Wirkung bringt.",
+  },
+];
+---
+
+<Layout
+  title="Wahlkampf-Kommunikation: Website, Print, Social - Uftritt"
+  description="Wahlkampf-Kommunikation für Kandidaten: Website, Bildwelten, Flyer und Social-Auftritt aus einer Hand. Neutral, diskret, ohne Parteibuch. Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="Wahlkampf · Zürcher Oberland"
+    title={"Wahl­kampf Kom­mu­ni­ka­tion,\ndie deine Werte zeigt"}
+    lead="Wir sind dein Kommunikationspartner im Wahlkampf: Kandidaten-Website, Bildwelten, Flyer, Plakate und Social-Auftritt aus einer Hand, damit deine Werte sichtbar werden. Inhalte bestimmst du, wir sorgen dafür, dass sie ankommen. Ohne Parteibuch, ohne politische Aussagen, diskret und mit Handwerk aus dem Zürcher Oberland."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Wahlkampf-Kommunikation"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Wahltermine */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Wahltermine</span>
+        <h2>Wahlkampf 2027: jetzt anfangen</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          termine.map((t) => (
+            <article class="range-card">
+              <h3>{t.name}</h3>
+              <p class="range-price">{t.price}</p>
+              <p class="range-note">{t.note}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p class="quellen" data-reveal>
+        Wahltermine, wie sie aktuell festgelegt sind. Wie viel Vorlauf du brauchst, hängt
+        von Amt und Material ab, das planen wir im Erstgespräch.
+      </p>
+    </div>
+  </section>
+
+  {/* Leistungen: Website + Bildwelt */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Deine Kandidaten-Website als Zuhause der Kampagne</h2>
+        <div class="lp-text">
+          <p>
+            Im Wahlkampf googeln dich alle: Stimmbürger, Journalisten,
+            Mitbewerber. Was sie finden, sollte von dir stammen. Deine Website
+            ist der einzige Kanal, den du komplett kontrollierst: deine
+            Positionen, dein Werdegang, deine Termine, ohne Kürzung und ohne
+            Algorithmus.
+          </p>
+          <p>
+            Wir bauen sie so, wie wir jede
+            <a href="/website-erstellen-lassen/">Website erstellen</a>: schnell,
+            klar strukturiert und auf dem Handy genauso gut wie auf dem Laptop.
+            Mit Porträt, Themenseiten und einem Kontaktweg, der auch in vollen
+            Wochen funktioniert.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Bildwelten, die deine Werte zeigen</h2>
+        <div class="lp-text">
+          <p>
+            Bevor jemand eine Zeile liest, sieht er dich: Porträts, die Nähe
+            und Haltung zeigen, Motive aus deiner Gemeinde, Farben, die zu dir
+            passen statt zur Parteivorlage. Wir entwickeln eine Bildwelt, die
+            trägt, vom Plakat bis zum Instagram-Post.
+          </p>
+          <p>
+            Die Basis ist ein sauberes Erscheinungsbild: Schriften, Farben und
+            Regeln, die auf jedem Kanal gleich aussehen. Dasselbe Handwerk wie
+            in unserem <a href="/grafikdesign-zuercher-oberland/">Grafikdesign</a>
+            und im <a href="/corporate-design/">Corporate Design</a> für Betriebe,
+            nur dass die Marke hier eine Person ist.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Leistungen: Print + Social */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Flyer, Plakate und Inserate</h2>
+        <div class="lp-text">
+          <p>
+            Der Wahlkampf läuft auch analog: im Briefkasten, am Dorfplatz, in
+            der Zeitung. Wir gestalten deine Flyer und Inserate so, dass die
+            Botschaft in Sekunden ankommt, und liefern druckfertige Daten für
+            Druckerei und Zeitung.
+          </p>
+          <p>
+            Vom Wahlflyer bis zum Plakat bekommst du alles aus einer Hand,
+            abgestimmt auf Website und Social. Wie wir dabei vorgehen, zeigt
+            die Seite zum <a href="/flyer-gestalten-lassen/">Flyer gestalten</a>,
+            und was <a href="/plakatwerbung/">Plakatwerbung</a> in der Region
+            kostet, haben wir transparent zusammengestellt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Social Media ohne Dauerfeuer</h2>
+        <div class="lp-text">
+          <p>
+            Neben Amt und Beruf jeden Tag posten? Das hält niemand lange durch.
+            Wir richten deine Kanäle sauber ein, erstellen Vorlagen in deiner
+            Bildwelt und planen mit dir einen Rhythmus, der zu deinem Alltag
+            passt.
+          </p>
+          <p>
+            Und wenn du willst, bleiben wir dran: Mit der
+            <a href="/social-media-betreuung/">Social-Media-Betreuung</a> laufen
+            die Kanäle weiter, während du an Haustüren und Podien unterwegs
+            bist.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Neutralität + Cases */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wir arbeiten für Personen, nicht für Parteien</h2>
+        <div class="lp-text">
+          <p>
+            Das ist keine Floskel, sondern unsere Arbeitsweise: Wir machen
+            keine politischen Aussagen, führen keine inhaltliche Kampagne und
+            schreiben dir keine Positionen in den Mund. Inhalte bestimmst du,
+            wir sorgen dafür, dass sie ankommen.
+          </p>
+          <p>
+            Darum können wir mit Kandidierenden jeder Couleur arbeiten, solange
+            das Handwerk stimmt. Und wir nennen kein Mandat öffentlich, das
+            nicht freigegeben ist.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Kandidaten-Websites aus der Region</h2>
+        <div class="lp-text">
+          <p>
+            Für Seraina Billeter, Exekutivgemeinderätin in Bubikon, haben wir
+            die Kandidaten-Website gestaltet und gebaut. Der Credit «Designed
+            by Uftritt GmbH» steht öffentlich im Footer von
+            <a href="https://serainabilleter.ch/" target="_blank" rel="noopener">serainabilleter.ch</a>.
+            Eine zweite Kandidaten-Website aus der Region stammt ebenfalls von
+            uns.
+          </p>
+          <p>
+            Was beide Auftritte gemeinsam haben: klare Positionen statt
+            Floskeln, echte Porträts statt Stockfotos und ein Auftritt, der
+            nach der Wahl weiterarbeitet.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Einen kompletten Auftritt, der zusammengehört: Website, Bildwelt,
+            Print und Social, mit allen Daten in deinem Besitz. Du bleibst
+            unabhängig: Was wir für dich bauen, gehört dir, und es funktioniert
+            auch nach der Wahl weiter, egal wie sie ausgeht.
+          </p>
+          <p>
+            Und damit du dich um die Technik nicht kümmern musst: Die
+            <a href="/website-betreuung/">Website-Betreuung</a> ab CHF 33 im
+            Monat hält deine Seite sicher und aktuell, von der Kandidatur bis
+            in die Legislatur.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Wahlkampf-Kommunikation</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Bereit für deinen Auftritt im Wahlkampf?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, für welches Amt du kandidierst und wo du heute stehst. Du
+        bekommst eine ehrliche Einschätzung, was bis zur Wahl sinnvoll machbar
+        ist, und ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-price { font-weight: 700; font-size: 1.35rem; color: var(--color-pink); margin: 0; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+  .quellen { margin-top: 1.5rem; color: var(--color-blue); opacity: 0.75; font-size: 0.9rem; line-height: 1.6; max-width: 75ch; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,347 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["ripa-immobilien", "seatalytics", "spinnereiplatz"].includes(p.slug)
+);
+
+const grundbedarf = [
+  {
+    title: "Objekte mit echten Fotos",
+    note: "Fotos, Grundrisse und Lage entscheiden, ob jemand eine Besichtigung anfragt. Grosse Bilder statt Stockbilder, pro Objekt eine klare, schnelle Seite.",
+  },
+  {
+    title: "Anfrage ohne Hürden",
+    note: "Telefonnummer, E-Mail und ein kurzes Formular gut sichtbar. Wer auf dem Handy lange suchen muss, schreibt dem nächsten Büro.",
+  },
+  {
+    title: "Gefunden werden in der Region",
+    note: "Wer «Immobilienmakler» plus deinen Ort sucht, soll dich finden. Website und Google-Unternehmensprofil müssen aufeinander abgestimmt sein.",
+  },
+  {
+    title: "Vertrauen auf den ersten Blick",
+    note: "Makler leben von Vertrauen: Team, verkaufte Objekte und echte Bewertungen gehören sichtbar auf die Seite, nicht in eine PDF-Mappe.",
+  },
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: Was soll die Seite bringen, was hast du schon",
+  "Konzept und Struktur: Objekte, Dienstleistungen und Anfrage am richtigen Platz",
+  "Texte und Bilder: Wir schreiben, du lieferst Objektfotos, wir bereiten alles auf",
+  "Bau und Feinschliff: mobil zuerst, schnell ladend, mit deinem Feedback",
+  "Online und betreut: Für CHF 33 pro Monat bleiben wir auch nach dem Launch dran",
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Website für ein Immobilienbüro?",
+    a: "Das hängt vom Umfang ab: eine schlanke Seite mit Dienstleistungen und Kontakt kostet weniger als ein Auftritt mit eigener Objektpräsentation, und ob Texte und Fotos schon vorhanden sind, spielt ebenfalls eine Rolle. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit einem klaren Preis. Grössenordnungen aus Schweizer Quellen findest du auf unserer Seite <a href=\"/website-kosten/\">Website-Kosten</a>.",
+  },
+  {
+    q: "Wir sind auf Immoscout und Homegate. Brauchen wir trotzdem eine eigene Website?",
+    a: "Ja, gerade dann. Auf den Portalen mietest du Aufmerksamkeit und stehst in der gleichen Zeile wie alle Konkurrenten. Deine eigene Website gehört dir: Dort entscheidet ein Eigentümer, der ein Verkaufsmandat vergeben will, ob er dir zutraut, sein Objekt gut zu präsentieren. Und wer dich empfohlen bekommt, googelt zuerst deinen Namen. Was er dann findet, entscheidet über die Anfrage.",
+  },
+  {
+    q: "Wie kommen unsere Objekte auf die Website?",
+    a: "So einfach wie möglich: Wir richten die Objektseiten so ein, dass neue Objekte schnell online sind, mit Fotos, Eckdaten und Anfrage-Button. Du kannst sie selbst pflegen, oder wir übernehmen das Einpflegen im Rahmen der Betreuung. Was wir bewusst weglassen: komplizierte Admin-Oberflächen, die niemand im Büro bedienen will.",
+  },
+  {
+    q: "Macht ihr auch Fotos und Videos der Objekte?",
+    a: "Ja. Immobilien leben von Bildern, und ein gut gemachtes Video hebt ein Objekt aus der Masse: Rundgänge, Drohnenaufnahmen der Lage, kurze Filme für die Portale und Social Media. Mehr dazu auf unserer Seite zum <a href=\"/immobilienvideo/\">Immobilienvideo</a>. Fotos, die du selbst lieferst, bereiten wir fürs Web auf, damit sie schnell laden und gut aussehen.",
+  },
+  {
+    q: "Wie lange dauert es, bis die Website online ist?",
+    a: "Das hängt vor allem vom Material ab. Sind Texte und Objektfotos da, reden wir über Wochen, nicht Monate. Wenn wir die Texte für dich schreiben und Fotos oder Videos erst entstehen müssen, dauert es entsprechend länger. Einen konkreten Zeitplan bekommst du nach dem Erstgespräch.",
+  },
+  {
+    q: "Was passiert nach dem Launch?",
+    a: "Deine Website bleibt nicht sich selbst überlassen. Mit der <a href=\"/website-betreuung/\">Website-Betreuung</a> für CHF 33 pro Monat kümmern wir uns um Hosting, technische Updates und deine Änderungen, etwa ein neues Objekt einstellen oder ein verkauftes rausnehmen. Du meldest dich einfach, wir erledigen es.",
+  },
+];
+---
+
+<Layout
+  title="Website für Immobilienmakler erstellen lassen - Uftritt"
+  description="Website für Immobilienmakler: Objekte stark präsentiert, mehr direkte Anfragen statt nur Portal-Klicks, schnell auf jedem Gerät. Betreuung für CHF 33 pro Monat."
+>
+  <PageHero
+    eyebrow="Für Immobilienmakler und Immobilienbüros"
+    title={"Website für\nImmobilienmakler,\ndie Interessenten überzeugt"}
+    lead="Die kurze Antwort: Eine Website für Immobilienmakler muss zwei Dinge können: deine Objekte stark präsentieren und aus Besucherinnen und Besuchern direkte Anfragen machen, unabhängig von den grossen Portalen. Wir bauen sie schnell, mobil zuerst und mit klaren Kontaktwegen, damit Eigentümer und Suchende dich finden und anfragen."
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Was die Seite braucht */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Das Fundament</span>
+        <h2>Was eine Makler-Website wirklich braucht</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          grundbedarf.map((g) => (
+            <article class="karte">
+              <h3>{g.title}</h3>
+              <p class="karte-note">{g.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Portale vs. eigene Seite */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Unabhängig von den grossen Portalen</h2>
+        <div class="lp-text">
+          <p>
+            Immoscout und Homegate sind wichtig, keine Frage. Aber dort mietest du
+            Aufmerksamkeit, Objektzeile neben Objektzeile der Konkurrenz. Deine
+            eigene Website gehört dir: Sie baut deine Marke auf, nicht die Marke
+            des Portals, und sie arbeitet auch dann für dich, wenn gerade kein
+            Objekt online ist.
+          </p>
+          <p>
+            Entscheidend wird das bei der Eigentümer-Akquise: Wer ein
+            Verkaufsmandat vergeben will, schaut sich deinen Auftritt genau an,
+            bevor er dir seine Liegenschaft anvertraut. Eine starke eigene Seite
+            ist dort dein bestes Argument.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Objekte verdienen eine Bühne</h2>
+        <div class="lp-text">
+          <p>
+            Auf deiner eigenen Seite bestimmst du, wie ein Objekt wirkt: grosse
+            Fotos statt Vorschaubilder, Grundrisse und Eckdaten klar geordnet,
+            die Lage mit ihren Stärken erzählt. Dazu passende
+            <a href="/immobilienvideo/">Immobilienvideos</a> mit Rundgang und
+            Drohnenaufnahmen, die Besucher deutlich länger beim Objekt halten.
+          </p>
+          <p>
+            Und jedes verkaufte Objekt bleibt als Referenz sichtbar: So wächst
+            mit jedem Mandat der Beleg, dass du verkaufst, statt nur inserierst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Wann sichs lohnt, ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wann sich eine neue Website lohnt</h2>
+        <div class="lp-text">
+          <p>
+            Wenn du mehr direkte Anfragen willst: Eigentümer, die verkaufen
+            möchten, Suchende, die sich vormerken lassen, Eigentümer von
+            Renditeliegenschaften. Oder wenn dein heutiger Auftritt aus dem
+            letzten Jahrzehnt stammt und auf dem Handy kaum lesbar ist.
+          </p>
+          <p>
+            Auch beim Aufbau einer eigenen Marke neben der Franchise- oder
+            Verbandswelt ist der richtige Moment: Dein Auftritt soll nach dir
+            aussehen, nicht nach der Zentrale.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Wann es auch ohne geht</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlich gesagt: Wenn du nur gelegentlich eine Wohnung vermietest und
+            alles Weitere über die Portale und Mundpropaganda läuft, brauchst du
+            keine grosse Website. Dann reicht oft ein gepflegtes
+            <a href="/google-business-profile/">Google Unternehmensprofil</a>
+            mit Adresse, Leistungen und Bewertungen.
+          </p>
+          <p>
+            Auch dabei helfen wir dir, zum Beispiel mit einem sauber
+            eingerichteten Profil. Wenn du unsicher bist, was sich für dich
+            lohnt: Das klären wir im kostenlosen Erstgespräch, ohne
+            Verkaufsdruck.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Prozess + Referenzen */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>So entsteht deine Website bei uns</h2>
+        <div class="lp-text">
+          <p>
+            Kein Agentur-Theater, sondern ein klarer Ablauf, bei dem du jederzeit
+            weisst, wo wir stehen. Mit der Immobilienbranche kennen wir uns aus:
+            Für die <a href="/projekte/ripa-immobilien/">RIPA Immobilien GmbH</a>
+            haben wir Website und Erscheinungsbild umgesetzt, für
+            <a href="/projekte/seatalytics/">Seatalytics</a> ein Datenprodukt
+            für den Immobilienmarkt, und für den
+            <a href="/projekte/spinnereiplatz/">Spinnereiplatz</a> den
+            Webauftritt eines ganzen Areals.
+          </p>
+          <p>
+            Und nach dem Launch lassen wir dich nicht allein: Mit der
+            <a href="/website-betreuung/">Website-Betreuung</a> für CHF 33 pro
+            Monat bleiben deine Inhalte aktuell und die Technik gepflegt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Branchen-Siblings */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Für Makler gebaut, nicht generisch</h2>
+        <div class="lp-text">
+          <p>
+            Wir bauen Websites für ganz unterschiedliche Branchen und wissen:
+            Was bei einem Maklerbüro zählt, unterscheidet sich klar von anderen
+            Auftritten. So entstehen zum Beispiel unsere Websites für
+            <a href="/webdesign-fuer-handwerker/">Handwerker und Bau</a>, für
+            <a href="/website-fuer-aerzte/">Arztpraxen und Therapeuten</a> oder
+            für <a href="/website-fuer-vereine/">Vereine</a> jeweils nach den
+            Regeln der eigenen Branche.
+          </p>
+          <p>
+            Mehr zu unserer grundsätzlichen Arbeitsweise beim
+            <a href="/website-erstellen-lassen/">Website erstellen lassen</a>
+            und zu unserem <a href="/webdesign-zuercher-oberland/">Webdesign im
+            Zürcher Oberland</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen von Immobilienmaklern</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p set:html={f.a} />
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Verkauft deine Website schon so gut wie du?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns in einem kostenlosen Erstgespräch, wo du stehst und was dein
+        Büro braucht. Wir sagen dir ehrlich, was eine Website bringen kann und
+        was sie kostet.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a.replace(/<[^>]*>/g, "") },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

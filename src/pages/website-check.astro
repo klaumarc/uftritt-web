@@ -6,7 +6,7 @@ import WebsiteCheckTool from "../components/WebsiteCheckTool.astro";
 const schritte = [
   "URL eingeben: Adresse deiner Website ins Feld tippen, Klick, fertig. Mehr braucht es nicht.",
   "Sofort-Resultat: Gesamtnote, fünf Kategorie-Scores und die ersten Befunde mit einem kurzen Fazit.",
-  "Voller Report: Alle 40+ Befunde mit priorisiertem Aktionsplan. Freischalten für CHF 9, sofort online und per E-Mail.",
+  "Voller Report: Alle 45+ Befunde mit priorisiertem Aktionsplan. Freischalten für CHF 9, sofort online und per E-Mail.",
 ];
 
 const kategorien = [
@@ -35,7 +35,7 @@ const kategorien = [
 const faq = [
   {
     q: "Kostet der Website-Check etwas?",
-    a: "Der Check mit Sofort-Resultat ist gratis: Gesamtnote, fünf Kategorie-Scores und die ersten Befunde. Möchtest du den vollständigen Report mit allen 40+ Befunden und dem priorisierten Aktionsplan, kostet er einmalig CHF 9 inkl. MwSt. Kein Abo, kein Kleingedrucktes.",
+    a: "Der Check mit Sofort-Resultat ist gratis: Gesamtnote, fünf Kategorie-Scores und die ersten Befunde. Möchtest du den vollständigen Report mit allen 45+ Befunden, der Leseprobe deiner Texte und dem priorisierten Aktionsplan, kostet er einmalig CHF 9 inkl. MwSt. Kein Abo, kein Kleingedrucktes.",
   },
   {
     q: "Was passiert mit meinen Daten?",
@@ -43,7 +43,7 @@ const faq = [
   },
   {
     q: "Wie genau ist die automatische Analyse?",
-    a: "Der Check prüft über 40 Kriterien aus Technik, SEO, Performance, Inhalt und UX, so gut das automatisch und ohne visuelles Rendering möglich ist. Er ist ehrlich, aber nicht allwissend: Wie deine Seite bei echten Menschen ankommt, beurteilt am besten ein Mensch. Darum bieten wir dir danach ein kurzes Gespräch an.",
+    a: "Der Check prüft über 45 Kriterien aus Technik, SEO, Performance, Inhalt und UX: von HTTPS und Sicherheits-Headern über die Textqualität (Lesbarkeit, Floskeln, für Suchmaschinen gestopfte Texte) bis zu Vertrauenssignalen wie Impressum und Datenschutz, Bildgewicht und echten Ladezeit-Daten von Google, wo verfügbar. Er ist ehrlich, aber nicht allwissend: Wie deine Seite bei echten Menschen ankommt, beurteilt am besten ein Mensch. Darum bieten wir dir danach ein kurzes Gespräch an.",
   },
   {
     q: "Wie bezahle ich den Report?",
@@ -65,19 +65,19 @@ const faq = [
 ---
 
 <Layout
-  title="Website-Check: Gratis-Analyse mit ehrlichem Fazit, Uftritt"
-  description="Gratis Website-Check von Uftritt: URL eingeben und sofort Noten für Technik, SEO, Performance, Inhalt und UX sehen. Ehrlich, konstruktiv, von echter Agentur."
+  title="Website-Check kostenlos: 45+ Kriterien, Note in 60 Sekunden"
+  description="Gratis Website-Check: In 60 Sekunden sehen, wie deine Seite bei Technik, SEO, Performance, Textqualität und Vertrauen abschneidet. Ehrlich, konkret, von einer echten Agentur."
 >
   {/* Tool zuerst: das ist der Kern der Seite */}
   <section class="section" id="check">
     <div class="container">
       <header class="section-head" data-reveal>
-        <span class="eyebrow">Gratis-Tool</span>
+        <span class="eyebrow">Kostenlose Analyse</span>
         <h1>Website-Check</h1>
         <p class="tool-lead">
           Wie gut ist deine Website wirklich? Gib deine URL ein, kurz warten und
           du siehst die Noten für Technik, SEO, Performance, Inhalt und UX, dazu
-          ein ehrliches Fazit mit Augenzwinkern. Kostenlos und unverbindlich.
+          ein ehrliches Fazit. Kostenlos und unverbindlich.
         </p>
       </header>
       <div data-reveal>
@@ -228,10 +228,7 @@ const faq = [
   .grenz-hinweis {
     margin-top: clamp(2rem, 4vw, 3rem);
     background: #fff;
-    border: 1px solid #e7ecf3;
-    border-left: 3px solid var(--color-yellow);
     padding: clamp(1.25rem, 3vw, 2rem);
-    max-width: 860px;
   }
   .grenz-hinweis h3 {
     margin: 0 0 0.6rem;

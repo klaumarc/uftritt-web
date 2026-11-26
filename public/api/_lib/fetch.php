@@ -390,15 +390,19 @@ function uc_fetch_multi(array $urls, int $timeout = 8, array $opts = []): array
 }
 
 // ---- PageSpeed Insights (optional; leerer Key = deaktiviert) ----
-function uc_psi_fetch(string $url): ?array
+// $withA11y=true holt zusaetzlich die Accessibility-Kategorie (Kontraste u. a.).
+// Laufzeit bei Google ~15–25 s: nur dort einsetzen, wo das Zeitbudget reicht.
+function uc_psi_fetch(string $url, bool $withA11y = false): ?array
 {
     $key = trim((string)uc_config('psi_api_key'));
     if ($key === '') {
         return null;
     }
     $api = 'https://www.googleapis.com/pagespeedonline/v5/runPagespeed'
-        . '?url=' . urlencode($url) . '&strategy=mobile&category=performance&key=' . urlencode($key);
-    $r = uc_fetch_page($api, 15, ['max_bytes' => 6291456]);
+        . '?url=' . urlencode($url) . '&strategy=mobile&category=performance'
+        . ($withA11y ? '&category=accessibility' : '')
+        . '&key=' . urlencode($key);
+    $r = uc_fetch_page($api, 25, ['max_bytes' => 6291456]);
     if (empty($r['ok']) || ($r['status'] ?? 0) !== 200) {
         return null;
     }
@@ -407,9 +411,26 @@ function uc_psi_fetch(string $url): ?array
         return null;
     }
     $audits = $j['lighthouseResult']['audits'] ?? [];
-    return [
+    $out = [
         'score' => (int)round(((float)$j['lighthouseResult']['categories']['performance']['score']) * 100),
         'lcp' => (string)($audits['largest-contentful-paint']['displayValue'] ?? '–'),
         'cls' => (string)($audits['cumulative-layout-shift']['displayValue'] ?? '–'),
     ];
+    if ($withA11y && isset($j['lighthouseResult']['categories']['accessibility'])) {
+        $a11y = [];
+        foreach (['color-contrast' => 'Farbkontrast', 'tap-targets' => 'Touch-Ziele', 'font-size' => 'Schriftgrösse', 'link-name' => 'Link-Namen', 'image-alt' => 'Bild-Alt-Texte'] as $auditId => $label) {
+            if (!isset($audits[$auditId])) {
+                continue;
+            }
+            $sc = $audits[$auditId]['score'];
+            // Lighthouse: 1 = bestanden, 0 = nicht bestanden, null = nicht anwendbar
+            if ($sc === null) {
+                continue;
+            }
+            $a11y[$auditId] = ['label' => $label, 'passed' => ((float)$sc) >= 1.0];
+        }
+        $out['a11y_score'] = (int)round(((float)$j['lighthouseResult']['categories']['accessibility']['score']) * 100);
+        $out['a11y'] = $a11y;
+    }
+    return $out;
 }

@@ -1,0 +1,280 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["tenini-webshop", "seatalytics", "smart-navigator"].includes(p.slug)
+);
+
+const kriterien = [
+  {
+    title: "Zuhören vor Technik",
+    note: "Eine gute App Agentur versteht zuerst deine Abläufe und dein Geschäft und redet erst dann über Frameworks. Wer umgekehrt vorgeht, baut am Problem vorbei.",
+  },
+  {
+    title: "Prototyp vor Programmierung",
+    note: "Bevor eine Zeile Code entsteht, klickst du dich durch deine App. So siehst du früh, was du bekommst, und Korrekturen kosten wenig statt viel.",
+  },
+  {
+    title: "Der Code gehört dir",
+    note: "Frag im Erstgespräch, wem der Quellcode gehört. Bei uns ist die Antwort klar: dir. Abhängigkeit ist bei uns kein Geschäftsmodell.",
+  },
+  {
+    title: "Betreuung nach dem Launch",
+    note: "Eine App ist mit dem Go-Live nicht fertig. Frag, wer Hosting, Updates und Weiterentwicklung übernimmt und ob die Agentur dann noch da ist.",
+  },
+];
+
+const faq = [
+  {
+    q: "Was macht eine App Agentur?",
+    a: "Eine App Agentur begleitet dein App-Projekt von der Idee bis in den Betrieb: Konzept, Design, Entwicklung, Launch und Wartung. Der Unterschied zum reinen Programmierbüro: Bei uns sitzen Konzept, Gestaltung und Code am selben Tisch, darum entsteht die App als Ganzes statt als Aneinanderreihung von Aufträgen. Und der Unterschied zum Baukasten: Wir sagen dir auch ehrlich, wenn deine Aufgabe gar keine App braucht.",
+  },
+  {
+    q: "Woran erkenne ich eine gute App Agentur?",
+    a: "An vier Dingen: Sie hört zuerst zu und versteht deine Abläufe, bevor sie über Technik redet. Sie zeigt dir früh einen klickbaren Prototyp, statt dich monatelang auf ein fertiges Werk warten zu lassen. Sie gibt den Code in deine Hände, statt dich abhängig zu machen. Und sie bleibt nach dem Launch erreichbar. Wenn eine Agentur im Erstgespräch nur über Funktionen und Preise spricht, aber nicht nach deinem Alltag fragt, ist das ein Warnsignal.",
+  },
+  {
+    q: "App Agentur, Freelancer oder Baukasten: Was passt zu uns?",
+    a: "Ein Baukasten reicht für einfache Fälle: wenige Funktionen, kein Login, keine Schnittstellen. Ein Freelancer passt, wenn Konzept und Design schon stehen und nur noch Code fehlt, dann trägst du aber das Ausfallrisiko einer einzelnen Person. Eine Agentur lohnt sich, wenn die App einen Prozess in deinem Betrieb abbildet: Dann braucht es Konzept, Gestaltung, Entwicklung und Betrieb aus einer Hand, mit einem Team, das auch in zwei Jahren noch erreichbar ist.",
+  },
+  {
+    q: "Was kostet die Zusammenarbeit mit einer App Agentur?",
+    a: "Das hängt vom Umfang ab, und wir machen es dir transparent: Nach dem kostenlosen Erstgespräch bekommst du ein Angebot mit klarem Preis und klarer Leistung, ohne Kleingedrucktes. Was Apps am Markt generell kosten, welche Faktoren den Preis treiben und welche laufenden Kosten dazugehören, legen wir in unserem Guide zu den App-Entwicklungskosten offen, damit du jedes Angebot einordnen kannst, unseres wie jedes andere.",
+  },
+  {
+    q: "Baut ihr native Apps oder Web-Apps?",
+    a: "Für die meisten KMU-Vorhaben empfehlen wir die Web-App: eine Codebasis für alle Geräte, kein App-Store, Updates sofort für alle, günstiger in Bau und Unterhalt. Wenn dein Projekt wirklich eine native App braucht, etwa bei Games oder besonderen Sicherheitsanforderungen, sagen wir dir das offen und reden ehrlich über den Mehraufwand, statt ihn kleinzureden.",
+  },
+  {
+    q: "Was passiert nach dem Launch der App?",
+    a: "Auf Wunsch übernehmen wir Hosting, Wartung, Updates und die Weiterentwicklung deiner App, mit klaren Absprachen, bevor gebaut wird. Und weil der Code dir gehört, bist du frei: Du kannst die App jederzeit selbst weiterführen oder anderswo weiterentwickeln lassen. Wir finden allerdings, dass wir ein gutes Team für den Weg nach dem Launch sind.",
+  },
+];
+---
+
+<Layout
+  title="App Agentur in der Schweiz für dein App-Projekt - Uftritt"
+  description="App Agentur in der Schweiz: Wir entwickeln Apps und Web-Apps für KMU, vom klickbaren Prototyp bis zum Betrieb. Ehrlich, aus einer Hand, aus Wetzikon."
+>
+  <PageHero
+    eyebrow="App Agentur · Zürcher Oberland"
+    title={"App Agentur,\ndie zuerst zuhört"}
+    lead="Du suchst eine App Agentur, die dein Projekt von der Idee bis zum Betrieb begleitet? Wir entwickeln Apps und Web-Apps für KMU: ehrliche Beratung, klickbarer Prototyp, Entwicklung und Betrieb aus einer Hand. Und wenn deine Idee keine App braucht, sagen wir dir das offen, auch gegen unseren eigenen Umsatz."
+    lottie="/lottie/applikationsentwicklung.json"
+    lottieLabel="App Agentur"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/applikationsentwicklung/" label="App-Entwicklung" lottie="/lottie/applikationsentwicklung.json" projects={cases} />
+
+  {/* Auswahlkriterien (Wer-Intent: beste App Agentur) */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Die Wahl der Agentur</span>
+        <h2>Woran du eine gute App Agentur erkennst</h2>
+      </header>
+      <div class="karten" data-reveal>
+        {
+          kriterien.map((k) => (
+            <article class="karte">
+              <h3>{k.title}</h3>
+              <p class="karte-note">{k.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Ehrliche Einordnung: Agentur vs. Freelancer vs. Baukasten */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Agentur, Freelancer oder Baukasten?</h2>
+        <div class="lp-text">
+          <p>
+            Die ehrliche Antwort: Es kommt darauf an, was deine App können muss.
+            Ein Baukasten reicht für einfache Fälle ohne Login und ohne
+            Schnittstellen. Ein Freelancer passt, wenn Konzept und Design schon
+            stehen und nur noch Code fehlt, dann trägst du aber das Risiko, wenn
+            genau diese eine Person ausfällt.
+          </p>
+          <p>
+            Eine App Agentur lohnt sich, wenn die App einen Prozess in deinem
+            Betrieb abbildet: Dann braucht es Konzept, Gestaltung, Entwicklung
+            und Betrieb aus einer Hand, mit einem Team, das auch in zwei Jahren
+            noch erreichbar ist. Genau dafür sind wir gebaut. Wie ein solches
+            Projekt bei uns abläuft, zeigen wir auf der Seite
+            <a href="/app-entwickeln-lassen/">App entwickeln lassen</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ehrlich, auch gegen die App</h2>
+        <div class="lp-text">
+          <p>
+            Wir beraten auch gegen unseren eigenen Umsatz: Wenn eine Website,
+            ein einfaches Tool oder eine bestehende Lösung dein Problem
+            günstiger löst, sagen wir dir das im Erstgespräch offen. Manchmal
+            ist die richtige Antwort keine App, sondern
+            <a href="/individuelle-software/">individuelle Software</a> für
+            einen Ablauf oder die
+            <a href="/digitalisierung-kmu/">Digitalisierung eines Prozesses</a>
+            im Betrieb.
+          </p>
+          <p>
+            Diese Haltung kommt aus eigener Praxis: Unsere eigene Aufgaben-App
+            ist eine selbst gebaute Web-App, die wir täglich nutzen. Was eine
+            Web-App genau ist und warum sie für die meisten KMU passt, erklären
+            wir auf der Seite
+            <a href="/webapp-entwickeln-lassen/">Webapp entwickeln lassen</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Praxis + Region */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Apps aus unserer Werkstatt</h2>
+        <div class="lp-text">
+          <p>
+            Für die <a href="/projekte/aweso/">Aweso AG</a> in Wetzikon, einen
+            Industriebetrieb für Glas- und Metallbau, arbeiten wir an einem
+            digitalen Bestellweg mit Produktkonfigurator: ein Pilot, der zeigt,
+            wie ein traditioneller Betrieb Anfragen und Bestellungen Schritt
+            für Schritt digital abbildet.
+          </p>
+          <p>
+            Mit <a href="/projekte/seatalytics/">Seatalytics</a> haben wir ein
+            Datenprodukt für den Immobilienmarkt als Web-Anwendung umgesetzt,
+            von der Idee bis zum laufenden Produkt. Und für einen Sportclub aus
+            der Region haben wir eine Kommunikationsplattform mit Terminen,
+            News und Team-Bereichen gebaut: Mehr dazu auf der Seite
+            <a href="/vereins-app/">Vereins-App</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Eine Agentur aus der Region</h2>
+        <div class="lp-text">
+          <p>
+            Wir sitzen im Zürcher Oberland und sind erreichbar: fürs
+            Erstgespräch bei dir vor Ort oder bei uns, für die Abnahme am
+            selben Tisch statt über Zeitzonen hinweg. Auf Wunsch hosten wir
+            deine App bei unserem Schweizer Hoster, damit sensible Daten in der
+            Schweiz bleiben.
+          </p>
+          <p>
+            Und was die Investition angeht: Was eine App am Markt kostet,
+            welche Faktoren den Preis treiben und welche laufenden Kosten
+            dazugehören, legen wir transparent in unserem Guide zu den
+            <a href="/app-entwicklung-kosten/">App-Entwicklungskosten</a>
+            offen. So weisst du vor jedem Gespräch, woran du bist.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur App Agentur</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Welche Aufgabe soll dir eine App abnehmen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deiner Idee oder dem Prozess, der heute über Tabellen
+        und Mailketten läuft. Wir sagen dir ehrlich, ob sich eine App lohnt,
+        und machen dir ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten { grid-template-columns: 1fr; }
+  }
+</style>

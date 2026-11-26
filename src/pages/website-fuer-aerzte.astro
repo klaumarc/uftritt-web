@@ -1,0 +1,328 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["palimed", "seatalytics", "physio-rothe"].includes(p.slug)
+);
+
+const grundbedarf = [
+  {
+    title: "Leistungen und Team im Blick",
+    note: "Wer eine neue Praxis sucht, will in Sekunden sehen, wofür du stehst und wer dahinter steht. Leistungen, Team und Praxisbilder gehören deshalb prominent auf die Startseite.",
+  },
+  {
+    title: "Termin ohne Telefonstau",
+    note: "Ein Buchungs-Button entlastet die Anmeldung: Wir binden dein bestehendes Buchungstool sauber ein, statt dir ein neues System aufzuschwatzen.",
+  },
+  {
+    title: "Für jedes Alter lesbar",
+    note: "Grosse Schrift, klare Kontraste, einfache Wege: Deine Patienten sind von 20 bis 90 unterwegs, die Website muss für alle funktionieren.",
+  },
+  {
+    title: "Gefunden im eigenen Ort",
+    note: "Gesucht wird «Arzt plus Ort», meist auf dem Handy. Website und Google-Profil müssen aufeinander abgestimmt sein, damit aus der Suche ein Anruf wird.",
+  },
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: Was soll die Seite für deine Praxis leisten, was ist schon da",
+  "Konzept und Struktur: Leistungen, Team, Termin und Kontakt am richtigen Platz",
+  "Texte und Bilder: Wir schreiben verständlich, du lieferst Fotos von Team und Räumen",
+  "Bau und Feinschliff: mobil zuerst, barrierefrei gedacht, mit deinem Feedback",
+  "Online und betreut: Für CHF 33 pro Monat bleiben Inhalte und Technik aktuell",
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Website für eine Arztpraxis?",
+    a: "Das hängt vom Umfang ab: Eine kompakte Seite mit Leistungen, Team und Kontakt kostet weniger als ein Auftritt mit mehreren Standorten, Sprachen oder angeschlossenem Buchungstool. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit einem klaren Preis. Marktübliche Grössenordnungen haben wir auf der Seite <a href=\"/website-kosten/\">Website-Kosten</a> zusammengetragen, die laufende Betreuung gibt es bei uns für CHF 33 pro Monat.",
+  },
+  {
+    q: "Muss unsere Praxis-Website barrierefrei sein?",
+    a: "Rechtlich werden die Anforderungen schärfer, und Gesundheitsdienste sind davon direkt betroffen. Wichtiger ist aber der praktische Grund: Deine Patienten sind genau die Gruppe, die auf eine lesbare, einfach bedienbare Website angewiesen ist. Wir bauen von Grund auf nach den gängigen Richtlinien, Details erklären wir auf der Seite <a href=\"/barrierefreie-website/\">barrierefreie Website</a>.",
+  },
+  {
+    q: "Wir sind auf Arztportalen gelistet, brauchen wir trotzdem eine eigene Website?",
+    a: "Ja, denn Portale wie OneDoc sind Verzeichnisse, keine Präsenz: Dort stehst du neben allen Konkurrenten und kannst weder erzählen, was deine Praxis ausmacht, noch steuern, wie du wirkst. Wenn dich jemand empfiehlt, googelt die Person deinen Namen, und dann sollte sie deine Seite finden, nicht nur einen Profileintrag. Umgekehrt funktioniert es auch: Der Buchungs-Button deines Portals lässt sich sauber in die eigene Website einbinden.",
+  },
+  {
+    q: "Können Patienten über die Website Termine buchen?",
+    a: "Ja, über dein bestehendes Buchungstool: Wir binden den Button oder Link deiner Lösung prominent ein, damit Patienten ohne Anruf zum Termin kommen. Ehrlich gesagt: Ein eigenes Buchungssystem bauen wir nicht, dafür gibt es bewährte Anbieter. Unser Teil ist, dass der Weg von der Suche bis zur Buchung ohne Reibung funktioniert.",
+  },
+  {
+    q: "Wer hält Öffnungszeiten, Team und Leistungen aktuell?",
+    a: "Wir, wenn du willst: Mit der <a href=\"/website-betreuung/\">Website-Betreuung</a> für CHF 33 pro Monat pflegen wir deine Inhalte, vom neuen Teamfoto bis zur Ferienvertretung, und kümmern uns um Hosting und technische Updates. Du schreibst uns kurz, wir erledigen den Rest.",
+  },
+  {
+    q: "Wie wird unsere Praxis bei Google gefunden?",
+    a: "Durch das Zusammenspiel dreier Dinge: einer technisch sauberen, schnellen Website, eingearbeiteten Suchbegriffen mit deinem Ort und einem gepflegten Google-Unternehmensprofil mit aktuellen Daten und Bewertungen. Wenn du das systematisch ausbauen willst, machen wir das in der <a href=\"/seo-betreuung/\">SEO-Betreuung</a>, auch als laufende Begleitung.",
+  },
+];
+---
+
+<Layout
+  title="Website für Arztpraxen erstellen lassen - Uftritt"
+  description="Website für Ärzte, Zahnärzte und Therapeuten: klar, barrierefrei, mit Terminbuchung und lokaler Sichtbarkeit bei Google. Aus dem Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="Webdesign für Praxen und Therapeuten"
+    title={"Web­site für Ärz­te,\nder Pati­en­ten ver­trau­en"}
+    lead="Die kurze Antwort: Deine Praxis-Website ist oft der erste Kontakt mit neuen Patienten. Wir bauen Websites für Ärzte, Zahnärzte und Therapeuten: klar strukturiert, barrierefrei und mobil zuerst, mit Leistungen, Team, Öffnungszeiten und Terminbuchung an einem Klick. Dazu sorgen wir für lokale Sichtbarkeit bei Google und halten die Inhalte für dich aktuell."
+    lottie="/lottie/webdesign.json"
+    lottieLabel="Website für Ärzte"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Was die Seite braucht */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Das Fundament</span>
+        <h2>Was eine Praxis-Website wirklich braucht</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          grundbedarf.map((g) => (
+            <article class="karte">
+              <h3>{g.title}</h3>
+              <p class="karte-note">{g.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Erster Eindruck + Case, ehrlich */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der erste Eindruck entsteht vor der Anmeldung</h2>
+        <div class="lp-text">
+          <p>
+            Auch im Gesundheitswesen läuft die Empfehlung heute über Google: Die
+            Kollegin nennt deinen Namen, die Patientin sucht danach, und was sie
+            findet, entscheidet, ob sie sich anmeldet. Eine veraltete oder lieblose
+            Seite kostet dich Patienten, bevor sie je bei dir waren.
+          </p>
+          <p>
+            Darum bauen wir Praxis-Websites so, wie Patienten suchen: Leistungen
+            und Team sofort sichtbar, Öffnungszeiten und Anfahrt ohne Suchen,
+            Kontakt und Termin mit einem Tipp. Mehr zu unserer grundsätzlichen
+            Arbeitsweise findest du unter
+            <a href="/website-erstellen-lassen/">Website erstellen lassen</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Unsere Referenzen aus dem Gesundheitsbereich</h2>
+        <div class="lp-text">
+          <p>
+            Für die <a href="/projekte/palimed/">PALIMED AG</a>,
+            den neu gegründeten Palliative-Care-Dienst in Uster, haben wir den
+            Auftritt von Grund auf gebaut: Corporate Design und Website,
+            inklusive Text- und Bildredaktion, die wir seither laufend
+            anpassen.
+          </p>
+          <p>
+            Und aus der Region: Die Website der
+            <a href="https://kinderarztpraxis-tann.ch/" target="_blank" rel="noopener">Kinderarztpraxis Tann</a>
+            betreuen wir laufend, von den Teamfotos bis zu den Anpassungen,
+            und für
+            <a href="/projekte/seatalytics/">Seatalytics</a>, eine Therapeutin
+            aus der Umgebung, haben wir den Webauftritt gebaut.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Barrierefreiheit + lokale Sichtbarkeit */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Barrierefrei ist für dich kein Extra</h2>
+        <div class="lp-text">
+          <p>
+            Kaum eine Branche hat so viele Patienten mit eingeschränkter Sicht,
+            Hörung oder Motorik wie das Gesundheitswesen. Eine Praxis-Website, die
+            ältere Menschen ausschliesst, verfehlt ihr Ziel.
+          </p>
+          <p>
+            Gleichzeitig zieht der Gesetzgeber nach: Mit dem europäischen
+            Accessibility Act wachsen die Anforderungen an digitale
+            Barrierefreiheit, und Gesundheitsdienste gehören zu den ersten, die
+            davon betroffen sind. Wir bauen von Anfang an nach den gängigen
+            Richtlinien: saubere Struktur, Kontraste, Bedienung ohne Maus. Was das
+            konkret heisst, erklären wir unter
+            <a href="/barrierefreie-website/">barrierefreie Website</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Gefunden werden: Arzt plus Ort</h2>
+        <div class="lp-text">
+          <p>
+            Niemand sucht «die beste Praxis der Schweiz», gesucht wird «Hausarzt
+            Wetzikon» oder «Zahnarzt in der Nähe». Damit deine Praxis in diesen
+            Momenten auftaucht, braucht es eine technisch saubere Website,
+            eingearbeitete Ortsbegriffe und ein gepflegtes Google-Profil, das
+            dieselben Angaben trägt.
+          </p>
+          <p>
+            Wenn du das Thema systematisch angehen willst, begleiten wir dich
+            laufend in der <a href="/seo-betreuung/">SEO-Betreuung</a>: von der
+            lokalen Sichtbarkeit bis zu den Fragen, die deine Patienten wirklich
+            googeln.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Prozess + Betreuung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Betreut statt verwaist</h2>
+        <div class="lp-text">
+          <p>
+            Praxis-Websites veralten leise: Die neue Ärztin fehlt auf dem
+            Teamfoto, die Ferienvertretung ist nirgends vermerkt, die
+            Öffnungszeiten stimmen seit einem Jahr nicht mehr. Genau dafür ist die
+            <a href="/website-betreuung/">Website-Betreuung</a> für CHF 33 pro
+            Monat da: Du meldest die Änderung, wir erledigen sie, Technik und
+            Hosting inklusive.
+          </p>
+          <p>
+            Und weil in einer Praxis die Zeit knapp ist, halten wir den Aufwand
+            für dich klein: Texte schreiben wir auf Basis eines Gesprächs, du
+            gibst fachlich frei, den Rest machen wir.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen von Praxen und Therapeuten</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p set:html={f.a} />
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Die Praxis läuft, die Website hinkt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns in einem kostenlosen Erstgespräch von deiner Praxis und deinem
+        Buchungstool. Wir sagen dir ehrlich, was eine neue Website bringen kann
+        und was sie kostet.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a.replace(/<[^>]*>/g, "") },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

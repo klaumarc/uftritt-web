@@ -63,6 +63,7 @@ const { ctaHref = "/durchstarten/", showCta = true } = Astro.props;
 
           {showCta && <a class="sp-btn" id="spCta" href={ctaHref}>Jetzt wirklich durchstarten →</a>}
           <button class="sp-btn sp-btn-ghost" id="spAgainBtn">Nochmal abheben</button>
+          <p class="sp-xpromo">Hält deine Website mit? <a href="/website-check/">Jetzt gratis prüfen →</a></p>
         </div>
       </div>
     </div>
@@ -180,6 +181,19 @@ const { ctaHref = "/durchstarten/", showCta = true } = Astro.props;
   }
   .sp-btn-ghost:hover {
     background: rgba(255, 255, 255, 0.12);
+  }
+  .sp-xpromo {
+    margin: 1rem 0 0;
+    font-size: 0.9rem;
+    color: #fff;
+  }
+  .sp-xpromo a {
+    color: var(--color-yellow, #ffd23c);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .sp-xpromo a:hover {
+    text-decoration: underline;
   }
   .sp-score-big {
     font-size: clamp(3rem, 15vmin, 5.5rem);

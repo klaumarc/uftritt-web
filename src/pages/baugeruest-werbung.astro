@@ -1,0 +1,274 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["aweso", "dtb-redesign", "emotion-hinwil"].includes(p.slug)
+);
+
+const prozess = [
+  "Erstgespräch und Baustellen-Check: Lage, Masse, Sichtachsen und was die Blache erreichen soll",
+  "Zustimmung: Einverständnis von Eigentümer und Gerüststeller einholen",
+  "Bewilligung: Meldung oder Gesuch bei der Gemeinde klären",
+  "Design und Druck: Entwurf, Korrekturrunden, Druckdaten, Produktion in ein bis zwei Wochen",
+  "Montage: Befestigung durch Gerüstbauer oder Werbetechniker, von uns koordiniert",
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Werbeblache fürs Baugerüst?",
+    a: "Drei Posten kommen zusammen: Druck, Montage und Design. Beim Druck treiben Fläche und Material den Preis, etwa ob winddurchlässiges Mesh oder geschlossenes Frontlit PVC zum Einsatz kommt. Montage und Demontage offeriert der Partnerbetrieb separat, je nach Gerüst und Standort. Fürs Design bekommst du nach dem kostenlosen Erstgespräch ein transparentes Angebot mit klarem Preis.",
+  },
+  {
+    q: "Wer bewilligt die Baugerüst-Werbung?",
+    a: "Im Kanton Zürich brauchst du zuerst das Einverständnis des Eigentümers respektive des Gerüststellers, dazu kommt in der Regel eine Bewilligung der Gemeinde. Je nach Grösse ist die Blache melde- oder bewilligungspflichtig. Wir begleiten dich durch diesen Prozess: Aus unserem Mandat für eine regionale Gewerbeschau kennen wir den Weg für temporäre Strassenreklame von der Anfrage bis zur Zusage.",
+  },
+  {
+    q: "Was ist mit Windlast und Befestigung?",
+    a: "Mesh-Blachen sind winddurchlässig, genau darum sind sie der Standard am Baugerüst. Das Material wiegt etwa 300 bis 340 g/m2, wird heissluftverschweisst und mit Ösen und Saum konfektioniert. Wie die Blache an deinem Gerüst befestigt wird und was die Windlast an deinem Standort verlangt, klärt der Gerüstbauer oder Werbetechniker vor Ort.",
+  },
+  {
+    q: "Wie lange dauert es, bis die Blache hängt?",
+    a: "Nach der Freigabe des Sujets dauert der Druck in der Regel ein bis zwei Wochen. Davor kommen die Zustimmung des Eigentümers und die Klärung mit der Gemeinde, deren Dauer von Gemeinde zu Gemeinde verschieden ist. Unser Tipp: Sprich uns an, sobald die Sanierung oder der Neubau feststeht, nicht erst wenn das Gerüst schon steht.",
+  },
+  {
+    q: "Blache oder Plakat, was passt besser?",
+    a: "Das Plakat mietest du beim Vermarkter wochenweise auf fertigen Flächen, die Blache produzierst du einmalig für deine eigene Baustelle. Die Blache wirkt über die ganze Bauzeit an einem Ort und ist riesig, das Plakat streut deine Botschaft wochenweise durch eine Region. Für die laufende Baustelle ist die Blache meist der stärkere Auftritt, für die Ankündigung eines Anlasses das Plakat.",
+  },
+  {
+    q: "Wir haben schon ein Sujet, könnt ihr damit arbeiten?",
+    a: "Gerne: Wir prüfen, ob dein Sujet für die grosse Fläche taugt, also Auflösung, Masstab und Lesbarkeit aus der Distanz, und bereiten es druckfertig auf. Oft ist ein bestehendes Plakatsujet ein guter Start, muss aber fürs Format und die Betrachtungsdistanz angepasst werden. Bring auch KI-Entwürfe mit, wir machen sie produktionsreif.",
+  },
+];
+---
+
+<Layout
+  title="Baugerüst-Werbung gestalten lassen - Uftritt"
+  description="Baugerüst-Werbung: Werbeblachen mit Design für grosse Distanz, druckfertigen Daten und Bewilligungsbegleitung. Druck und Montage über Partnerbetriebe."
+>
+  <PageHero
+    eyebrow="Aussenwerbung · Bauwerk"
+    title={"Bau­ge­rüst-Wer­bung,\ndie von Weitem wirkt"}
+    lead="Baugerüst-Werbung macht aus deiner Baustelle eine riesige Werbefläche: Die Werbeblache wird über Wochen und Monate gesehen, von Passanten wie vom Verkehr. Wir gestalten dein Sujet für grosse Distanz, liefern druckfertige Daten und begleiten die Bewilligung. Druck und Montage laufen über Partnerbetriebe."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Baugerüst-Werbung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Design-Substanz */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gestaltet für Distanz und lange Sichtdauer</h2>
+        <div class="lp-text">
+          <p>
+            Eine Baugerüst-Blache hängt Wochen oder Monate: Anwohner, Passanten
+            und Verkehr sehen sie jeden Tag, oft aus grosser Distanz. Darum
+            gestalten wir mit wenigen, grossen Elementen, hohen Kontrasten und
+            einer einzigen klaren Botschaft, die auch von der anderen
+            Strassenseite sitzt.
+          </p>
+          <p>
+            Die Hierarchie folgt dem Blick von der Strasse: zuerst wer du bist,
+            dann was du anbietest, dann wie man dich erreicht. Was auf einem
+            Inserat noch funktioniert, geht auf der grossen Fläche unter: Wir
+            denken das Sujet von Anfang an gross statt es nachträglich
+            hochzuskalieren.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Die Blache als Teil deiner Marke</h2>
+        <div class="lp-text">
+          <p>
+            Die Blache ist oft der sichtbarste Auftritt deiner Firma überhaupt:
+            grösser als jedes Inserat und länger präsent als jede Kampagne.
+            Darum lohnt es sich, sie als Teil deines
+            <a href="/corporate-design/">Corporate Designs</a> zu denken, mit
+            denselben Farben, Schriften und der gleichen Bildwelt wie auf
+            Website und Drucksachen.
+          </p>
+          <p>
+            Es gilt dieselbe Logik wie bei der
+            <a href="/fahrzeugbeschriftung-gestalten/">Fahrzeugbeschriftung</a>:
+            gestaltet für Tempo und Distanz statt fürs Lesen aus der Nähe. Mit
+            dieser Sorgfalt gestalten wir alles im
+            <a href="/grafikdesign-zuercher-oberland/">Grafikdesign</a>, vom
+            Briefblatt bis zur Blache. Wie sich die Blache vom klassischen
+            <a href="/plakatwerbung/">Plakat</a> unterscheidet und wann sich
+            welcher Kanal lohnt, zeigt unser Überblick zur
+            <a href="/aussenwerbung/">Aussenwerbung</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Bewilligung + Aufgabenteilung */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wer bewilligt die Blache?</h2>
+        <div class="lp-text">
+          <p>
+            Im Kanton Zürich sind zwei Stellen zu klären: das Einverständnis
+            des Eigentümers respektive des Gerüststellers und in der Regel eine
+            Bewilligung der Gemeinde. Je nach Grösse ist die Blache melde- oder
+            bewilligungspflichtig.
+          </p>
+          <p>
+            Aus der Praxis: Für eine regionale Gewerbeschau haben wir die
+            Bewilligung für temporäre Strassenreklame eingeholt. Diesen Prozess
+            kennen wir und begleiten ihn für dich, von der ersten Anfrage bis
+            zur Zusage.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Unser Teil: Design, Daten, Koordination</h2>
+        <div class="lp-text">
+          <p>
+            Wir gestalten das Sujet, liefern druckfertige Daten im richtigen
+            Massstab und koordinieren Druck und Montage mit den
+            Partnerbetrieben. Den Druck übernehmen spezialisierte
+            Blachendrucker, die Montage der Gerüstbauer oder ein
+            Werbetechniker.
+          </p>
+          <p>
+            Windlast und Befestigung klärt der Partner vor Ort, dafür braucht
+            es das Handwerk am Gerüst. Du hast trotzdem nur einen
+            Ansprechpartner für die Gestaltung und musst nicht zwischen
+            Drucker, Gemeinde und Gerüstbauer vermitteln.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Ein Sujet, das auf der grossen Fläche funktioniert, druckfertige
+            Daten im Massstab der Blache und eine Werbefläche, die deine
+            Baustelle für Wochen und Monate in ein Aushängeschild verwandelt.
+          </p>
+          <p>
+            Und die Daten gehören dir: Steht das Gerüst später am nächsten
+            Projekt, lässt sich die Blache neu produzieren, ohne dass du bei
+            der Gestaltung wieder bei null anfängst.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Baugerüst-Werbung</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Was soll deine Baustelle über dich erzählen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns von deinem Bauprojekt und was an Gestaltung schon vorhanden
+        ist. Du bekommst eine ehrliche Einschätzung und ein transparentes
+        Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+</style>

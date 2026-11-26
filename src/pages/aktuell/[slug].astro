@@ -30,7 +30,25 @@ const { item, prev, next } = Astro.props;
 
       <div class="nd-grid">
         <div class="nd-media" data-reveal>
-          <img src={item.image} alt={item.title} loading="eager" fetchpriority="high" />
+          {item.gallery && item.gallery.length > 0 ? (
+            <div class="nd-slider">
+              <div class="nd-slider__track" id="nd-track">
+                <img src={item.image} alt={item.title} loading="eager" fetchpriority="high" />
+                {item.gallery.map((bild, i) => (
+                  <img src={bild} alt={`${item.title}, Bild ${i + 2}`} loading="lazy" decoding="async" />
+                ))}
+              </div>
+              <button type="button" class="nd-slider__btn nd-slider__btn--prev" id="nd-prev" aria-label="Vorheriges Bild">
+                <span class="nd-arrow nd-arrow-prev"></span>
+              </button>
+              <button type="button" class="nd-slider__btn nd-slider__btn--next" id="nd-next" aria-label="Nächstes Bild">
+                <span class="nd-arrow nd-arrow-next"></span>
+              </button>
+              <span class="nd-slider__count" id="nd-count">1 / {item.gallery.length + 1}</span>
+            </div>
+          ) : (
+            <img src={item.image} alt={item.title} loading="eager" fetchpriority="high" />
+          )}
         </div>
         <div class="nd-content" data-reveal>
           <span class="nd-meta">{item.category} · {item.date}</span>
@@ -42,6 +60,26 @@ const { item, prev, next } = Astro.props;
       </div>
     </div>
   </article>
+
+  {item.gallery && item.gallery.length > 0 && (
+    <script is:inline>
+      (() => {
+        const track = document.getElementById("nd-track");
+        if (!track) return;
+        const count = document.getElementById("nd-count");
+        const n = track.children.length;
+        const zeige = () => {
+          const i = Math.round(track.scrollLeft / track.clientWidth);
+          count.textContent = (i + 1) + " / " + n;
+        };
+        document.getElementById("nd-prev").addEventListener("click", () =>
+          track.scrollBy({ left: -track.clientWidth, behavior: "smooth" }));
+        document.getElementById("nd-next").addEventListener("click", () =>
+          track.scrollBy({ left: track.clientWidth, behavior: "smooth" }));
+        track.addEventListener("scroll", zeige, { passive: true });
+      })();
+    </script>
+  )}
 </Layout>
 
 <style>
@@ -88,6 +126,53 @@ const { item, prev, next } = Astro.props;
     width: 100%;
     height: auto;
     display: block;
+  }
+  .nd-slider {
+    position: relative;
+  }
+  .nd-slider__track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .nd-slider__track::-webkit-scrollbar {
+    display: none;
+  }
+  .nd-slider__track img {
+    flex: 0 0 100%;
+    width: 100%;
+    scroll-snap-align: center;
+  }
+  .nd-slider__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    border: 0;
+    background: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+  }
+  .nd-slider__btn--prev {
+    left: 0.6rem;
+  }
+  .nd-slider__btn--next {
+    right: 0.6rem;
+  }
+  .nd-slider__count {
+    position: absolute;
+    right: 0.6rem;
+    bottom: 0.6rem;
+    background: var(--color-blue);
+    color: var(--color-white);
+    font-size: 0.75rem;
+    padding: 0.15rem 0.55rem;
   }
   .nd-meta {
     display: block;

@@ -4,6 +4,9 @@ import PageHero from "../components/PageHero.astro";
 import Button from "../components/Button.astro";
 import LocalTrust from "../components/LocalTrust.astro";
 import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) => p.slug === "tenini-webshop");
 
 const ranges = [
   {
@@ -75,7 +78,7 @@ const faq = [
     </div>
   </PageHero>
 
-  <OfferLink href="/angebot/applikationsentwicklung/" label="App-Entwicklung" lottie="/lottie/applikationsentwicklung.json" />
+  <OfferLink href="/angebot/applikationsentwicklung/" label="App-Entwicklung" lottie="/lottie/applikationsentwicklung.json" projects={cases} />
 
   {/* Antwort-Block: Preisranges */}
   <section class="section">

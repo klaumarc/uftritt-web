@@ -69,11 +69,12 @@ const SIZES_GALLERY_REST = "(max-width: 520px) 90vw, 45vw";
 
       <div class="pd-intro">
         <div class="pd-text" data-reveal>
+          <span class="eyebrow">{project.categories.join(" · ")}</span>
           <h1>{project.title}</h1>
           {intro?.map((p) => <p>{p}</p>)}
         </div>
         {
-          (services.length > 0 || website) && (
+          (services.length > 0 || website || story?.links) && (
             <aside class="pd-services" data-reveal>
               {services.length > 0 && (
                 <>
@@ -91,11 +92,17 @@ const SIZES_GALLERY_REST = "(max-width: 520px) 90vw, 45vw";
                   </p>
                 </>
               )}
-              {website && (
-                <p class="pd-website">
-                  <a href={website} target="_blank" rel="noopener">Zur Website ↗</a>
-                </p>
-              )}
+              {story?.links
+                ? story.links.map((l) => (
+                    <p class="pd-website">
+                      <a href={l.href} target="_blank" rel="noopener">{l.label} ↗</a>
+                    </p>
+                  ))
+                : website && (
+                    <p class="pd-website">
+                      <a href={website} target="_blank" rel="noopener">Zur Website ↗</a>
+                    </p>
+                  )}
             </aside>
           )
         }
@@ -158,6 +165,44 @@ const SIZES_GALLERY_REST = "(max-width: 520px) 90vw, 45vw";
                   ))}
                 </div>
               </div>
+            ) : b.type === "slider" ? (
+              <div class="container">
+                <div class="st-slider" data-reveal data-st-slider aria-roledescription="Karussell" aria-label={b.label ?? project.title}>
+                  <div class="st-slider-track">
+                    {b.cells.map((cell) => (
+                      <figure class="st-slide">
+                        <picture>
+                          {cell.img && webpSrcSet(cell.img) && <source type="image/webp" srcset={webpSrcSet(cell.img)!} sizes={SIZES_FULL} />}
+                          {cell.img && <img src={cell.img} alt={cell.alt ?? ""} loading="lazy" decoding="async" draggable="false" />}
+                        </picture>
+                      </figure>
+                    ))}
+                  </div>
+                  <div class="st-slider-ui">
+                    <button type="button" class="st-slider-arrow st-slider-prev" aria-label="Vorheriges Bild"></button>
+                    <span class="st-slider-dots">
+                      {b.cells.map((cell, i) => (
+                        <button type="button" class="st-slider-dot" data-index={i} aria-label={`Bild ${i + 1} von ${b.cells.length}: ${cell.alt ?? ""}`}></button>
+                      ))}
+                    </span>
+                    <button type="button" class="st-slider-arrow st-slider-next" aria-label="Nächstes Bild"></button>
+                  </div>
+                </div>
+              </div>
+            ) : b.type === "tech" ? (
+              <div class="container">
+                <div class="st-tech" data-reveal>
+                  {b.label && <span class="eyebrow">{b.label}</span>}
+                  <dl class="st-tech-list">
+                    {b.rows.map((r) => (
+                      <div class="st-tech-row">
+                        <dt>{r.name}</dt>
+                        <dd>{r.desc}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              </div>
             ) : (
               /* full */
               <div class:list={["st-full", { grey: b.grey }]}>
@@ -171,6 +216,16 @@ const SIZES_GALLERY_REST = "(max-width: 520px) 90vw, 45vw";
                     )}
                     {b.video && (
                       <video src={b.video} muted loop playsinline preload="none" data-play-once></video>
+                    )}
+                    {b.youtube && (
+                      <div class="st-embed">
+                        <iframe
+                          src={`https://www.youtube-nocookie.com/embed/${b.youtube}?rel=0`}
+                          title={b.label ?? project.title}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                          loading="lazy"
+                        />
+                      </div>
                     )}
                     {b.lottie && (
                       <div class="st-lottie">
@@ -246,6 +301,51 @@ const SIZES_GALLERY_REST = "(max-width: 520px) 90vw, 45vw";
     );
     vids.forEach((v) => io.observe(v));
   }
+
+  // Karussell (Auto-Loop): pausiert bei Hover/Fokus, kein Autoplay bei reduzierter Bewegung.
+  document.querySelectorAll<HTMLElement>("[data-st-slider]").forEach((root) => {
+    const track = root.querySelector<HTMLElement>(".st-slider-track");
+    const slides = root.querySelectorAll<HTMLElement>(".st-slide");
+    const dots = root.querySelectorAll<HTMLButtonElement>(".st-slider-dot");
+    if (!track || slides.length < 2) return;
+    let i = 0;
+    let timer: number | undefined;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const go = (n: number) => {
+      i = (n + slides.length) % slides.length;
+      track.style.transform = `translateX(-${i * 100}%)`;
+      dots.forEach((d, k) => d.classList.toggle("active", k === i));
+    };
+    const stop = () => {
+      if (timer !== undefined) {
+        clearInterval(timer);
+        timer = undefined;
+      }
+    };
+    const start = () => {
+      if (!reduced && timer === undefined) timer = window.setInterval(() => go(i + 1), 4500);
+    };
+    root.querySelector<HTMLButtonElement>(".st-slider-prev")?.addEventListener("click", () => go(i - 1));
+    root.querySelector<HTMLButtonElement>(".st-slider-next")?.addEventListener("click", () => go(i + 1));
+    dots.forEach((d) => d.addEventListener("click", () => go(Number(d.dataset.index ?? 0))));
+    root.addEventListener("pointerenter", stop);
+    root.addEventListener("pointerleave", start);
+    root.addEventListener("focusin", stop);
+    root.addEventListener("focusout", start);
+    // Wischen auf Touch-Geraeten
+    let x0: number | null = null;
+    track.addEventListener("pointerdown", (e) => {
+      x0 = e.clientX;
+    });
+    track.addEventListener("pointerup", (e) => {
+      if (x0 === null) return;
+      const dx = e.clientX - x0;
+      if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1));
+      x0 = null;
+    });
+    go(0);
+    start();
+  });
 </script>
 
 <style>
@@ -368,12 +468,134 @@ const SIZES_GALLERY_REST = "(max-width: 520px) 90vw, 45vw";
     margin-bottom: 0;
   }
 
+  /* Tech-Stack als ruhige Tabelle (gleiche Spalte wie Fliesstext) */
+  .st-tech {
+    max-width: 680px;
+    margin-inline: auto;
+  }
+  .st-tech .eyebrow {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .st-tech-list {
+    margin: 0;
+  }
+  .st-tech-row {
+    display: grid;
+    grid-template-columns: minmax(150px, 1fr) 2fr;
+    gap: 1rem;
+    padding-block: 0.95rem;
+    border-top: 1px solid #e7ecf3;
+  }
+  .st-tech-row:last-child {
+    border-bottom: 1px solid #e7ecf3;
+  }
+  .st-tech-row dt {
+    font-weight: 700;
+    color: var(--color-blue);
+  }
+  .st-tech-row dd {
+    margin: 0;
+    color: var(--color-blue);
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+  @media (max-width: 520px) {
+    .st-tech-row {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+  }
+
   .st-split,
   .st-duo {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: clamp(0.75rem, 2vw, 1.5rem);
     align-items: start;
+  }
+  /* 3+ Zellen im Duo-Block: echte 3-Spalten-Reihe (z. B. Festfuehrer-Trio) */
+  .st-duo:has(> :nth-child(3)) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  /* YouTube-Embed in Story-Bloecken */
+  .st-embed {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  .st-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  /* Karussell (Auto-Loop) */
+  .st-slider {
+    position: relative;
+    overflow: hidden;
+  }
+  .st-slider-track {
+    display: flex;
+    transition: transform 0.55s var(--ease);
+  }
+  .st-slide {
+    flex: 0 0 100%;
+    margin: 0;
+  }
+  .st-slide img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    user-select: none;
+  }
+  .st-slider-ui {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 0.9rem;
+  }
+  .st-slider-arrow {
+    width: 1.7rem;
+    height: 1.7rem;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    background: var(--color-blue);
+    -webkit-mask: no-repeat center / contain;
+    mask: no-repeat center / contain;
+    transition: background 0.3s var(--ease);
+  }
+  .st-slider-prev {
+    -webkit-mask-image: url("/img/icons/pfeil-links-blau.svg");
+    mask-image: url("/img/icons/pfeil-links-blau.svg");
+  }
+  .st-slider-next {
+    -webkit-mask-image: url("/img/icons/pfeil-rechts-blau.svg");
+    mask-image: url("/img/icons/pfeil-rechts-blau.svg");
+  }
+  .st-slider-arrow:hover {
+    background: var(--color-pink);
+  }
+  .st-slider-dots {
+    display: inline-flex;
+    gap: 0.5rem;
+  }
+  .st-slider-dot {
+    width: 0.6rem;
+    height: 0.6rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    background: rgba(1, 64, 128, 0.25);
+    transition: background 0.3s var(--ease);
+  }
+  .st-slider-dot.active {
+    background: var(--color-pink);
   }
   .st-cell {
     margin: 0;
@@ -479,6 +701,12 @@ const SIZES_GALLERY_REST = "(max-width: 520px) 90vw, 45vw";
   }
   @media (max-width: 520px) {
     .pd-gallery {
+      grid-template-columns: 1fr;
+    }
+    /* Story-Bloecke (split/duo) auf dem Handy untereinander statt 2-/3-spaltig */
+    .st-split,
+    .st-duo,
+    .st-duo:has(> :nth-child(3)) {
       grid-template-columns: 1fr;
     }
   }

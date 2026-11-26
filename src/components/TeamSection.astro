@@ -1,0 +1,30 @@
+---
+// Team-Section als EINE Quelle für alle Seiten (Entscheid Marcel 2026-10-20:
+// «stringent»). Rendert den Block exakt im Look von /agentur/ (eyebrow +
+// H2 + TeamGrid im Carousel). Look-Wechsel nur über die soft-Prop:
+// soft={false} setzen, wenn die direkt benachbarte Section bereits
+// section--soft hat (sonst doppelte Soft-Fläche).
+import TeamGrid from "./TeamGrid.astro";
+
+interface Props {
+  soft?: boolean;
+}
+
+const { soft = true } = Astro.props;
+---
+
+<section class:list={["section", { "section--soft": soft }]}>
+  <div class="container">
+    <header class="section-head" data-reveal>
+      <span class="eyebrow">Unser Team</span>
+      <h2>Köpfe voller kreativer Ideen</h2>
+    </header>
+    <TeamGrid carousel={true} />
+  </div>
+</section>
+
+<style>
+  .section-head {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+  }
+</style>

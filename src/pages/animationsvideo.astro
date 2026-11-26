@@ -1,0 +1,330 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["empower", "heusser-holzbau", "aas-freight"].includes(p.slug)
+);
+
+const formate = [
+  {
+    name: "2D-Animationsvideo",
+    note: "Figuren, Icons, Text und Diagramme in Bewegung: die klassische Form für Erklärfilme, Produktgeschichten und Abläufe, die man nicht filmen kann.",
+  },
+  {
+    name: "Lottie-Animation",
+    note: "Vektorbasierte Animation als winzige Datei, die direkt im Browser läuft. Ideal für Website-Heros, Icons und Illustrationen, wie auf dieser eigenen Website zu sehen.",
+  },
+  {
+    name: "Logoanimation",
+    note: "Dein Logo als bewegtes Intro oder Outro für jedes Video, das du veröffentlichst. Einmal gestaltet, überall einsetzbar.",
+  },
+  {
+    name: "Animierte Social-Media-Grafiken",
+    note: "Kurze Loops und bewegte Posts für Feed und Story, im Hochformat oder quadratisch, gestaltet aus deinem bestehenden Erscheinungsbild.",
+  },
+];
+
+const prozess = [
+  "Erstgespräch: Was soll die Animation erklären oder verkaufen, wo läuft sie, wer schaut zu",
+  "Script und Storyboard: die Geschichte in Szenen, mit Sprechertext und Bildidee pro Szene",
+  "Styleframe: ein ausgearbeitetes Standbild im Look deiner Marke als verbindliche Design-Freigabe",
+  "Animation: die Szenen werden bewegt, getaktet und mit Übergängen verbunden",
+  "Sound und Ausgabe: Musik, auf Wunsch Sprecherstimme, Export in allen Formaten für deine Kanäle",
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Animationsvideo?",
+    a: "Das hängt vor allem von Länge, Stil und Detailgrad ab: Eine einfache Icon-Animation ist schneller gebaut als ein Erklärfilm mit Figuren und eigener Bildwelt. Darum bekommst du nach dem Erstgespräch ein transparentes Angebot, das Script, Storyboard, Animation und Ton sauber ausweist. Ehrlich gesagt: Für ein einzelnes bewegtes Element auf der Website, etwa ein animiertes Icon, lohnt sich oft schon eine kleine Lottie-Animation statt eines ganzen Videos.",
+  },
+  {
+    q: "Was ist der Unterschied zwischen Animationsvideo und Erklärvideo?",
+    a: "Das Animationsvideo beschreibt die Technik: Bewegtbild, das gestaltet statt gefilmt wird. Das Erklärvideo beschreibt den Zweck: ein komplexes Thema in kurzer Zeit verständlich machen. In der Praxis überschneiden sich beide, weil die meisten Erklärvideos animiert sind. Wenn du vor allem ein Produkt, einen Ablauf oder eine Dienstleistung erklären willst, schau auf unserer Seite zum Erklärvideo vorbei.",
+  },
+  {
+    q: "Kann heute nicht einfach KI das ganze Video machen?",
+    a: "KI-Video-Tools erzeugen schnell Bewegtbild, und als Ideenskizze ist das hilfreich. Für ein Video in deinem Erscheinungsbild stösst du aber an Grenzen: Markenfarben und Schriften werden ungenau, Figuren verändern sich von Szene zu Szene, Text im Bild kommt fehlerhaft, und die Nutzungsrechte sind je nach Tool unklar. Wir nutzen KI dort, wo sie schnell ist, nämlich bei Moodboards und Varianten. Das eigentliche Animationsvideo entsteht als sauber aufgebaute Vektor-Animation, die du später auch anpassen kannst.",
+  },
+  {
+    q: "Was ist eine Lottie-Animation?",
+    a: "Eine Lottie-Animation ist eine Vektor-Animation, die als kleine Datendatei direkt im Browser läuft, ohne Videoplayer und ohne spürbare Ladezeit. Die Animationen auf dieser Website, etwa im Hero-Bereich oben, sind genau solche Lottie-Dateien aus unserer Gestaltung. Für Websites sind sie ideal, weil sie gestochen scharf bleiben, auf Interaktion reagieren können und die Ladezeit kaum belasten.",
+  },
+  {
+    q: "Wie lange dauert die Produktion?",
+    a: "Für eine einzelne Lottie-Animation oder eine Logoanimation rechnen wir mit ein bis zwei Wochen ab Briefing. Ein ausgebautes Animationsvideo mit Script, Storyboard und eigenen Figuren braucht erfahrungsgemäss drei bis sechs Wochen, je nach Länge und Zahl der Korrekturrunden. Der grösste Zeitfaktor ist meist nicht die Animation selbst, sondern die Freigabe des Storyboards: Je schneller das Design steht, desto schneller ist dein Video fertig.",
+  },
+  {
+    q: "In welchen Formaten bekomme ich das fertige Video?",
+    a: "Du bekommst das Master-File in voller Auflösung plus fertige Versionen für deine Kanäle: Querformat für Website und Präsentation, quadratisch oder Hochformat für Social Media, auf Wunsch als Lottie-Datei für die direkte Einbindung in deine Website. Die Rechte am fertigen Video liegen bei dir, und die Arbeitsdateien bleiben so aufgebaut, dass wir später Szenen anpassen oder neue Versionen ableiten können.",
+  },
+];
+---
+
+<Layout
+  title="Animationsvideo erstellen lassen - Uftritt"
+  description="Animationsvideo erstellen lassen: 2D-Animation, Motion Graphics und Lottie für Website und Social Media. KI-gestützter Workflow, von Hand gestaltet."
+>
+  <PageHero
+    eyebrow="Motion Design · Zürcher Oberland"
+    title={"Ani­ma­tions­video erstellen lassen,\ndas im Kopf bleibt"}
+    lead="Dein Animationsvideo gestalten wir als 2D-Animation und Motion Graphics im Look deiner Marke: für Website, Social Media, Präsentation oder Messe. KI-Werkzeuge beschleunigen unseren Workflow, das handwerkliche Feinmachen bleibt. Auf dieser Seite siehst du, wie wir arbeiten, und wo Animation gegenüber Realfilm die stärkere Wahl ist."
+    lottie="/lottie/videoproduktion.json"
+    lottieLabel="Animationsvideo"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/videoproduktion/" label="Videoproduktion" lottie="/lottie/videoproduktion.json" projects={cases} />
+
+  {/* Formate */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Formate</span>
+        <h2>Vier Arten, dein Thema in Bewegung zu bringen</h2>
+      </header>
+      <div class="formate" data-reveal>
+        {
+          formate.map((f) => (
+            <article class="format-card">
+              <h3>{f.name}</h3>
+              <p class="format-note">{f.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Warum Animation + ehrlicher Beleg */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Warum animieren statt filmen?</h2>
+        <div class="lp-text">
+          <p>
+            Manches lässt sich schlicht nicht filmen: ein Datenfluss, ein
+            innerer Ablauf, eine Dienstleistung ohne sichtbares Produkt.
+            Animation macht Abstraktes sichtbar, mit Figuren, Icons und
+            Diagrammen, die genau das zeigen, was dein Publikum verstehen muss.
+          </p>
+          <p>
+            Dazu kommt die Planbarkeit: kein Wetter, keine Drehtage, keine
+            Location. Jede Szene entsteht am Rechner und lässt sich bis zur
+            Freigabe anpassen. Und wenn sich dein Angebot ändert, tauschen wir
+            eine Szene aus, statt neu zu drehen. Wer echte Menschen und echte
+            Orte zeigen will, ist bei der
+            <a href="/videoproduktion-zuercher-oberland/">Videoproduktion</a>
+            mit Realfilm besser aufgehoben, oft ist auch die Mischung aus
+            beidem die stärkste Lösung.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Unser Beleg: diese Website</h2>
+        <div class="lp-text">
+          <p>
+            Statt dir ein fremdes Showreel zu zeigen, schau dich hier um: Die
+            Animationen auf dieser Website, vom Hero oben bis zu den bewegten
+            Icons, haben wir gestaltet und als Lottie-Dateien umgesetzt. Das
+            ist unser Arbeitsstand bei Vektor-Animation und Motion Design,
+            live und für dich klickbar.
+          </p>
+          <p>
+            Beim bewegten Bild für Kunden arbeiten wir heute vor allem im
+            Realfilm, etwa für die
+            <a href="/projekte/aas-freight/">AAS Freight AG</a> oder
+            <a href="/projekte/empower/">EMPOWER Nutrition</a>. Diese
+            Erfahrung in Dramaturgie, Rhythmus und Schnitt fliesst in jedes
+            Animationsvideo mit ein.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* KI ehrlich + Abgrenzung */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>KI im Workflow, Hand im Feinschliff</h2>
+        <div class="lp-text">
+          <p>
+            Suchst du nach einem Animationsvideo mit KI, bist du nicht allein:
+            KI-Video-Tools sind gerade überall. Wir setzen sie ein, wo sie
+            stark sind, für Moodboards, Stil-Varianten und erste
+            Bewegungsideen. So siehst du früh, in welche Richtung dein Video
+            gehen kann.
+          </p>
+          <p>
+            Das fertige Video entsteht dann klassisch als Vektor-Animation:
+            mit deinen exakten Markenfarben, deinen Schriften und Figuren, die
+            über alle Szenen konsistent bleiben. Das Ergebnis gehört dir
+            sauber, lässt sich später bearbeiten und sieht aus wie deine
+            Marke, nicht wie ein Tool.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Vom Animationsvideo zum Erklärvideo</h2>
+        <div class="lp-text">
+          <p>
+            Die meisten Erklärvideos sind Animationsvideos: Ein komplexes
+            Thema wird als Geschichte mit Figuren oder Icons erzählt, in
+            neunzig Sekunden verständlich. Wenn genau das dein Ziel ist, lies
+            weiter auf unserer Seite zum
+            <a href="/erklaervideo/">Erklärvideo</a>.
+          </p>
+          <p>
+            Geht es konkret um ein Produkt, lohnt der Blick aufs
+            <a href="/produktvideo/">Produktvideo</a>, und für kurze
+            Bewegtbild-Formate im Feed auf die Seite für
+            <a href="/social-media-video/">Social-Media-Videos</a>. Wir helfen
+            dir im Erstgespräch auch ehrlich zu sortieren, welche Form zu
+            deinem Thema passt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Ein fertiges Animationsvideo in allen Formaten, die du brauchst:
+            als Master-File, als Versionen für Website und Social Media, auf
+            Wunsch als Lottie-Datei. Die Rechte am Video liegen bei dir.
+          </p>
+          <p>
+            Und weil die Animation sauber aus Einzelszenen aufgebaut ist,
+            bleibt sie pflegbar: Ein neuer Preis, ein neues Logo, eine neue
+            Dienstleistung, wir tauschen die betroffene Szene aus, statt alles
+            neu zu bauen.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Animationsvideo</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Was soll dein Publikum in neunzig Sekunden verstehen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du erklären oder zeigen willst. Du bekommst eine
+        ehrliche Einschätzung, ob Animation die richtige Form ist, und ein
+        transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .formate { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .format-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .format-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .format-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .formate { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .formate { grid-template-columns: 1fr; }
+  }
+</style>

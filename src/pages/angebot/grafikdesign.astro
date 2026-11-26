@@ -5,6 +5,8 @@ import ServiceMarquee from "../../components/ServiceMarquee.astro";
 import RefStrip from "../../components/RefStrip.astro";
 import PageHero from "../../components/PageHero.astro";
 import Button from "../../components/Button.astro";
+import TeamSection from "../../components/TeamSection.astro";
+import Reviews from "../../components/Reviews.astro";
 import { projects } from "../../data/projects";
 
 const portfolio = projects
@@ -16,15 +18,15 @@ const blocks = [
     title: "Corporate Design",
     text: [
       "Ein starkes Branding ist mehr als nur ein hübsches Logo oder ein eingängiger Slogan. Es ist die Essenz deines Unternehmens oder deiner Marke, die sich in allem widerspiegelt. Wir erschaffen ein Erscheinungsbild, das deine Geschichte authentisch erzählt, deine Werte vermittelt und ein einheitliches, stimmiges Bild präsentiert. Dazu gehören Logo, Typografie, Farbsystem, Bildwelt, Layoutgestaltung und weitere individuelle Gestaltungsmerkmale.",
-      "Deine einzigartige Markenpersönlichkeit und visuelle Identität entwickeln wir in enger Zusammenarbeit mit dir. So verstehen wir den Kern deines Unternehmens und können ihn so präsentieren, dass er deine Zielgruppe anspricht und inspiriert.",
-      'Übrigens denken wir dein Branding als <a href="/branding-agentur/">Branding-Agentur</a> konsequent zu Ende, vom Briefpapier bis zum Firmenwagen: Auch deine <a href="/fahrzeugbeschriftung-gestalten/">Fahrzeugbeschriftung</a> gestalten wir passend zum restlichen Erscheinungsbild.',
+      "Deine eigene Markenpersönlichkeit und visuelle Identität entwickeln wir in enger Zusammenarbeit mit dir. So verstehen wir den Kern deines Unternehmens und können ihn so präsentieren, dass er deine Zielgruppe anspricht und inspiriert.",
+      'Übrigens denken wir dein Branding als <a href="/branding-agentur/">Branding-Agentur</a> konsequent zu Ende, vom Briefpapier bis zum Firmenwagen: Auch deine <a href="/fahrzeugbeschriftung-gestalten/">Fahrzeugbeschriftung</a> gestalten wir passend zum restlichen Erscheinungsbild. Und für den Online-Auftritt gestalten wir gleich die passende <a href="/angebot/webdesign/">Website</a> dazu.',
     ],
   },
   {
     title: "Logo Design",
     text: [
       "Im Logo wird die Identität deines Unternehmens visuell auf kleinstem Raum zusammengefasst und in die Welt getragen. Es muss einprägsam, verständlich und unverwechselbar sein. Ein funktionierendes Logo ist für unterschiedliche Anwendungsorte angepasst, von der kleinen Grösse auf Social Media bis zur grossen Gebäudebeschriftung.",
-      "Wir finden für dein Unternehmen oder deine Marke das Gesicht, das dich optimal widerspiegelt.",
+      "Wir finden für dein Unternehmen oder deine Marke das Gesicht, das dich treffend widerspiegelt.",
     ],
   },
   {
@@ -66,19 +68,20 @@ const steps = [
 const faq = [
   { q: "Was bringt mir professionelles Grafikdesign überhaupt?", a: "Mit kreativem Grafikdesign sorgst du dafür, dass dein Unternehmen nicht einfach übersehen wird. Ein starkes Branding schafft Wiedererkennung, weckt Vertrauen und sorgt für einen bleibenden Eindruck, genau das, was im wettbewerbsstarken Zürcher Oberland zählt." },
   { q: "Wie läuft ein Grafikdesign-Projekt bei Uftritt ab?", a: "Du gibst die Richtung vor, wir machen den Rest. Nach einem gegenseitigen Kennenlernen geht's von der ersten Idee bis zur fertigen Umsetzung Schritt für Schritt voran. Wir halten dich immer auf dem Laufenden und setzen auf ehrliche, unkomplizierte Zusammenarbeit." },
-  { q: "Gestaltet ihr auch Logos und Corporate Design?", a: "Ja, vom Logo über das Farbkonzept bis hin zum kompletten Corporate Design bekommst du alles aus einer Hand. Wir sorgen dafür, dass dein Markenauftritt rundum stimmig ist." },
-  { q: "Wie lange dauert es, bis mein Branding- oder Grafikdesign-Projekt fertig ist?", a: "Das hängt vom Umfang ab. Gemeinsam legen wir einen realistischen Fahrplan fest, damit du genau planen kannst." },
-  { q: "Was kostet professionelles Grafikdesign?", a: "Keine versteckten Kosten, kein Kleingedrucktes: Du bekommst ein klares Angebot von uns, das zu dir und deinem Budget passt. Und: Beratung gibt's bei Uftritt immer dazu." },
+  { q: "Gestaltet ihr auch Logos und Corporate Design?", a: "Ja, vom Logo über das Farbkonzept bis hin zum kompletten Corporate Design bekommst du bei uns alles von derselben Agentur. Wir sorgen dafür, dass dein Markenauftritt stimmig ist." },
+  { q: "Was gehört zu einem Corporate Design, und was ist ein Styleguide?", a: "Zum Kern gehören Logo, Typografie, Farbsystem und Bildwelt, dazu kommen Layoutgestaltung und weitere Gestaltungsmerkmale, die zu deinem Unternehmen passen. Ein Styleguide hält diese Regeln schriftlich fest, damit dein Erscheinungsbild auf jedem Kanal gleich aussieht, egal, wer gerade damit arbeitet." },
+  { q: "Wie lange dauert es, bis mein Branding- oder Grafikdesign-Projekt fertig ist?", a: "Ein Logo-Projekt dauert bei uns vier bis acht Wochen, ein komplettes Corporate-Design-System je nach Umfang zwei bis vier Monate. Nach dem kostenlosen Erstgespräch bekommst du einen verbindlichen Fahrplan." },
+  { q: "Was kostet professionelles Grafikdesign in der Schweiz?", a: "Bei uns arbeitest du mit Fixpreisen statt Stundenschätzungen: Das Logo-Paket kostet CHF 2500, Corporate Design klein CHF 5500, Corporate Design gross CHF 12 500, inklusive Recherche, begründeter Entwürfe und Reinzeichnung. Alle Paketinhalte stehen auf unserer Seite zu den Corporate-Design-Kosten." },
   { q: "Muss ich gestalterisch fit sein, um mit euch zusammenzuarbeiten?", a: "Überhaupt nicht, du brauchst keine Design-Erfahrung. Wir bringen die Bildsprache verständlich und sympathisch auf den Punkt, beraten dich ehrlich und nehmen dich bei jedem Schritt mit." },
   { q: "Gibt es Beispiele von euren bisherigen Projekten?", a: "Klar! Wirf einen Blick auf unsere Projekte und lass dich inspirieren. Vielleicht findest du dort schon die ein oder andere Idee für deinen eigenen Auftritt." },
 ];
 ---
 
-<Layout title="Grafikdesign im Zürcher Oberland, Uftritt" description="Corporate Design, Logo Design und Editorial Design, wir verleihen deiner Kommunikation ein passgenaues Kleid.">
+<Layout title="Grafikdesign, Corporate Design und Logo Design | Uftritt" description="Corporate Design, Logo und Editorial Design von der Agentur in Saland im Zürcher Oberland: mehrere Entwürfe zur Auswahl, verbindliche Fixpreise.">
   <PageHero
     eyebrow="Angebot"
-    title="Grafikdesign"
-    lead="Ob ein komplettes visuelles Branding oder eine durchdachte Broschüre, zusammen verleihen wir deiner Kommunikation ein passgenaues Kleid, das deine Stärken mühelos wiedergibt und Aufsehen erregt, im positiven Sinn, versteht sich."
+    title="Grafikdesign und Corporate Design"
+    lead="Ob ein komplettes Corporate Design, ein neues Logo oder eine durchdachte Broschüre, zusammen verleihen wir deiner Kommunikation ein passgenaues Kleid, das deine Stärken mühelos wiedergibt und Aufsehen erregt, im positiven Sinn, versteht sich."
     lottie="/lottie/grafikdesign.json"
     lottieLabel="Grafikdesign"
   />
@@ -97,6 +100,9 @@ const faq = [
       }
     </div>
   </section>
+
+  {/* Referenzen */}
+  <RefStrip title="Grafikdesign aus unserem Portfolio" projects={portfolio} />
 
   {/* Das gestalten wir für dich */}
   <ServiceMarquee title="Von der Visitenkarte bis zur Signaletik" terms={leistungen} />
@@ -132,27 +138,38 @@ const faq = [
     </div>
   </section>
 
-  {/* Referenzen */}
-  <RefStrip title="Grafikdesign aus unserem Portfolio" projects={portfolio} />
-
   {/* Interne Verlinkung LP-Programm */}
   <section class="section">
     <div class="container mehr-dazu" data-reveal>
       <h2>Erfahre mehr</h2>
       <ul class="md-liste">
+        <li><a href="/corporate-design/">Corporate Design erstellen lassen</a></li>
+        <li><a href="/corporate-design-kosten/">Was kostet Corporate Design?</a></li>
         <li><a href="/logo-erstellen-lassen/">Logo erstellen lassen</a></li>
-        <li><a href="/ki-logo/">Logo mit KI erstellen?</a></li>
         <li><a href="/logo-kosten/">Was kostet ein Logo?</a></li>
+        <li><a href="/logo-redesign/">Logo modernisieren lassen</a></li>
+        <li><a href="/ki-logo/">Logo mit KI erstellen?</a></li>
         <li><a href="/rebranding/">Rebranding</a></li>
+        <li><a href="/branding-agentur/">Branding-Agentur</a></li>
         <li><a href="/broschuere-erstellen-lassen/">Broschüre erstellen lassen</a></li>
       </ul>
+    </div>
+  </section>
+
+  {/* Team, wiederverwendete Komponente wie auf /agentur/ */}
+  <TeamSection soft={false} />
+
+  {/* Bewertungen */}
+  <section class="section section--soft">
+    <div class="container">
+      <Reviews />
     </div>
   </section>
 
   <section class="section section--yellow">
     <div class="container lp-cta" data-reveal>
       <h2>Bereit für deinen neuen Auftritt?</h2>
-      <Button href="/kontakt/" variant="blue">Schriib eus</Button>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
     </div>
   </section>
   <script

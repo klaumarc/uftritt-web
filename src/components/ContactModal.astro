@@ -3,9 +3,10 @@
 // Landingpages: öffnet sich per Event-Delegation statt Navigation nach /kontakt/
 // (greift nur bei .hero-ctas-Links, alle anderen /kontakt/-Links bleiben normal).
 // Sendet via fetch an /kontakt.php (AJAX-Zweig), mit Inline-Danke.
+import { TURNSTILE_SITEKEY } from "../data/turnstile";
 ---
 
-<div class="cmodal" id="cmodal" hidden>
+<div class="cmodal" id="cmodal" data-turnstile-sitekey={TURNSTILE_SITEKEY} hidden>
   <div class="cmodal-overlay" data-cmodal-close></div>
   <div class="cmodal-dialog" role="dialog" aria-modal="true" aria-labelledby="cmodal-title">
     <button class="cmodal-close" type="button" aria-label="Schliessen" data-cmodal-close>
@@ -16,7 +17,7 @@
 
     <div class="cmodal-body" data-cmodal-form>
       <div class="cmodal-head">
-        <img class="cmodal-avatar" src="/team/marcel.jpg" alt="Marcel Klausberger" width="88" height="88" loading="lazy" />
+        <img class="cmodal-avatar" src="/team/marcel-klausberger-portrait.jpg" alt="Marcel Klausberger" width="88" height="88" loading="lazy" />
         <div class="cmodal-head-text">
           <h2 id="cmodal-title">Kostenloses Erstgespräch</h2>
           <span class="cmodal-person">Marcel meldet sich persönlich bei dir</span>
@@ -39,6 +40,10 @@
           Worum geht es?
           <textarea class="cmodal-input" name="nachricht" rows="3" required></textarea>
         </label>
+        <input type="hidden" name="f_ts" value="" />
+        {TURNSTILE_SITEKEY !== "" && (
+          <div class="cf-turnstile" data-sitekey={TURNSTILE_SITEKEY} data-theme="light"></div>
+        )}
         <button class="cmodal-btn" type="submit">Schriib eus</button>
       </form>
       <a class="cmodal-call" href="tel:+41445002955">oder ruf uns an: 044 500 29 55</a>
@@ -46,7 +51,7 @@
 
     <div class="cmodal-done" data-cmodal-done hidden>
       <div class="cmodal-head">
-        <img class="cmodal-avatar" src="/team/marcel.jpg" alt="Marcel Klausberger" width="88" height="88" loading="lazy" />
+        <img class="cmodal-avatar" src="/team/marcel-klausberger-portrait.jpg" alt="Marcel Klausberger" width="88" height="88" loading="lazy" />
         <div class="cmodal-head-text">
           <h2>Merci! 🎉</h2>
           <span class="cmodal-person">- Marcel</span>
@@ -75,6 +80,22 @@
       }
     };
 
+    // Botguard: Lade-Zeitpunkt beim Öffnen setzen (Server verwirft < ~2,5 s)
+    const tsField = form?.querySelector<HTMLInputElement>('input[name="f_ts"]') ?? null;
+
+    // Turnstile erst beim ersten Öffnen laden (das Modal liegt auf vielen Seiten)
+    const tsSitekey = cmodal.dataset.turnstileSitekey || "";
+    let tsLoading = false;
+    const loadTurnstile = () => {
+      if (!tsSitekey || tsLoading) return;
+      tsLoading = true;
+      const s = document.createElement("script");
+      s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+      s.async = true;
+      s.defer = true;
+      document.head.appendChild(s);
+    };
+
     const openModal = () => {
       // Andere Popups (Rückruf, Spiel-Promo) schliessen + für die Session
       // dismisssen, nie parallel zum offenen Modal.
@@ -98,6 +119,9 @@
       void cmodal.offsetWidth; // Reflow, damit die Transition greift
       cmodal.classList.add("is-open");
       document.documentElement.style.overflow = "hidden";
+      if (tsField) tsField.value = String(Date.now());
+      loadTurnstile();
+      (window as any).turnstile?.reset();
       firstField?.focus();
     };
 
@@ -153,8 +177,10 @@
         cmodal.querySelector<HTMLElement>("[data-cmodal-form]")!.hidden = true;
         cmodal.querySelector<HTMLElement>("[data-cmodal-done]")!.hidden = false;
         (window as any)._paq?.push(["trackEvent", "Lead", "Erstgespräch gesendet"]);
+        (window as any).oaiq?.("measure", "lead_created", { type: "customer_action" });
         window.setTimeout(closeModal, 3500);
       } catch {
+        (window as any).turnstile?.reset();
         if (btn) {
           btn.disabled = false;
           btn.textContent = "Nochmals versuchen";

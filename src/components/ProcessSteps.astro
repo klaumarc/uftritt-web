@@ -12,11 +12,13 @@ interface Step {
 interface Props {
   steps: Step[];
   showIcons?: boolean;
+  /** Spaltenzahl Desktop (Default 5, passend zu den 5-Schritt-Prozessen der Angebotsseiten). */
+  cols?: number;
 }
-const { steps, showIcons = false } = Astro.props;
+const { steps, showIcons = false, cols = 5 } = Astro.props;
 ---
 
-<ol class="steps" data-reveal>
+<ol class="steps" data-reveal style={`--step-cols: ${cols}`}>
   {
     steps.map((s, i) => (
       <li class="step">
@@ -34,7 +36,7 @@ const { steps, showIcons = false } = Astro.props;
 <style>
   .steps {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(var(--step-cols, 5), 1fr);
     gap: clamp(1rem, 2vw, 1.75rem);
   }
   .step {

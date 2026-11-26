@@ -1,0 +1,320 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects
+  .filter((p) =>
+    ["youngstars", "100pro-openair-2024", "dt-baeretswil", "emotion-hinwil"].includes(p.slug)
+  )
+  .slice(0, 3);
+
+const grundbedarf = [
+  {
+    title: "Termine und News auf dem Handy",
+    note: "Training, Anlässe, Matchberichte: Mitglieder und Eltern schauen unterwegs nach, was läuft. Aktuelle Inhalte sind darum Pflicht, keine Kür.",
+  },
+  {
+    title: "Mitglied werden in zwei Minuten",
+    note: "Anmeldeformular, Schnuppertraining, direkter Draht zum Vorstand: Wer beitreten will, soll nicht lange suchen müssen.",
+  },
+  {
+    title: "Sponsoren sichtbar danken",
+    note: "Eine gepflegte Sponsorenseite mit Logos und Dank ist bei der nächsten Gönneranfrage ein starkes Argument.",
+  },
+  {
+    title: "Pflege durch wechselnde Vorstände",
+    note: "Im Ehrenamt wechseln die Verantwortlichen. Die Website muss so einfach sein, dass die nächste Person ohne Einarbeitung weitermacht.",
+  },
+];
+
+const prozess = [
+  "Kostenloses Erstgespräch: Was soll die Seite bringen, was ist schon da",
+  "Struktur und Konzept: Termine, News, Teams und Anmeldung am richtigen Platz",
+  "Inhalte: Wir schreiben und ordnen ein, du lieferst Fotos und Vereinsinfos",
+  "Bau und Feinschliff: mobil zuerst, barrierefrei, mit deinem Feedback",
+  "Online und betreut: Für CHF 33 pro Monat bleiben wir auch nach dem Launch dran",
+];
+
+const faq = [
+  {
+    q: "Was kostet eine Website für einen Verein?",
+    a: "Das hängt vom Umfang ab: Eine schlanke Vereinshomepage mit Terminen, News und Anmeldeformular kostet deutlich weniger als ein grosser Auftritt mit vielen Bereichen. Nach einem kostenlosen Erstgespräch bekommst du ein transparentes Angebot mit klarem Preis. Grössenordnungen aus Schweizer Quellen findest du auf unserer Seite <a href=\"/website-kosten/\">Website-Kosten</a>. Danach bleibt die Seite für CHF 33 pro Monat betreut.",
+  },
+  {
+    q: "Können wir die Inhalte selbst aktualisieren, auch nach einem Vorstandswechsel?",
+    a: "Ja, genau dafür bauen wir: Termine, News, Fotos und Anmeldungen pflegst du ohne Programmierkenntnisse über eine einfache Oberfläche. Bei einem Wechsel im Vorstand zeigen wir der neuen verantwortlichen Person in einer kurzen Einführung alles Wichtige. Und wenn du gar nicht selbst pflegen willst, übernehmen wir das in der Betreuung.",
+  },
+  {
+    q: "Reicht nicht auch Facebook oder Instagram für unseren Verein?",
+    a: "Für Schnappschüsse und Kurznews sind die Kanäle gut, aber sie ersetzen keine eigene Website: Nicht alle Mitglieder sind dort, Sponsoren und Eltern googeln deinen Verein, und Anmeldungen oder Downloads gehören auf eine Seite, die dir gehört. Am stärksten wirkt das Zusammenspiel: Die Website bleibt die Heimat, Social Media bringt die Leute dorthin.",
+  },
+  {
+    q: "Muss unsere Vereinswebsite barrierefrei sein?",
+    a: "Wir finden ja, und zwar nicht nur wegen möglicher Vorgaben: Ein Verein lebt von Teilhabe, und dazu gehört, dass alle die Seite nutzen können. Wir bauen von Anfang an mit lesbaren Schriften, starken Kontrasten, Bedienung ohne Maus und Bildbeschreibungen. Mehr dazu auf unserer Seite zur <a href=\"/barrierefreie-website/\">barrierefreien Website</a>.",
+  },
+  {
+    q: "Können sich Mitglieder über die Website anmelden, etwa für Anlässe?",
+    a: "Ja. Wir bauen Formulare für alles, was dein Verein braucht: Mitglied werden, Schnuppertraining, Anmeldung fürs Lager oder den Vereinsanlass. Die Anmeldungen landen direkt bei der richtigen Person im Vorstand. Braucht es mehr, etwa einen geschützten Mitgliederbereich oder Push-News, ist eine <a href=\"/vereins-app/\">Vereins-App</a> der nächste Schritt.",
+  },
+  {
+    q: "Unser Budget ist knapp. Lohnt sich eine eigene Website trotzdem?",
+    a: "Meistens ja, weil eine gepflegte Seite dem Vorstand Arbeit abnimmt: weniger Rückfragen zu Terminen, einfachere Anmeldungen, ein gutes Aushängeschild für neue Mitglieder und Sponsoren. Wir bauen darum schlank und aufs Wesentliche konzentriert, damit es fürs Vereinsbudget passt. Im kostenlosen Erstgespräch sagen wir dir ehrlich, was für deinen Verein sinnvoll ist und was nicht.",
+  },
+];
+---
+
+<Layout
+  title="Website für Vereine und Sportclubs - Uftritt"
+  description="Website für deinen Verein: Termine, News und Anmeldungen, die der Vorstand selbst pflegt. Günstig im Aufbau, barrierefrei, betreut für CHF 33 pro Monat."
+>
+  <PageHero
+    eyebrow="Für Vereine und Sportclubs"
+    title={"Website für\nVereine und Sportclubs"}
+    lead="Die kurze Antwort: Eine Vereinswebsite muss aktuell bleiben, ohne dass jemand HTML kann: Termine, News, Fotos und Anmeldungen pflegt der Vorstand selbst, auch nach Wechseln. Wir bauen sie schlank und günstig, barrierefrei und mobil zuerst, damit Mitglieder, Eltern und Sponsoren sofort finden, was sie suchen."
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/webdesign/" label="Webdesign und Entwicklung" lottie="/lottie/webdesign.json" projects={cases} />
+
+  {/* Was die Seite braucht */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Das Fundament</span>
+        <h2>Was eine Vereinswebsite können muss</h2>
+      </header>
+      <div class="karten karten--4" data-reveal>
+        {
+          grundbedarf.map((g) => (
+            <article class="karte">
+              <h3>{g.title}</h3>
+              <p class="karte-note">{g.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Günstig und barrierefrei */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Günstig, weil aufs Wesentliche gebaut</h2>
+        <div class="lp-text">
+          <p>
+            Vereinsbudgets sind knapp, und das ist okay: Eine gute Vereinshomepage
+            braucht keine Animationen um der Animation willen und keine Effekte,
+            die das Laden ausbremsen. Was zählt, sind aktuelle Termine,
+            funktionierende Formulare und schnelle Ladezeiten.
+          </p>
+          <p>
+            Ehrlich gesagt: Für einen ganz kleinen Auftritt reicht auch ein
+            Baukasten, wenn ihn jemand im Verein zuverlässig pflegt. Unser Teil
+            beginnt dort, wo die Seite zum Verein passen und von jeder
+            Vorstandsperson bedient werden soll, vom Aktuar bis zur Präsidentin.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Barrierefrei, damit wirklich alle mitkommen</h2>
+        <div class="lp-text">
+          <p>
+            Vereine leben von Teilhabe, und genau darum gehört Barrierefreiheit
+            von Anfang an ins Konzept: lesbare Schriften, starke Kontraste,
+            Bedienung ohne Maus und Bildbeschreibungen für Screenreader.
+          </p>
+          <p>
+            Das hilft allen: älteren Mitgliedern, Eltern am Handy in der Sonne
+            und Suchmaschinen, die deine Inhalte besser verstehen. Mehr dazu auf
+            unserer Seite zur <a href="/barrierefreie-website/">barrierefreien Website</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Vereinsleben und Cases */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Rund ums Vereinsleben: Heft und App</h2>
+        <div class="lp-text">
+          <p>
+            Manches Vereinsleben gehört auf Papier: Das periodische Vereinsheft
+            des <a href="/projekte/dt-baeretswil/">DT Bäretswil</a> gestalten wir
+            vom Layout bis zum druckfertigen Heft. Mehr dazu auf unserer Seite
+            zum <a href="/vereinsmagazin/">Vereinsmagazin</a>.
+          </p>
+          <p>
+            Und wenn Mitglieder alles in der Hosentasche wollen, kann eine eigene
+            <a href="/vereins-app/">Vereins-App</a> mit News, Anmeldungen und
+            Mitgliederbereich sinnvoll sein. Wir sagen dir ehrlich, ob sich das
+            für deinen Verein lohnt.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Vereinsarbeit kennen wir von innen</h2>
+        <div class="lp-text">
+          <p>
+            Für das <a href="/projekte/100pro-openair-2024/">100Pro Openair</a>,
+            getragen von einem ehrenamtlichen Organisationskomitee, haben wir
+            Website, Signaletik und Druckmaterial gestaltet. Für den
+            Unihockeyverein <a href="/projekte/emotion-hinwil/">emotion Hinwil</a>
+            kam der komplette Marken-Relaunch von uns: neues Logo, Corporate
+            Design und Vorlagen für Social Media.
+          </p>
+          <p>
+            Und für <a href="/projekte/youngstars/">Youngstars International</a>,
+            einen Dachverband für Jugendarbeit, betreuen wir die mehrsprachige
+            Website mit Spendenformular. Vereine aus der Region betreuen wir im
+            Rahmen unseres <a href="/webdesign-zuercher-oberland/">Webdesigns im Zürcher Oberland</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf und Betreuung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Nach dem Launch bleiben wir dran</h2>
+        <div class="lp-text">
+          <p>
+            Gerade bei Vereinen ist die Betreuung entscheidend: Wechselt die
+            verantwortliche Person im Vorstand, darf die Seite nicht verwaisten.
+            Mit der <a href="/website-betreuung/">Website-Betreuung</a> für
+            CHF 33 pro Monat kümmern wir uns um Hosting, Updates und deine
+            Änderungen, von der neuen Saisonvorschau bis zum Vorstandsfoto.
+          </p>
+          <p>
+            Übrigens: Für andere Branchen bauen wir mit demselben Anspruch, etwa
+            <a href="/website-fuer-aerzte/">Websites für Arztpraxen und Therapeuten</a>
+            oder <a href="/website-fuer-immobilienmakler/">Websites für Immobilienmakler</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen von Vereinen</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p set:html={f.a} />
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Zeit für eine Website, die zu deinem Verein passt?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns in einem kostenlosen Erstgespräch, was dein Verein braucht.
+        Wir sagen dir ehrlich, was eine Website bringen kann und was sie kostet.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a.replace(/<[^>]*>/g, "") },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .karten--3 { grid-template-columns: repeat(3, 1fr); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--3, .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--3, .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

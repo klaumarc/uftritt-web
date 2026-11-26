@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import SubHero from "../components/SubHero.astro";
 import KontaktMap from "../components/KontaktMap.astro";
+import { TURNSTILE_SITEKEY } from "../data/turnstile";
 ---
 
 <Layout title="Kontakt, Uftritt" description="Schriib eus! Uftritt GmbH, Frauwisstrasse 9, 8493 Saland · 044 500 29 55 · info@uftritt.ch">
@@ -55,6 +56,10 @@ import KontaktMap from "../components/KontaktMap.astro";
           <span>Worum geht's?</span>
           <textarea name="nachricht" rows="5" required></textarea>
         </label>
+        <input type="hidden" name="f_ts" value="" />
+        {TURNSTILE_SITEKEY !== "" && (
+          <div class="cf-turnstile" data-sitekey={TURNSTILE_SITEKEY} data-theme="light"></div>
+        )}
         <button type="submit" class="kontakt-submit">
           <span class="ks-arrow" aria-hidden="true"><i></i></span>
           <span>Nachricht schickä</span>
@@ -83,6 +88,9 @@ import KontaktMap from "../components/KontaktMap.astro";
       </div>
     </div>
   </section>
+  {TURNSTILE_SITEKEY !== "" && (
+    <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  )}
 </Layout>
 
 <script>
@@ -91,6 +99,9 @@ import KontaktMap from "../components/KontaktMap.astro";
     const el = document.getElementById("kontakt-error");
     if (el) el.hidden = false;
   }
+  // Botguard: Lade-Zeitpunkt hinterlegen (Server verwirft Sendungen unter ~2,5 s)
+  const tsField = document.querySelector<HTMLInputElement>('form.kontakt-form input[name="f_ts"]');
+  if (tsField) tsField.value = String(Date.now());
 </script>
 
 <style>

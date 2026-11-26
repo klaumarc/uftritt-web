@@ -1,0 +1,356 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["smart-navigator", "seatalytics", "it-stall"].includes(p.slug)
+);
+
+const beispiele = [
+  {
+    title: "Anfragen und Offerten",
+    note: "Das Website-Formular landet strukturiert in deinem System: Kontakt angelegt, Offerten-Entwurf vorbereitet, Antwort-Mail draussen, Erinnerung, wenn keine Reaktion kommt.",
+  },
+  {
+    title: "Rechnungen und Mahnwesen",
+    note: "Eine neue Anmeldung oder Bestellung erzeugt die Rechnung direkt in der Buchhaltung. Zahlungseingänge werden abgeglichen, freundliche Erinnerungen gehen automatisch raus.",
+  },
+  {
+    title: "Daten zwischen Systemen",
+    note: "Bestände, Termine und Kontakte laufen zwischen Website, Shop, Buchhaltung und Tabellen synchron, ohne dass jemand Daten hin und her tippt.",
+  },
+  {
+    title: "KI im Hintergrund",
+    note: "Wo Text verstanden werden muss, hilft KI: Anfragen klassifizieren, Antworten entwerfen, Inhalte zusammenfassen. Immer so, dass ein Mensch das letzte Wort hat.",
+  },
+];
+
+const prozess = [
+  "Erstgespräch: Welche Arbeit wiederholt sich bei dir, welche Systeme sind im Einsatz",
+  "Analyse: Wir schauen die Abläufe an und sagen ehrlich, was sich rechnet und was nicht",
+  "Bau: Die Automatik entsteht in Etappen, du testest mit echten Fällen aus deinem Alltag",
+  "Betrieb: Überwachung, Fehlerbehandlung und eine Dokumentation, die du verstehst",
+  "Ausbau: Was sich bewährt, wird Schritt für Schritt erweitert",
+];
+
+const faq = [
+  {
+    q: "Was ist KI-Automatisierung, einfach erklärt?",
+    a: "Die Verbindung aus klassischer Automatik und KI: Die Automatik sorgt dafür, dass zwischen deinen Programmen ohne Handarbeit etwas passiert, etwa wenn ein Formular eingeht oder eine Rechnung fällig wird. Die KI kommt dort dazu, wo Text verstanden werden muss: Sie erkennt, worum es in einer Anfrage geht, entwirft eine Antwort oder fasst lange Inhalte zusammen. Das Ergebnis: Wiederkehrende Arbeit läuft von selbst, und du prüfst nur noch statt selbst zu tippen.",
+  },
+  {
+    q: "Welche Systeme lassen sich verbinden?",
+    a: "Alles, was eine Schnittstelle hat: Website-Formulare, Buchhaltung, Onlineshops, Kalender, Tabellen, E-Mail und die gängigen KMU-Tools. Auch ältere Programme ohne moderne Schnittstelle lassen sich oft anbinden, manchmal über Umwege wie Exporte oder einen kleinen Zwischenschritt. Was bei deinen Systemen möglich ist, klären wir in der Analyse, bevor irgendetwas gebaut wird.",
+  },
+  {
+    q: "Braucht es dafür neue Software?",
+    a: "In den meisten Fällen nicht. Die Automatik läuft mit n8n zwischen deinen bestehenden Programmen, ohne dass du deine Werkzeuge wechseln musst. Reicht der Standard einmal nicht, entwickeln wir das fehlende Stück selbst: Dann wird daraus ein Fall von individueller Software, den wir dir vorher transparent offerieren.",
+  },
+  {
+    q: "Was kostet eine KI-Automatisierung?",
+    a: "Ehrlich: Das hängt davon ab, wie viele Abläufe du automatisieren willst und wie viele Systeme daran hängen. Eine einzelne Automatik zwischen Formular und Buchhaltung ist etwas anderes als ein Netz aus zehn Abläufen. Darum bekommst du nach dem kostenlosen Erstgespräch ein transparentes Angebot mit klarem Preis. Und wenn sich eine Automatik für dich nicht rechnet, sagen wir dir das, bevor du etwas beauftragst.",
+  },
+  {
+    q: "Lohnt sich das auch für einen kleinen Handwerksbetrieb?",
+    a: "Gerade dort: Wo wenig Büro-Personal viel wiederkehrende Korrespondenz erledigt, etwa Anfragen, Offerten und Rechnungen, spart eine Automatik jede Woche Stunden. Die ehrliche Grenze: Wer kaum digitale Arbeit hat, die sich wiederholt, braucht auch keine Automatik. Genau das klären wir im Erstgespräch, bevor irgendetwas offeriert wird.",
+  },
+  {
+    q: "Was passiert mit unseren Daten?",
+    a: "Darüber reden wir vor dem Bau, nicht danach: Welche Daten wohin fliessen, welche KI-Dienste im Spiel sind und welche nicht infrage kommen. n8n kann auf eigener Infrastruktur laufen, deine Kundendaten müssen also nicht durch fremde Clouds wandern. Und KI kommt nur dort zum Einsatz, wo Datenschutz und dein Auftrag es erlauben.",
+  },
+];
+---
+
+<Layout
+  title="KI-Automatisierung Agentur für KMU - Uftritt"
+  description="KI-Automatisierung für KMU und Handwerk: Wir verbinden deine Tools und automatisieren wiederkehrende Arbeit, mit n8n und eigener Entwicklung."
+>
+  <PageHero
+    eyebrow="Automatisierung für KMU und Handwerk"
+    title={"KI-Automatisierung,\ndie dir Arbeit abnimmt"}
+    lead="KI-Automatisierung heisst: Wiederkehrende Arbeit läuft von selbst, zwischen deinen bestehenden Tools. Wir analysieren deine Abläufe, bauen die Automatik mit n8n und eigener Entwicklung und betreuen sie im Betrieb. Für KMU und Handwerk, ohne Grosskonzern-Budget. Wir arbeiten selbst genau so, jeden Tag."
+    lottie="/lottie/applikationsentwicklung.json"
+    lottieLabel="KI-Automatisierung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/applikationsentwicklung/" label="App-Entwicklung" lottie="/lottie/applikationsentwicklung.json" projects={cases} />
+
+  {/* Typische Automatiken */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Typische Automatiken</span>
+        <h2>Was sich automatisieren lässt</h2>
+      </header>
+      <div class="lp-blocks">
+        <article class="lp-block" data-reveal>
+          <h2>Überall dort, wo sich Arbeit wiederholt</h2>
+          <div class="lp-text">
+            <p>
+              Automatisierung lohnt sich nicht überall. Sie rechnet sich dort, wo
+              dieselbe digitale Arbeit immer wieder anfällt: Anfragen beantworten,
+              Rechnungen schreiben, Daten zwischen Programmen hin und her tragen.
+            </p>
+            <p>
+              Genau diese Abläufe verbinden wir: Das Website-Formular spricht mit
+              der Buchhaltung, der Kalender mit dem Mail, und die KI hilft dort,
+              wo Text verstanden werden muss. Reicht eine Standard-Verbindung
+              einmal nicht, entwickeln wir das fehlende Stück als
+              <a href="/individuelle-software/">individuelle Software</a> selbst.
+            </p>
+          </div>
+        </article>
+      </div>
+      <div class="karten karten--4" data-reveal>
+        {
+          beispiele.map((b) => (
+            <article class="karte">
+              <h3>{b.title}</h3>
+              <p class="karte-note">{b.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Cases, anonym wie im Bauplan */}
+  <section class="section section--soft">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Aus der Praxis</span>
+        <h2>Automatiken, die heute laufen</h2>
+      </header>
+      <div class="lp-blocks">
+        <article class="lp-block" data-reveal>
+          <h2>Rechnungsautomatik für einen Sportclub</h2>
+          <div class="lp-text">
+            <p>
+              Zwischen Website-Formular und Buchhaltung lag früher Handarbeit:
+              Anmeldung abtippen, Kontakt anlegen, Rechnung erstellen, verschicken.
+              Heute läuft das von selbst: Meldet sich jemand über das Formular an,
+              erstellt die Automatik die Rechnung direkt in der Buchhaltung und
+              macht sie versandbereit.
+            </p>
+            <p>
+              Niemand tippt mehr Daten ab, geprüft wird nur noch. Genau so soll es
+              sein: Die Automatik arbeitet, der Mensch entscheidet.
+            </p>
+          </div>
+        </article>
+        <article class="lp-block" data-reveal>
+          <h2>Fahrzeugbestand-Sync für einen Autohändler</h2>
+          <div class="lp-text">
+            <p>
+              Fahrzeuge einmal erfassen und überall aktuell halten: Unsere
+              Automatik gleicht den Fahrzeugbestand zwischen den Systemen ab,
+              damit Website und Inserate immer denselben Stand zeigen, ohne dass
+              jemand Fahrzeuge von Hand nachpflegt.
+            </p>
+            <p>
+              Verkauft ist verkauft: Verschwindet ein Fahrzeug aus dem Bestand,
+              verschwindet es auch aus den Angeboten, ohne dass jemand daran
+              denken muss.
+            </p>
+          </div>
+        </article>
+        <article class="lp-block" data-reveal>
+          <h2>Und wir automatisieren uns selbst</h2>
+          <div class="lp-text">
+            <p>
+              Unsere eigenen Abläufe laufen über denselben Aufbau: n8n als
+              Schaltzentrale, eigene Entwicklung dort, wo Standard nicht reicht.
+              Unsere Anfragen-Triage arbeitet KI-gestützt, Erinnerungen und
+              Datenabgleiche laufen von selbst.
+            </p>
+            <p>
+              Was wir dir einrichten, setzen wir täglich selbst ein. Darum wissen
+              wir auch aus erster Hand, welche Automatiken im Alltag halten und
+              welche nur auf dem Papier gut aussehen.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  {/* Ehrliche Einordnung */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Wo KI hilft und wo sie es nicht braucht</h2>
+        <div class="lp-text">
+          <p>
+            Vieles, was heute «KI-Automatisierung» heisst, ist klassische
+            Automatik: Wenn ein Formular eingeht, dann passiert das. Dafür braucht
+            es keine KI, sondern sauber gebaute Abläufe. KI kommt dort dazu, wo
+            Text verstanden werden muss: Anfragen sortieren, Antworten entwerfen,
+            Inhalte zusammenfassen.
+          </p>
+          <p>
+            Und klar: Entscheide mit Geld, Verträgen oder Verantwortung bleiben
+            bei dir. Die Automatik bereitet vor, der Mensch entscheidet.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was sonst noch zu KI gehört</h2>
+        <div class="lp-text">
+          <p>
+            Du weisst noch nicht, wo KI in deinem Betrieb überhaupt sinnvoll ist?
+            Dann starte mit der <a href="/ki-beratung/">KI-Beratung</a>: Dort
+            legen wir gemeinsam fest, welche Abläufe sich zuerst lohnen und
+            welche du getrost lassen kannst.
+          </p>
+          <p>
+            Soll dein Team KI im Alltag selbst nutzen lernen, passt die
+            <a href="/ki-schulung/">KI-Schulung</a>. Und damit dich die KI-Systeme
+            selbst kennen und zitieren, gibt es unsere Arbeit an deiner
+            <a href="/ki-sichtbarkeit/">KI-Sichtbarkeit</a>.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Abläufe, die von selbst laufen, plus eine Dokumentation, die du ohne
+            uns verstehst. Du bleibst unabhängig: n8n ist eine offene Plattform,
+            und die Automatiken gehören dir, nicht uns.
+          </p>
+          <p>
+            Und damit überhaupt genug Anfragen in deiner neuen Automatik landen:
+            Unsere <a href="/seo-betreuung/">SEO-Betreuung</a> sorgt dafür, dass
+            deine Website gefunden wird, bei Google und darüber hinaus.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur KI-Automatisierung</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Welche Arbeit soll ab heute von selbst laufen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, welche Abläufe dich täglich Zeit kosten. Du bekommst eine
+        ehrliche Einschätzung, was sich automatisieren lässt und was sich rechnet,
+        im kostenlosen Erstgespräch.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .karten { display: grid; gap: clamp(0.75rem, 2vw, 1.5rem); margin-top: clamp(1.5rem, 3vw, 2.5rem); }
+  .karten--4 { grid-template-columns: repeat(4, 1fr); }
+  .karte {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .karte h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .karte-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .karten--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .karten--4 { grid-template-columns: 1fr; }
+  }
+</style>

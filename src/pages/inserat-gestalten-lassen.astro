@@ -1,0 +1,320 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects
+  .filter((p) =>
+    ["emotion-hinwil", "ripa-weihnachtskarte", "100pro-openair-2024"].includes(p.slug)
+  )
+  .slice(0, 3);
+
+const prozess = [
+  "Erstgespräch: Ziel, Medium, Format und Redaktionsschluss klären",
+  "Konzept: Botschaft und Sujet, abgestimmt auf dein Erscheinungsbild",
+  "Feinschliff: Deine Korrekturrunden, bis Titel, Bild und Text sitzen",
+  "Reinzeichnung: Druckfertige Daten exakt nach den Vorgaben des Mediums",
+  "Schaltung: Übergabe an die Redaktion, auf Wunsch mit Abstimmung und Belegkontrolle",
+];
+
+const faq = [
+  {
+    q: "Was kostet ein Inserat in der Zeitung?",
+    a: "Zwei Posten kommen zusammen: die Schaltung und die Gestaltung. Die Schaltung bezahlst du an den Verlag, jedes Medium publiziert eine Preisliste nach Format, Erscheinungstag und Auflage. Die Gestaltung offerieren wir dir nach dem Erstgespräch transparent und abhängig vom Umfang: Ein einzelnes Inserat im bestehenden Erscheinungsbild ist schnell gemacht, eine Kampagne mit mehreren Formaten braucht mehr Konzept. Du weisst also vor dem ersten Entwurf, was dich der Entwurf kostet.",
+  },
+  {
+    q: "Gestaltet die Zeitung mein Inserat nicht selbst?",
+    a: "Oft ja: Viele Anzeigenabteilungen setzen deinen Text gratis ins Blatt, wenn du die Fläche buchst. Das Ergebnis ist Standardsatz aus deiner Textvorlage, mit der Hausschrift der Zeitung und ohne eigenes Sujet, und sieht meist auch danach aus. Unser Teil beginnt dort, wo das Inserat auffallen und zu deiner Marke passen soll: eigenes Konzept, eigene Bildwelt, typografisch sauber und sofort als deine Firma erkennbar.",
+  },
+  {
+    q: "In welchen Zeitungen und Zeitschriften kann ich inserieren?",
+    a: "Überall dort, wo deine Zielgruppe liest: im Lokalblatt wie der Baumerziitig, in Regionalzeitungen, in Wochenzeitschriften, in Fachmedien oder in Vereins- und Kirchenzeitschriften. Für lokale Angebote sind die kleinen Blätter der Region oft der direkteste Weg, weil dort deine Kundschaft wirklich liest. Wir gestalten für jedes Medium und liefern die Daten nach dessen Vorgaben. Die Schaltung selbst buchst du beim Verlag, wir helfen dir bei der Auswahl und den richtigen Fragen an die Anzeigenabteilung.",
+  },
+  {
+    q: "Was braucht ihr von mir für den Entwurf?",
+    a: "Bring mit, was du hast: Logo und Farben deiner Firma, falls vorhanden das Corporate-Design-Handbuch, dazu deine Botschaft und dein Bildmaterial. Kein Problem, wenn davon wenig existiert: Wir texten dein Inserat auf Wunsch komplett, entwickeln das Sujet und besorgen passendes Bildmaterial. Wichtig ist nur, dass wir dein Ziel kennen: Soll das Telefon klingeln, der Laden voll werden oder eine Veranstaltung ausverkauft sein?",
+  },
+  {
+    q: "Lohnt sich Zeitungswerbung heute noch?",
+    a: "Für lokale und regionale Zielgruppen ja, und ehrlich gesagt nicht für alles: Willst du in deiner Region sichtbar werden, erreichst du mit dem Lokalblatt genau die Menschen, die dort wohnen und einkaufen. Das Inserat ersetzt deine Online-Präsenz nicht, ergänzt sie aber dort, wo du physisch verkaufst. Im Erstgespräch sagen wir dir offen, ob ein Inserat zu deinem Ziel passt oder ob dein Budget auf einem anderen Kanal mehr bewirkt.",
+  },
+  {
+    q: "Wie schnell ist ein Inserat fertig?",
+    a: "Das hängt am Redaktionsschluss des Mediums: Für die Gestaltung rechnen wir mit einigen Tagen bis rund zwei Wochen vom Briefing bis zur Freigabe, inklusive deiner Korrekturrunden. Danach gehen die druckfertigen Daten an die Redaktion. Melde dich am besten, sobald der Schaltungstermin feststeht, dann bleibt genug Luft für einen Entwurf, der wirklich sitzt, statt für eine Notlösung auf den letzten Drücker.",
+  },
+];
+---
+
+<Layout
+  title="Inserat gestalten lassen: Zeitungswerbung - Uftritt"
+  description="Inserat gestalten lassen: Zeitungswerbung, die im Blatt auffällt und zu deiner Marke passt. Konzept, Gestaltung und druckfertige Daten aus dem Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="Zeitungswerbung · Zürcher Oberland"
+    title={"Inserat gestalten lassen,\ndas im Blatt auffällt"}
+    lead="Dein Inserat gestalten wir so, dass es im Blatt auffällt und zu deiner Marke passt: eine klare Botschaft, eine starke Bildwelt, saubere Typografie. Du bekommst druckfertige Daten exakt nach den Vorgaben des Mediums, vom Kleinformat in der Lokalzeitung bis zur ganzen Seite im Regionalblatt. Die Schaltung buchst du direkt beim Verlag."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Inserat gestalten lassen"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Referenzen */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Vom Verein bis zum Festival</h2>
+        <div class="lp-text">
+          <p>
+            Beim Rebranding von <a href="/projekte/emotion-hinwil/">emotion
+            Hinwil</a> ist ein Erscheinungsbild entstanden, das auf jedem Kanal
+            funktioniert: Das frische Pink, die klare Formsprache und die
+            Design-Richtlinien für Printmedien sorgen dafür, dass ein Inserat
+            des Unihockeyvereins sofort als emotion erkennbar ist, egal in
+            welchem Blatt es erscheint.
+          </p>
+          <p>
+            Für das <a href="/projekte/100pro-openair-2024/">100Pro Openair</a>
+            in Bauma haben wir die komplette Print-Bewerbung gestaltet,
+            inklusive Inseraten in mehreren Formaten, unter anderem für die
+            Baumerziitig. Das Lokalblatt kennen wir auch aus eigener Erfahrung:
+            Anlässlich unseres Umzugs nach Saland hat die
+            <a href="/aktuell/baumerziitig/">Baumerziitig über uns berichtet</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Von der Kampagne bis zur Gewerbeschau</h2>
+        <div class="lp-text">
+          <p>
+            Für RIPA Immobilien aus Pfäffikon gestalten wir laufend
+            Print-Kommunikation: Stelleninserate, dazu Kampagnen-Arbeiten wie
+            die illustrierte <a href="/projekte/ripa-weihnachtskarte/">Weihnachtskarte</a>.
+            So trägt dieselbe Bildsprache über verschiedene Formate hinweg,
+            vom Inserat bis zur Karte.
+          </p>
+          <p>
+            Und für eine regionale Gewerbeschau haben wir eine Inserate-Serie
+            gestaltet: dieselbe Idee in mehreren Formaten, damit die Schau in
+            jedem Blatt der Region mit demselben Gesicht wirbt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Design-Substanz */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gestaltet fürs Blatt, nicht fürs Portfolio</h2>
+        <div class="lp-text">
+          <p>
+            Ein Inserat konkurriert mit redaktionellem Text,
+            Nachbarschaftswerbung und der Ungeduld der Leserin. Darum
+            gestalten wir für den schnellen Blick: eine Botschaft statt drei,
+            eine starke Bildwelt und eine klare Hierarchie aus Titel, Bild und
+            Absender. Das Inserat muss in zwei Sekunden sagen, wer du bist und
+            was du anbietest.
+          </p>
+          <p>
+            Und damit die Werbung nicht wie ein Fremdkörper im Blatt aussieht,
+            gestalten wir auf Basis deines
+            <a href="/corporate-design/">Corporate Designs</a>: dieselben
+            Farben, Schriften und dieselbe Bildsprache wie auf deiner Website
+            oder deinem <a href="/flyer-gestalten-lassen/">Flyer</a>. So wirkt
+            jedes Inserat als Teil deiner Marke, nicht als einmalige Anzeige.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Ein Sujet, viele Formate</h2>
+        <div class="lp-text">
+          <p>
+            Kaum ein Inserat erscheint nur einmal: Dieselbe Idee muss als
+            kleine Anzeige, als halbe Seite und als Sonderformat funktionieren,
+            oft in mehreren Blättern gleichzeitig. Wir gestalten Inserate
+            deshalb als System: ein Sujet mit klaren Regeln, aus dem sich jedes
+            Format sauber ableiten lässt.
+          </p>
+          <p>
+            Das spart doppelt: Die zweite und dritte Schaltung ist nur noch
+            eine Ableitung statt einer neuen Gestaltung, und deine Kampagne
+            wirkt über alle Blätter hinweg wie aus einem Guss.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Aufgabenteilung, ehrlich */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Unser Teil: Konzept, Gestaltung, Daten</h2>
+        <div class="lp-text">
+          <p>
+            Wir gestalten dein Inserat im bewährten
+            <a href="/grafikdesign-zuercher-oberland/">Grafikdesign</a>-Prozess:
+            Briefing, Konzept, Entwurf und deine Korrekturrunden, bis Botschaft
+            und Bild sitzen.
+          </p>
+          <p>
+            Danach liefern wir druckfertige Daten exakt nach den technischen
+            Vorgaben des Mediums: Format, Beschnitt, Auflösung und Farben, so
+            wie es die Anzeigenabteilung braucht. Auf Wunsch übernehmen wir
+            auch die Abstimmung mit der Redaktion und behalten den
+            Redaktionsschluss im Blick.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Teil des Verlags, ehrlich gesagt</h2>
+        <div class="lp-text">
+          <p>
+            Die Schaltung buchst du direkt beim Verlag: Der Preis hängt von
+            Format, Erscheinungstag, Platzierung und Auflage des Blatts ab,
+            und jedes Medium publiziert dazu eine Preisliste. Wir sagen dir,
+            welche Fragen du der Anzeigenabteilung stellen solltest, etwa zu
+            Sonderplatzierungen oder Rabatten bei mehreren Schaltungen.
+          </p>
+          <p>
+            Und noch ehrlicher: Für eine reine Verkaufsanzeige mit drei Zeilen
+            Text brauchst du uns nicht. Unser Teil beginnt dort, wo das Inserat
+            wirken soll: als Imageanzeige, als Kampagne oder als Teil deines
+            Erscheinungsbilds, das über Jahre trägt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Ein Inserat, das im Blatt auffällt und zu deiner Marke passt, plus
+            druckfertige Daten für jedes gebuchte Format. Die Daten gehören
+            dir: Dieselbe Kampagne kannst du später in weiteren Blättern oder
+            im nächsten Jahr erneut schalten, ohne dass etwas neu gestaltet
+            werden muss.
+          </p>
+          <p>
+            Und wenn daraus mehr werden soll: Das Sujet lässt sich als
+            <a href="/plakatwerbung/">Plakat</a>, als Flyer oder als
+            Online-Kampagne weiterdenken, im
+            <a href="/printdesign/">Printdesign</a> bekommst du alles aus einer
+            Hand.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zum Inserat</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Welche Botschaft soll deine Region lesen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, in welchem Blatt du inserieren willst und was dein Inserat
+        erreichen soll. Du bekommst eine ehrliche Einschätzung und ein
+        transparentes Angebot für Konzept, Gestaltung und Daten.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+</style>

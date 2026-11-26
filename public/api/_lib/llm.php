@@ -5,8 +5,9 @@
 
 declare(strict_types=1);
 
-// Rückgabe: ['teaser' => …, 'full' => ['intro','per_category'=>[5],'closing']] oder null
-function uc_llm_full_analysis(string $domain, array $scores, array $overall, array $findingsByCat, string $textExcerpt): ?array
+// Rückgabe: ['teaser' => …, 'full' => […], 'leseprobe' => ?[…], 'farbeindruck' => ?string] oder null
+// $ctx: ['industry' => ?string, 'brand' => ['name','place'], 'palette' => ['colors'=>…]] (keine Personendaten!)
+function uc_llm_full_analysis(string $domain, array $scores, array $overall, array $findingsByCat, string $textExcerpt, array $ctx = []): ?array
 {
     if (!uc_config('llm_enabled')) {
         return null;
@@ -19,7 +20,7 @@ function uc_llm_full_analysis(string $domain, array $scores, array $overall, arr
         'model' => (string)uc_config('moonshot_model'),
         'messages' => [
             ['role' => 'system', 'content' => uc_llm_system_prompt()],
-            ['role' => 'user', 'content' => uc_llm_payload($domain, $scores, $overall, $findingsByCat, $textExcerpt)],
+            ['role' => 'user', 'content' => uc_llm_payload($domain, $scores, $overall, $findingsByCat, $textExcerpt, $ctx)],
         ],
         'temperature' => (float)uc_config('moonshot_temperature'),
         'reasoning_effort' => (string)(uc_config('moonshot_reasoning') ?? 'low'),
@@ -96,6 +97,21 @@ function uc_llm_parse(string $content): ?array
         $v = $full['per_category'][$cat] ?? '';
         $pc[$cat] = is_string($v) ? trim($v) : '';
     }
+    // V2: optionale Felder (fehlen sie, rendert der Report die Boxen einfach nicht)
+    $leseprobe = null;
+    $lp = $j['leseprobe'] ?? null;
+    if (is_array($lp)) {
+        $lpScore = (int)($lp['score'] ?? 0);
+        $lpKommentar = is_string($lp['kommentar'] ?? null) ? trim($lp['kommentar']) : '';
+        $lpZitat = is_string($lp['zitat'] ?? null) ? trim($lp['zitat']) : '';
+        if ($lpScore >= 1 && $lpScore <= 5 && $lpKommentar !== '') {
+            $leseprobe = ['score' => $lpScore, 'kommentar' => $lpKommentar, 'zitat' => $lpZitat];
+        }
+    }
+    $farbeindruck = null;
+    if (isset($j['farbeindruck']) && is_string($j['farbeindruck']) && trim($j['farbeindruck']) !== '') {
+        $farbeindruck = trim($j['farbeindruck']);
+    }
     return [
         'teaser' => $teaser,
         'full' => [
@@ -103,6 +119,8 @@ function uc_llm_parse(string $content): ?array
             'per_category' => $pc,
             'closing' => is_string($full['closing'] ?? null) ? trim($full['closing']) : '',
         ],
+        'leseprobe' => $leseprobe,
+        'farbeindruck' => $farbeindruck,
     ];
 }
 
@@ -122,7 +140,7 @@ function uc_llm_system_prompt(): string
 }
 
 // Gemeinsame User-Payload für beide LLM-Calls (nur Analyse-Daten, nie Personendaten)
-function uc_llm_payload(string $domain, array $scores, array $overall, array $findingsByCat, string $textExcerpt): string
+function uc_llm_payload(string $domain, array $scores, array $overall, array $findingsByCat, string $textExcerpt, array $ctx = []): string
 {
     $findings = [];
     foreach (uc_category_order() as $cat) {
@@ -140,20 +158,46 @@ function uc_llm_payload(string $domain, array $scores, array $overall, array $fi
             ];
         }
     }
-    $findings = array_slice($findings, 0, 30);
+    $findings = array_slice($findings, 0, 40);
 
-    return json_encode([
+    $payload = [
         'domain' => $domain,
         'scores' => $scores,
         'overall' => $overall,
         'findings' => $findings,
-        'text_excerpt' => mb_substr($textExcerpt, 0, 1500),
-    ], JSON_UNESCAPED_UNICODE);
+        'text_excerpt' => mb_substr($textExcerpt, 0, 2000),
+    ];
+    // Kontext nur mitsenden, wenn erkannt (kein erfundener Branchenbezug)
+    if (!empty($ctx['industry'])) {
+        $payload['industry'] = (string)$ctx['industry'];
+    }
+    $brand = (array)($ctx['brand'] ?? []);
+    if (trim((string)($brand['name'] ?? '')) !== '' || trim((string)($brand['place'] ?? '')) !== '') {
+        $payload['brand'] = [
+            'name' => (string)($brand['name'] ?? ''),
+            'place' => (string)($brand['place'] ?? ''),
+        ];
+    }
+    $palette = (array)($ctx['palette'] ?? []);
+    $colors = (array)($palette['colors'] ?? []);
+    if ($colors !== []) {
+        $hexes = [];
+        foreach (array_slice($colors, 0, 6) as $c) {
+            if (is_array($c) && isset($c['hex'])) {
+                $hexes[] = (string)$c['hex'];
+            }
+        }
+        if ($hexes !== []) {
+            $payload['palette'] = ['colors' => $hexes, 'gradients' => !empty($palette['gradients'])];
+        }
+    }
+
+    return json_encode($payload, JSON_UNESCAPED_UNICODE);
 }
 
 // Nur den kurzen Teaser generieren (Phase 1, Free-Check) – kleiner Output = schnell.
 // Rückgabe: Teaser-String oder null (Fallback greift dann).
-function uc_llm_teaser(string $domain, array $scores, array $overall, array $findingsByCat, string $textExcerpt): ?string
+function uc_llm_teaser(string $domain, array $scores, array $overall, array $findingsByCat, string $textExcerpt, array $ctx = []): ?string
 {
     if (!uc_config('llm_enabled')) {
         return null;
@@ -166,7 +210,7 @@ function uc_llm_teaser(string $domain, array $scores, array $overall, array $fin
         'model' => (string)uc_config('moonshot_model'),
         'messages' => [
             ['role' => 'system', 'content' => uc_llm_teaser_prompt()],
-            ['role' => 'user', 'content' => uc_llm_payload($domain, $scores, $overall, $findingsByCat, $textExcerpt)],
+            ['role' => 'user', 'content' => uc_llm_payload($domain, $scores, $overall, $findingsByCat, $textExcerpt, $ctx)],
         ],
         'temperature' => (float)uc_config('moonshot_temperature'),
         'reasoning_effort' => (string)(uc_config('moonshot_reasoning') ?? 'low'),
@@ -236,7 +280,7 @@ function uc_llm_fallback(string $domain, array $scores, array $overall, array $f
 
     if ((float)$overall['score'] >= 8.5) {
         $teaser = '«' . $domain . '» macht insgesamt einen starken Eindruck: ' . $scoreFmt . ' von 10 Punkten (Note ' . $overall['grade'] . '). '
-            . 'Am ehesten ist noch bei ' . $worst1 . ' etwas zu holen. Gute Basis – jetzt geht es um Feinschliff.';
+            . 'Am ehesten ist noch bei ' . $worst1 . ' etwas zu holen. Gute Basis, jetzt geht es um Feinschliff.';
     } else {
         $teaser = '«' . $domain . '» erreicht ' . $scoreFmt . ' von 10 Punkten (Note ' . $overall['grade'] . '). '
             . 'Den grössten Hebel bieten ' . $worst1 . ' und ' . $worst2 . '. '
@@ -245,7 +289,7 @@ function uc_llm_fallback(string $domain, array $scores, array $overall, array $f
 
     $intro = 'Dieser Report fasst den Zustand von «' . $domain . '» zusammen: Gesamtnote ' . $overall['grade']
         . ' (' . $scoreFmt . '/10) über die fünf Kategorien Technik, SEO, Performance, Inhalt und UX. '
-        . 'Die Befunde sind priorisiert – wer oben anfängt, holt am schnellsten Wirkung heraus.';
+        . 'Die Befunde sind priorisiert: Wer oben anfängt, holt am schnellsten Wirkung heraus.';
 
     $perCategory = [];
     foreach (uc_category_order() as $cat) {
@@ -264,7 +308,7 @@ function uc_llm_fallback(string $domain, array $scores, array $overall, array $f
         $score = (float)($scores[$cat] ?? 0);
         $label = $labels[$cat];
         if ($titles === []) {
-            $perCategory[$cat] = 'In dieser Kategorie haben wir nichts Beanstandenswertes gefunden – ' . $label . ' ist sauber umgesetzt. Weiter so.';
+            $perCategory[$cat] = 'In dieser Kategorie haben wir nichts Beanstandenswertes gefunden, ' . $label . ' ist sauber umgesetzt. Weiter so.';
         } else {
             $list = '«' . implode('», «', $titles) . '»';
             if ($score >= 8.0) {
@@ -287,5 +331,7 @@ function uc_llm_fallback(string $domain, array $scores, array $overall, array $f
             'per_category' => $perCategory,
             'closing' => $closing,
         ],
+        'leseprobe' => null,
+        'farbeindruck' => null,
     ];
 }

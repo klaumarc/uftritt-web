@@ -32,6 +32,31 @@ if (!empty($_POST['bot-field'])) {
     exit;
 }
 
+// ---- Botguard: Zeit-Check + Linkfilter (still verwerfen), Turnstile (sichtbarer Fehler) ----
+@include_once __DIR__ . '/inc/botguard.php';
+if (function_exists('botguard_drop_reason')) {
+    $bg_grund = botguard_drop_reason($_POST);
+    if ($bg_grund !== null) {
+        @include_once __DIR__ . '/inc/leadlog.php';
+        if (function_exists('lead_log')) {
+            lead_log('kontakt', [
+                'geblockt' => $bg_grund,
+                'name'     => trim((string)($_POST['name'] ?? '')),
+                'email'    => trim((string)($_POST['email'] ?? '')),
+                'mail_ok'  => false,
+            ]);
+        }
+        if ($is_ajax) $json(200, true); // Bot still "erfolgreich", aber nichts senden
+        header('Location: ' . $danke_url);
+        exit;
+    }
+    if (!botguard_turnstile_ok(trim((string)($_POST['cf-turnstile-response'] ?? '')))) {
+        if ($is_ajax) $json(403, false);
+        header('Location: ' . $fehler_url);
+        exit;
+    }
+}
+
 // ---- Eingaben einlesen ----
 $name      = trim($_POST['name']      ?? '');
 $email     = trim($_POST['email']     ?? '');
@@ -76,6 +101,38 @@ $betreff_enc = '=?UTF-8?B?' . base64_encode($betreff) . '?=';
 
 // ---- Senden ----
 $gesendet = mail($empfaenger, $betreff_enc, quoted_printable_encode($body), $headers, '-f' . $absender);
+
+// ---- Bestätigungs-Mail an den Absender (Muster wie uftakt-start.php) ----
+$vorname = trim((string)preg_split('/\s+/', $name_h)[0]);
+$anrede  = $vorname !== '' ? "Hoi $vorname" : 'Guten Tag';
+
+$best_betreff = 'Deine Nachricht ist angekommen';
+$best_body  = "$anrede\n\n";
+$best_body .= "Besten Dank für deine Nachricht. Sie ist bei uns angekommen, wir melden uns so rasch wie möglich bei dir.\n\n";
+$best_body .= "Direkt erreichst du uns unter info@uftritt.ch oder 044 500 29 55.\n\n";
+$best_body .= "Freundliche Grüsse\nUftritt GmbH\n";
+
+$best_headers  = "From: Uftritt GmbH <$absender>\r\n";
+$best_headers .= "Reply-To: Uftritt GmbH <info@uftritt.ch>\r\n";
+$best_headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+$best_headers .= "Content-Transfer-Encoding: quoted-printable\r\n";
+
+$best_ok = false;
+if ($gesendet) {
+    $best_ok = mail($email_h, '=?UTF-8?B?' . base64_encode($best_betreff) . '?=', quoted_printable_encode($best_body), $best_headers, '-f' . $absender);
+}
+
+// ---- Lead-Log: Submission unabhängig vom Mail-Ergebnis festhalten ----
+@include_once __DIR__ . '/inc/leadlog.php';
+if (function_exists('lead_log')) {
+    lead_log('kontakt', [
+        'name'         => $name_h,
+        'email'        => $email_h,
+        'nachricht'    => $nachricht,
+        'mail_ok'      => (bool) $gesendet,
+        'bestaetigung' => (bool) $best_ok,
+    ]);
+}
 
 if ($is_ajax) $json($gesendet ? 200 : 500, (bool) $gesendet);
 header('Location: ' . ($gesendet ? $danke_url : $fehler_url));

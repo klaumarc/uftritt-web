@@ -63,6 +63,7 @@ const recallPrefixes = [
   "/webapp-entwickeln-lassen",
   "/website-erstellen-lassen",
   "/startup-website",
+  "/uftakt",
   "/corporate-design",
   // Wave 6 (2026-08-29): neue LPs (webdesign-fuer-* laeuft ueber "/webdesign")
   "/seo-audit",
@@ -85,6 +86,49 @@ const recallPrefixes = [
   "/app-prototyping",
   "/ux-ui-design",
   "/ki-sichtbarkeit",
+  // Wave 8 (2026-09-03): grafikdesign-winterthur/-zuerich laufen ueber "/grafikdesign"
+  "/messestand",
+  "/plakatwerbung",
+  "/buswerbung",
+  "/werbeartikel",
+  "/baugeruest",
+  "/aussenwerbung",
+  "/website-wartungsabo",
+  "/datenschutz-website",
+  "/wahlkampf-kommunikation",
+  // P2-Wave (2026-09-03): /webdesign-zuerichsee waere ueber "/webdesign" gedeckt,
+  // steht der Lesbarkeit halber explizit; /website-fuer-* braucht eigene Eintraege
+  "/verpackungsdesign",
+  "/printdesign",
+  "/inserat-gestalten-lassen",
+  "/signaletik",
+  "/speisekarte-erstellen-lassen",
+  "/katalog-gestalten-lassen",
+  "/website-fuer-aerzte",
+  "/website-fuer-vereine",
+  "/website-fuer-immobilienmakler",
+  "/webdesign-zuerichsee",
+  "/eventvideo",
+  "/social-media-video",
+  "/animationsvideo",
+  "/erklaervideo",
+  "/google-ads-kosten",
+  "/google-bewertungen",
+  "/app-agentur",
+  "/individuelle-software",
+  "/digitalisierung-kmu",
+  "/mitarbeitermagazin",
+  "/magazin-drucken",
+  "/jubilaeumsmagazin",
+  "/ki-beratung",
+  "/ki-automatisierung",
+  // Wave 9 Branchen (2026-09-03)
+  "/website-fuer-it-unternehmen",
+  "/website-fuer-holzbauer",
+  "/website-fuer-fahrlehrer",
+  "/website-fuer-automechaniker",
+  "/website-fuer-autohandler",
+  "/website-fuer-metallbauer",
 ];
 const showRecall = recallPrefixes.some((p) => path.startsWith(p));
 
@@ -191,6 +235,27 @@ const jsonLd = {
       }
     </script>
     <!-- End Matomo Code -->
+
+    <!-- OpenAI Ads Measurement Pixel (Conversion-Messung ChatGPT-Ads, 2026-09; laedt NUR auf uftritt.ch, nicht auf Staging/localhost) -->
+    <script is:inline>
+      if (/^(www\.)?uftritt\.ch$/.test(location.hostname)) {
+        (function (w, d, s, u) {
+          if (w.oaiq) return;
+          var q = function () {
+            q.q.push(arguments);
+          };
+          q.q = [];
+          w.oaiq = q;
+          var js = d.createElement(s);
+          js.async = true;
+          js.src = u;
+          var f = d.getElementsByTagName(s)[0];
+          f.parentNode.insertBefore(js, f);
+        })(window, document, "script", "https://bzrcdn.openai.com/sdk/oaiq.min.js");
+        oaiq("init", { pixelId: "5K3w6cYn1TEsXME4g5WU4Q" });
+      }
+    </script>
+    <!-- End OpenAI Ads Pixel -->
   </head>
   <body>
     <Header />

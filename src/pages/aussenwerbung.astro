@@ -1,0 +1,342 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["100pro-openair-2024", "dtb-redesign", "emotion-hinwil"].includes(p.slug)
+);
+
+const kanaele = [
+  {
+    name: "Plakat",
+    note: "Vom F4 City-Plakat bis zum Grossformat F12 oder F200, je nach Ort und Kategorie. Ab einer Woche buchbar, einzelne Orte wählbar. Gut für kurze Kampagnen und schnelle Sichtbarkeit in Ortschaften.",
+  },
+  {
+    name: "Buswerbung",
+    note: "Formate vom F200 Traffic über F12 bis zum City TrafficBoard auf der Busseite, mit Laufzeiten von drei bis vier Wochen. Bewegt sich auf den Linien der Region, gut für flächige regionale Präsenz über Wochen.",
+  },
+  {
+    name: "Baugerüst-Blache",
+    note: "Druck auf Netz-Mesh PVC, winddurchlässig und wetterfest. Montage separat, Bewilligung über Eigentümer und Gemeinde. Hängt Wochen bis Monate am selben Bau, gut für lange Sichtdauer.",
+  },
+  {
+    name: "Fahrzeugbeschriftung",
+    note: "Dein eigenes Fahrzeug als Dauerfläche: einmal gestalten und folieren lassen, danach ohne laufende Mietkosten unterwegs. Gut für Betriebe mit Kundenverkehr. Ablauf und Beispiele auf der Fahrzeug-Seite.",
+  },
+  {
+    name: "Messestand",
+    note: "Vom Stand an einer regionalen Gewerbeschau bis zum mobilen Komplettstand: der Kanal für direkte Kontakte statt reine Reichweite. Wir gestalten Stand, Sujete und Begleitmaterial aus einer Hand.",
+  },
+];
+
+const prozess = [
+  "Erstgespräch: Ziel, Region, Budget und was an Gestaltung schon vorhanden ist",
+  "Kanalwahl: ehrlicher Vergleich, welche Flächen zu deinem Ziel passen",
+  "Sujet: ein Design, das auf Plakat, Bus und Blache funktioniert, mit Korrekturrunden",
+  "Reinzeichnung: druckfertige Daten im Format des Vermarkters oder Druckers",
+  "Begleitung: Buchung, Produktion und Montage mit den Partnern abstimmen",
+];
+
+const faq = [
+  {
+    q: "Was kostet Aussenwerbung in der Schweiz?",
+    a: "Das hängt vom Kanal, der Region und der Laufzeit ab. Die Flächenmiete wird durch die Vermarkter offeriert, für Plakat und Bus praktisch flächendeckend durch APG|SGA. Konzept, Gestaltung und Kampagnenplanung offerieren wir dir nach dem kostenlosen Erstgespräch transparent. So weisst du vor jeder Buchung, welche Fläche zu deinem Budget passt und welche nicht.",
+  },
+  {
+    q: "Welcher Kanal passt zu einem KMU-Budget?",
+    a: "Der schnellste Einstieg ist das F4-Plakat: Ab einer Woche Mindestbelegung bist du sichtbar, einzelne Orte sind frei wählbar. Willst du dauerhaft präsent sein, rechnet sich oft die eigene Fahrzeugbeschriftung, weil sie nach der einmaligen Gestaltung und Folierung ohne laufende Mietkosten läuft. Und ehrlich gesagt: Im Zürcher Oberland ist das F4-Inventar dünn, die stärkste regionale Fläche ist dort die Buswerbung auf den VZO-Linien. Im Erstgespräch sagen wir dir, welcher Kanal zu deinem Budget passt und welcher nicht.",
+  },
+  {
+    q: "Kann ich nur meine eigene Region bespielen?",
+    a: "Ja, das ist die Stärke der Aussenwerbung: Plakate buchst du ortsweise, einzelne Orte sind frei wählbar. Bei der Buswerbung wählst du das Gebiet über die Linien. Im Zürcher Oberland fahren 104 Busse auf 54 Linien plus 9 Nachtlinien mit 447 Haltestellen. So erreichst du genau die Region, in der deine Kundschaft wohnt, ohne Streuverluste in Gebieten, die dir nichts bringen.",
+  },
+  {
+    q: "Was bringt am meisten: Plakat, Bus oder Blache?",
+    a: "Ehrlich gesagt: die Kombination. Jeder Kanal hat eine eigene Stärke, das Plakat die schnelle Sichtbarkeit, der Bus die wiederholte Präsenz im Alltag, die Blache die lange Sichtdauer am selben Ort, das Fahrzeug die Dauerpräsenz. Für eine regionale Gewerbeschau haben wir Festführer, Blachen, Inserate, Radio und Social Media gemeinsam geplant. Welcher Mix für dich stimmt, hängt von Ziel, Budget und Region ab, genau das klären wir im Erstgespräch.",
+  },
+  {
+    q: "Bucht ihr die Werbeflächen für uns?",
+    a: "Wir übernehmen die Strategie, die Sujete und die druckfertigen Daten und begleiten dich durch die Buchung. Der Flächenvertrag selbst läuft über den Vermarkter, für Plakat und Bus praktisch flächendeckend über APG|SGA, die Produktion und Montage machen Partnerbetriebe. Du bekommst von uns alles, was die Vermarkter brauchen, und wir stimmen Formate und Termine direkt mit ihnen ab.",
+  },
+  {
+    q: "Wie läuft eine Aussenwerbe-Kampagne mit euch ab?",
+    a: "In fünf Schritten: Im Erstgespräch klären wir Ziel, Region und Budget. Dann empfehlen wir die Kanäle, die dazu passen, und gestalten ein Sujet, das auf allen Flächen funktioniert. Nach deinen Korrekturrunden liefern wir druckfertige Daten im Format des Vermarkters oder Druckers und stimmen Buchung, Produktion und Montage mit den Partnern ab. Plane genügend Vorlauf ein: Der Druck einer Blache dauert nach Datenfreigabe rund ein bis zwei Wochen, und begehrte Flächen sind früh vergeben.",
+  },
+];
+---
+
+<Layout
+  title="Aussenwerbung: Plakat, Bus, Blache im Vergleich - Uftritt"
+  description="Aussenwerbung in der Schweiz: Plakat, Bus, Blache, Fahrzeug und Messe im Vergleich. Mit ehrlicher Einordnung und Umsetzung aus einer Hand."
+>
+  <PageHero
+    eyebrow="Aussenwerbung · Überblick"
+    title={"Aussen­werbung,\ndie in der Region ankommt"}
+    lead="Welche Aussenwerbung passt zu deinem Budget und deiner Region? Wir vergleichen Plakat, Buswerbung, Baugerüst-Blache, Fahrzeugbeschriftung und Messeauftritt mit ehrlicher Einordnung, gestalten die Sujete und liefern druckfertige Daten. Gebucht wird über die Vermarkter, produziert und montiert über Partnerbetriebe. Du hast einen Ansprechpartner für alles."
+    lottie="/lottie/grafikdesign.json"
+    lottieLabel="Aussenwerbung"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/grafikdesign/" label="Grafikdesign" lottie="/lottie/grafikdesign.json" projects={cases} />
+
+  {/* Kanal-Vergleich */}
+  <section class="section">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">Kanal-Vergleich</span>
+        <h2>Welche Aussenwerbung passt zu dir?</h2>
+      </header>
+      <div class="ranges" data-reveal>
+        {
+          kanaele.map((k) => (
+            <article class="range-card">
+              <h3>{k.name}</h3>
+              <p class="range-note">{k.note}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {/* Design-Substanz + regionale Einordnung */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Eine Botschaft, drei Sekunden</h2>
+        <div class="lp-text">
+          <p>
+            Aussenwerbung hat keine Zeit für lange Erklärungen: Das Plakat wird
+            im Vorbeigehen gelesen, der Bus im Vorbeifahren, die Blache aus dem
+            Auto. Darum gestalten wir Sujete nach denselben Regeln für alle
+            Flächen: eine Botschaft, eine Bildwelt, eine Schrift, die auf
+            Distanz lesbar bleibt, und ein klarer Absender. Wer mehr sagen
+            will, sagt es auf der Website, die auf dem Sujet steht.
+          </p>
+          <p>
+            Damit das über alle Kanäle trägt, denken wir Aussenwerbung als Teil
+            deines <a href="/corporate-design/">Corporate Designs</a>: dieselben
+            Farben, Schriften und Bildwelten wie auf Website und
+            Geschäftsdrucksachen. So entsteht Wiedererkennung, und jede weitere
+            Kampagne baut auf der vorherigen auf, statt bei null zu starten.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Im Zürcher Oberland zählt die Busseite</h2>
+        <div class="lp-text">
+          <p>
+            Ehrlich gesagt: Klassische Plakatflächen sind im Zürcher Oberland
+            dünn gesät, das F4-Inventar konzentriert sich auf die Städte. Wer
+            hier regional werben will, fährt mit der
+            <a href="/buswerbung/">Buswerbung</a> besser: Die VZO bringt dein
+            Sujet mit 104 Bussen auf 54 Linien plus 9 Nachtlinien direkt in die
+            Dörfer, mit 447 Haltestellen und 26.5 Millionen Fahrgästen pro Jahr.
+          </p>
+          <p>
+            <a href="/plakatwerbung/">Plakatwerbung</a> lohnt sich trotzdem,
+            etwa für Kampagnen in Städten wie Winterthur oder Zürich, wo die
+            Flächen dicht stehen und einzelne Orte gezielt buchbar sind. Wir
+            sagen dir im Erstgespräch ehrlich, welche Fläche in deiner Region
+            überhaupt verfügbar ist, bevor du ein Sujet gestalten lässt.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Kombinations-Logik + Aufgabenteilung */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Kanäle kombinieren statt einen zu überreizen</h2>
+        <div class="lp-text">
+          <p>
+            Eine einzelne Plakatwoche macht noch keinen Bekanntheitsgrad. Stark
+            wird Aussenwerbung im Mix: Das Plakat schafft die erste
+            Sichtbarkeit, der Bus wiederholt die Botschaft Woche für Woche im
+            Alltag, die <a href="/baugeruest-werbung/">Blache am Bau</a> zeigt
+            Dauer, und das Inserat oder die Social-Kampagne liefert die
+            Details. Jeder Kanal hat seine Aufgabe, zusammen ergeben sie eine
+            Kampagne.
+          </p>
+          <p>
+            So haben wir es für eine regionale Gewerbeschau gemacht: Festführer,
+            Blachen, Inserate, Radio und Social Media aus einer Hand geplant.
+            Der Mix funktioniert, weil Gestaltung und Taktung aufeinander
+            abgestimmt sind, nicht weil ein einzelner Kanal besonders teuer
+            war. Und für
+            <a href="/messestand-gestalten-lassen/">Messen und Gewerbeschauen</a>
+            gilt dieselbe Logik: Der Stand ist der Ort für das Gespräch, die
+            Flächen davor machen die Einladung. Und was Besucher vom Stand
+            mit nach Hause nehmen, erledigen passende
+            <a href="/werbeartikel/">Werbeartikel</a>.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Unser Teil: Auswahl, Sujet, Daten</h2>
+        <div class="lp-text">
+          <p>
+            Wir beraten dich bei der Kanalwahl, gestalten die Sujete mit
+            derselben Sorgfalt wie alles im
+            <a href="/grafikdesign-zuercher-oberland/">Grafikdesign</a> und
+            liefern druckfertige Daten im Format des Vermarkters oder Druckers.
+            Für das <a href="/projekte/100pro-openair-2024/">100Pro Openair
+            2024</a> haben wir so die Festival-Bewerbung samt Plakatkampagne
+            umgesetzt, vom Sujet bis zur Druckabnahme.
+          </p>
+          <p>
+            Der Flächenvertrag läuft über den Vermarkter, für Plakat und Bus
+            praktisch flächendeckend über APG|SGA, Produktion und Montage über
+            Partnerbetriebe. Wir stimmen Formate, Termine und Daten direkt mit
+            ihnen ab, du hast einen Ansprechpartner für die ganze Kampagne.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ablauf + Ergebnis */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Eine Kampagne, bei der Kanäle, Sujete und Zeitplan zusammenpassen,
+            plus druckfertige Daten, die dir gehören. Du bleibst unabhängig:
+            Mit denselben Daten kannst du die nächste Buchung selbst auslösen
+            oder wieder mit uns planen.
+          </p>
+          <p>
+            Und weil wir die Gestaltung aller Kanäle aus einer Hand liefern,
+            sieht dein Betrieb auf Plakat, Bus, Blache,
+            <a href="/fahrzeugbeschriftung-gestalten/">Fahrzeug</a> und
+            Festführer gleich aus. Das ist der Unterschied zwischen einer
+            Kampagne und einer Ansammlung von Buchungen.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zur Aussenwerbung</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Welche Fläche passt zu deinem Betrieb?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, was du bekannt machen willst und in welcher Region. Du
+        bekommst eine ehrliche Einschätzung, welche Kanäle sich lohnen, und ein
+        transparentes Angebot für die Gestaltung.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .ranges { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: clamp(0.75rem, 2vw, 1.5rem); }
+  .range-card {
+    display: flex; flex-direction: column; gap: 0.5rem;
+    background: #fff; border: 1px solid #e7ecf3; padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  }
+  .range-card h3 { color: var(--color-blue); font-size: 1.15rem; }
+  .range-note { color: var(--color-blue); opacity: 0.85; font-size: 0.95rem; line-height: 1.6; margin: 0; }
+
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 900px) {
+    .ranges { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+  @media (max-width: 520px) {
+    .ranges { grid-template-columns: 1fr; }
+  }
+</style>

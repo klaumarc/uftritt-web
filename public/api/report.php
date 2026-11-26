@@ -72,10 +72,10 @@ a{color:#014080}
 .cat{background:#fff;margin-top:1.5rem;padding:clamp(1.25rem,3vw,2rem)}
 .cat-head{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;border-bottom:2px solid #f5f7fa;padding-bottom:.6rem;margin-bottom:.25rem}
 .cat-head .score{font-weight:800;white-space:nowrap}
-.llm-note{font-style:italic;color:rgba(1,64,128,.75);margin:.9rem 0 .4rem}
+.llm-note{color:rgba(1,64,128,.75);margin:.9rem 0 .4rem}
 .finding{display:flex;gap:.75rem;padding:.7rem 0;border-bottom:1px solid #eef2f7}
 .finding:last-child{border-bottom:0}
-.st{flex:0 0 22px;width:22px;height:22px;color:#fff;font-weight:800;font-size:.8rem;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.st{flex:0 0 22px;width:22px;height:22px;color:#fff;font-weight:800;font-size:.8rem;display:flex;align-items:center;justify-content:center;margin-top:2px;border-radius:50%}
 .f-title{font-weight:700}
 .f-detail{font-size:.95rem;margin-top:.15rem}
 .chips{font-size:.78rem;color:rgba(1,64,128,.55);margin-top:.3rem}
@@ -88,6 +88,18 @@ a{color:#014080}
 .cta{background:#da2c67;color:#fff;padding:clamp(1.5rem,4vw,2.5rem);margin-top:2rem;text-align:center}
 .cta h2{color:#fff;margin:0 0 .5rem}
 .cta p{margin:0 0 1.1rem}
+.q-score{display:inline-block;background:#014080;color:#fff;font-weight:800;padding:.1rem .6rem;margin-right:.5rem}
+.quotebox blockquote{margin:.9rem 0 0;padding:.7rem 1rem;background:#f5f7fa}
+.quotebox .q-src{display:block;font-size:.78rem;font-style:normal;color:rgba(1,64,128,.55);margin-top:.3rem}
+.palette{display:flex;gap:.9rem;flex-wrap:wrap;margin:.9rem 0 .3rem}
+.swatch-wrap{text-align:center}
+.swatch{width:56px;height:56px}
+.swatch-hex{display:block;font-size:.7rem;color:rgba(1,64,128,.55);margin-top:.25rem}
+.labnote{font-size:.85rem;color:rgba(1,64,128,.55);margin:.2rem 0 .8rem}
+.labrow{display:flex;justify-content:space-between;gap:1rem;padding:.35rem 0;border-bottom:1px solid #eef2f7;font-size:.95rem}
+.labrow:last-child{border-bottom:0}
+.lab-pass{color:#1a7f37;font-weight:700}
+.lab-fail{color:#c4281c;font-weight:700}
 .btn{display:inline-block;background:#fff;color:#014080;font-weight:700;padding:.85rem 1.7rem;text-decoration:none;border:0;cursor:pointer;font-size:1rem;font-family:inherit}
 .btn:hover{background:#ffd23c}
 .printrow{text-align:center;margin-top:1.25rem}
@@ -129,12 +141,12 @@ if ($report === null) {
   <div class="head-card">
     <div>
       <h1 style="font-size:clamp(1.6rem,4vw,2.2rem)">Dieser Report ist nicht (mehr) verfügbar</h1>
-      <p class="meta">Möglicherweise ist der Link unvollständig – oder der Report ist älter als 90 Tage und wurde gelöscht.</p>
+      <p class="meta">Möglicherweise ist der Link unvollständig, oder der Report ist älter als 90 Tage und wurde gelöscht.</p>
     </div>
   </div>
   <div class="cta">
     <h2>Einfach neu prüfen</h2>
-    <p>Der Website-Check dauert nur eine Minute – danach bekommst du einen frischen Report.</p>
+    <p>Der Website-Check dauert nur eine Minute, danach bekommst du einen frischen Report.</p>
     <a class="btn" href="/website-check/">Neuen Check starten</a>
   </div>
 </div>
@@ -176,7 +188,12 @@ uc_page_head('Website-Check: ' . $domain . ' · uftritt.ch');
     <div class="badge"><span class="g"><?= e($overall['grade']) ?></span><span class="s"><?= e(number_format((float)$overall['score'], 1, ',', '')) ?>/10</span></div>
     <div style="flex:1 1 260px">
       <h1 style="font-size:clamp(1.6rem,4vw,2.3rem)"><?= e($domain) ?></h1>
-      <p class="meta">Analysiert am <?= e($created) ?> · <?= (int)($report['pages_crawled'] ?? 1) ?> Seite(n) gecrawlt · <?= e((string)$report['url']) ?></p>
+      <p class="meta">Analysiert am <?= e($created) ?> · <?= (int)($report['pages_crawled'] ?? 1) ?> Seite(n) gecrawlt · <?= e((string)$report['url']) ?><?php
+        $brand = (array)($report['brand'] ?? []);
+        $brandBits = array_filter([trim((string)($brand['name'] ?? '')), trim((string)($brand['place'] ?? ''))]);
+        if ($brandBits !== []) { echo ' · ' . e(implode(', ', $brandBits)); }
+        if (!empty($report['industry'])) { echo ' · Branche: ' . e((string)$report['industry']); }
+      ?></p>
       <div class="scorebars">
         <?php foreach ($order as $cat): $sv = (float)$report['scores'][$cat]; ?>
         <div class="scorebar-row"><div class="sb-head"><span><?= e($labels[$cat]) ?></span><span class="val"><?= e(number_format($sv, 1, ',', '')) ?></span></div>
@@ -188,7 +205,39 @@ uc_page_head('Website-Check: ' . $domain . ' · uftritt.ch');
   </div>
 
   <?php if (trim((string)($llmFull['intro'] ?? '')) !== ''): ?>
-  <div class="cat"><p style="margin:0;font-style:italic"><?= nl2br(e($llmFull['intro'])) ?></p></div>
+  <div class="cat"><p style="margin:0"><?= nl2br(e($llmFull['intro'])) ?></p></div>
+  <?php endif; ?>
+
+  <?php $lp = $llm['leseprobe'] ?? null; ?>
+  <?php if (is_array($lp) && trim((string)($lp['kommentar'] ?? '')) !== ''): ?>
+  <div class="cat quotebox">
+    <h2 style="font-size:clamp(1.2rem,2.5vw,1.5rem)">Leseprobe: So wirken die Texte</h2>
+    <p style="margin:.6rem 0 .2rem"><span class="q-score"><?= (int)$lp['score'] ?>/5</span> Textwirkung beim ersten Lesen</p>
+    <p style="margin:.4rem 0 0"><?= nl2br(e((string)$lp['kommentar'])) ?></p>
+    <?php if (trim((string)($lp['zitat'] ?? '')) !== ''): ?>
+    <blockquote>«<?= e((string)$lp['zitat']) ?>»<span class="q-src">Wörtlich aus der Website übernommen, als Beleg für die Einschätzung</span></blockquote>
+    <?php endif; ?>
+  </div>
+  <?php endif; ?>
+
+  <?php
+    $pal = (array)($report['palette'] ?? []);
+    $palColors = (array)($pal['colors'] ?? []);
+    $farb = trim((string)($llm['farbeindruck'] ?? ''));
+  ?>
+  <?php if ($palColors !== []): ?>
+  <div class="cat">
+    <h2 style="font-size:clamp(1.2rem,2.5vw,1.5rem)">Farbpalette der Website</h2>
+    <p class="labnote">Aus dem eingebetteten Design-Code der Startseite gelesen<?= !empty($pal['gradients']) ? ', inklusive Verläufen' : '' ?>.</p>
+    <div class="palette">
+      <?php foreach ($palColors as $c): if (!is_array($c) || empty($c['hex'])) { continue; } ?>
+      <div class="swatch-wrap"><div class="swatch" style="background:<?= e((string)$c['hex']) ?>"></div><span class="swatch-hex"><?= e((string)$c['hex']) ?></span></div>
+      <?php endforeach; ?>
+    </div>
+    <?php if ($farb !== ''): ?>
+    <p class="llm-note"><?= nl2br(e($farb)) ?> (Eindruck unserer KI zur Farbwahl, fliesst nicht in die Note ein.)</p>
+    <?php endif; ?>
+  </div>
   <?php endif; ?>
 
   <?php foreach ($order as $cat): ?>
@@ -219,13 +268,29 @@ uc_page_head('Website-Check: ' . $domain . ' · uftritt.ch');
   </div>
   <?php endforeach; ?>
 
+  <?php $psi = (array)($report['psi'] ?? []); ?>
+  <?php if (isset($psi['score']) || !empty($psi['a11y'])): ?>
+  <div class="cat">
+    <h2 style="font-size:clamp(1.2rem,2.5vw,1.5rem)">Labormessung via Google Lighthouse</h2>
+    <p class="labnote">Zusatzmessung durch die PageSpeed-Technik von Google (mobil, simuliertes Mittelklasse-Handy). Sie ergänzt unsere eigene Analyse und fliesst nicht in die Note ein.</p>
+    <?php if (isset($psi['score'])): ?>
+    <div class="labrow"><span>Performance-Wert (Lighthouse)</span><span><strong><?= (int)$psi['score'] ?>/100</strong></span></div>
+    <div class="labrow"><span>Grösster Inhalt sichtbar nach</span><span><?= e((string)($psi['lcp'] ?? '')) ?></span></div>
+    <div class="labrow"><span>Layout-Sprünge (CLS)</span><span><?= e((string)($psi['cls'] ?? '')) ?></span></div>
+    <?php endif; ?>
+    <?php foreach ((array)($psi['a11y'] ?? []) as $a): if (!is_array($a)) { continue; } ?>
+    <div class="labrow"><span><?= e((string)($a['label'] ?? '')) ?></span><span class="<?= !empty($a['passed']) ? 'lab-pass' : 'lab-fail' ?>"><?= !empty($a['passed']) ? 'Bestanden' : 'Nicht bestanden' ?></span></div>
+    <?php endforeach; ?>
+  </div>
+  <?php endif; ?>
+
   <?php if ($actionable !== []): ?>
   <div class="plan">
     <h2 style="font-size:clamp(1.2rem,2.5vw,1.5rem)">Aktionsplan</h2>
-    <p style="color:rgba(1,64,128,.55);margin:.4rem 0 1rem">Sortiert nach Wirkung und Aufwand – oben anfangen lohnt sich am meisten.</p>
+    <p style="color:rgba(1,64,128,.55);margin:.4rem 0 1rem">Sortiert nach Wirkung und Aufwand: oben anfangen lohnt sich am meisten.</p>
     <ol>
       <?php foreach ($top3 as $f): ?>
-      <li><span class="tag"><?= e($f['cat_label']) ?></span><strong><?= e($f['title']) ?></strong> – <?= e($f['detail']) ?></li>
+      <li><span class="tag"><?= e($f['cat_label']) ?></span><strong><?= e($f['title']) ?></strong>: <?= e($f['detail']) ?></li>
       <?php endforeach; ?>
     </ol>
     <?php if ($rest !== []): ?>
@@ -240,12 +305,12 @@ uc_page_head('Website-Check: ' . $domain . ' · uftritt.ch');
   <?php endif; ?>
 
   <?php if (trim((string)($llmFull['closing'] ?? '')) !== ''): ?>
-  <div class="cat"><p style="margin:0;font-style:italic"><?= nl2br(e($llmFull['closing'])) ?></p></div>
+  <div class="cat"><p style="margin:0"><?= nl2br(e($llmFull['closing'])) ?></p></div>
   <?php endif; ?>
 
   <div class="cta">
     <h2>Gratis 20-Minuten-Besprechung</h2>
-    <p>Wir gehen den Report mit dir durch und zeigen, welche Massnahmen sich zuerst lohnen – unverbindlich und ohne Verkaufsdruck.</p>
+    <p>Wir gehen den Report mit dir durch und zeigen, welche Massnahmen sich zuerst lohnen, unverbindlich und ohne Verkaufsdruck.</p>
     <a class="btn" href="/besprechung/?domain=<?= e(rawurlencode($domain)) ?>">Besprechung anfragen</a>
   </div>
 

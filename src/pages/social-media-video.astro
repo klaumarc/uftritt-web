@@ -1,0 +1,250 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Button from "../components/Button.astro";
+import LocalTrust from "../components/LocalTrust.astro";
+import OfferLink from "../components/OfferLink.astro";
+import { projects } from "../data/projects";
+
+const cases = projects.filter((p) =>
+  ["gzo-video-podcast", "peter-ott", "fahrschule-schweiz"].includes(p.slug)
+);
+
+const prozess = [
+  "Erstgespräch: Welche Kanäle bespielst du, welche Themen hast du, was an Material gibt es schon",
+  "Konzept: Themen und Einstiege pro Clip, abgestimmt auf Plattform und Ziel",
+  "Dreh: Bei dir vor Ort, oder wir arbeiten mit deinem vorhandenen Rohmaterial",
+  "Schnitt: Clips im Hochformat mit Untertiteln, in deinem Look, inklusive Korrekturrunde",
+  "Auslieferung: Fertige Dateien pro Plattform, auf Wunsch gleich mit Plan fürs Posten",
+];
+
+const faq = [
+  {
+    q: "Wie lang soll ein Social Media Video sein?",
+    a: "So kurz wie möglich, so lang wie nötig: Die ersten Sekunden entscheiden, ob jemand stehen bleibt oder weiterscrollt. Darum bringen wir die Kernaussage gleich an den Anfang, statt mit Logo und Intro zu starten. Ein einziges klares Thema pro Clip funktioniert besser als ein Video, in dem du alles unterbringen willst. Hast du mehr zu erzählen, machen wir daraus lieber eine kleine Serie.",
+  },
+  {
+    q: "Hochformat oder Querformat?",
+    a: "Für Reels, TikTok und Shorts ist das Hochformat im Verhältnis 9:16 der Standard, weil es den ganzen Handybildschirm füllt. Für die Website oder klassisches YouTube bleibt das Querformat sinnvoll. Wir planen die Bildführung schon beim Dreh so, dass beides möglich ist, und liefern auf Wunsch beide Versionen aus demselben Material, so wie bei den Videos für die Fahrschule Peter Ott.",
+  },
+  {
+    q: "Brauche ich Untertitel im Video?",
+    a: "Ja, in fast jedem Fall: Ein grosser Teil der Feeds läuft ohne Ton, und wer nichts versteht, scrollt weiter. Wir versehen die Clips mit sauber gesetzten Untertiteln in deiner Schrift und achten darauf, dass sie nichts Wichtiges im Bild verdecken. Wer den Ton einschaltet, bekommt denselben Clip mit Ton.",
+  },
+  {
+    q: "Kann ich selbst filmen und ihr schneidet nur?",
+    a: "Ja, das funktioniert gut: Rohmaterial vom Handy reicht oft schon, wenn es vernünftig belichtet und ruhig gefilmt ist. Wir schneiden daraus Clips in deinem Look, mit Untertiteln, Farben und Übergängen, die zur Marke passen. Sag uns beim Erstgespräch ehrlich, was du selbst kannst und wo deine Zeit aufhört, dann teilen wir die Arbeit sinnvoll auf.",
+  },
+  {
+    q: "Was kostet ein Social Media Video?",
+    a: "Das hängt davon ab, wie viele Clips entstehen und wie aufwändig der Dreh ist. Der grösste Hebel ist die Stückzahl: Planen wir einen Drehtag so, dass daraus gleich ein ganzes Set an Clips entsteht, wird jedes einzelne Video deutlich günstiger als eine Einzelproduktion. Nach dem Erstgespräch bekommst du von uns ein transparentes Angebot, das genau ausweist, was drinsteht.",
+  },
+  {
+    q: "Wie oft sollte ich Videos posten?",
+    a: "Regelmässig dranbleiben schlägt einmalig perfekt: Ein gut vorbereitetes Set von Clips, das du über Wochen portionsweise veröffentlichst, bringt mehr als ein einzelnes aufwändiges Video. Wenn du willst, übernehmen wir mit der Social-Media-Betreuung auch Redaktionsplan, Begleittexte und das Veröffentlichen, damit aus den Videos ein Kanal mit Rhythmus wird.",
+  },
+];
+---
+
+<Layout
+  title="Social Media Videos erstellen lassen - Uftritt"
+  description="Social Media Videos erstellen lassen: Reels, Shorts und TikTok, die im Feed wirken. Von der Idee bis zum fertigen Clip, regional aus dem Zürcher Oberland."
+>
+  <PageHero
+    eyebrow="Videoproduktion · Zürcher Oberland"
+    title={"Social Media Videos\nerstellen lassen"}
+    lead="Du willst Social Media Videos erstellen lassen, die im Feed nicht untergehen? Wir produzieren Reels, Shorts und Stories im Hochformat: von der Idee über den Dreh bis zum fertigen Clip mit Untertiteln. Aus einem Drehtag entsteht auf Wunsch gleich ein ganzes Set an Clips, regional produziert aus dem Zürcher Oberland."
+    lottie="/lottie/videoproduktion.json"
+    lottieLabel="Social Media Videos"
+  >
+    <div slot="hero-extra" class="hero-ctas">
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+      <Button href="/projekte/" variant="text">Projekte ansehen</Button>
+    </div>
+  </PageHero>
+
+  <OfferLink href="/angebot/videoproduktion/" label="Videoproduktion" lottie="/lottie/videoproduktion.json" projects={cases} />
+
+  {/* Feed-Logik + Formate */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Gemacht für den Feed, nicht fürs Kino</h2>
+        <div class="lp-text">
+          <p>
+            Ein Social Media Video hat keine zehn Sekunden Vorspann: Wer scrollt,
+            entscheidet in den ersten Momenten, ob er stehen bleibt. Darum starten
+            wir mitten im Thema, zeigen sofort, worum es geht, und bauen den Clip
+            so, dass er auch ohne Ton verständlich bleibt.
+          </p>
+          <p>
+            Und er muss zum Rest deiner Marke passen: Farben, Schrift und Tonalität
+            deines Auftritts ziehen sich durch jeden Clip. So wirken fünf kurze
+            Videos am Ende wie eine Firma und nicht wie fünf Zufälle.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Reels, Shorts, TikTok: ein Dreh, viele Formate</h2>
+        <div class="lp-text">
+          <p>
+            Reels auf Instagram, Shorts auf YouTube, TikTok, Stories, LinkedIn:
+            Jede Plattform hat ihre Eigenheiten bei Länge, Rhythmus und Text. Wir
+            schneiden aus demselben Material die passende Version pro Kanal, im
+            Hochformat 9:16, mit Untertiteln und klarem Einstieg.
+          </p>
+          <p>
+            So entsteht aus einem einzigen Drehtag ein Set von Clips für mehrere
+            Wochen statt einem einzigen Post. Bei der
+            <a href="/projekte/peter-ott/">Fahrschule Peter Ott</a> haben wir die
+            Videos direkt auch in Hochformat-Versionen fürs Social Media
+            ausgeliefert.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Produktion + Betreuung, interne Links */}
+  <section class="section section--soft">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Mehr als der einzelne Clip</h2>
+        <div class="lp-text">
+          <p>
+            Wir produzieren deine Social Videos im Rahmen unserer
+            <a href="/videoproduktion-zuercher-oberland/">Videoproduktion im Zürcher
+            Oberland</a>: Dreh vor Ort bei dir, Schnitt, Untertitel und Exporte pro
+            Plattform. Brauchst du ergänzend ein
+            <a href="/produktvideo/">Produktvideo</a> oder ein
+            <a href="/eventvideo/">Eventvideo</a>, planen wir den Dreh gleich so,
+            dass Material für beides entsteht.
+          </p>
+          <p>
+            Und damit die Clips nicht im Archiv versauern: Auf Wunsch übernehmen
+            wir mit der <a href="/social-media-betreuung/">Social-Media-Betreuung</a>
+            auch Redaktionsplan, Begleittexte und das Veröffentlichen. Produktion
+            und Betreuung aus einer Hand, mit einem Ansprechpartner.
+          </p>
+        </div>
+      </article>
+      <article class="lp-block" data-reveal>
+        <h2>Der Ablauf in fünf Schritten</h2>
+        <div class="lp-text">
+          <ul class="modul-liste">
+            {prozess.map((p, i) => <li><span class="modul-nr">{i + 1}</span>{p}</li>)}
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* Ergebnis */}
+  <section class="section">
+    <div class="container lp-blocks">
+      <article class="lp-block" data-reveal>
+        <h2>Was du am Schluss hast</h2>
+        <div class="lp-text">
+          <p>
+            Ein Set fertiger Social Media Videos, benannt und formatiert pro
+            Plattform, mit Untertiteln und Vorschaubildern, wo sie gebraucht
+            werden. Du lädst die Clips hoch und bist fertig, oder wir übernehmen
+            das Veröffentlichen gleich mit.
+          </p>
+          <p>
+            Und fürs nächste Mal steht das Gerüst schon: Look, Rhythmus und
+            Einstieg sind definiert, die nächste Runde Clips geht entsprechend
+            schneller und wird günstiger pro Video.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  {/* FAQ */}
+  <section class="section">
+    <div class="container faq-wrap">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2>Häufige Fragen zu Social Media Videos</h2>
+      </header>
+      <div class="faq" data-reveal>
+        {
+          faq.map((f, i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <LocalTrust check={false} />
+
+  <section class="section section--yellow">
+    <div class="container lp-cta" data-reveal>
+      <h2>Was soll dein Feed über dich erzählen?</h2>
+      <p class="lp-cta-text">
+        Erzähl uns, welche Kanäle du bespielen willst und was du zeigen möchtest.
+        Du bekommst eine ehrliche Einschätzung und ein transparentes Angebot.
+      </p>
+      <Button href="/kontakt/" variant="blue">Kostenloses Erstgespräch</Button>
+    </div>
+  </section>
+
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    })}
+  />
+</Layout>
+
+<style>
+  .lp-blocks { display: flex; flex-direction: column; gap: clamp(2.5rem, 5vw, 4.5rem); }
+  .lp-block { display: grid; grid-template-columns: 1fr 2fr; gap: clamp(1rem, 3vw, 3rem); align-items: start; }
+  .lp-block h2 { position: sticky; top: 100px; }
+  .lp-text p { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; margin-bottom: 1rem; }
+  .lp-text a { color: var(--color-blue); font-weight: 700; }
+  .lp-text a:hover { color: var(--color-pink); }
+
+  .modul-liste { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .modul-liste li {
+    display: flex; align-items: baseline; gap: 0.9rem;
+    padding: 0.8rem 0; border-bottom: 1px solid rgba(1, 64, 128, 0.15);
+    color: var(--color-blue); font-size: 1.05rem; line-height: 1.5;
+  }
+  .modul-liste li:last-child { border-bottom: 0; }
+  .modul-nr {
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.6em; height: 1.6em; background: var(--color-yellow); color: var(--color-blue);
+    font-weight: 700; font-size: 0.9rem;
+  }
+
+  .faq-wrap { max-width: 860px; }
+  .faq-item { border-bottom: 1px solid rgba(1, 64, 128, 0.2); }
+  .faq-item summary {
+    cursor: var(--cur-hand); list-style: none; padding: 1.1rem 0;
+    font-weight: 700; color: var(--color-blue); font-size: 1.15rem;
+    display: flex; justify-content: space-between; gap: 1rem;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; display: inline-flex; align-items: center; justify-content: center; width: 1em; height: 1em; line-height: 1; transform-origin: center; font-weight: 700; transition: transform 0.3s var(--ease); }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--color-blue); line-height: 1.7; padding-bottom: 1.1rem; max-width: 70ch; }
+  .lp-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .lp-cta-text { color: var(--color-blue); font-size: 1.1rem; line-height: 1.7; max-width: 60ch; margin: 0; }
+
+  @media (max-width: 760px) {
+    .lp-block { grid-template-columns: 1fr; }
+    .lp-block h2 { position: static; }
+  }
+</style>

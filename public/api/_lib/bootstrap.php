@@ -81,9 +81,13 @@ if (is_dir($uc_storage_root) && !is_file($uc_storage_root . '/.htaccess')) {
 unset($uc_defaults, $uc_config_file, $uc_user_config, $uc_host, $uc_hosts, $uc_sub, $uc_dir, $uc_storage_root);
 
 // ---- Deadline-Tracker ----
+// budget_extra: Endpunkte mit schwerer Nachbearbeitung (z. B. report-unlock mit
+// PSI + Volltext) koennen das Budget einmalig erhoehen, sobald set_time_limit
+// entsprechend angehoben wurde (FPM-Terminate-Timeout des Hosters beachten).
 function uc_time_left(): float
 {
-    return UC_TIME_BUDGET - (microtime(true) - $GLOBALS['UC']['started']);
+    $budget = UC_TIME_BUDGET + (float)($GLOBALS['UC']['budget_extra'] ?? 0.0);
+    return $budget - (microtime(true) - $GLOBALS['UC']['started']);
 }
 
 // true, wenn weniger als $needed Sekunden übrig sind

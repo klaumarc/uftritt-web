@@ -72,7 +72,7 @@ function uc_mail_report(string $email, array $report, string $reportUrlAbs): boo
         . "dein Website-Check für {$domain} ist fertig: Note {$grade} ({$score}/10).\n\n"
         . "Kategorien: {$scoreText}\n\n"
         . "Den vollständigen Report mit allen Befunden und dem Aktionsplan findest du hier:\n{$reportUrlAbs}\n\n"
-        . "Der Link ist 90 Tage gültig. Fragen zum Ergebnis? Antworte einfach auf dieses E-Mail – wir besprechen es gerne in 20 Minuten, gratis und unverbindlich.\n\n"
+        . "Der Link ist 90 Tage gültig. Fragen zum Ergebnis? Antworte einfach auf dieses E-Mail: Wir besprechen es gerne in 20 Minuten, gratis und unverbindlich.\n\n"
         . "Freundliche Grüsse\n"
         . "dein Uftritt-Team\n\n"
         . "————\n"
@@ -90,7 +90,7 @@ function uc_mail_report(string $email, array $report, string $reportUrlAbs): boo
         . '<p style="margin:0 0 16px;font-size:22px;font-weight:bold">Note ' . $e($grade) . ' <span style="font-weight:normal;font-size:15px">(' . $e($score) . '/10)</span></p>'
         . '<p style="margin:0 0 16px;font-size:13px;color:#5b7290">' . $e($scoreText) . '</p>'
         . '<p style="margin:0 0 18px"><a href="' . $e($reportUrlAbs) . '" style="background:#da2c67;color:#ffffff;padding:11px 20px;text-decoration:none;font-weight:bold;display:inline-block">Report ansehen</a></p>'
-        . '<p style="margin:0;font-size:13px;color:#5b7290">Der Link ist 90 Tage gültig. Fragen zum Ergebnis? Antworte einfach auf dieses E-Mail – wir besprechen es gerne in 20 Minuten, gratis und unverbindlich.</p>'
+        . '<p style="margin:0;font-size:13px;color:#5b7290">Der Link ist 90 Tage gültig. Fragen zum Ergebnis? Antworte einfach auf dieses E-Mail: Wir besprechen es gerne in 20 Minuten, gratis und unverbindlich.</p>'
         . '</div>'
         . '<p style="font-size:12px;color:#5b7290;padding:12px 4px">Uftritt GmbH · Frauwisstrasse 9 · 8493 Saland · info@uftritt.ch · www.uftritt.ch · Diese Analyse wurde teilweise KI-erstellt (redaktionell geprüfte Methodik).</p>'
         . '</div>';

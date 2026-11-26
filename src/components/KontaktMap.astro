@@ -1,6 +1,10 @@
 ---
-// Standort-Karte mit Leaflet + hellen CARTO-Tiles und CD-pinkem Pin.
-// Kein API-Key nötig. Farben/Elemente sind selbst kontrolliert.
+// Standort-Karte mit MapLibre GL + hellen OpenFreeMap-Positron-Tiles und CD-pinkem Pin.
+// Kein API-Key nötig (openfreemap.org, Open Data). Farben/Elemente sind selbst kontrolliert.
+// Umbau 2026-09-25: CARTO-Basemaps (basemaps.cartocdn.com) verlangen neu einen API-Key
+// und liefern seither "API KEY REQUIRED"-Kacheln. Positron-Look bleibt identisch.
+// Routing 2026-09-25: Button «Route zu uns» (Browser-Geolocation -> OSRM, kein Key),
+// pinke Route auf der Karte inkl. Dauer/Distanz; Fallback = Google-Maps-Link.
 interface Props {
   lat?: number;
   lng?: number;
@@ -23,8 +27,8 @@ const {
 ></div>
 
 <script>
-  import L from "leaflet";
-  import "leaflet/dist/leaflet.css";
+  import * as maplibregl from "maplibre-gl";
+  import "maplibre-gl/dist/maplibre-gl.css";
 
   const el = document.querySelector<HTMLElement>(".lmap");
   if (el) {
@@ -32,34 +36,169 @@ const {
     const lng = parseFloat(el.dataset.lng || "0");
     const label = el.dataset.label || "";
 
-    const map = L.map(el, {
-      scrollWheelZoom: false, // Seiten-Scroll nicht kapern
-      attributionControl: true,
-    }).setView([lat, lng], 16);
-
-    L.tileLayer(
-      "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
-      {
-        subdomains: "abcd",
-        maxZoom: 20,
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      }
-    ).addTo(map);
-
-    // CD-pinker Pin
-    const pin = L.divIcon({
-      className: "lmap-pin",
-      html:
-        '<svg width="38" height="50" viewBox="0 0 38 50" xmlns="http://www.w3.org/2000/svg">' +
-        '<path d="M19 0C8.507 0 0 8.507 0 19c0 12.7 19 31 19 31s19-18.3 19-31C38 8.507 29.493 0 19 0z" fill="#DA2C67"/>' +
-        '<circle cx="19" cy="19" r="6.8" fill="#ffffff"/></svg>',
-      iconSize: [38, 50],
-      iconAnchor: [19, 48],
-      popupAnchor: [0, -44],
+    const map = new maplibregl.Map({
+      container: el,
+      style: "https://tiles.openfreemap.org/styles/positron",
+      center: [lng, lat],
+      zoom: 16,
+      scrollZoom: false, // Seiten-Scroll nicht kapern
     });
 
-    L.marker([lat, lng], { icon: pin, title: label }).addTo(map).bindPopup(label);
+    map.addControl(
+      new maplibregl.NavigationControl({ showCompass: false }),
+      "top-left"
+    );
+
+    // CD-pinker Pin
+    const pinEl = document.createElement("div");
+    pinEl.className = "lmap-pin";
+    pinEl.innerHTML =
+      '<svg width="38" height="50" viewBox="0 0 38 50" xmlns="http://www.w3.org/2000/svg">' +
+      '<path d="M19 0C8.507 0 0 8.507 0 19c0 12.7 19 31 19 31s19-18.3 19-31C38 8.507 29.493 0 19 0z" fill="#DA2C67"/>' +
+      '<circle cx="19" cy="19" r="6.8" fill="#ffffff"/></svg>';
+
+    new maplibregl.Marker({ element: pinEl, anchor: "bottom" })
+      .setLngLat([lng, lat])
+      .setPopup(new maplibregl.Popup({ offset: 44 }).setText(label))
+      .addTo(map);
+
+    // «Route zu uns»: Geolocation -> OSRM (Auto), pinke Linie + Dauer/Distanz
+    class RouteControl {
+      private _map!: maplibregl.Map;
+      private _wrap!: HTMLElement;
+      private _btn!: HTMLButtonElement;
+      private _info!: HTMLElement;
+      private _userMarker: maplibregl.Marker | null = null;
+
+      constructor(private dest: { lat: number; lng: number }) {}
+
+      onAdd(map: maplibregl.Map) {
+        this._map = map;
+        const wrap = document.createElement("div");
+        wrap.className = "maplibregl-ctrl lmap-routectrl";
+        wrap.innerHTML =
+          '<button type="button" class="lmap-routebtn">Route zu uns</button>' +
+          '<div class="lmap-routeinfo" role="status" hidden></div>';
+        this._btn = wrap.querySelector(".lmap-routebtn")!;
+        this._info = wrap.querySelector(".lmap-routeinfo")!;
+        this._btn.addEventListener("click", () => this._start());
+        this._wrap = wrap;
+        return wrap;
+      }
+      onRemove() {
+        this._wrap.remove();
+      }
+
+      private _start() {
+        this._btn.disabled = true;
+        this._info.hidden = false;
+        if (!("geolocation" in navigator)) return this._fail();
+        this._info.textContent = "Standort wird abgefragt …";
+        navigator.geolocation.getCurrentPosition(
+          (pos) => this._route(pos.coords),
+          () => this._fail(),
+          { timeout: 10000, maximumAge: 300000 }
+        );
+      }
+
+      private async _route(coords: GeolocationCoordinates) {
+        const { latitude: uLat, longitude: uLng } = coords;
+        const gmaps = `https://www.google.com/maps/dir/?api=1&origin=${uLat},${uLng}&destination=${this.dest.lat},${this.dest.lng}`;
+        try {
+          const res = await fetch(
+            `https://router.project-osrm.org/route/v1/driving/${uLng},${uLat};${this.dest.lng},${this.dest.lat}?geometries=geojson&overview=full`
+          );
+          const data = await res.json();
+          const route = data.routes?.[0];
+          if (!route) throw new Error("keine Route");
+
+          const feature = {
+            type: "Feature" as const,
+            properties: {},
+            geometry: route.geometry,
+          };
+          const src = this._map.getSource("route") as
+            | maplibregl.GeoJSONSource
+            | undefined;
+          if (src) {
+            src.setData(feature);
+          } else {
+            this._map.addSource("route", { type: "geojson", data: feature });
+            this._map.addLayer({
+              id: "route",
+              type: "line",
+              source: "route",
+              layout: { "line-cap": "round", "line-join": "round" },
+              paint: {
+                "line-color": "#DA2C67",
+                "line-width": 4,
+                "line-opacity": 0.9,
+              },
+            });
+          }
+
+          if (this._userMarker) this._userMarker.remove();
+          const dot = document.createElement("div");
+          dot.className = "lmap-userdot";
+          this._userMarker = new maplibregl.Marker({ element: dot })
+            .setLngLat([uLng, uLat])
+            .addTo(this._map);
+
+          let minLng = Infinity,
+            minLat = Infinity,
+            maxLng = -Infinity,
+            maxLat = -Infinity;
+          for (const [x, y] of route.geometry.coordinates) {
+            if (x < minLng) minLng = x;
+            if (x > maxLng) maxLng = x;
+            if (y < minLat) minLat = y;
+            if (y > maxLat) maxLat = y;
+          }
+          this._map.fitBounds(
+            [
+              [minLng, minLat],
+              [maxLng, maxLat],
+            ],
+            { padding: 60, maxZoom: 16 }
+          );
+
+          const km = (route.distance / 1000).toFixed(1).replace(".", ",");
+          const min = Math.round(route.duration / 60);
+          const zeit =
+            min >= 90
+              ? `ca. ${Math.floor(min / 60)} Std. ${min % 60} Min.`
+              : `ca. ${min} Min.`;
+          this._info.textContent = `${zeit} · ${km} km `;
+          const g = document.createElement("a");
+          g.href = gmaps;
+          g.target = "_blank";
+          g.rel = "noopener";
+          g.textContent = "(in Google Maps öffnen)";
+          this._info.appendChild(g);
+        } catch {
+          this._fail(gmaps);
+          return;
+        }
+        this._btn.disabled = false;
+      }
+
+      private _fail(gmapsUrl?: string) {
+        const href =
+          gmapsUrl ||
+          `https://www.google.com/maps/dir/?api=1&destination=${this.dest.lat},${this.dest.lng}`;
+        this._info.hidden = false;
+        this._info.textContent = "Standort oder Route nicht verfügbar. ";
+        const g = document.createElement("a");
+        g.href = href;
+        g.target = "_blank";
+        g.rel = "noopener";
+        g.textContent = "Route in Google Maps öffnen";
+        this._info.appendChild(g);
+        this._btn.disabled = false;
+      }
+    }
+
+    map.addControl(new RouteControl({ lat, lng }), "top-right");
   }
 </script>
 
@@ -72,20 +211,66 @@ const {
     min-height: 240px;
     background: var(--color-bg-soft);
   }
-  /* Leaflet-Steuerelemente dezent im CD */
-  .lmap :global(.leaflet-bar a) {
-    color: var(--color-blue);
-    border-radius: 0;
-  }
-  .lmap :global(.leaflet-bar a:hover) {
-    color: var(--color-pink);
-  }
-  .lmap :global(.leaflet-container) {
+  .lmap :global(.maplibregl-canvas) {
     font-family: var(--font-base);
+  }
+  .lmap :global(.maplibregl-popup-content) {
+    font-family: var(--font-base);
+    border-radius: 12px;
   }
   .lmap :global(.lmap-pin) {
     /* Pin per SVG gefärbt, kein Standard-Marker-Bild */
     background: none;
     border: none;
+    cursor: pointer;
+  }
+  /* Routing-Steuerung im CD */
+  .lmap :global(.lmap-routectrl) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+  }
+  .lmap :global(.lmap-routebtn) {
+    font-family: var(--font-base);
+    background: var(--color-pink);
+    color: #fff;
+    border: none;
+    border-radius: 0;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    transition: background 0.4s var(--ease);
+  }
+  .lmap :global(.lmap-routebtn:hover) {
+    background: var(--color-pink-dark);
+  }
+  .lmap :global(.lmap-routebtn:disabled) {
+    opacity: 0.6;
+    cursor: default;
+  }
+  .lmap :global(.lmap-routeinfo) {
+    font-family: var(--font-base);
+    background: #fff;
+    color: var(--color-blue);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 12.5px;
+    line-height: 1.4;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    max-width: 230px;
+  }
+  .lmap :global(.lmap-routeinfo a) {
+    color: var(--color-pink);
+  }
+  .lmap :global(.lmap-userdot) {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-blue);
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15);
   }
 </style>

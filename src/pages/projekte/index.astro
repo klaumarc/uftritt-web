@@ -34,6 +34,23 @@ const SIZES = "(max-width: 520px) 90vw, (max-width: 860px) 45vw, 33vw";
         <select class="proj-select" aria-label="Projekte filtern">
           {categories.map((cat) => <option value={cat}>{cat}</option>)}
         </select>
+        {/* CD-Dropdown (per JS aktiviert, ersetzt das native Select optisch);
+            ohne JS bleibt das native Select sichtbar und funktionsfähig. */}
+        <div class="proj-dd" hidden>
+          <button type="button" class="proj-dd-toggle" aria-expanded="false" aria-controls="proj-dd-list">
+            <span class="proj-dd-label">Alle</span>
+            <svg class="proj-dd-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <ul class="proj-dd-list" id="proj-dd-list">
+            {categories.map((cat, i) => (
+              <li>
+                <button type="button" class:list={["proj-dd-option", { "is-active": i === 0 }]} data-value={cat}>
+                  {cat}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <div class="project-grid" id="project-grid">
@@ -107,6 +124,77 @@ const SIZES = "(max-width: 520px) 90vw, (max-width: 860px) 45vw, 33vw";
     -webkit-appearance: none;
     appearance: none;
     cursor: var(--cur-hand);
+  }
+  .proj-select.proj-select-hidden {
+    display: none;
+  }
+
+  /* CD-Dropdown (Mobile-Filter): geschlossen wie .proj-select, aufgeklappt
+     komplett im CD statt nativem System-Picker (iOS/Android). */
+  .proj-dd {
+    position: relative;
+  }
+  .proj-dd-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-family: var(--font-base);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--color-blue);
+    background: #fff;
+    border: 2px solid var(--color-blue);
+    padding: 0.95rem 1.1rem;
+    cursor: var(--cur-hand);
+  }
+  .proj-dd-chevron {
+    width: 1.05rem;
+    height: 1.05rem;
+    flex-shrink: 0;
+    transition: transform 0.3s var(--ease);
+  }
+  .proj-dd.is-open .proj-dd-chevron {
+    transform: rotate(180deg);
+  }
+  .proj-dd-list {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.35rem);
+    left: 0;
+    right: 0;
+    z-index: 30;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: #fff;
+    border: 2px solid var(--color-blue);
+    max-height: 45vh;
+    overflow-y: auto;
+  }
+  .proj-dd.is-open .proj-dd-list {
+    display: block;
+  }
+  .proj-dd-option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    font-family: var(--font-base);
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-blue);
+    background: #fff;
+    border: 0;
+    padding: 0.85rem 1.1rem;
+    cursor: var(--cur-hand);
+  }
+  .proj-dd-option:hover,
+  .proj-dd-option:focus-visible {
+    background: var(--color-bg-soft);
+  }
+  .proj-dd-option.is-active {
+    background: var(--color-blue);
+    color: #fff;
   }
   @media (max-width: 760px) {
     .proj-filter {
@@ -240,9 +328,13 @@ const SIZES = "(max-width: 520px) 90vw, (max-width: 860px) 45vw, 33vw";
   const chips = Array.from(document.querySelectorAll<HTMLButtonElement>(".proj-chip"));
   const select = document.querySelector<HTMLSelectElement>(".proj-select");
   const cards = Array.from(document.querySelectorAll<HTMLElement>("#project-grid .project-card"));
+  const ddLabel = document.querySelector<HTMLElement>(".proj-dd-label");
+  const ddOptions = Array.from(document.querySelectorAll<HTMLButtonElement>(".proj-dd-option"));
   const applyFilter = (filter: string) => {
     chips.forEach((c) => c.classList.toggle("is-active", c.dataset.filter === filter));
     if (select && select.value !== filter) select.value = filter;
+    if (ddLabel) ddLabel.textContent = filter;
+    ddOptions.forEach((o) => o.classList.toggle("is-active", o.dataset.value === filter));
     cards.forEach((card) => {
       const show = filter === "Alle" || (card.dataset.cats || "").split(",").includes(filter);
       card.classList.toggle("is-hidden", !show);
@@ -252,4 +344,33 @@ const SIZES = "(max-width: 520px) 90vw, (max-width: 860px) 45vw, 33vw";
     chip.addEventListener("click", () => applyFilter(chip.dataset.filter || "Alle"))
   );
   select?.addEventListener("change", () => applyFilter(select.value));
+
+  // CD-Dropdown: natives Select optisch ersetzen (ohne JS bleibt es sichtbar)
+  const dd = document.querySelector<HTMLElement>(".proj-dd");
+  const ddToggle = dd?.querySelector<HTMLButtonElement>(".proj-dd-toggle");
+  if (dd && ddToggle && select) {
+    const setOpen = (open: boolean) => {
+      dd.classList.toggle("is-open", open);
+      ddToggle.setAttribute("aria-expanded", String(open));
+    };
+    select.classList.add("proj-select-hidden");
+    dd.hidden = false;
+    ddToggle.addEventListener("click", () => setOpen(!dd.classList.contains("is-open")));
+    document.addEventListener("click", (e) => {
+      if (!dd.contains(e.target as Node)) setOpen(false);
+    });
+    dd.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        ddToggle.focus();
+      }
+    });
+    ddOptions.forEach((o) =>
+      o.addEventListener("click", () => {
+        applyFilter(o.dataset.value || "Alle");
+        setOpen(false);
+        ddToggle.focus();
+      })
+    );
+  }
 </script>
